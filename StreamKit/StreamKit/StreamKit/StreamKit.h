@@ -12,6 +12,7 @@
 #import "UIAlertAction+StreamKit.h"
 #import "UIImagePickerController+StreamKit.h"
 #import "UIInputView+StreamKit.h"
+#import "UIPageViewController+StreamKit.h"
 #import "UIProgressView+StreamKit.h"
 #import "UISwitch+StreamKit.h"
 
