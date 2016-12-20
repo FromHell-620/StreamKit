@@ -194,7 +194,7 @@ UIKIT_STATIC_INLINE void StreamMethodBindBlock(const char* methodName,UIGestureR
         id<UIGestureRecognizerDelegate> realDelegate = recognizer.delegate;
         if (realDelegate != recognizer) {
             ((void(*)(id,SEL,id))objc_msgSend)(recognizer,sel_registerName("setDelegate:"),recognizer);
-            objc_setAssociatedObject(recognizer, realDelegate_key, realDelegate, OBJC_ASSOCIATION_ASSIGN);
+            objc_setAssociatedObject(recognizer, (__bridge const void *)(recognizer), realDelegate, OBJC_ASSOCIATION_ASSIGN);
         }
         objc_setAssociatedObject(recognizer, AssociatedKeyWithMethodName(methodName), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
     }
@@ -224,7 +224,7 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
     IMP imp = nil;
     if (strcasecmp(desc.types, compatibility_type("B24@0:8@16"))) {
         imp = imp_implementationWithBlock(^BOOL(id target,UIGestureRecognizer* recognizer) {
-            id<UIGestureRecognizerDelegate> realDelegate = objc_getAssociatedObject(target, realDelegate_key);
+            id<UIGestureRecognizerDelegate> realDelegate = objc_getAssociatedObject(target, (__bridge const void *)(target));
             if (realDelegate && [realDelegate respondsToSelector:desc.name]) {
                 return ((BOOL(*)(id,SEL,id))objc_msgSend)(target,desc.name,recognizer);
             }
@@ -235,7 +235,7 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
         });
     }else if (strcasecmp(desc.types, compatibility_type("B32@0:8@16@24"))) {
         imp = imp_implementationWithBlock(^BOOL(id target,UIGestureRecognizer* recognizer,id otherObject){
-            id<UIGestureRecognizerDelegate> realDelegate = objc_getAssociatedObject(target, realDelegate_key);
+            id<UIGestureRecognizerDelegate> realDelegate = objc_getAssociatedObject(target, (__bridge const void *)(target));
             if (realDelegate && [realDelegate respondsToSelector:desc.name]) {
                 return ((BOOL(*)(id,SEL,id,id))objc_msgSend)(target,desc.name,recognizer,otherObject);
             }
