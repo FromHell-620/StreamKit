@@ -196,7 +196,12 @@ UIKIT_STATIC_INLINE void StreamMethodBindBlock(const char* methodName,UIGestureR
             ((void(*)(id,SEL,id))objc_msgSend)(recognizer,sel_registerName("setDelegate:"),recognizer);
             objc_setAssociatedObject(recognizer, (__bridge const void *)(recognizer), realDelegate, OBJC_ASSOCIATION_ASSIGN);
         }
-        objc_setAssociatedObject(recognizer, AssociatedKeyWithMethodName(methodName), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
+        NSMapTable* cacheBlocks = objc_getAssociatedObject(class_getSuperclass(object_getClass(recognizer)), AssociatedKeyWithMethodName(methodName));
+        if (!cacheBlocks) {
+            cacheBlocks = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsWeakMemory valueOptions:NSPointerFunctionsCopyIn];
+            objc_setAssociatedObject(class_getSuperclass(object_getClass(recognizer)), AssociatedKeyWithMethodName(methodName), cacheBlocks, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+        [cacheBlocks setObject:block forKey:recognizer];
     }
 }
 
@@ -229,7 +234,9 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
                 return ((BOOL(*)(id,SEL,id))objc_msgSend)(target,desc.name,recognizer);
             }
             
-            BOOL (^block)(UIGestureRecognizer* recognizer) = objc_getAssociatedObject(target, AssociatedKeyWithMethodName(StreamMethodWithProtocolName(sel_getName(desc.name))));
+            NSMapTable* cacheBlocks = objc_getAssociatedObject(class_getSuperclass(object_getClass(target)), AssociatedKeyWithMethodName(StreamMethodWithProtocolName(sel_getName(desc.name))));
+            
+            BOOL (^block)(UIGestureRecognizer* recognizer) = [cacheBlocks objectForKey:target];
             if (block) return block(recognizer);
             return YES;
         });
@@ -240,7 +247,9 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
                 return ((BOOL(*)(id,SEL,id,id))objc_msgSend)(target,desc.name,recognizer,otherObject);
             }
             
-            BOOL (^block)(UIGestureRecognizer* recognizer,id otherObject) = objc_getAssociatedObject(target, AssociatedKeyWithMethodName(StreamMethodWithProtocolName(sel_getName(desc.name))));
+            NSMapTable* cacheBlocks = objc_getAssociatedObject(class_getSuperclass(object_getClass(target)), AssociatedKeyWithMethodName(StreamMethodWithProtocolName(sel_getName(desc.name))));
+
+            BOOL (^block)(UIGestureRecognizer* recognizer,id otherObject) = [cacheBlocks objectForKey:target];
             if (block) return block(recognizer,otherObject);
             return YES;
         });
