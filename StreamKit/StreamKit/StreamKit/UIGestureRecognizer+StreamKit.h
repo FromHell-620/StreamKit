@@ -16,8 +16,6 @@
 
 - (UIGestureRecognizer* (^)())sk_removeTargetBlock;
 
-- (UIGestureRecognizer* (^)())sk_clearTargetBlock;
-
 - (UIGestureRecognizer* (^)(id<UIGestureRecognizerDelegate> delegate))sk_delegate;
 
 - (UIGestureRecognizer* (^)(BOOL enabled))sk_enabled;

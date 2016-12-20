@@ -14,8 +14,6 @@
 
 - (UILongPressGestureRecognizer* (^)())sk_removeTargetBlock;
 
-- (UILongPressGestureRecognizer* (^)())sk_clearTargetBlock;
-
 - (UILongPressGestureRecognizer* (^)(id<UIGestureRecognizerDelegate> delegate))sk_delegate;
 
 - (UILongPressGestureRecognizer* (^)(BOOL enabled))sk_enabled;

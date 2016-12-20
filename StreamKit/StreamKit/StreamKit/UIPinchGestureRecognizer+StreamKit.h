@@ -14,8 +14,6 @@
 
 - (UIPinchGestureRecognizer* (^)())sk_removeTargetBlock;
 
-- (UIPinchGestureRecognizer* (^)())sk_clearTargetBlock;
-
 - (UIPinchGestureRecognizer* (^)(id<UIGestureRecognizerDelegate> delegate))sk_delegate;
 
 - (UIPinchGestureRecognizer* (^)(BOOL enabled))sk_enabled;
