@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "StreamKit/StreamKit.h"
 
 @interface ViewController ()
 
@@ -16,6 +17,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIView* view = UIView.sk_init(CGRectMake(100, 100, 100, 100)).sk_backgroundColor([UIColor redColor]);
+    UITapGestureRecognizer* tap = UITapGestureRecognizer.sk_initWithBlock(^(UITapGestureRecognizer* tap){
+        NSLog(@"点击了");
+    });
+    
+    UISwipeGestureRecognizer* swipe = UISwipeGestureRecognizer.sk_initWithBlock(^(UISwipeGestureRecognizer* swi) {
+        NSLog(@"轻扫了");
+    }).sk_direction(UISwipeGestureRecognizerDirectionLeft);
+    view.sk_addGestureRecognizer(tap).sk_addGestureRecognizer(swipe);
+    [self.view addSubview:view];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
