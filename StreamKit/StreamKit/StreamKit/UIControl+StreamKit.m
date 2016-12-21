@@ -19,6 +19,7 @@ static const void* block_key = &block_key;
         return ({self.enabled = enabled;self;});
     };
 }
+
 - (UIControl* (^)(BOOL selected))sk_selected
 {
     return ^ UIControl* (BOOL selected) {
@@ -47,74 +48,55 @@ static const void* block_key = &block_key;
     };
 }
 
-- (UIControl* (^)(id target,UIControlEvents controlEvents,void(^block)(id target)))sk_addTargetBlock
+- (UIControl* (^)(UIControlEvents controlEvents,void(^block)(__kindof UIControl* target)))sk_addTargetBlock
 {
-    return ^ UIControl* (id target,UIControlEvents controlEvents,void(^block)(id target)) {
-        if (block&&target) {
-            static NSMapTable* cacheTargetAction = nil;
-            static dispatch_semaphore_t lock = nil;
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                cacheTargetAction = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsWeakMemory valueOptions:NSPointerFunctionsStrongMemory];
-                lock = dispatch_semaphore_create(1);
-                objc_setAssociatedObject(object_getClass(self), block_key, cacheTargetAction, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            });
-            NSMutableDictionary* targetAction = [cacheTargetAction objectForKey:target];
-            dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
-            if (!targetAction) {
-                targetAction = [NSMutableDictionary dictionary];
-                [cacheTargetAction setObject:targetAction forKey:target];
+    return ^ UIControl* (UIControlEvents controlEvents,void(^block)(__kindof UIControl* target)) {
+        if (block) {
+            char* sel_name = calloc(100, sizeof(char));
+            sprintf(sel_name, "%ld",(unsigned long)controlEvents);
+            strcat(sel_name, ":");
+            SEL invoke_name = sel_registerName(sel_name);
+            free(sel_name);
+            if (!class_getInstanceMethod(NSClassFromString(@"UIControl"), invoke_name)) {
+                IMP imp = imp_implementationWithBlock(^(id target,__kindof UIControl* control) {
+                    NSMapTable* cacheBlocks = objc_getAssociatedObject(self, (__bridge const void *)target);
+                    char* event_name = strdup(sel_getName(invoke_name));
+                    void(^block)(id sender) = [cacheBlocks objectForKey:@(strtoul(event_name, NULL, 0))];
+                    free(event_name);
+                    if (block) block(control);
+                });
+                class_addMethod(NSClassFromString(@"UIControl"), invoke_name, imp, "v@:@");
             }
-            [targetAction setObject:block forKey:@(controlEvents)];
-            dispatch_semaphore_signal(lock);
-            [self addTarget:self action:@selector(targetAction:) forControlEvents:controlEvents];
+            
+            NSMapTable* cacheBlocks = objc_getAssociatedObject(self, (__bridge const void*)self);
+            if (!cacheBlocks) {
+                cacheBlocks = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsCopyIn];
+                objc_setAssociatedObject(self, (__bridge const void*)self, cacheBlocks, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }
+            
+            [cacheBlocks setObject:block forKey:@(controlEvents)];
+            [self addTarget:self action:invoke_name forControlEvents:controlEvents];
         }
         return self;
     };
 }
 
-- (UIControl* (^)(id target,UIControlEvents controlEvents))sk_removeTargetBlock
+- (UIControl* (^)(UIControlEvents controlEvents))sk_removeTargetBlock
 {
-    return ^ UIControl* (id target,UIControlEvents controlEvents) {
-        NSMapTable* cacheEvent = objc_getAssociatedObject(object_getClass(self), block_key);
-        NSMutableDictionary* targetAction = [cacheEvent objectForKey:target];
-        [targetAction removeObjectForKey:@(controlEvents)];
+    return ^ UIControl* (UIControlEvents controlEvents) {
+        NSMapTable* cacheBlocks = objc_getAssociatedObject(self, (__bridge const void*)self);
+        [cacheBlocks removeObjectForKey:@(controlEvents)];
         return self;
     };
 }
 
-- (UIControl* (^)(id target))sk_removeAllTargetBlock
+- (UIControl* (^)())sk_removeAllTargetBlock
 {
     return ^ UIControl* (id target) {
         NSMapTable* cacheEvent = objc_getAssociatedObject(object_getClass(self), block_key);
         [cacheEvent removeObjectForKey:target];
         return self;
     };
-}
-
-- (UIControl* (^)())sk_clearTargetBlock
-{
-    return ^ UIControl* {
-        NSMapTable* cacheEvent = objc_getAssociatedObject(object_getClass(self), block_key);
-        [cacheEvent removeAllObjects];
-        return self;
-    };
-}
-
-#pragma mark- private
-- (void)targetAction:(__kindof UIControl*)control
-{
-    NSMapTable* caches = objc_getAssociatedObject(object_getClass(self), block_key);
-    for (id target in control.allTargets) {
-        NSMutableDictionary* targetAction = [caches objectForKey:target];
-        [targetAction enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            NSUInteger controlEvent = [key unsignedIntegerValue];
-            if (controlEvent&control.allControlEvents) {
-                void(^block)(id target) = obj;
-                block(target);
-            }
-        }];
-    }
 }
 
 @end
