@@ -33,11 +33,12 @@
     button.frame = CGRectMake(200, 100, 100, 100);
     [button setTitle:@"点击" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    button.sk_addTargetBlock(UIControlEventTouchUpInside,^(UIButton* button) {
-        
-    }).sk_addTargetBlock(UIControlEventTouchDown,^(UIButton* button) {
     
-    }).sk_addTargetBlock(UIControlEventAllEvents,^(UIButton* button) {
+    button.sk_addEventBlock(UIControlEventTouchUpInside,^(UIButton* button) {
+        
+    }).sk_addEventBlock(UIControlEventTouchDown,^(UIButton* button) {
+    
+    }).sk_addEventBlock(UIControlEventAllEvents,^(UIButton* button) {
     
     });
     [self.view addSubview:button];

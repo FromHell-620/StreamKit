@@ -20,10 +20,10 @@
 
 - (UIControl* (^)(UIControlContentHorizontalAlignment contentHorizontalAlignment))lm_contentHorizontalAlignment;
 
-- (UIControl* (^)(UIControlEvents controlEvents,void(^block)(__kindof UIControl* target)))sk_addTargetBlock;
+- (UIControl* (^)(UIControlEvents controlEvents,void(^block)(__kindof UIControl* target)))sk_addEventBlock;
 
-- (UIControl* (^)(UIControlEvents controlEvents))sk_removeTargetBlock;
+- (UIControl* (^)(UIControlEvents controlEvents))sk_removeEventBlock;
 
-- (UIControl* (^)())sk_removeAllTargetBlock;
+- (UIControl* (^)())sk_removeAllEventBlock;
 
 @end

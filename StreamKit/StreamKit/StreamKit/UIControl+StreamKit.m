@@ -48,7 +48,7 @@ static const void* block_key = &block_key;
     };
 }
 
-- (UIControl* (^)(UIControlEvents controlEvents,void(^block)(__kindof UIControl* target)))sk_addTargetBlock
+- (UIControl* (^)(UIControlEvents controlEvents,void(^block)(__kindof UIControl* target)))sk_addEventBlock
 {
     return ^ UIControl* (UIControlEvents controlEvents,void(^block)(__kindof UIControl* target)) {
         if (block) {
@@ -81,7 +81,7 @@ static const void* block_key = &block_key;
     };
 }
 
-- (UIControl* (^)(UIControlEvents controlEvents))sk_removeTargetBlock
+- (UIControl* (^)(UIControlEvents controlEvents))sk_removeEventBlock
 {
     return ^ UIControl* (UIControlEvents controlEvents) {
         NSMapTable* cacheBlocks = objc_getAssociatedObject(self, (__bridge const void*)self);
@@ -90,7 +90,7 @@ static const void* block_key = &block_key;
     };
 }
 
-- (UIControl* (^)())sk_removeAllTargetBlock
+- (UIControl* (^)())sk_removeAllEventBlock
 {
     return ^ UIControl* (id target) {
         NSMapTable* cacheEvent = objc_getAssociatedObject(object_getClass(self), block_key);
