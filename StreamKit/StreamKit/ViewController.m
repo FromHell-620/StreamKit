@@ -29,17 +29,12 @@
     view.sk_addGestureRecognizer(tap).sk_addGestureRecognizer(swipe);
     [self.view addSubview:view];
     
-    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(200, 100, 100, 100);
-    [button setTitle:@"点击" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    button.sk_addEventBlock(UIControlEventTouchUpInside,^(UIButton* button) {
+    UIButton* button = UIButton.sk_initWithFrame(CGRectZero).sk_setTitleNormal(@"").sk_setTitleColorNormal([UIColor blackColor]).sk_setFontSize(14).sk_addEventBlock(UIControlEventTouchUpInside,^(UIButton* button) {
         
     }).sk_addEventBlock(UIControlEventTouchDown,^(UIButton* button) {
-    
+        
     }).sk_addEventBlock(UIControlEventAllEvents,^(UIButton* button) {
-    
+        
     });
     [self.view addSubview:button];
     // Do any additional setup after loading the view, typically from a nib.

@@ -52,7 +52,7 @@ static const void* block_key = &block_key;
 {
     return ^ UIControl* (UIControlEvents controlEvents,void(^block)(__kindof UIControl* target)) {
         if (block) {
-            char* sel_name = calloc(100, sizeof(char));
+            char* sel_name = calloc(10, sizeof(char));
             sprintf(sel_name, "%ld",(unsigned long)controlEvents);
             strcat(sel_name, ":");
             SEL invoke_name = sel_registerName(sel_name);

@@ -73,7 +73,7 @@
     };
 }
 
-- (UIProgressView* (^)(NSProgress* progress))sk_observedProgre
+- (UIProgressView* (^)(NSProgress* progress))sk_observedProgress
 {
     return ^ UIProgressView* (NSProgress* progress) {
         return ({self.observedProgress = progress;self;});
