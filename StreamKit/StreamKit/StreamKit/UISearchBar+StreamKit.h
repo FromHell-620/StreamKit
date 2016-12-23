@@ -106,4 +106,26 @@
 
 @interface UISearchBar (StreamDelegate)
 
+- (UISearchBar* (^)(BOOL(^block)(UISearchBar* searchBar)))sk_searchBarShouldBeginEditing;
+
+- (UISearchBar* (^)(void(^block)(UISearchBar* searchBar)))sk_searchBarTextDidBeginEditing;
+
+- (UISearchBar* (^)(BOOL(^block)(UISearchBar* searchBar)))sk_searchBarShouldEndEditing;
+
+- (UISearchBar* (^)(void(^block)(UISearchBar* searchBar)))sk_searchBarTextDidEndEditing;
+
+- (UISearchBar* (^)(void(^block)(UISearchBar* searchBar,NSString* searchText)))sk_searchBarTextDidChange;
+
+- (UISearchBar* (^)(BOOL(^block)(UISearchBar* searchBar,NSRange range,NSString* text)))sk_searchBarShouldChangeTextInRange;
+
+- (UISearchBar* (^)(void(^block)(UISearchBar* searchBar)))sk_searchBarSearchButtonClicked;
+
+- (UISearchBar* (^)(void(^block)(UISearchBar* searchBar)))sk_searchBarBookmarkButtonClicked;
+
+- (UISearchBar* (^)(void(^block)(UISearchBar* searchBar)))sk_searchBarCancelButtonClicked;
+
+- (UISearchBar* (^)(void(^block)(UISearchBar* searchBar)))sk_searchBarResultsListButtonClicked;
+
+- (UISearchBar* (^)(void(^block)(UISearchBar* searchBar,NSInteger selectedScope)))sk_searchBarSelectedScopeButtonIndexDidChange;
+
 @end

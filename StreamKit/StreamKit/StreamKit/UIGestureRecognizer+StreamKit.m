@@ -9,6 +9,7 @@
 #import "UIGestureRecognizer+StreamKit.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
+#import "NSObject+StreamKit.h"
 
 @implementation UIGestureRecognizer (StreamKit)
 
@@ -97,22 +98,6 @@
 
 @end
 
-static const NSString* protocol_name = @"UIGestureRecognizerDelegate";
-
-static const void* realDelegate_key = &realDelegate_key;
-
-static const void* UIGestureRecognizerShouldBegin = &UIGestureRecognizerShouldBegin;
-
-static const void* UIGestureRecognizershouldRecognizeSimultaneously = &UIGestureRecognizershouldRecognizeSimultaneously;
-
-static const void* UIGestureRecognizerShouldRequireFailure = &UIGestureRecognizerShouldRequireFailure;
-
-static const void* UIGestureRecognizerShouldBeRequiredToFail = &UIGestureRecognizerShouldBeRequiredToFail;
-
-static const void* UIGestureRecognizerShouldReceiveTouch = &UIGestureRecognizerShouldReceiveTouch;
-
-static const void* UIGestureRecognizerShouldReceivePress = &UIGestureRecognizerShouldReceivePress;
-
 @implementation UIGestureRecognizer (StreamDelegate)
 
 UIKIT_STATIC_INLINE NSDictionary* StreamMethodAndProtocol()
@@ -131,46 +116,6 @@ UIKIT_STATIC_INLINE NSDictionary* StreamMethodAndProtocol()
     return streamMethodAndProtocol;
 }
 
-UIKIT_STATIC_INLINE NSDictionary* StreamMethodWithAssociatedKeys()
-{
-    static NSDictionary* streamMethodWithAssociatedKeys = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        streamMethodWithAssociatedKeys = @{@"sk_gestureShouldBegin":(__bridge id)UIGestureRecognizerShouldBegin,
-          @"sk_gestureShouldRecognizeSimultaneously":(__bridge id)UIGestureRecognizershouldRecognizeSimultaneously,
-          @"sk_gestureShouldRequireFailure":(__bridge id)UIGestureRecognizerShouldRequireFailure,
-          @"sk_gestureShouldBeRequiredToFail":(__bridge id)UIGestureRecognizerShouldBeRequiredToFail,
-          @"sk_gestureShouldReceiveTouch":(__bridge id)UIGestureRecognizerShouldReceiveTouch,
-          @"sk_gestureshouldReceivePress":(__bridge id)UIGestureRecognizerShouldReceivePress
-                                           };
-    });
-    return streamMethodWithAssociatedKeys;
-}
-
-UIKIT_STATIC_INLINE const char* StreamMethodWithProtocolName(const char* protocol_name)
-{
-    return (__bridge const void*)(StreamMethodAndProtocol()[[NSString stringWithUTF8String:protocol_name]]);
-}
-
-UIKIT_STATIC_INLINE const void* AssociatedKeyWithMethodName(const char* name)
-{
-    NSString* method_name = [NSString stringWithUTF8String:name];
-    return (__bridge const void *)(StreamMethodWithAssociatedKeys()[method_name]);
-}
-
-UIKIT_STATIC_INLINE void StreamMethodBindBlock(const char* methodName,UIGestureRecognizer* recognizer,id block)
-{
-    if (block) {
-        id<UIGestureRecognizerDelegate> realDelegate = recognizer.delegate;
-        if (realDelegate != recognizer) {
-            ((void(*)(id,SEL,id))objc_msgSend)(recognizer,sel_registerName("setDelegate:"),recognizer);
-            objc_setAssociatedObject(recognizer, (__bridge const void *)(recognizer), realDelegate, OBJC_ASSOCIATION_ASSIGN);
-        }
-        
-        objc_setAssociatedObject(recognizer, AssociatedKeyWithMethodName(methodName), block, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-}
-
 UIKIT_STATIC_INLINE const char* compatibility_type(const char* type) {
 #if __LP64__ || (TARGET_OS_EMBEDDED && !TARGET_OS_IPHONE) || TARGET_OS_WIN32 || NS_BUILD_32_LIKE_64
     return type;
@@ -184,62 +129,54 @@ UIKIT_STATIC_INLINE const char* compatibility_type(const char* type) {
     return NULL;
 }
 
-UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_method_name)
+UIKIT_STATIC_INLINE IMP setupDelegateImplementationWithMethodTypeDesc(const struct objc_method_description method_desc)
 {
-    NSCParameterAssert(protocol_method_name);
-    if (class_getInstanceMethod(objc_getClass("UIGestureRecognizer"), sel_registerName(protocol_method_name))) {
-        return;
-    }
-    
-    struct objc_method_description desc = protocol_getMethodDescription(objc_getProtocol(protocol_name.UTF8String), sel_registerName(protocol_method_name), NO, YES);
-    IMP imp = nil;
-    if (strcasecmp(desc.types, compatibility_type("B24@0:8@16"))) {
+    IMP imp = NULL;
+    SEL Associated_key = sel_registerName([StreamMethodAndProtocol()[[NSString stringWithUTF8String:sel_getName(method_desc.name)]] UTF8String]);
+    if (strcasecmp(method_desc.types, compatibility_type("B24@0:8@16")) == 0) {
         imp = imp_implementationWithBlock(^BOOL(id target,UIGestureRecognizer* recognizer) {
             id<UIGestureRecognizerDelegate> realDelegate = objc_getAssociatedObject(target, (__bridge const void *)(target));
-            if (realDelegate && [realDelegate respondsToSelector:desc.name]) {
-                return ((BOOL(*)(id,SEL,id))objc_msgSend)(target,desc.name,recognizer);
+            if (realDelegate && [realDelegate respondsToSelector:method_desc.name]) {
+                return ((BOOL(*)(id,SEL,id))objc_msgSend)(target,method_desc.name,recognizer);
             }
             
-            BOOL (^block)(UIGestureRecognizer* recognizer) = objc_getAssociatedObject(target, AssociatedKeyWithMethodName(StreamMethodWithProtocolName(sel_getName(desc.name))));
+            BOOL (^block)(UIGestureRecognizer* recognizer) = objc_getAssociatedObject(target, Associated_key);
             if (block) return block(recognizer);
             return YES;
         });
-    }else if (strcasecmp(desc.types, compatibility_type("B32@0:8@16@24"))) {
+    }else {
         imp = imp_implementationWithBlock(^BOOL(id target,UIGestureRecognizer* recognizer,id otherObject){
             id<UIGestureRecognizerDelegate> realDelegate = objc_getAssociatedObject(target, (__bridge const void *)(target));
-            if (realDelegate && [realDelegate respondsToSelector:desc.name]) {
-                return ((BOOL(*)(id,SEL,id,id))objc_msgSend)(target,desc.name,recognizer,otherObject);
+            if (realDelegate && [realDelegate respondsToSelector:method_desc.name]) {
+                return ((BOOL(*)(id,SEL,id,id))objc_msgSend)(target,method_desc.name,recognizer,otherObject);
             }
             
-            BOOL (^block)(UIGestureRecognizer* recognizer,id otherObject) = objc_getAssociatedObject(target, AssociatedKeyWithMethodName(StreamMethodWithProtocolName(sel_getName(desc.name))));
+            BOOL (^block)(UIGestureRecognizer* recognizer,id otherObject) = objc_getAssociatedObject(target, Associated_key);
             if (block) return block(recognizer,otherObject);
             return YES;
         });
     }
-    
-    NSCParameterAssert(imp);
-    class_addMethod(objc_getClass("UIGestureRecognizer"), desc.name, imp, desc.types);
-    
+    return imp;
+}
+
+
+UIKIT_STATIC_INLINE void initializeDelegateMethod(const char* protocol_method_name)
+{
+    Class cls = objc_getClass("UITextField");
+    StreamInitializeDelegateMethod(cls, "UIGestureRecognizerDelegate", protocol_method_name, setupDelegateImplementationWithMethodTypeDesc);
 }
 
 + (void)load
 {
     [StreamMethodAndProtocol() enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
-        SEL stream_sel = sel_registerName(obj.UTF8String);
-        id (*originalImp)(__unsafe_unretained id ,SEL) = NULL;
-        id (^newImp)(__unsafe_unretained id target) = ^ id (__unsafe_unretained id target){
-            StreamInitializeDelegateMethod(key.UTF8String);
-            if (originalImp) return originalImp(target,stream_sel);
-            else return nil;
-        };
-        originalImp = (id(*)(__unsafe_unretained id,SEL))method_setImplementation(class_getInstanceMethod(objc_getClass("UIGestureRecognizer"), stream_sel), imp_implementationWithBlock(newImp));
+        StreamSetImplementationToMethod(objc_getClass("UIGestureRecognizer"), obj.UTF8String, key.UTF8String, initializeDelegateMethod);
     }];
 }
 
 - (UIGestureRecognizer* (^)(BOOL(^block)(UIGestureRecognizer* recognizer)))sk_gestureShouldBegin
 {
     return ^ UIGestureRecognizer* (BOOL(^block)(UIGestureRecognizer* recognizer)){
-        StreamMethodBindBlock(sel_getName(_cmd), self, block);
+        StreamDelegateBindBlock(_cmd, self, block);
         return self;
     };
 }
@@ -247,7 +184,7 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
 - (UIGestureRecognizer* (^)(BOOL(^block)(UIGestureRecognizer* recognizer,UIGestureRecognizer* otherRecognizer)))sk_gestureShouldRecognizeSimultaneously
 {
     return ^ UIGestureRecognizer* (BOOL(^block)(UIGestureRecognizer* recognizer,UIGestureRecognizer* otherRecognizer)) {
-        StreamMethodBindBlock(sel_getName(_cmd), self, block);
+        StreamDelegateBindBlock(_cmd, self, block);
         return self;
     };
 }
@@ -255,7 +192,7 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
 - (UIGestureRecognizer* (^)(BOOL(^block)(UIGestureRecognizer* recognizer,UIGestureRecognizer* otherRecognizer)))sk_gestureShouldRequireFailure
 {
     return ^ UIGestureRecognizer* (BOOL(^block)(UIGestureRecognizer* recognizer,UIGestureRecognizer* otherRecognizer)) {
-        StreamMethodBindBlock(sel_getName(_cmd), self, block);
+        StreamDelegateBindBlock(_cmd, self, block);
         return self;
     };
 }
@@ -263,7 +200,7 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
 - (UIGestureRecognizer* (^)(BOOL(^block)(UIGestureRecognizer* recognizer,UIGestureRecognizer* otherRecognizer)))sk_gestureShouldBeRequiredToFail
 {
     return ^ UIGestureRecognizer* (BOOL(^block)(UIGestureRecognizer* recognizer,UIGestureRecognizer* otherRecognizer)) {
-        StreamMethodBindBlock(sel_getName(_cmd), self, block);
+        StreamDelegateBindBlock(_cmd, self, block);
         return self;
     };
 }
@@ -271,7 +208,7 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
 - (UIGestureRecognizer* (^)(BOOL(^block)(UIGestureRecognizer* recognizer,UITouch* touch)))sk_gestureShouldReceiveTouch
 {
     return ^ UIGestureRecognizer* (BOOL(^block)(UIGestureRecognizer* recognizer,UITouch* touch)) {
-        StreamMethodBindBlock(sel_getName(_cmd), self, block);
+        StreamDelegateBindBlock(_cmd, self, block);
         return self;
     };
 }
@@ -279,7 +216,7 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
 - (UIGestureRecognizer* (^)(BOOL(^block)(UIGestureRecognizer* recognizer,UIPress* press)))sk_gestureshouldReceivePress
 {
     return ^ UIGestureRecognizer* (BOOL(^block)(UIGestureRecognizer* recognizer,UIPress* press)) {
-        StreamMethodBindBlock(sel_getName(_cmd), self, block);
+        StreamDelegateBindBlock(_cmd, self, block);
         return self;
     };
 }

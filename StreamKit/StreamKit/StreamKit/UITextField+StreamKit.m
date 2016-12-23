@@ -7,6 +7,7 @@
 //
 
 #import "UITextField+StreamKit.h"
+#import "NSObject+StreamKit.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
 
@@ -182,22 +183,6 @@
 
 @end
 
-static const void* UITextFieldShouldBeginEditing = &UITextFieldShouldBeginEditing;
-
-static const void* UITextFieldDidBeginEditing = &UITextFieldDidBeginEditing;
-
-static const void* UITextFieldShouldEndEditing = &UITextFieldShouldEndEditing;
-
-static const void* UITextFieldDidEndEditing = &UITextFieldDidEndEditing;
-
-static const void* UITextFieldDidEndEditingWithReason = &UITextFieldDidEndEditingWithReason;
-
-static const void* UITextFieldShouldChangeCharactersInRange = &UITextFieldShouldChangeCharactersInRange;
-
-static const void* UITextFieldShouldClear = &UITextFieldShouldClear;
-
-static const void* UITextFieldShouldReturn = &UITextFieldShouldReturn;
-
 @implementation UITextField (StreamDelegate)
 
 UIKIT_STATIC_INLINE NSDictionary* StreamMethodAndProtocol()
@@ -218,24 +203,6 @@ UIKIT_STATIC_INLINE NSDictionary* StreamMethodAndProtocol()
     return streamMethodAndProtocol;
 }
 
-UIKIT_STATIC_INLINE NSDictionary* StreamMethodWithAssociatedKeys()
-{
-    static NSDictionary* streamMethodWithAssociatedKeys = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        streamMethodWithAssociatedKeys = @{@"sk_textFieldShouldBeginEditing":(__bridge id)UITextFieldShouldBeginEditing,
-                                           @"sk_textFieldDidBeginEditing":(__bridge id)UITextFieldDidBeginEditing,
-                                           @"sk_textFieldShouldEndEditing":(__bridge id)UITextFieldShouldEndEditing,
-                                           @"sk_textFieldDidEndEditing":(__bridge id)UITextFieldDidEndEditing,
-                                           @"sk_textFieldDidEndEditingWithReaseon":(__bridge id)UITextFieldDidEndEditingWithReason,
-                                           @"sk_textFieldShouldChangeCharactersInRange":(__bridge id)UITextFieldShouldChangeCharactersInRange,
-                                           @"sk_textFieldShouldClear":(__bridge id)UITextFieldShouldClear,
-                                           @"sk_textFieldShouldReturn":(__bridge id)UITextFieldShouldReturn
-                                           };
-    });
-    return streamMethodWithAssociatedKeys;
-}
-
 UIKIT_STATIC_INLINE const char* compatibility_type(const char* type) {
 #if __LP64__ || (TARGET_OS_EMBEDDED && !TARGET_OS_IPHONE) || TARGET_OS_WIN32 || NS_BUILD_32_LIKE_64
     return type;
@@ -252,20 +219,68 @@ UIKIT_STATIC_INLINE const char* compatibility_type(const char* type) {
 #endif
 }
 
-UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_method_name)
+UIKIT_STATIC_INLINE IMP setupDelegateImplementationWithMethodTypeDesc(const struct objc_method_description method_desc)
 {
-    NSCParameterAssert(protocol_method_name);
-    
-    Class cls = objc_getClass("UITextField");
-    SEL sel = sel_registerName(protocol_method_name);
-    if (class_getInstanceMethod(cls, sel)) {
-        return;
+    IMP imp = NULL;
+    SEL Associated_key = sel_registerName([StreamMethodAndProtocol()[[NSString stringWithUTF8String:sel_getName(method_desc.name)]] UTF8String]);
+    if (strcasecmp(method_desc.types, compatibility_type("B24@0:8@16")) == 0) {
+        imp = imp_implementationWithBlock(^BOOL(id target,id param){
+            id<UITextFieldDelegate> realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
+            if (realDelegate&&[realDelegate respondsToSelector:method_desc.name]) {
+                return ((BOOL(*)(id,SEL,id))objc_msgSend)(target,method_desc.name,param);
+            }
+            BOOL(^block)(id textField) = objc_getAssociatedObject(target, Associated_key);
+            if (block) return block(param);
+            return YES;
+        });
+    }else if (strcasecmp(method_desc.types, compatibility_type("v24@0:8@16")) == 0) {
+        imp = imp_implementationWithBlock(^(id target,id param){
+            id<UITextFieldDelegate> realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
+            if (realDelegate&&[realDelegate respondsToSelector:method_desc.name]) {
+                ((void(*)(id,SEL,id))objc_msgSend)(target,method_desc.name,param);
+            }
+            void(^block)(id textField) = objc_getAssociatedObject(target, Associated_key);
+            if (block)  block(param);
+        });
+    }else if (strcasecmp(method_desc.types, compatibility_type("v32@0:8@16q24")) == 0) {
+        imp = imp_implementationWithBlock(^(id target,id param,UITextFieldDidEndEditingReason reason){
+            id<UITextFieldDelegate> realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
+            if (realDelegate&&[realDelegate respondsToSelector:method_desc.name]) {
+                ((void(*)(id,SEL,id,NSInteger))objc_msgSend)(target,method_desc.name,param,reason);
+            }
+            void(^block)(id textField,NSInteger reason) = objc_getAssociatedObject(target, Associated_key);
+            if (block)  block(param,reason);
+        });
+    }else {
+        imp = imp_implementationWithBlock(^BOOL (id target,id param,NSRange range,NSString* string) {
+            id<UITextFieldDelegate> realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
+            if (realDelegate&&[realDelegate respondsToSelector:method_desc.name]) {
+                return ((BOOL(*)(id,SEL,id,NSRange,NSString*))objc_msgSend)(target,method_desc.name,param,range,string);
+            }
+            BOOL(^block)(id textField,NSRange range,NSString* string) = objc_getAssociatedObject(target, Associated_key);
+            if (block) return block(param,range,string);
+            return YES;
+        });
     }
+    return imp;
+}
+
+UIKIT_STATIC_INLINE void initializeDelegateMethod(const char* protocol_method_name)
+{
+    Class cls = objc_getClass("UITextField");
+    StreamInitializeDelegateMethod(cls, "UITextFieldDelegate", protocol_method_name, setupDelegateImplementationWithMethodTypeDesc);
+}
++ (void)load
+{
+    [StreamMethodAndProtocol() enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
+        StreamSetImplementationToMethod(objc_getClass("UITextField"), obj.UTF8String, key.UTF8String, initializeDelegateMethod);
+    }];
 }
 
 - (UITextField* (^)(BOOL(^block)(UITextField* textField)))sk_textFieldShouldBeginEditing
 {
     return ^ UITextField* (BOOL(^block)(UITextField* textField)) {
+        StreamDelegateBindBlock(_cmd, self, block);
         return self;
     };
 }
@@ -273,6 +288,7 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
 - (UITextField* (^)(void(^block)(UITextField* textField)))sk_textFieldDidBeginEditing
 {
     return ^ UITextField* (void(^block)(UITextField* textField)) {
+        StreamDelegateBindBlock(_cmd, self, block);
         return self;
     };
 }
@@ -280,6 +296,7 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
 - (UITextField* (^)(BOOL(^block)(UITextField* textField)))sk_textFieldShouldEndEditing
 {
     return ^ UITextField* (BOOL(^block)(UITextField* textField)) {
+        StreamDelegateBindBlock(_cmd, self, block);
         return self;
     };
 }
@@ -287,6 +304,7 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
 - (UITextField* (^)(void(^block)(UITextField* textField)))sk_textFieldDidEndEditing
 {
     return ^ UITextField* (void(^block)(UITextField* textField)) {
+        StreamDelegateBindBlock(_cmd, self, block);
         return self;
     };
 }
@@ -294,6 +312,7 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
 - (UITextField* (^)(void(^block)(UITextField* textField,UITextFieldDidEndEditingReason reason)))sk_textFieldDidEndEditingWithReaseon
 {
     return ^ UITextField* (void(^block)(UITextField* textField,UITextFieldDidEndEditingReason reason)) {
+        StreamDelegateBindBlock(_cmd, self, block);
         return self;
     };
 }
@@ -301,6 +320,7 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
 - (UITextField* (^)(BOOL(^block)(UITextField* textField,NSRange range,NSString* string)))sk_textFieldShouldChangeCharactersInRange
 {
     return ^ UITextField* (BOOL(^block)(UITextField* textField,NSRange range,NSString* string)) {
+        StreamDelegateBindBlock(_cmd, self, block);
         return self;
     };
 }
@@ -308,6 +328,7 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
 - (UITextField* (^)(BOOL(^block)(UITextField* textField)))sk_textFieldShouldClear
 {
     return ^ UITextField* (BOOL(^block)(UITextField* textField)) {
+        StreamDelegateBindBlock(_cmd, self, block);
         return self;
     };
 }
@@ -315,6 +336,7 @@ UIKIT_STATIC_INLINE void StreamInitializeDelegateMethod(const char* protocol_met
 - (UITextField* (^)(BOOL(^block)(UITextField* textField)))sk_textFieldShouldReturn
 {
     return ^ UITextField* (BOOL(^block)(UITextField* textField)) {
+        StreamDelegateBindBlock(_cmd, self, block);
         return self;
     };
 }

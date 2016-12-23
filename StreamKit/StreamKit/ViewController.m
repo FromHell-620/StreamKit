@@ -37,6 +37,16 @@
         
     });
     [self.view addSubview:button];
+    
+    UITextField* textField = UITextField.sk_init(CGRectMake(200, 100, 100, 30)).sk_textColor([UIColor blackColor]).sk_placeholder(@"kais").sk_textFieldDidEndEditing(^(UITextField* textField) {
+    
+    }).sk_textFieldShouldChangeCharactersInRange(^BOOL(UITextField* textField,NSRange range,NSString* string){
+        
+        return YES;
+    }).sk_textFieldDidBeginEditing(^(UITextField* textField){
+    
+    });
+    [self.view addSubview:textField];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
