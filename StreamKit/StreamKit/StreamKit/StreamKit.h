@@ -28,6 +28,7 @@
 #import "UILabel+StreamKit.h"
 #import "UISearchBar+StreamKit.h"
 #import "UITextField+StreamKit.h"
+#import "UITextView+StreamKit.h"
 #import "UIInputView+StreamKit.h"
 #import "UIProgressView+StreamKit.h"
 #import "UISwitch+StreamKit.h"
