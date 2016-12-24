@@ -7,7 +7,9 @@
 //
 
 #import "ViewController.h"
+#import "StreamContentController.h"
 #import "StreamKit/StreamKit.h"
+#import <objc/runtime.h>
 
 @interface ViewController ()
 
@@ -15,38 +17,34 @@
 
 @implementation ViewController
 
+FOUNDATION_STATIC_INLINE char* disposeMethodType(const char* type)
+{
+    NSCParameterAssert(type);
+    char* result = strdup(type);
+    char* desk = result;
+    char* src = result;
+    while (*src) {
+        if (isdigit(*src)) {src++;continue;};
+        *desk++ = *src++;
+    }
+    *desk = '\0';
+    return result;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIView* view = UIView.sk_init(CGRectMake(100, 100, 100, 100)).sk_backgroundColor([UIColor redColor]);
-    UITapGestureRecognizer* tap = UITapGestureRecognizer.sk_initWithBlock(^(UITapGestureRecognizer* tap){
-        NSLog(@"点击了");
-    });
-    
-    UISwipeGestureRecognizer* swipe = UISwipeGestureRecognizer.sk_initWithBlock(^(UISwipeGestureRecognizer* swi) {
-        NSLog(@"轻扫了");
-    }).sk_direction(UISwipeGestureRecognizerDirectionLeft);
-    view.sk_addGestureRecognizer(tap).sk_addGestureRecognizer(swipe);
-    [self.view addSubview:view];
-    
-    UIButton* button = UIButton.sk_initWithFrame(CGRectZero).sk_setTitleNormal(@"").sk_setTitleColorNormal([UIColor blackColor]).sk_setFontSize(14).sk_addEventBlock(UIControlEventTouchUpInside,^(UIButton* button) {
+    unsigned int c = 0;
+    Protocol* pro = objc_getProtocol("UITextViewDelegate");
+    struct objc_method_description* descs =protocol_copyMethodDescriptionList(pro, NO, YES, &c);
+    for (int i=0; i<c; i++) {
+        struct objc_method_description desc = *(descs+i);
         
-    }).sk_addEventBlock(UIControlEventTouchDown,^(UIButton* button) {
+        NSLog(@"%s  %s",desc.name,desc.types);
         
-    }).sk_addEventBlock(UIControlEventAllEvents,^(UIButton* button) {
-        
-    });
-    [self.view addSubview:button];
-    
-    UITextField* textField = UITextField.sk_init(CGRectMake(200, 100, 100, 30)).sk_textColor([UIColor blackColor]).sk_placeholder(@"kais").sk_textFieldDidEndEditing(^(UITextField* textField) {
-    
-    }).sk_textFieldShouldChangeCharactersInRange(^BOOL(UITextField* textField,NSRange range,NSString* string){
-        
-        return YES;
-    }).sk_textFieldDidBeginEditing(^(UITextField* textField){
-    
-    });
-    [self.view addSubview:textField];
+        NSLog(@"dis === %s",disposeMethodType(desc.types));
+    }
+
     // Do any additional setup after loading the view, typically from a nib.
 }
 
