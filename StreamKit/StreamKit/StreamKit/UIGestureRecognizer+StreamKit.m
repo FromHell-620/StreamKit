@@ -169,7 +169,7 @@ UIKIT_STATIC_INLINE void initializeDelegateMethod(const char* protocol_method_na
 + (void)load
 {
     [StreamMethodAndProtocol() enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
-        StreamSetImplementationToMethod(objc_getClass("UIGestureRecognizer"), obj.UTF8String, key.UTF8String, initializeDelegateMethod);
+        StreamSetImplementationToDelegateMethod(objc_getClass("UIGestureRecognizer"), "UIGestureRecognizerDelegate", obj.UTF8String, key.UTF8String);
     }];
 }
 

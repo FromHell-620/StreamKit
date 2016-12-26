@@ -113,8 +113,53 @@ void StreamInitializeDelegateMethod(Class cls,const char* protocol_name,const ch
             void(^block)(id object,CGPoint point1,CGPoint* point2) = objc_getAssociatedObject(target, AssociatedKey);
             block(param,point1,point2);
         });
+    }else if (strcasecmp(type, compatibility_type("v@:@B")) == 0) {
+        imp = imp_implementationWithBlock(^(id target,id param,BOOL b){
+            id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
+            if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
+                ((void(*)(id,SEL,id,BOOL))objc_msgSend)(target,desc.name,param,b);
+            }
+            void(^block)(id object,BOOL b) = objc_getAssociatedObject(target, AssociatedKey);
+            block(param,b);
+        });
+    }else if (strcasecmp(type, compatibility_type("@@:@")) == 0) {
+        imp = imp_implementationWithBlock(^id(id target,id param) {
+            id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
+            if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
+               return ((id(*)(id,SEL,id))objc_msgSend)(target,desc.name,param);
+            }
+            id(^block)(id object) = objc_getAssociatedObject(target, AssociatedKey);
+            return !block?nil:block(param);
+        });
+    }else if (strcasecmp(type, compatibility_type("v@:@@")) == 0) {
+        imp = imp_implementationWithBlock(^(id target,id param1,id param2){
+            id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
+            if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
+                ((void(*)(id,SEL,id,id))objc_msgSend)(target,desc.name,param1,param2);
+            }
+            id(^block)(id object1,id object2) = objc_getAssociatedObject(target, AssociatedKey);
+            block(param1,param2);
+        });
+    }else if (strcasecmp(type, compatibility_type("v@:@@d")) == 0) {
+        imp = imp_implementationWithBlock(^(id target,id param,float f) {
+            id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
+            if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
+                ((void(*)(id,SEL,id,float))objc_msgSend)(target,desc.name,param,f);
+            }
+            id(^block)(id object1,float f) = objc_getAssociatedObject(target, AssociatedKey);
+            block(param,f);
+        });
+    }else if (strcasecmp(type, compatibility_type("B@:@@")) == 0) {
+        imp = imp_implementationWithBlock(^BOOL(id target,id param1,id param2) {
+            id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
+            if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
+                return ((BOOL(*)(id,SEL,id,id))objc_msgSend)(target,desc.name,param1,param2);
+            }
+            BOOL(^block)(id object1,id object2) = objc_getAssociatedObject(target, AssociatedKey);
+            return !block?YES:block(param1,param2);
+        });
     }
-//    IMP imp = initializeIMP(desc);
+    free(type);
     if (imp) {
         class_addMethod(cls, desc.name, imp, desc.types);
     }
@@ -147,14 +192,14 @@ void StreamDataSourceBindBlock(SEL method,NSObject* dataSourceObject,id block)
     objc_setAssociatedObject(dataSourceObject, method, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-void StreamSetImplementationToMethod(Class cls,const char* method_name,const char* protocol_method_name,void(*initializeDelegate)(const char* key))
+void StreamSetImplementationToDelegateMethod(Class cls,const char* protocol_name,const char* method_name,const char* protocol_method_name)
 {
     NSCParameterAssert(method_name);
     NSCParameterAssert(protocol_method_name);
     SEL sel = sel_registerName(method_name);
     __block id (*originalImp)(__unsafe_unretained id ,SEL) = NULL;
     id (^newImp)(__unsafe_unretained id target) = ^ id (__unsafe_unretained id target){
-        initializeDelegate(protocol_method_name);
+        StreamInitializeDelegateMethod(cls, protocol_name, protocol_method_name, sel_getUid(method_name));
         if (originalImp) return originalImp(target,sel);
         else return nil;
     };

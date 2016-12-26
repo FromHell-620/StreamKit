@@ -7,6 +7,7 @@
 //
 
 #import "UIImagePickerController+StreamKit.h"
+#import "NSObject+StreamKit.h"
 
 @implementation UIImagePickerController (StreamKit)
 
@@ -119,6 +120,37 @@
 {
     return ^ UIImagePickerController* (UIImagePickerControllerCameraFlashMode cameraFlashMode) {
         return ({self.cameraFlashMode = cameraFlashMode;self;});
+    };
+}
+
+@end
+
+@implementation UIImagePickerController (StreamDelegate)
+
++ (void)load
+{
+    NSDictionary* streamMethodsAndProtocol = @{
+                                               @"imagePickerController:didFinishPickingMediaWithInfo:":@"sk_imagePickerControllerDidFinishPickingMediaWithInfo",
+                                               @"imagePickerControllerDidCancel:":@"sk_imagePickerControllerDidCancel"
+                                               };
+    [streamMethodsAndProtocol enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
+        StreamSetImplementationToDelegateMethod(self, "UIImagePickerControllerDelegate", obj.UTF8String, key.UTF8String);
+    }];
+}
+
+- (UIImagePickerController* (^)(void(^block)(UIImagePickerController* picker,NSDictionary* info)))sk_imagePickerControllerDidFinishPickingMediaWithInfo
+{
+    return ^ UIImagePickerController* (void(^block)(UIImagePickerController* picker,NSDictionary* info)) {
+        StreamDelegateBindBlock(_cmd, self, block);
+        return self;
+    };
+}
+
+- (UIImagePickerController* (^)(void(^block)(UIImagePickerController* picker)))sk_imagePickerControllerDidCancel
+{
+    return ^ UIImagePickerController* (void(^block)(UIImagePickerController* picker)) {
+        StreamDelegateBindBlock(_cmd, self, block);
+        return self;
     };
 }
 

@@ -18,7 +18,7 @@ void StreamDelegateBindBlock(SEL method,NSObject* delegateObject,id block);
 
 void StreamDataSourceBindBlock(SEL method,NSObject* dataSourceObject,id block);
 
-void StreamSetImplementationToMethod(Class cls,const char* method_name,const char* protocol_method_name,void(*initializeDelegate)(const char* key));
+void StreamSetImplementationToDelegateMethod(Class cls,const char* protocol_name,const char* method_name,const char* protocol_method_name);
 
 @end
 

@@ -42,3 +42,11 @@
 - (UIImagePickerController* (^)(UIImagePickerControllerCameraFlashMode cameraFlashMode))sk_cameraFlashMode;
 
 @end
+
+@interface UIImagePickerController (StreamDelegate)
+
+- (UIImagePickerController* (^)(void(^block)(UIImagePickerController* picker,NSDictionary* info)))sk_imagePickerControllerDidFinishPickingMediaWithInfo;
+
+- (UIImagePickerController* (^)(void(^block)(UIImagePickerController* picker)))sk_imagePickerControllerDidCancel;
+
+@end

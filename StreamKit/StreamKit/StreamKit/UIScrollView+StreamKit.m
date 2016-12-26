@@ -162,23 +162,12 @@
 
 @end
 
-static NSDictionary* streamMethodAndProtocol = nil;
 
 @implementation UIScrollView (StreamDelegate)
 
-UIKIT_STATIC_INLINE IMP setupDelegateImplementationWithMethodTypeDesc(const struct objc_method_description method_desc)
-{
-    return NULL;
-}
-
-UIKIT_STATIC_INLINE void initializeDelegateMethod(const char* protocol_method_name)
-{
-    StreamInitializeDelegateMethod(objc_getClass("UIScrollView"), "UIScrollViewDelegate", protocol_method_name, setupDelegateImplementationWithMethodTypeDesc);
-}
-
 + (void)load
 {
-    streamMethodAndProtocol = @{
+    NSDictionary* streamMethodAndProtocol = @{
                                 @"scrollViewDidScroll:":@"sk_scrollViewDidScroll",
                                 @"scrollViewDidZoom:":@"sk_scrollViewDidZoom",
                                 @"scrollViewWillBeginDragging:":@"sk_scrollViewWillBeginDragging",
@@ -194,7 +183,7 @@ UIKIT_STATIC_INLINE void initializeDelegateMethod(const char* protocol_method_na
                                 @"scrollViewDidScrollToTop:":@"sk_scrollViewDidScrollToTop"
                                 };
     [streamMethodAndProtocol enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
-        StreamSetImplementationToMethod(objc_getClass("UIScrollView"), obj.UTF8String, key.UTF8String, initializeDelegateMethod);
+        StreamSetImplementationToDelegateMethod(objc_getClass("UIScrollView"), "UIScrollViewDelegate", obj.UTF8String, key.UTF8String);
     }];
 }
 

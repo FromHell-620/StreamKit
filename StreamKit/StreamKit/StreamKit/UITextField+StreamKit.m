@@ -203,77 +203,10 @@ UIKIT_STATIC_INLINE NSDictionary* StreamMethodAndProtocol()
     return streamMethodAndProtocol;
 }
 
-UIKIT_STATIC_INLINE const char* compatibility_type(const char* type) {
-#if __LP64__ || (TARGET_OS_EMBEDDED && !TARGET_OS_IPHONE) || TARGET_OS_WIN32 || NS_BUILD_32_LIKE_64
-    return type;
-#else
-    if (strcasecmp(type, "B24@0:8@16") == 0) {
-        return "c12@0:4@8";
-    }else if(strcasecmp(type, "v24@0:8@16") == 0) {
-        return "v12@0:4@8";
-    }else if(strcasecmp(type, "v32@0:8@16q24") == 0) {
-        return "v16@0:4@8q12";
-    }else {
-        return NULL;
-    }
-#endif
-}
-
-UIKIT_STATIC_INLINE IMP setupDelegateImplementationWithMethodTypeDesc(const struct objc_method_description method_desc)
-{
-    IMP imp = NULL;
-    SEL Associated_key = sel_registerName([StreamMethodAndProtocol()[[NSString stringWithUTF8String:sel_getName(method_desc.name)]] UTF8String]);
-    if (strcasecmp(method_desc.types, compatibility_type("B24@0:8@16")) == 0) {
-        imp = imp_implementationWithBlock(^BOOL(id target,id param){
-            id<UITextFieldDelegate> realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
-            if (realDelegate&&[realDelegate respondsToSelector:method_desc.name]) {
-                return ((BOOL(*)(id,SEL,id))objc_msgSend)(target,method_desc.name,param);
-            }
-            BOOL(^block)(id textField) = objc_getAssociatedObject(target, Associated_key);
-            if (block) return block(param);
-            return YES;
-        });
-    }else if (strcasecmp(method_desc.types, compatibility_type("v24@0:8@16")) == 0) {
-        imp = imp_implementationWithBlock(^(id target,id param){
-            id<UITextFieldDelegate> realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
-            if (realDelegate&&[realDelegate respondsToSelector:method_desc.name]) {
-                ((void(*)(id,SEL,id))objc_msgSend)(target,method_desc.name,param);
-            }
-            void(^block)(id textField) = objc_getAssociatedObject(target, Associated_key);
-            if (block)  block(param);
-        });
-    }else if (strcasecmp(method_desc.types, compatibility_type("v32@0:8@16q24")) == 0) {
-        imp = imp_implementationWithBlock(^(id target,id param,UITextFieldDidEndEditingReason reason){
-            id<UITextFieldDelegate> realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
-            if (realDelegate&&[realDelegate respondsToSelector:method_desc.name]) {
-                ((void(*)(id,SEL,id,NSInteger))objc_msgSend)(target,method_desc.name,param,reason);
-            }
-            void(^block)(id textField,NSInteger reason) = objc_getAssociatedObject(target, Associated_key);
-            if (block)  block(param,reason);
-        });
-    }else {
-        imp = imp_implementationWithBlock(^BOOL (id target,id param,NSRange range,NSString* string) {
-            id<UITextFieldDelegate> realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
-            if (realDelegate&&[realDelegate respondsToSelector:method_desc.name]) {
-                return ((BOOL(*)(id,SEL,id,NSRange,NSString*))objc_msgSend)(target,method_desc.name,param,range,string);
-            }
-            BOOL(^block)(id textField,NSRange range,NSString* string) = objc_getAssociatedObject(target, Associated_key);
-            if (block) return block(param,range,string);
-            return YES;
-        });
-    }
-    return imp;
-}
-
-UIKIT_STATIC_INLINE void initializeDelegateMethod(const char* protocol_method_name)
-{
-    Class cls = objc_getClass("UITextField");
-    StreamInitializeDelegateMethod(cls, "UITextFieldDelegate", protocol_method_name, setupDelegateImplementationWithMethodTypeDesc);
-}
 + (void)load
 {
     [StreamMethodAndProtocol() enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
-        StreamSetImplementationToMethod(objc_getClass("UITextField"), obj.UTF8String, key.UTF8String, initializeDelegateMethod);
+        StreamSetImplementationToDelegateMethod(objc_getClass("UITextField"), "UITextFieldDelegate", obj.UTF8String, key.UTF8String);
     }];
 }
 
