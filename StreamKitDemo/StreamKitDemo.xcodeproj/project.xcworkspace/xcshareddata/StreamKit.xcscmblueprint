@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "EF48625F7523D750D16A7D5B59A8A10768A1C7BA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "EF48625F7523D750D16A7D5B59A8A10768A1C7BA" : 9223372036854775807,
+    "1E6A6AFA8FD184A9666119397C1D8872BE1E4596" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "B68D0E92-55C6-4D53-A7DF-EBE904A10AC1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "EF48625F7523D750D16A7D5B59A8A10768A1C7BA" : "StreamKit\/",
+    "1E6A6AFA8FD184A9666119397C1D8872BE1E4596" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "StreamKit",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "StreamKit\/StreamKit.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/godL\/LHDB.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1E6A6AFA8FD184A9666119397C1D8872BE1E4596"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/godL\/StreamKit.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EF48625F7523D750D16A7D5B59A8A10768A1C7BA"
+    }
+  ]
+}
