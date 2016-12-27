@@ -29,6 +29,8 @@
 #import "UISearchBar+StreamKit.h"
 #import "UITextField+StreamKit.h"
 #import "UITextView+StreamKit.h"
+#import "UITableView+StreamKit.h"
+#import "UICollectionView+StreamKit.h"
 #import "UIInputView+StreamKit.h"
 #import "UIProgressView+StreamKit.h"
 #import "UISwitch+StreamKit.h"

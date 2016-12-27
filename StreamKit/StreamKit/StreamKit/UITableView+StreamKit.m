@@ -151,3 +151,35 @@
 }
 
 @end
+
+@implementation UITableViewCell (StreamKit)
+
++ (UITableViewCell* (^)(UITableViewCellStyle cellStyle,NSString* reuseIdentifier))sk_initWithStyleAndReuseIdentifier
+{
+    return ^ UITableViewCell* (UITableViewCellStyle cellStyle,NSString* reuseIdentifier) {
+        return [[UITableViewCell alloc] initWithStyle:cellStyle reuseIdentifier:reuseIdentifier];
+    };
+}
+
+- (UITableViewCell* (^)(UITableViewCellSelectionStyle selectionStyle))sk_selectionStyle
+{
+    return ^ UITableViewCell* (UITableViewCellSelectionStyle selectionStyle) {
+        return ({self.selectionStyle = selectionStyle;self;});
+    };
+}
+
+- (UITableViewCell* (^)(UITableViewCellAccessoryType accessoryType))sk_accessoryType
+{
+    return ^ UITableViewCell* (UITableViewCellAccessoryType accessoryType) {
+        return ({self.accessoryType = accessoryType;self;});
+    };
+}
+
+- (UITableViewCell* (^)(UITableViewCellAccessoryType editingAccessoryType))sk_editingAccessoryType
+{
+    return ^ UITableViewCell* (UITableViewCellAccessoryType editingAccessoryType) {
+        return ({self.editingAccessoryType = editingAccessoryType;self;});
+    };
+}
+
+@end

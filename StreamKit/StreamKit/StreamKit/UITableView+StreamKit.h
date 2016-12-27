@@ -141,9 +141,16 @@
 
 - (UITableView* (^)(UINib* nib,NSString* identifier))sk_registerNibForHeaderFooterViewReuseIdentifier;
 
-
 @end
 
 @interface UITableViewCell (StreamKit)
+
++ (UITableViewCell* (^)(UITableViewCellStyle cellStyle,NSString* reuseIdentifier))sk_initWithStyleAndReuseIdentifier;
+
+- (UITableViewCell* (^)(UITableViewCellSelectionStyle selectionStyle))sk_selectionStyle;
+
+- (UITableViewCell* (^)(UITableViewCellAccessoryType accessoryType))sk_accessoryType;
+
+- (UITableViewCell* (^)(UITableViewCellAccessoryType editingAccessoryType))sk_editingAccessoryType;
 
 @end

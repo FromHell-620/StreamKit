@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7416AA691E1205ED00A970A3 /* UICollectionView+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416AA681E1205EC00A970A3 /* UICollectionView+StreamKit.m */; };
 		74324E651E0B76A2000F0E84 /* UIButton+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 74324E641E0B76A2000F0E84 /* UIButton+StreamKit.m */; };
 		74324E681E0B7BA1000F0E84 /* UIImageView+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 74324E671E0B7BA1000F0E84 /* UIImageView+StreamKit.m */; };
 		74324E6B1E0B8483000F0E84 /* UILabel+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 74324E6A1E0B8483000F0E84 /* UILabel+StreamKit.m */; };
@@ -60,6 +61,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7416AA671E1205EC00A970A3 /* UICollectionView+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+StreamKit.h"; sourceTree = "<group>"; };
+		7416AA681E1205EC00A970A3 /* UICollectionView+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+StreamKit.m"; sourceTree = "<group>"; };
 		74324E631E0B76A2000F0E84 /* UIButton+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+StreamKit.h"; sourceTree = "<group>"; };
 		74324E641E0B76A2000F0E84 /* UIButton+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+StreamKit.m"; sourceTree = "<group>"; };
 		74324E661E0B7BA1000F0E84 /* UIImageView+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+StreamKit.h"; sourceTree = "<group>"; };
@@ -245,6 +248,8 @@
 				C95C30531E0D713600180151 /* UITextView+StreamKit.m */,
 				74AE026A1E111AF10051DED7 /* UITableView+StreamKit.h */,
 				74AE026B1E111AF10051DED7 /* UITableView+StreamKit.m */,
+				7416AA671E1205EC00A970A3 /* UICollectionView+StreamKit.h */,
+				7416AA681E1205EC00A970A3 /* UICollectionView+StreamKit.m */,
 				74C87E911E0795450056AEBA /* UIGestureRecognizer+StreamKit.h */,
 				74C87E921E0795450056AEBA /* UIGestureRecognizer+StreamKit.m */,
 				746E23261E091AE400E0D83E /* UITapGestureRecognizer+StreamKit.h */,
@@ -436,6 +441,7 @@
 				74D92BC31E0E1CAE009FD9C0 /* StreamContentController.m in Sources */,
 				C9B62B761E06BE0400920035 /* main.m in Sources */,
 				C9B62BAA1E06BE6600920035 /* UIAlertAction+StreamKit.m in Sources */,
+				7416AA691E1205ED00A970A3 /* UICollectionView+StreamKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
