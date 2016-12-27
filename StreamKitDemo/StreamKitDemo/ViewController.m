@@ -40,7 +40,6 @@ FOUNDATION_STATIC_INLINE char* disposeMethodType(const char* type)
     for (int i=0; i<c; i++) {
         struct objc_method_description desc = *(descs+i);
         
-        NSLog(@"%s  %s",desc.name,desc.types);
         
         NSLog(@"dis === %s",disposeMethodType(desc.types));
     }
