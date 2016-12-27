@@ -116,56 +116,6 @@ UIKIT_STATIC_INLINE NSDictionary* StreamMethodAndProtocol()
     return streamMethodAndProtocol;
 }
 
-UIKIT_STATIC_INLINE const char* compatibility_type(const char* type) {
-#if __LP64__ || (TARGET_OS_EMBEDDED && !TARGET_OS_IPHONE) || TARGET_OS_WIN32 || NS_BUILD_32_LIKE_64
-    return type;
-#else
-    if (strcasecmp(type, "B24@0:8@16") == 0) {
-        return "c12@0:4@8";
-    }else if(strcasecmp(type, "B32@0:8@16@24") == 0) {
-        return "c16@0:4@8@12";
-    }
-#endif
-    return NULL;
-}
-
-UIKIT_STATIC_INLINE IMP setupDelegateImplementationWithMethodTypeDesc(const struct objc_method_description method_desc)
-{
-    IMP imp = NULL;
-    SEL Associated_key = sel_registerName([StreamMethodAndProtocol()[[NSString stringWithUTF8String:sel_getName(method_desc.name)]] UTF8String]);
-    if (strcasecmp(method_desc.types, compatibility_type("B24@0:8@16")) == 0) {
-        imp = imp_implementationWithBlock(^BOOL(id target,UIGestureRecognizer* recognizer) {
-            id<UIGestureRecognizerDelegate> realDelegate = objc_getAssociatedObject(target, (__bridge const void *)(target));
-            if (realDelegate && [realDelegate respondsToSelector:method_desc.name]) {
-                return ((BOOL(*)(id,SEL,id))objc_msgSend)(target,method_desc.name,recognizer);
-            }
-            
-            BOOL (^block)(UIGestureRecognizer* recognizer) = objc_getAssociatedObject(target, Associated_key);
-            if (block) return block(recognizer);
-            return YES;
-        });
-    }else {
-        imp = imp_implementationWithBlock(^BOOL(id target,UIGestureRecognizer* recognizer,id otherObject){
-            id<UIGestureRecognizerDelegate> realDelegate = objc_getAssociatedObject(target, (__bridge const void *)(target));
-            if (realDelegate && [realDelegate respondsToSelector:method_desc.name]) {
-                return ((BOOL(*)(id,SEL,id,id))objc_msgSend)(target,method_desc.name,recognizer,otherObject);
-            }
-            
-            BOOL (^block)(UIGestureRecognizer* recognizer,id otherObject) = objc_getAssociatedObject(target, Associated_key);
-            if (block) return block(recognizer,otherObject);
-            return YES;
-        });
-    }
-    return imp;
-}
-
-
-UIKIT_STATIC_INLINE void initializeDelegateMethod(const char* protocol_method_name)
-{
-    Class cls = objc_getClass("UITextField");
-    StreamInitializeDelegateMethod(cls, "UIGestureRecognizerDelegate", protocol_method_name, setupDelegateImplementationWithMethodTypeDesc);
-}
-
 + (void)load
 {
     [StreamMethodAndProtocol() enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
