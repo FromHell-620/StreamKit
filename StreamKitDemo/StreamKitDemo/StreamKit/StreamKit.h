@@ -10,6 +10,10 @@
 #define StreamKit_h
 
 
+#pragma mark- NSObject
+#import "NSObject+StreamKit.h"
+#import "UIAlertAction+StreamKit.h"
+#import "NSNotificationCenter+StreamKit.h"
 
 #pragma mark- UIGestureRecognizer+StreamKit
 #import "UIGestureRecognizer+StreamKit.h"
@@ -36,7 +40,6 @@
 #import "UISwitch+StreamKit.h"
 
 #pragma mark- UIViewController
-#import "UIAlertAction+StreamKit.h"
 #import "UIImagePickerController+StreamKit.h"
 #import "UIPageViewController+StreamKit.h"
 
