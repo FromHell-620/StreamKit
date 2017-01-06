@@ -15,6 +15,7 @@
 		7416AAB11E121B0C00A970A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416AA731E121B0C00A970A3 /* main.m */; };
 		7416AAB21E121B0C00A970A3 /* StreamContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416AA751E121B0C00A970A3 /* StreamContentController.m */; };
 		7416AACC1E121B0C00A970A3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416AAAB1E121B0C00A970A3 /* ViewController.m */; };
+		74694BD91E1F3A1700E7682A /* NSNotificationCenter+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 74694BD81E1F3A1700E7682A /* NSNotificationCenter+StreamKit.m */; };
 		74D89A3B1E14EABD000C7284 /* UIGestureRecognizer+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D89A2E1E14EABD000C7284 /* UIGestureRecognizer+StreamKit.m */; };
 		74D89A3C1E14EABD000C7284 /* UILongPressGestureRecognizer+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D89A301E14EABD000C7284 /* UILongPressGestureRecognizer+StreamKit.m */; };
 		74D89A3D1E14EABD000C7284 /* UIPanGestureRecognizer+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 74D89A321E14EABD000C7284 /* UIPanGestureRecognizer+StreamKit.m */; };
@@ -74,6 +75,8 @@
 		7416AA791E121B0C00A970A3 /* StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamKit.h; sourceTree = "<group>"; };
 		7416AAAA1E121B0C00A970A3 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		7416AAAB1E121B0C00A970A3 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		74694BD71E1F3A1700E7682A /* NSNotificationCenter+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+StreamKit.h"; sourceTree = "<group>"; };
+		74694BD81E1F3A1700E7682A /* NSNotificationCenter+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+StreamKit.m"; sourceTree = "<group>"; };
 		74D89A2D1E14EABD000C7284 /* UIGestureRecognizer+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+StreamKit.h"; sourceTree = "<group>"; };
 		74D89A2E1E14EABD000C7284 /* UIGestureRecognizer+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+StreamKit.m"; sourceTree = "<group>"; };
 		74D89A2F1E14EABD000C7284 /* UILongPressGestureRecognizer+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILongPressGestureRecognizer+StreamKit.h"; sourceTree = "<group>"; };
@@ -271,6 +274,8 @@
 				74D89A781E14ECAA000C7284 /* NSObject+StreamKit.m */,
 				74D89A791E14ECAA000C7284 /* UIAlertAction+StreamKit.h */,
 				74D89A7A1E14ECAA000C7284 /* UIAlertAction+StreamKit.m */,
+				74694BD71E1F3A1700E7682A /* NSNotificationCenter+StreamKit.h */,
+				74694BD81E1F3A1700E7682A /* NSNotificationCenter+StreamKit.m */,
 			);
 			path = NSObject;
 			sourceTree = "<group>";
@@ -466,6 +471,7 @@
 				7416AAB11E121B0C00A970A3 /* main.m in Sources */,
 				74D89A591E14EB68000C7284 /* UIProgressView+StreamKit.m in Sources */,
 				74D89A5D1E14EB68000C7284 /* UIView+StreamKit.m in Sources */,
+				74694BD91E1F3A1700E7682A /* NSNotificationCenter+StreamKit.m in Sources */,
 				74D89A741E14EC41000C7284 /* UIImagePickerController+StreamKit.m in Sources */,
 				74D89A5B1E14EB68000C7284 /* UISwitch+StreamKit.m in Sources */,
 				74D89A561E14EB68000C7284 /* UIControl+StreamKit.m in Sources */,
