@@ -8,8 +8,8 @@
 
 #import "UITextField+StreamKit.h"
 #import "NSObject+StreamKit.h"
-#import <objc/runtime.h>
-#import <objc/message.h>
+@import ObjectiveC.runtime;
+@import ObjectiveC.message;
 
 @implementation UITextField (StreamKit)
 

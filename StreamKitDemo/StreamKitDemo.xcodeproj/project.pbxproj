@@ -11,7 +11,6 @@
 		7416AAAD1E121B0C00A970A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7416AA6D1E121B0C00A970A3 /* Assets.xcassets */; };
 		7416AAAE1E121B0C00A970A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7416AA6E1E121B0C00A970A3 /* LaunchScreen.storyboard */; };
 		7416AAAF1E121B0C00A970A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7416AA701E121B0C00A970A3 /* Main.storyboard */; };
-		7416AAB01E121B0C00A970A3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7416AA721E121B0C00A970A3 /* Info.plist */; };
 		7416AAB11E121B0C00A970A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416AA731E121B0C00A970A3 /* main.m */; };
 		7416AAB21E121B0C00A970A3 /* StreamContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416AA751E121B0C00A970A3 /* StreamContentController.m */; };
 		7416AACC1E121B0C00A970A3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416AAAB1E121B0C00A970A3 /* ViewController.m */; };
@@ -381,7 +380,7 @@
 		C9B62B691E06BE0300920035 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "李浩";
 				TargetAttributes = {
 					C9B62B701E06BE0300920035 = {
@@ -425,7 +424,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7416AAB01E121B0C00A970A3 /* Info.plist in Resources */,
 				7416AAAF1E121B0C00A970A3 /* Main.storyboard in Resources */,
 				7416AAAD1E121B0C00A970A3 /* Assets.xcassets in Resources */,
 				7416AAAE1E121B0C00A970A3 /* LaunchScreen.storyboard in Resources */,
@@ -555,6 +553,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -603,6 +602,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

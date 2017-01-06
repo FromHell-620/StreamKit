@@ -24,6 +24,4 @@ void StreamSetImplementationToDelegateMethod(Class cls,const char* protocol_name
 
 @interface NSObject (StreamKit)
 
-
-
 @end

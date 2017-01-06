@@ -7,9 +7,9 @@
 //
 
 #import "UIGestureRecognizer+StreamKit.h"
-#import <objc/runtime.h>
-#import <objc/message.h>
 #import "NSObject+StreamKit.h"
+@import ObjectiveC.runtime;
+@import ObjectiveC.message;
 
 @implementation UIGestureRecognizer (StreamKit)
 
