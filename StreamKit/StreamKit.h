@@ -43,7 +43,7 @@
 #import "UICollectionView+StreamKit.h"
 
 #pragma mark- UIViewController
-#import "UIViewController/UIImagePickerController+StreamKit.h"
-#import "UIViewController/UIPageViewController+StreamKit.h"
+#import "UIImagePickerController+StreamKit.h"
+#import "UIPageViewController+StreamKit.h"
 
 #endif /* StreamKit_h */
