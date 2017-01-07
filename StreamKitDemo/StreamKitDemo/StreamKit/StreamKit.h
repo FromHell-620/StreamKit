@@ -11,35 +11,36 @@
 
 
 #pragma mark- NSObject
-#import "NSObject/NSObject+StreamKit.h"
-#import "NSObject/UIAlertAction+StreamKit.h"
-#import "NSObject/NSNotificationCenter+StreamKit.h"
+#import "NSObject+StreamKit.h"
+#import "UIAlertAction+StreamKit.h"
+#import "NSNotificationCenter+StreamKit.h"
 
 #pragma mark- UIGestureRecognizer+StreamKit
-#import "UIGestureRecognizer/UIGestureRecognizer+StreamKit.h"
-#import "UIGestureRecognizer/UITapGestureRecognizer+StreamKit.h"
-#import "UIGestureRecognizer/UISwipeGestureRecognizer+StreamKit.h"
-#import "UIGestureRecognizer/UILongPressGestureRecognizer+StreamKit.h"
-#import "UIGestureRecognizer/UIPanGestureRecognizer+StreamKit.h"
-#import "UIGestureRecognizer/UIPinchGestureRecognizer+StreamKit.h"
-#import "UIGestureRecognizer/UIRotationGestureRecognizer+StreamKit.h"
+#import "UIGestureRecognizer+StreamKit.h"
+#import "UITapGestureRecognizer+StreamKit.h"
+#import "UISwipeGestureRecognizer+StreamKit.h"
+#import "UILongPressGestureRecognizer+StreamKit.h"
+#import "UIPanGestureRecognizer+StreamKit.h"
+#import "UIPinchGestureRecognizer+StreamKit.h"
+#import "UIRotationGestureRecognizer+StreamKit.h"
 
 #pragma mark- UIView
-#import "UIView/UIView+StreamKit.h"
-#import "UIView/UIControl+StreamKit.h"
-#import "UIView/UIButton+StreamKit.h"
-#import "UIView/UIImageView+StreamKit.h"
-#import "UIView/UILabel+StreamKit.h"
-#import "UIView/UISearchBar+StreamKit.h"
-#import "UIView/UITextField+StreamKit.h"
-#import "UIView/UIInputView+StreamKit.h"
-#import "UIView/UIProgressView+StreamKit.h"
-#import "UIView/UISwitch+StreamKit.h"
+#import "UIView+StreamKit.h"
+#import "UIControl+StreamKit.h"
+#import "UIButton+StreamKit.h"
+#import "UIImageView+StreamKit.h"
+#import "UILabel+StreamKit.h"
+#import "UISearchBar+StreamKit.h"
+#import "UITextField+StreamKit.h"
+#import "UIInputView+StreamKit.h"
+#import "UIProgressView+StreamKit.h"
+#import "UISwitch+StreamKit.h"
 
 #pragma mark- UIScrollView
-#import "UIScrollView/UITextView+StreamKit.h"
-#import "UIScrollView/UITableView+StreamKit.h"
-#import "UIScrollView/UICollectionView+StreamKit.h"
+#import "UIScrollView+StreamKit.h"
+#import "UITextView+StreamKit.h"
+#import "UITableView+StreamKit.h"
+#import "UICollectionView+StreamKit.h"
 
 #pragma mark- UIViewController
 #import "UIViewController/UIImagePickerController+StreamKit.h"
