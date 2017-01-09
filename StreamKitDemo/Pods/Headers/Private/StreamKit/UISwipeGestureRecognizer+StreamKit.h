@@ -1,0 +1,1 @@
+../../../StreamKit/StreamKit/UIGestureRecognizer/UISwipeGestureRecognizer+StreamKit.h

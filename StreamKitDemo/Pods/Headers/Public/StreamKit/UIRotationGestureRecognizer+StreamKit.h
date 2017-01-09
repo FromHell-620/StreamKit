@@ -1,0 +1,1 @@
+../../../StreamKit/StreamKit/UIGestureRecognizer/UIRotationGestureRecognizer+StreamKit.h
