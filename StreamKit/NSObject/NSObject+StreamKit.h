@@ -24,4 +24,10 @@ void StreamSetImplementationToDelegateMethod(Class cls,const char* protocol_name
 
 @interface NSObject (StreamKit)
 
+- (NSObject*(^)(NSString* keyPath,void(^block)(NSDictionary* change)))sk_addObserverWithKeyPath;
+
+- (NSObject*(^)(NSString* keyPath))sk_removeOvserverWithKeyPath;
+
+- (NSObject*(^)())sk_removeAllObserver;
+
 @end
