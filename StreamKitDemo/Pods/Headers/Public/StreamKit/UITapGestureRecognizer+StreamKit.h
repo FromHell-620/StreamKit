@@ -1,1 +1,0 @@
-../../../StreamKit/StreamKit/UIGestureRecognizer/UITapGestureRecognizer+StreamKit.h

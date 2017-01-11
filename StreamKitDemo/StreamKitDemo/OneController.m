@@ -1,39 +1,32 @@
 //
-//  StreamContentController.m
-//  StreamKit
+//  OneController.m
+//  StreamKitDemo
 //
-//  Created by 苏南 on 16/12/24.
-//  Copyright © 2016年 李浩. All rights reserved.
+//  Created by 苏南 on 17/1/11.
+//  Copyright © 2017年 李浩. All rights reserved.
 //
 
-#import "StreamContentController.h"
-#import "StreamKit/StreamKit.h"
+#import "OneController.h"
 
-@interface StreamContentController ()
+@interface OneController ()
 
 @end
 
-@implementation StreamContentController
+@implementation OneController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.sk_addObserverWithKeyPath(@"editing",^(NSDictionary* change){
-    
-    });
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    });
     // Do any additional setup after loading the view.
 }
-
-//- (void)dealloc
-//{
-//    
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    
 }
 
 /*

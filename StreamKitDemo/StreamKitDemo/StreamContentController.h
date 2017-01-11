@@ -6,8 +6,8 @@
 //  Copyright © 2016年 李浩. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseController.h"
 
-@interface StreamContentController : UIViewController
+@interface StreamContentController :BaseController
 
 @end

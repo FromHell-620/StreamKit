@@ -14,6 +14,34 @@
 		7416AAB11E121B0C00A970A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416AA731E121B0C00A970A3 /* main.m */; };
 		7416AAB21E121B0C00A970A3 /* StreamContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416AA751E121B0C00A970A3 /* StreamContentController.m */; };
 		7416AACC1E121B0C00A970A3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416AAAB1E121B0C00A970A3 /* ViewController.m */; };
+		7428A70D1E24847D00218DC6 /* NSNotificationCenter+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6D51E24847D00218DC6 /* NSNotificationCenter+StreamKit.m */; };
+		7428A70E1E24847D00218DC6 /* NSObject+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6D71E24847D00218DC6 /* NSObject+StreamKit.m */; };
+		7428A70F1E24847D00218DC6 /* UIAlertAction+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6D91E24847D00218DC6 /* UIAlertAction+StreamKit.m */; };
+		7428A7101E24847D00218DC6 /* UIGestureRecognizer+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6DD1E24847D00218DC6 /* UIGestureRecognizer+StreamKit.m */; };
+		7428A7111E24847D00218DC6 /* UILongPressGestureRecognizer+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6DF1E24847D00218DC6 /* UILongPressGestureRecognizer+StreamKit.m */; };
+		7428A7121E24847D00218DC6 /* UIPanGestureRecognizer+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6E11E24847D00218DC6 /* UIPanGestureRecognizer+StreamKit.m */; };
+		7428A7131E24847D00218DC6 /* UIPinchGestureRecognizer+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6E31E24847D00218DC6 /* UIPinchGestureRecognizer+StreamKit.m */; };
+		7428A7141E24847D00218DC6 /* UIRotationGestureRecognizer+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6E51E24847D00218DC6 /* UIRotationGestureRecognizer+StreamKit.m */; };
+		7428A7151E24847D00218DC6 /* UISwipeGestureRecognizer+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6E71E24847D00218DC6 /* UISwipeGestureRecognizer+StreamKit.m */; };
+		7428A7161E24847D00218DC6 /* UITapGestureRecognizer+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6E91E24847D00218DC6 /* UITapGestureRecognizer+StreamKit.m */; };
+		7428A7171E24847D00218DC6 /* UICollectionView+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6EC1E24847D00218DC6 /* UICollectionView+StreamKit.m */; };
+		7428A7181E24847D00218DC6 /* UIScrollView+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6EE1E24847D00218DC6 /* UIScrollView+StreamKit.m */; };
+		7428A7191E24847D00218DC6 /* UITableView+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6F01E24847D00218DC6 /* UITableView+StreamKit.m */; };
+		7428A71A1E24847D00218DC6 /* UITextView+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6F21E24847D00218DC6 /* UITextView+StreamKit.m */; };
+		7428A71B1E24847D00218DC6 /* UIButton+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6F51E24847D00218DC6 /* UIButton+StreamKit.m */; };
+		7428A71C1E24847D00218DC6 /* UIControl+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6F71E24847D00218DC6 /* UIControl+StreamKit.m */; };
+		7428A71D1E24847D00218DC6 /* UIImageView+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6F91E24847D00218DC6 /* UIImageView+StreamKit.m */; };
+		7428A71E1E24847D00218DC6 /* UIInputView+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6FB1E24847D00218DC6 /* UIInputView+StreamKit.m */; };
+		7428A71F1E24847D00218DC6 /* UILabel+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6FD1E24847D00218DC6 /* UILabel+StreamKit.m */; };
+		7428A7201E24847D00218DC6 /* UIProgressView+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A6FF1E24847D00218DC6 /* UIProgressView+StreamKit.m */; };
+		7428A7211E24847D00218DC6 /* UISearchBar+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A7011E24847D00218DC6 /* UISearchBar+StreamKit.m */; };
+		7428A7221E24847D00218DC6 /* UISwitch+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A7031E24847D00218DC6 /* UISwitch+StreamKit.m */; };
+		7428A7231E24847D00218DC6 /* UITextField+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A7051E24847D00218DC6 /* UITextField+StreamKit.m */; };
+		7428A7241E24847D00218DC6 /* UIView+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A7071E24847D00218DC6 /* UIView+StreamKit.m */; };
+		7428A7251E24847D00218DC6 /* UIImagePickerController+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A70A1E24847D00218DC6 /* UIImagePickerController+StreamKit.m */; };
+		7428A7261E24847D00218DC6 /* UIPageViewController+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7428A70C1E24847D00218DC6 /* UIPageViewController+StreamKit.m */; };
+		74A2941A1E26247300DFBEB7 /* BaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A294191E26247300DFBEB7 /* BaseController.m */; };
+		74A2941D1E262F3700DFBEB7 /* OneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A2941C1E262F3700DFBEB7 /* OneController.m */; };
 		C3E73CBF94C220E3528C6998 /* libPods-StreamKitDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B378167200FBC5A990C676 /* libPods-StreamKitDemo.a */; };
 		C9B62B8F1E06BE0400920035 /* StreamKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B8E1E06BE0400920035 /* StreamKitTests.m */; };
 		C9B62B9A1E06BE0400920035 /* StreamKitUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B991E06BE0400920035 /* StreamKitUITests.m */; };
@@ -49,7 +77,64 @@
 		7416AA751E121B0C00A970A3 /* StreamContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamContentController.m; sourceTree = "<group>"; };
 		7416AAAA1E121B0C00A970A3 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		7416AAAB1E121B0C00A970A3 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		7428A6D41E24847D00218DC6 /* NSNotificationCenter+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6D51E24847D00218DC6 /* NSNotificationCenter+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6D61E24847D00218DC6 /* NSObject+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6D71E24847D00218DC6 /* NSObject+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6D81E24847D00218DC6 /* UIAlertAction+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertAction+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6D91E24847D00218DC6 /* UIAlertAction+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertAction+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6DA1E24847D00218DC6 /* StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamKit.h; sourceTree = "<group>"; };
+		7428A6DC1E24847D00218DC6 /* UIGestureRecognizer+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6DD1E24847D00218DC6 /* UIGestureRecognizer+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6DE1E24847D00218DC6 /* UILongPressGestureRecognizer+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILongPressGestureRecognizer+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6DF1E24847D00218DC6 /* UILongPressGestureRecognizer+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILongPressGestureRecognizer+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6E01E24847D00218DC6 /* UIPanGestureRecognizer+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPanGestureRecognizer+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6E11E24847D00218DC6 /* UIPanGestureRecognizer+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPanGestureRecognizer+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6E21E24847D00218DC6 /* UIPinchGestureRecognizer+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPinchGestureRecognizer+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6E31E24847D00218DC6 /* UIPinchGestureRecognizer+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPinchGestureRecognizer+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6E41E24847D00218DC6 /* UIRotationGestureRecognizer+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIRotationGestureRecognizer+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6E51E24847D00218DC6 /* UIRotationGestureRecognizer+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRotationGestureRecognizer+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6E61E24847D00218DC6 /* UISwipeGestureRecognizer+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISwipeGestureRecognizer+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6E71E24847D00218DC6 /* UISwipeGestureRecognizer+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISwipeGestureRecognizer+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6E81E24847D00218DC6 /* UITapGestureRecognizer+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITapGestureRecognizer+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6E91E24847D00218DC6 /* UITapGestureRecognizer+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITapGestureRecognizer+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6EB1E24847D00218DC6 /* UICollectionView+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6EC1E24847D00218DC6 /* UICollectionView+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6ED1E24847D00218DC6 /* UIScrollView+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6EE1E24847D00218DC6 /* UIScrollView+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6EF1E24847D00218DC6 /* UITableView+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6F01E24847D00218DC6 /* UITableView+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6F11E24847D00218DC6 /* UITextView+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6F21E24847D00218DC6 /* UITextView+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6F41E24847D00218DC6 /* UIButton+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6F51E24847D00218DC6 /* UIButton+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6F61E24847D00218DC6 /* UIControl+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6F71E24847D00218DC6 /* UIControl+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6F81E24847D00218DC6 /* UIImageView+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6F91E24847D00218DC6 /* UIImageView+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6FA1E24847D00218DC6 /* UIInputView+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIInputView+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6FB1E24847D00218DC6 /* UIInputView+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIInputView+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6FC1E24847D00218DC6 /* UILabel+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6FD1E24847D00218DC6 /* UILabel+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+StreamKit.m"; sourceTree = "<group>"; };
+		7428A6FE1E24847D00218DC6 /* UIProgressView+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIProgressView+StreamKit.h"; sourceTree = "<group>"; };
+		7428A6FF1E24847D00218DC6 /* UIProgressView+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIProgressView+StreamKit.m"; sourceTree = "<group>"; };
+		7428A7001E24847D00218DC6 /* UISearchBar+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISearchBar+StreamKit.h"; sourceTree = "<group>"; };
+		7428A7011E24847D00218DC6 /* UISearchBar+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISearchBar+StreamKit.m"; sourceTree = "<group>"; };
+		7428A7021E24847D00218DC6 /* UISwitch+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISwitch+StreamKit.h"; sourceTree = "<group>"; };
+		7428A7031E24847D00218DC6 /* UISwitch+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISwitch+StreamKit.m"; sourceTree = "<group>"; };
+		7428A7041E24847D00218DC6 /* UITextField+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+StreamKit.h"; sourceTree = "<group>"; };
+		7428A7051E24847D00218DC6 /* UITextField+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+StreamKit.m"; sourceTree = "<group>"; };
+		7428A7061E24847D00218DC6 /* UIView+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+StreamKit.h"; sourceTree = "<group>"; };
+		7428A7071E24847D00218DC6 /* UIView+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+StreamKit.m"; sourceTree = "<group>"; };
+		7428A7091E24847D00218DC6 /* UIImagePickerController+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+StreamKit.h"; sourceTree = "<group>"; };
+		7428A70A1E24847D00218DC6 /* UIImagePickerController+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+StreamKit.m"; sourceTree = "<group>"; };
+		7428A70B1E24847D00218DC6 /* UIPageViewController+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPageViewController+StreamKit.h"; sourceTree = "<group>"; };
+		7428A70C1E24847D00218DC6 /* UIPageViewController+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPageViewController+StreamKit.m"; sourceTree = "<group>"; };
 		746F68C81E23320D007174E5 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		74A294181E26247300DFBEB7 /* BaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseController.h; sourceTree = "<group>"; };
+		74A294191E26247300DFBEB7 /* BaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseController.m; sourceTree = "<group>"; };
+		74A2941B1E262F3700DFBEB7 /* OneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneController.h; sourceTree = "<group>"; };
+		74A2941C1E262F3700DFBEB7 /* OneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneController.m; sourceTree = "<group>"; };
 		C2B74F3A9131EAA4C24F954E /* Pods-StreamKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamKitDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreamKitDemo/Pods-StreamKitDemo.release.xcconfig"; sourceTree = "<group>"; };
 		C9B62B711E06BE0400920035 /* StreamKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreamKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B62B8A1E06BE0400920035 /* StreamKitDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StreamKitDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +199,10 @@
 				7416AA701E121B0C00A970A3 /* Main.storyboard */,
 				7416AA721E121B0C00A970A3 /* Info.plist */,
 				7416AA731E121B0C00A970A3 /* main.m */,
+				74A2941B1E262F3700DFBEB7 /* OneController.h */,
+				74A2941C1E262F3700DFBEB7 /* OneController.m */,
+				74A294181E26247300DFBEB7 /* BaseController.h */,
+				74A294191E26247300DFBEB7 /* BaseController.m */,
 				7416AA741E121B0C00A970A3 /* StreamContentController.h */,
 				7416AA751E121B0C00A970A3 /* StreamContentController.m */,
 				7416AAAA1E121B0C00A970A3 /* ViewController.h */,
@@ -123,9 +212,111 @@
 			path = StreamKitDemo;
 			sourceTree = "<group>";
 		};
+		7428A6D21E24847D00218DC6 /* StreamKit */ = {
+			isa = PBXGroup;
+			children = (
+				7428A6DA1E24847D00218DC6 /* StreamKit.h */,
+				7428A6D31E24847D00218DC6 /* NSObject */,
+				7428A6DB1E24847D00218DC6 /* UIGestureRecognizer */,
+				7428A6EA1E24847D00218DC6 /* UIScrollView */,
+				7428A6F31E24847D00218DC6 /* UIView */,
+				7428A7081E24847D00218DC6 /* UIViewController */,
+			);
+			name = StreamKit;
+			path = StreamKitDemo/StreamKit;
+			sourceTree = "<group>";
+		};
+		7428A6D31E24847D00218DC6 /* NSObject */ = {
+			isa = PBXGroup;
+			children = (
+				7428A6D41E24847D00218DC6 /* NSNotificationCenter+StreamKit.h */,
+				7428A6D51E24847D00218DC6 /* NSNotificationCenter+StreamKit.m */,
+				7428A6D61E24847D00218DC6 /* NSObject+StreamKit.h */,
+				7428A6D71E24847D00218DC6 /* NSObject+StreamKit.m */,
+				7428A6D81E24847D00218DC6 /* UIAlertAction+StreamKit.h */,
+				7428A6D91E24847D00218DC6 /* UIAlertAction+StreamKit.m */,
+			);
+			path = NSObject;
+			sourceTree = "<group>";
+		};
+		7428A6DB1E24847D00218DC6 /* UIGestureRecognizer */ = {
+			isa = PBXGroup;
+			children = (
+				7428A6DC1E24847D00218DC6 /* UIGestureRecognizer+StreamKit.h */,
+				7428A6DD1E24847D00218DC6 /* UIGestureRecognizer+StreamKit.m */,
+				7428A6DE1E24847D00218DC6 /* UILongPressGestureRecognizer+StreamKit.h */,
+				7428A6DF1E24847D00218DC6 /* UILongPressGestureRecognizer+StreamKit.m */,
+				7428A6E01E24847D00218DC6 /* UIPanGestureRecognizer+StreamKit.h */,
+				7428A6E11E24847D00218DC6 /* UIPanGestureRecognizer+StreamKit.m */,
+				7428A6E21E24847D00218DC6 /* UIPinchGestureRecognizer+StreamKit.h */,
+				7428A6E31E24847D00218DC6 /* UIPinchGestureRecognizer+StreamKit.m */,
+				7428A6E41E24847D00218DC6 /* UIRotationGestureRecognizer+StreamKit.h */,
+				7428A6E51E24847D00218DC6 /* UIRotationGestureRecognizer+StreamKit.m */,
+				7428A6E61E24847D00218DC6 /* UISwipeGestureRecognizer+StreamKit.h */,
+				7428A6E71E24847D00218DC6 /* UISwipeGestureRecognizer+StreamKit.m */,
+				7428A6E81E24847D00218DC6 /* UITapGestureRecognizer+StreamKit.h */,
+				7428A6E91E24847D00218DC6 /* UITapGestureRecognizer+StreamKit.m */,
+			);
+			path = UIGestureRecognizer;
+			sourceTree = "<group>";
+		};
+		7428A6EA1E24847D00218DC6 /* UIScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				7428A6EB1E24847D00218DC6 /* UICollectionView+StreamKit.h */,
+				7428A6EC1E24847D00218DC6 /* UICollectionView+StreamKit.m */,
+				7428A6ED1E24847D00218DC6 /* UIScrollView+StreamKit.h */,
+				7428A6EE1E24847D00218DC6 /* UIScrollView+StreamKit.m */,
+				7428A6EF1E24847D00218DC6 /* UITableView+StreamKit.h */,
+				7428A6F01E24847D00218DC6 /* UITableView+StreamKit.m */,
+				7428A6F11E24847D00218DC6 /* UITextView+StreamKit.h */,
+				7428A6F21E24847D00218DC6 /* UITextView+StreamKit.m */,
+			);
+			path = UIScrollView;
+			sourceTree = "<group>";
+		};
+		7428A6F31E24847D00218DC6 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				7428A6F41E24847D00218DC6 /* UIButton+StreamKit.h */,
+				7428A6F51E24847D00218DC6 /* UIButton+StreamKit.m */,
+				7428A6F61E24847D00218DC6 /* UIControl+StreamKit.h */,
+				7428A6F71E24847D00218DC6 /* UIControl+StreamKit.m */,
+				7428A6F81E24847D00218DC6 /* UIImageView+StreamKit.h */,
+				7428A6F91E24847D00218DC6 /* UIImageView+StreamKit.m */,
+				7428A6FA1E24847D00218DC6 /* UIInputView+StreamKit.h */,
+				7428A6FB1E24847D00218DC6 /* UIInputView+StreamKit.m */,
+				7428A6FC1E24847D00218DC6 /* UILabel+StreamKit.h */,
+				7428A6FD1E24847D00218DC6 /* UILabel+StreamKit.m */,
+				7428A6FE1E24847D00218DC6 /* UIProgressView+StreamKit.h */,
+				7428A6FF1E24847D00218DC6 /* UIProgressView+StreamKit.m */,
+				7428A7001E24847D00218DC6 /* UISearchBar+StreamKit.h */,
+				7428A7011E24847D00218DC6 /* UISearchBar+StreamKit.m */,
+				7428A7021E24847D00218DC6 /* UISwitch+StreamKit.h */,
+				7428A7031E24847D00218DC6 /* UISwitch+StreamKit.m */,
+				7428A7041E24847D00218DC6 /* UITextField+StreamKit.h */,
+				7428A7051E24847D00218DC6 /* UITextField+StreamKit.m */,
+				7428A7061E24847D00218DC6 /* UIView+StreamKit.h */,
+				7428A7071E24847D00218DC6 /* UIView+StreamKit.m */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		7428A7081E24847D00218DC6 /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7428A7091E24847D00218DC6 /* UIImagePickerController+StreamKit.h */,
+				7428A70A1E24847D00218DC6 /* UIImagePickerController+StreamKit.m */,
+				7428A70B1E24847D00218DC6 /* UIPageViewController+StreamKit.h */,
+				7428A70C1E24847D00218DC6 /* UIPageViewController+StreamKit.m */,
+			);
+			path = UIViewController;
+			sourceTree = "<group>";
+		};
 		C9B62B681E06BE0300920035 = {
 			isa = PBXGroup;
 			children = (
+				7428A6D21E24847D00218DC6 /* StreamKit */,
 				7416AA6A1E121B0C00A970A3 /* StreamKitDemo */,
 				C9B62B8D1E06BE0400920035 /* StreamKitTests */,
 				C9B62B981E06BE0400920035 /* StreamKitUITests */,
@@ -347,10 +538,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7428A7221E24847D00218DC6 /* UISwitch+StreamKit.m in Sources */,
+				7428A7251E24847D00218DC6 /* UIImagePickerController+StreamKit.m in Sources */,
+				7428A7121E24847D00218DC6 /* UIPanGestureRecognizer+StreamKit.m in Sources */,
+				7428A70F1E24847D00218DC6 /* UIAlertAction+StreamKit.m in Sources */,
+				7428A7201E24847D00218DC6 /* UIProgressView+StreamKit.m in Sources */,
+				7428A7141E24847D00218DC6 /* UIRotationGestureRecognizer+StreamKit.m in Sources */,
+				7428A71D1E24847D00218DC6 /* UIImageView+StreamKit.m in Sources */,
 				7416AACC1E121B0C00A970A3 /* ViewController.m in Sources */,
+				7428A7191E24847D00218DC6 /* UITableView+StreamKit.m in Sources */,
+				7428A71F1E24847D00218DC6 /* UILabel+StreamKit.m in Sources */,
+				7428A7261E24847D00218DC6 /* UIPageViewController+StreamKit.m in Sources */,
 				7416AAB21E121B0C00A970A3 /* StreamContentController.m in Sources */,
+				7428A7231E24847D00218DC6 /* UITextField+StreamKit.m in Sources */,
+				7428A71A1E24847D00218DC6 /* UITextView+StreamKit.m in Sources */,
+				7428A7211E24847D00218DC6 /* UISearchBar+StreamKit.m in Sources */,
+				7428A7241E24847D00218DC6 /* UIView+StreamKit.m in Sources */,
+				74A2941D1E262F3700DFBEB7 /* OneController.m in Sources */,
+				7428A70E1E24847D00218DC6 /* NSObject+StreamKit.m in Sources */,
 				7416AAB11E121B0C00A970A3 /* main.m in Sources */,
+				7428A71E1E24847D00218DC6 /* UIInputView+StreamKit.m in Sources */,
+				7428A7111E24847D00218DC6 /* UILongPressGestureRecognizer+StreamKit.m in Sources */,
+				7428A71C1E24847D00218DC6 /* UIControl+StreamKit.m in Sources */,
+				7428A7161E24847D00218DC6 /* UITapGestureRecognizer+StreamKit.m in Sources */,
+				7428A7151E24847D00218DC6 /* UISwipeGestureRecognizer+StreamKit.m in Sources */,
+				7428A7181E24847D00218DC6 /* UIScrollView+StreamKit.m in Sources */,
+				7428A70D1E24847D00218DC6 /* NSNotificationCenter+StreamKit.m in Sources */,
+				7428A7131E24847D00218DC6 /* UIPinchGestureRecognizer+StreamKit.m in Sources */,
+				7428A7101E24847D00218DC6 /* UIGestureRecognizer+StreamKit.m in Sources */,
+				7428A71B1E24847D00218DC6 /* UIButton+StreamKit.m in Sources */,
 				7416AAAC1E121B0C00A970A3 /* AppDelegate.m in Sources */,
+				74A2941A1E26247300DFBEB7 /* BaseController.m in Sources */,
+				7428A7171E24847D00218DC6 /* UICollectionView+StreamKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
