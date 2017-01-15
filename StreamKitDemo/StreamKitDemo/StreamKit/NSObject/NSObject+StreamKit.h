@@ -20,6 +20,8 @@ void StreamDataSourceBindBlock(SEL method,NSObject* dataSourceObject,id block);
 
 void StreamSetImplementationToDelegateMethod(Class cls,const char* protocol_name,const char* method_name,const char* protocol_method_name);
 
+void StreamHookMehtod(Class hookClass,const char* hookMethodName, void(^aspectBlock)(id target));
+
 @end
 
 @interface NSObject (StreamKit)

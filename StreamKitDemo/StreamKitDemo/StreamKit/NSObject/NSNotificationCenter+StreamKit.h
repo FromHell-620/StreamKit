@@ -8,18 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^SKNotificationBlock)(NSNotification* noti);
 @interface NSNotificationCenter (StreamKit)
 
-- (NSNotificationCenter* (^)(NSNotificationName aName,void(^block)(NSNotification* noti)))sk_addNotification;
+- (NSNotificationCenter* (^)(NSNotificationName aName,SKNotificationBlock block))sk_addNotification;
 
-- (NSNotificationCenter* (^)(NSNotificationName aName,id anObject,void(^block)(NSNotification* noti)))sk_addNotificationWithObject;
+- (NSNotificationCenter* (^)(NSNotificationName aName,id anObject,SKNotificationBlock block))sk_addNotificationWithObject;
+
+- (NSNotificationCenter* (^)(NSNotificationName aName,id observer,SKNotificationBlock block))sk_addNotificationToObserver;
+
+- (NSNotificationCenter* (^)(NSNotificationName aName,id observer,id anObject,SKNotificationBlock block))sk_addNotificationToObserverWithObject;
 
 - (NSNotificationCenter* (^)(NSNotificationName aName))sk_removeNotification;
 
 #pragma mark- defaultCenter
-+ (NSNotificationCenter* (^)(NSNotificationName aName,void(^block)(NSNotification* noti)))sk_addNotification;
++ (NSNotificationCenter* (^)(NSNotificationName aName,SKNotificationBlock block))sk_addNotification;
 
-+ (NSNotificationCenter* (^)(NSNotificationName aName,id anObject,void(^block)(NSNotification* noti)))sk_addNotificationWithObject;
++ (NSNotificationCenter* (^)(NSNotificationName aName,id anObject,SKNotificationBlock block))sk_addNotificationWithObject;
+
++ (NSNotificationCenter* (^)(NSNotificationName aName,id observer,SKNotificationBlock block))sk_addNotificationToObserver;
+
++ (NSNotificationCenter* (^)(NSNotificationName aName,id observer,id anObject,SKNotificationBlock block))sk_addNotificationToObserverWithObject;
 
 + (NSNotificationCenter* (^)(NSNotificationName aName))sk_removeNotification;
 
