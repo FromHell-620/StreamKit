@@ -7,6 +7,7 @@
 //
 
 #import "OneController.h"
+#import "StreamKit.h"
 
 @interface OneController ()
 

@@ -26,8 +26,23 @@ void StreamHookMehtod(Class hookClass,const char* hookMethodName, void(^aspectBl
 
 @interface NSObject (StreamKit)
 
+
+/**
+ Registers the observer object to receive KVO notifications for the key path relative to the object receiving this message.
+ @code
+ self.sk_addObserverWithKeyPath(keyPath,^(NSDictionary* change){
+    your code;
+ });
+ 
+ @return a block which receive a keyPath and a event block.
+         the event block will invoke when the value at the specified key path relative to the observed object has changed
+ */
 - (NSObject*(^)(NSString* keyPath,void(^block)(NSDictionary* change)))sk_addObserverWithKeyPath;
 
+
+/**
+ remove 
+ */
 - (NSObject*(^)(NSString* keyPath))sk_removeOvserverWithKeyPath;
 
 - (NSObject*(^)())sk_removeAllObserver;
