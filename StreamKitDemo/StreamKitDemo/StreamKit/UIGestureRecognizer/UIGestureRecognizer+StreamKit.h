@@ -10,6 +10,10 @@
 
 @interface UIGestureRecognizer (StreamKit)
 
+
+/**
+ 
+ */
 + (UIGestureRecognizer* (^)(void(^block)(UIGestureRecognizer* recognizer)))sk_initWithBlock;
 
 - (UIGestureRecognizer* (^)(void(^block)(UIGestureRecognizer* recognizer)))sk_addTargetBlock;

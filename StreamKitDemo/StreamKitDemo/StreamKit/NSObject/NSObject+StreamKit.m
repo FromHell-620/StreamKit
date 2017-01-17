@@ -296,7 +296,9 @@ static void* StreamObserverContextKey = &StreamObserverContextKey;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
     if (context != StreamObserverContextKey) return;
-    
+    NSMutableDictionary* blocks = objc_getAssociatedObject(self, StreamObserverKey);
+    void(^block)(NSDictionary* change) = [blocks objectForKey:keyPath];
+    !block?:block(change);
 }
 
 @end

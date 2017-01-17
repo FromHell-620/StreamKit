@@ -15,7 +15,7 @@ typedef void(^SKNotificationBlock)(NSNotification* noti);
 /**
   register a notification.
  @discussion register a notification with a block. 
-             the notification observer is own.
+             the notification's observer is own.
  @code 
  self.sk_addNotification(aName,^(NSNotification* noti){
     your code;
@@ -30,7 +30,7 @@ typedef void(^SKNotificationBlock)(NSNotification* noti);
 /**
  register a notification
  @discussion register a notification with a block.
-             the notification observer is own.
+             the notification's observer is own.
  @code
  self.sk_addNotification(aName,anObject,^(NSNotification* noti){
     your code;
@@ -45,7 +45,7 @@ typedef void(^SKNotificationBlock)(NSNotification* noti);
 /**
  register a notification
  @discussion register a notification with a block.
-             the notification observer is own.
+             the notification's observer is own.
              if the returned block receive a observer,the notification will remove when the observer dealloc.
  @code
  self.sk_addNotification(aName,anObject,observer,^(NSNotification* noti){
@@ -63,7 +63,7 @@ typedef void(^SKNotificationBlock)(NSNotification* noti);
 /**
  register a notification
  @discussion register a notification with a block.
-             the notification observer is own.
+             the notification's observer is own.
              if the returned block receive a observer,the notification will remove when the observer dealloc.
  @code
  self.sk_addNotification(aName,anObject,observer,^(NSNotification* noti){

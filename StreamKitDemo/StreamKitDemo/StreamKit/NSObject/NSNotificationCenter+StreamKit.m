@@ -15,6 +15,8 @@
 
 - (NSNotificationCenter*)sK_addEventBlockWithObserver:(id)observer name:(NSNotificationName)aName aObject:(id)anObject block:(id)eventBlock
 {
+    NSParameterAssert(aName);
+    NSParameterAssert(eventBlock);
     /* cache blocks aName<-->blocks_set */
     NSMapTable* blocks_table = objc_getAssociatedObject(self, (__bridge const void*)self);
     if (!blocks_table) {

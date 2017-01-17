@@ -41,10 +41,23 @@ void StreamHookMehtod(Class hookClass,const char* hookMethodName, void(^aspectBl
 
 
 /**
- remove 
+ remove the observer with a keyPath
+ @code
+ self.sk_removeObserverWithKeyPath(keyPath);
+ @endcode
+ 
+ @return a block which receive a keyPath
  */
 - (NSObject*(^)(NSString* keyPath))sk_removeOvserverWithKeyPath;
 
+
+/**
+ remove all observers of an object 
+ @code
+ self.sk_removeAllObserver();
+ @endcode
+
+ */
 - (NSObject*(^)())sk_removeAllObserver;
 
 @end
