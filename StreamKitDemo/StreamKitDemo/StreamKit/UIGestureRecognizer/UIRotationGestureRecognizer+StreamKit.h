@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ Overrides the super's methods.
+ */
 @interface UIRotationGestureRecognizer (StreamSuper)
 
 - (UIRotationGestureRecognizer* (^)(void(^block)(UIRotationGestureRecognizer* recognizer)))sk_addTargetBlock;
@@ -32,8 +35,23 @@
 
 @interface UIRotationGestureRecognizer (StreamKit)
 
+/**
+ Initializes an allocated rotationGesture-recognizer object.
+ @code
+ UIRotationGestureRecognizer* recognizer = UIRotationGestureRecognizer.sk_initWithBlock(^(UIRotationGestureRecognizer* recognizer){
+    your code;
+ });
+ @endcode
+ @return a block which receive an event block.
+ */
 + (UIRotationGestureRecognizer* (^)(void(^block)(UIRotationGestureRecognizer* recognizer)))sk_initWithBlock;
 
+/**
+ Set rotation
+ @code
+ self.sk_rotation(rotation);
+ @endcode
+ */
 - (UIRotationGestureRecognizer* (^)(CGFloat rotation))sk_rotation;
 
 @end

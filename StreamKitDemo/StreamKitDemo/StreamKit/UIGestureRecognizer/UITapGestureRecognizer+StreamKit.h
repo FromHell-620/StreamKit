@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ Overrides the super's methods.
+ */
 @interface UITapGestureRecognizer (StreamSuper)
 
 - (UITapGestureRecognizer* (^)(void(^block)(UITapGestureRecognizer* recognizer)))sk_addTargetBlock;
@@ -32,10 +35,31 @@
 
 @interface UITapGestureRecognizer (StreamKit)
 
+/**
+ Initializes an allocated tapGesture-recognizer object.
+ @code
+ UITapGestureRecognizer* recognizer = UITapGestureRecognizer.sk_initWithBlock(^(UITapGestureRecognizer* recognizer){
+    your code;
+ });
+ @endcode
+ @return a block which receive an event block.
+ */
 + (UITapGestureRecognizer* (^)(void(^block)(UITapGestureRecognizer* recognizer)))sk_initWithBlock;
 
+/**
+ Set numberOfTapsRequired.
+ @code
+ self.sk_numberOfTapsRequired(numberOfTapsRequired);
+ @endcode
+ */
 - (UITapGestureRecognizer* (^)(NSUInteger numberOfTapsRequired))sk_numberOfTapsRequired;
 
+/**
+ Set numberOfTouchesRequired.
+ @code
+ self.sk_numberOfTouchesRequired(numberOfTouchesRequired);
+ @endcode
+ */
 - (UITapGestureRecognizer* (^)(NSUInteger numberOfTouchesRequired))sk_numberOfTouchesRequired;
 
 @end

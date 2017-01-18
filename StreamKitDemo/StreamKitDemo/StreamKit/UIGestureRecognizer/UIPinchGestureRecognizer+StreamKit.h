@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ Overrides the super's methods.
+ */
 @interface UIPinchGestureRecognizer (StreamSuper)
 
 - (UIPinchGestureRecognizer* (^)(void(^block)(UIPinchGestureRecognizer* recognizer)))sk_addTargetBlock;
@@ -32,8 +35,23 @@
 
 @interface UIPinchGestureRecognizer (StreamKit)
 
+/**
+ Initializes an allocated pinchGesture-recognizer object.
+ @code
+ UIPinchGestureRecognizer* recognizer = UIPinchGestureRecognizer.sk_initWithBlock(^(UIPinchGestureRecognizer* recognizer){
+    your code;
+ });
+ @endcode
+ @return a block which receive an event block.
+ */
 + (UIPinchGestureRecognizer* (^)(void(^block)(UIPinchGestureRecognizer* recognizer)))sk_initWithBlock;
 
+/**
+ Set scale
+ @code
+ self.sk_scale(scale);
+ @endcode
+ */
 - (UIPinchGestureRecognizer* (^)(CGFloat scale))sk_scale;
 
 @end

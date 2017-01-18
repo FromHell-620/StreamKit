@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ Overrides the super's methods.
+ */
 @interface UISwipeGestureRecognizer (StreamSuper)
 
 - (UISwipeGestureRecognizer* (^)(void(^block)(UISwipeGestureRecognizer* recognizer)))sk_addTargetBlock;
@@ -32,10 +35,31 @@
 
 @interface UISwipeGestureRecognizer (StreamKit)
 
+/**
+ Initializes an allocated swipeGesture-recognizer object.
+ @code
+ UISwipeGestureRecognizer* recognizer = UISwipeGestureRecognizer.sk_initWithBlock(^(UISwipeGestureRecognizer* recognizer){
+    your code;
+ });
+ @endcode
+ @return a block which receive an event block.
+ */
 + (UISwipeGestureRecognizer* (^)(void(^block)(UISwipeGestureRecognizer* recognizer)))sk_initWithBlock;
 
+/**
+ Set numberOfTouchesRequired.
+ @code
+ self.sk_numberOfTouchesRequired(numberOfTouchesRequired);
+ @endcode
+ */
 - (UISwipeGestureRecognizer* (^)(NSUInteger numberOfTouchesRequired))sk_numberOfTouchesRequired;
 
+/**
+ Set direction.
+ @code
+ self.sk_direction(direction);
+ @endcode
+ */
 - (UISwipeGestureRecognizer* (^)(UISwipeGestureRecognizerDirection direction))sk_direction;
 
 @end

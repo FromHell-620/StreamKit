@@ -73,7 +73,7 @@
     };
 }
 
-- (UIButton* (^)(NSString* title,UIControlState state))sk_setTitel
+- (UIButton* (^)(NSString* title,UIControlState state))sk_setTitle
 {
     return ^ UIButton* (NSString* title,UIControlState state) {
         return ({[self setTitle:title forState:state];self;});
