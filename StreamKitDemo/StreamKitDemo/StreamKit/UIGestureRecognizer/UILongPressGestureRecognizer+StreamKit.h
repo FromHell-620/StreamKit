@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ Overrides the super's methods.
+ */
 @interface UILongPressGestureRecognizer (StreamSuper)
 
 - (UILongPressGestureRecognizer* (^)(void(^block)(UILongPressGestureRecognizer* recognizer)))sk_addTargetBlock;
