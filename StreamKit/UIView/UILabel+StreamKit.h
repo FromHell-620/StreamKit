@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ Overrides the super's methods.
+ */
 @interface UILabel (StreamSuper)
 
 - (UILabel* (^)(NSInteger tag))sk_tag;
@@ -68,32 +71,116 @@
 
 @interface UILabel (StreamKit)
 
+/**
+ Creates a new label by the given frame.
+ @code
+ UILabel* label = UILabel.sk_init(frame);
+ @endcode
+ */
 + (UILabel* (^)(CGRect frame))sk_init;
 
+/**
+ Set text.
+ @code
+ self.sk_text(text);
+ @endcode
+ */
 - (UILabel* (^)(NSString* text))sk_text;
 
+/**
+ Set textColor.
+ @code
+ self.sk_textColor(textColor);
+ @endcode
+ */
 - (UILabel* (^)(UIColor* textColor))sk_textColor;
 
+/**
+ Set font.
+ @code
+ self.sk_fontSize(fontSize);
+ @endcode
+ */
 - (UILabel* (^)(NSInteger fontSize))sk_fontSize;
 
+/**
+ Set font.
+ @code
+ self.sk_font(font);
+ @endcode
+ */
 - (UILabel* (^)(UIFont* font))sk_font;
 
+/**
+ Set textAlignment.
+ @code
+ self.sk_textAlignment(textAlignment);
+ @endcode
+ */
 - (UILabel* (^)(NSTextAlignment textAlignment))sk_textAlignment;
 
+/**
+ Set lineBreakMode.
+ @code
+ self.sk_lineBreakMode(lineBreakMode);
+ @endcode
+ */
 - (UILabel* (^)(NSLineBreakMode lineBreakMode))sk_lineBreakMode;
 
+/**
+ Set attributedString.
+ @code
+ self.sk_attributedString(attributedString);
+ @endcode
+ */
 - (UILabel* (^)(NSAttributedString* attributedString))sk_attributedString;
 
+/**
+ Set numberOfLines.
+ @code
+ self.sk_numberOfLines(numberOfLines);
+ @endcode
+ */
 - (UILabel* (^)(NSInteger numberOfLines))sk_numberOfLines;
 
+/**
+ Set highlightedTextColor.
+ @code
+ self.sk_highlightedTextColor(highlightedTextColor);
+ @endcode
+ */
 - (UILabel* (^)(UIColor* highlightedTextColor))sk_highlightedTextColor;
 
+/**
+ Set highlighted.
+ @code
+ self.sk_highlighted(highlighted);
+ @endcode
+ */
 - (UILabel* (^)(BOOL highlighted))sk_highlighted;
 
+/**
+ Set minimumScaleFactor.
+ @code
+ self.sk_minimumScaleFactor(minimumScaleFactor);
+ @endcode
+ */
 - (UILabel* (^)(CGFloat minimumScaleFactor))sk_minimumScaleFactor;
 
+/**
+ Set adjustsFontSizeToFitWidth.
+ @code
+ self.sk_adjustsFontSizeToFitWidth(adjustsFontSizeToFitWidth);
+ @endcode
+ */
 - (UILabel* (^)(BOOL adjustsFontSizeToFitWidth))sk_adjustsFontSizeToFitWidth;
 
+/**
+ Set baselineAdjustment.
+ @code
+ self.sk_baselineAdjustment(baselineAdjustment);
+ @endcode
+ */
 - (UILabel* (^)(UIBaselineAdjustment baselineAdjustment))sk_baselineAdjustment;
 
 

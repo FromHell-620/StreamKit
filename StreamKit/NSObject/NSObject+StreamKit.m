@@ -65,6 +65,7 @@ void StreamInitializeDelegateMethod(Class cls,const char* protocol_name,const ch
         return;
     }
     Protocol* protocol = objc_getProtocol(protocol_name);
+    NSCParameterAssert(protocol);
     struct objc_method_description desc = protocol_getMethodDescription(protocol, sel, NO, YES);
     IMP imp = NULL;
     char* type = disposeMethodType(desc.types);
@@ -206,6 +207,33 @@ void StreamSetImplementationToDelegateMethod(Class cls,const char* protocol_name
     originalImp = (id(*)(__unsafe_unretained id,SEL))method_setImplementation(class_getInstanceMethod(cls, sel), imp_implementationWithBlock(newImp));
 }
 
+void StreamHookMehtod(Class hookClass,const char* hookMethodName,void(^aspectBlock)(id target))
+{
+    NSCParameterAssert(hookMethodName);
+    SEL hook_method = sel_registerName(hookMethodName);
+    __block void(*original_method)(__unsafe_unretained id,SEL) = NULL;
+    IMP hook_imp = imp_implementationWithBlock(^(id target) {
+        !aspectBlock?:aspectBlock(target);
+        if (!original_method) {
+            struct objc_super super_objc = {
+                .receiver = target,
+#if !defined(__cplusplus)  &&  !__OBJC2__
+                .class = hookClass,
+#else
+                .super_class = class_getSuperclass(hookClass)
+#endif
+            };
+            ((void(*)(void*,SEL))objc_msgSendSuper)(&super_objc,hook_method);
+            return ;
+        }
+        original_method(target,hook_method);
+    });
+    if (!class_addMethod(hookClass, hook_method, hook_imp, "v@:")) {
+        original_method = (void(*)(__unsafe_unretained id,SEL))method_setImplementation(class_getInstanceMethod(hookClass, hook_method), hook_imp);
+    }
+    
+}
+
 @end
 
 static const void* StreamObserverKey = &StreamObserverKey;
@@ -226,29 +254,9 @@ static void* StreamObserverContextKey = &StreamObserverContextKey;
             hookClassCaches = [NSMutableSet set];
         });
         if (![hookClassCaches containsObject:hook_class]) {
-            SEL hook_method = sel_registerName("dealloc");
-            __block void(*original_delloc)(__unsafe_unretained id,SEL) = NULL;
-            id new_delloc = ^(__unsafe_unretained NSObject* target) {
+            StreamHookMehtod(hook_class, "dealloc", ^(NSObject* target){
                 target.sk_removeAllObserver();
-                if (!original_delloc) {
-                    struct objc_super super_objc = {
-                        .receiver = target,
-#if !defined(__cplusplus)  &&  !__OBJC2__
-                        .class = hook_class,
-#else
-                        .super_class = class_getSuperclass(hook_class)
-#endif
-                    };
-                    ((void(*)(void*,SEL))objc_msgSendSuper)(&super_objc,hook_method);
-                    return ;
-                }
-                original_delloc(target,hook_method);
-            };
-            IMP hook_IMP = imp_implementationWithBlock(new_delloc);
-            NSCParameterAssert(hook_IMP);
-            if (!class_addMethod(hook_class, hook_method, hook_IMP, "v@:")) {
-                original_delloc = (void(*)(__unsafe_unretained id,SEL))method_setImplementation(class_getInstanceMethod(hook_class, hook_method), hook_IMP);
-            }
+            });
             [hookClassCaches addObject:hook_class];
         }
         [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:StreamObserverContextKey];
@@ -289,7 +297,9 @@ static void* StreamObserverContextKey = &StreamObserverContextKey;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
     if (context != StreamObserverContextKey) return;
-    
+    NSMutableDictionary* blocks = objc_getAssociatedObject(self, StreamObserverKey);
+    void(^block)(NSDictionary* change) = [blocks objectForKey:keyPath];
+    !block?:block(change);
 }
 
 @end

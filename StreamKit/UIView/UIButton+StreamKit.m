@@ -55,25 +55,25 @@
 - (UIButton* (^)(NSString* title))sk_setTitleNormal
 {
     return ^ UIButton* (NSString* title) {
-        return self.sk_setTitel(title,UIControlStateNormal);
+        return self.sk_setTitle(title,UIControlStateNormal);
     };
 }
 
 - (UIButton* (^)(NSString* title))sk_setTitleHighlight
 {
     return ^ UIButton* (NSString* title) {
-        return self.sk_setTitel(title,UIControlStateHighlighted);
+        return self.sk_setTitle(title,UIControlStateHighlighted);
     };
 }
 
 - (UIButton* (^)(NSString* title))sk_setTitleSelect
 {
     return ^ UIButton* (NSString* title) {
-        return self.sk_setTitel(title,UIControlStateSelected);
+        return self.sk_setTitle(title,UIControlStateSelected);
     };
 }
 
-- (UIButton* (^)(NSString* title,UIControlState state))sk_setTitel
+- (UIButton* (^)(NSString* title,UIControlState state))sk_setTitle
 {
     return ^ UIButton* (NSString* title,UIControlState state) {
         return ({[self setTitle:title forState:state];self;});

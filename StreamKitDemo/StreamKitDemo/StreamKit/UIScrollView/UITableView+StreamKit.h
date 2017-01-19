@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ Overrides the super's methods.
+ */
 @interface UITableView (StreamSuper)
 
 #pragma mark- UIView
@@ -101,56 +104,134 @@
 
 @interface UITableView (StreamKit)
 
+/**
+ Creates a new tableView by the given frame.And the style is 'UITableViewStylePlain'.
+ @code
+ UITableView* tableView = UITableView.sk_initWithFrame(frame);
+ @endcode
+ */
 + (UITableView* (^)(CGRect frame))sk_initWithFrame;
 
+/**
+ Creates a new tableView by the given block which receive a frame and a style.
+ @code
+ UITableView* tableView = UITableView.sk_initWithFrameAndStyle(frame,style);
+ @endcode
+ */
 + (UITableView* (^)(CGRect frame,UITableViewStyle style))sk_initWithFrameAndStyle;
 
+/**
+ Set dataSource.
+ */
 - (UITableView* (^)(id<UITableViewDataSource> dataSource))sk_dataSource;
 
+/**
+ Set delegate.
+ */
 - (UITableView* (^)(id<UITableViewDelegate> delegate))sk_delegate;
 
+/**
+ Set prefetchDataSource.
+ */
 - (UITableView* (^)(id<UITableViewDataSourcePrefetching> prefetchDataSource))sk_prefetchDataSource NS_AVAILABLE_IOS(10_0);
 
+/**
+ Set rowHeight.
+ */
 - (UITableView* (^)(CGFloat rowHeight))sk_rowHeight;
 
+/**
+ Set sectionHeaderHeight.
+ */
 - (UITableView* (^)(CGFloat sectionHeaderHeight))sk_sectionHeaderHeight;
 
+/**
+ Set sectionFooterHeight.
+ */
 - (UITableView* (^)(CGFloat sectionFooterHeight))sk_sectionFooterHeight;
 
+/**
+ Set estimatedRowHeight.
+ */
 - (UITableView* (^)(CGFloat estimatedRowHeight))sk_estimatedRowHeight NS_AVAILABLE_IOS(7_0);
 
+/**
+ Set estimatedSectionHeaderHeight.
+ */
 - (UITableView* (^)(CGFloat estimatedSectionHeaderHeight))sk_estimatedSectionHeaderHeight NS_AVAILABLE_IOS(7_0);
 
+/**
+ Set estimatedSectionFooterHeight.
+ */
 - (UITableView* (^)(CGFloat estimatedSectionFooterHeight))sk_estimatedSectionFooterHeight NS_AVAILABLE_IOS(7_0);
 
+/**
+ Set separatorInset.
+ */
 - (UITableView* (^)(UIEdgeInsets separatorInset))sk_separatorInset NS_AVAILABLE_IOS(7_0);
 
+/**
+ Set backgroundView.
+ */
 - (UITableView* (^)(UIView* backgroundView))sk_backgroundView;
 
+/**
+ Set separatorStyle.
+ */
 - (UITableView* (^)(UITableViewCellSeparatorStyle separatorStyle))sk_separatorStyle;
 
+/**
+ Set tableHeaderView.
+ */
 - (UITableView* (^)(UIView* tableHeaderView))sk_tableHeaderView;
 
+/**
+ Set tableFooterView.
+ */
 - (UITableView* (^)(UIView* tableFooterView))sk_tableFooterView;
 
+/**
+ Register cell with class.
+ */
 - (UITableView* (^)(Class cellClass,NSString* identifier))sk_registerClassForCellReuseIdentifier;
 
+/**
+ Register cell with nib.
+ */
 - (UITableView* (^)(UINib* nib,NSString* identifier))sk_registerNibForCellReuseIdentifier;
 
+/**
+ Register HeaderFooterView with class.
+ */
 - (UITableView* (^)(Class viewClass,NSString* identifier))sk_registerClassForHeaderFooterViewReuseIdentifier;
 
+/**
+ Register HeaderFooterView with nib.
+ */
 - (UITableView* (^)(UINib* nib,NSString* identifier))sk_registerNibForHeaderFooterViewReuseIdentifier;
 
 @end
 
 @interface UITableViewCell (StreamKit)
 
+/**
+ Creates a new tableViewCell.
+ */
 + (UITableViewCell* (^)(UITableViewCellStyle cellStyle,NSString* reuseIdentifier))sk_initWithStyleAndReuseIdentifier;
 
+/**
+ Set selectionStyle.
+ */
 - (UITableViewCell* (^)(UITableViewCellSelectionStyle selectionStyle))sk_selectionStyle;
 
+/**
+ Set accessoryType.
+ */
 - (UITableViewCell* (^)(UITableViewCellAccessoryType accessoryType))sk_accessoryType;
 
+/**
+ Set editingAccessoryType.
+ */
 - (UITableViewCell* (^)(UITableViewCellAccessoryType editingAccessoryType))sk_editingAccessoryType;
 
 @end

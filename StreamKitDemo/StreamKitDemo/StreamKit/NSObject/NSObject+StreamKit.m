@@ -65,6 +65,7 @@ void StreamInitializeDelegateMethod(Class cls,const char* protocol_name,const ch
         return;
     }
     Protocol* protocol = objc_getProtocol(protocol_name);
+    NSCParameterAssert(protocol);
     struct objc_method_description desc = protocol_getMethodDescription(protocol, sel, NO, YES);
     IMP imp = NULL;
     char* type = disposeMethodType(desc.types);

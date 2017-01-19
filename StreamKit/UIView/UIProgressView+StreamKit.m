@@ -66,7 +66,7 @@
     };
 }
 
-- (UIProgressView* (^)(float progress,BOOL animaled))sk_setProgress
+- (UIProgressView* (^)(float progress,BOOL animaled))sk_progressWithAnimaled
 {
     return ^ UIProgressView* (float progress,BOOL animaled) {
         return ({[self setProgress:progress animated:animaled];self;});
