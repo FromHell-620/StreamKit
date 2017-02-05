@@ -1,3 +1,27 @@
-PODFILE CHECKSUM: 5ce0aa52349a175b32d0c503a4d027bb555bfc46
+PODS:
+  - StreamKit (1.2.1):
+    - StreamKit/NSObject (= 1.2.1)
+    - StreamKit/UIGestureRecognizer (= 1.2.1)
+    - StreamKit/UIScrollView (= 1.2.1)
+    - StreamKit/UIView (= 1.2.1)
+    - StreamKit/UIViewController (= 1.2.1)
+  - StreamKit/NSObject (1.2.1)
+  - StreamKit/UIGestureRecognizer (1.2.1):
+    - StreamKit/NSObject
+  - StreamKit/UIScrollView (1.2.1):
+    - StreamKit/NSObject
+    - StreamKit/UIView
+  - StreamKit/UIView (1.2.1):
+    - StreamKit/NSObject
+  - StreamKit/UIViewController (1.2.1):
+    - StreamKit/NSObject
 
-COCOAPODS: 1.2.0.beta.1
+DEPENDENCIES:
+  - StreamKit
+
+SPEC CHECKSUMS:
+  StreamKit: 74a6b17af960716e7ff33ddb4513a46999d6ebe8
+
+PODFILE CHECKSUM: 972764eb922b679e8c6c6334be6947de092ea767
+
+COCOAPODS: 1.1.1

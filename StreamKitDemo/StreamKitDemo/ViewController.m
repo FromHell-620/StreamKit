@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "StreamContentController.h"
-
+#import <StreamKit/StreamKit.h>
 @interface ViewController ()
 
 @end
@@ -18,11 +18,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        StreamContentController* vc = [StreamContentController new];
-        [self presentViewController:vc animated:YES completion:nil];
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.sk_frame(CGRectMake(100, 100, 100, 100))
+    .sk_setTitleNormal(@"lihao").sk_setTitleColorNormal([UIColor redColor])
+    .sk_setFontSize(15)
+    .sk_addEventBlock(UIControlEventTouchDown,^(UIButton* button){
+        
+    }).sk_addEventBlock(UIControlEventTouchUpInside,^(UIButton* button){
+        
     });
-    
+    [self.view addSubview:button];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
