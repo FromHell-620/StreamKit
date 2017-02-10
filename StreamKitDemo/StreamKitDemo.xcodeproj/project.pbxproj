@@ -12,10 +12,7 @@
 		7416AAAE1E121B0C00A970A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7416AA6E1E121B0C00A970A3 /* LaunchScreen.storyboard */; };
 		7416AAAF1E121B0C00A970A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7416AA701E121B0C00A970A3 /* Main.storyboard */; };
 		7416AAB11E121B0C00A970A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416AA731E121B0C00A970A3 /* main.m */; };
-		7416AAB21E121B0C00A970A3 /* StreamContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416AA751E121B0C00A970A3 /* StreamContentController.m */; };
 		7416AACC1E121B0C00A970A3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416AAAB1E121B0C00A970A3 /* ViewController.m */; };
-		74A2941A1E26247300DFBEB7 /* BaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A294191E26247300DFBEB7 /* BaseController.m */; };
-		74A2941D1E262F3700DFBEB7 /* OneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A2941C1E262F3700DFBEB7 /* OneController.m */; };
 		C3E73CBF94C220E3528C6998 /* libPods-StreamKitDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B378167200FBC5A990C676 /* libPods-StreamKitDemo.a */; };
 		C9B62B8F1E06BE0400920035 /* StreamKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B8E1E06BE0400920035 /* StreamKitTests.m */; };
 		C9B62B9A1E06BE0400920035 /* StreamKitUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B991E06BE0400920035 /* StreamKitUITests.m */; };
@@ -47,15 +44,8 @@
 		7416AA711E121B0C00A970A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7416AA721E121B0C00A970A3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7416AA731E121B0C00A970A3 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7416AA741E121B0C00A970A3 /* StreamContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamContentController.h; sourceTree = "<group>"; };
-		7416AA751E121B0C00A970A3 /* StreamContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamContentController.m; sourceTree = "<group>"; };
 		7416AAAA1E121B0C00A970A3 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		7416AAAB1E121B0C00A970A3 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		746F68C81E23320D007174E5 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		74A294181E26247300DFBEB7 /* BaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseController.h; sourceTree = "<group>"; };
-		74A294191E26247300DFBEB7 /* BaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseController.m; sourceTree = "<group>"; };
-		74A2941B1E262F3700DFBEB7 /* OneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneController.h; sourceTree = "<group>"; };
-		74A2941C1E262F3700DFBEB7 /* OneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneController.m; sourceTree = "<group>"; };
 		C2B74F3A9131EAA4C24F954E /* Pods-StreamKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamKitDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreamKitDemo/Pods-StreamKitDemo.release.xcconfig"; sourceTree = "<group>"; };
 		C9B62B711E06BE0400920035 /* StreamKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreamKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B62B8A1E06BE0400920035 /* StreamKitDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StreamKitDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,15 +110,8 @@
 				7416AA701E121B0C00A970A3 /* Main.storyboard */,
 				7416AA721E121B0C00A970A3 /* Info.plist */,
 				7416AA731E121B0C00A970A3 /* main.m */,
-				74A2941B1E262F3700DFBEB7 /* OneController.h */,
-				74A2941C1E262F3700DFBEB7 /* OneController.m */,
-				74A294181E26247300DFBEB7 /* BaseController.h */,
-				74A294191E26247300DFBEB7 /* BaseController.m */,
-				7416AA741E121B0C00A970A3 /* StreamContentController.h */,
-				7416AA751E121B0C00A970A3 /* StreamContentController.m */,
 				7416AAAA1E121B0C00A970A3 /* ViewController.h */,
 				7416AAAB1E121B0C00A970A3 /* ViewController.m */,
-				746F68C81E23320D007174E5 /* PrefixHeader.pch */,
 			);
 			path = StreamKitDemo;
 			sourceTree = "<group>";
@@ -358,11 +341,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7416AACC1E121B0C00A970A3 /* ViewController.m in Sources */,
-				7416AAB21E121B0C00A970A3 /* StreamContentController.m in Sources */,
-				74A2941D1E262F3700DFBEB7 /* OneController.m in Sources */,
 				7416AAB11E121B0C00A970A3 /* main.m in Sources */,
 				7416AAAC1E121B0C00A970A3 /* AppDelegate.m in Sources */,
-				74A2941A1E26247300DFBEB7 /* BaseController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
