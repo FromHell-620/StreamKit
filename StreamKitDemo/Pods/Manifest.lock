@@ -1,26 +1,26 @@
 PODS:
-  - StreamKit (1.2.2):
-    - StreamKit/NSObject (= 1.2.2)
-    - StreamKit/UIGestureRecognizer (= 1.2.2)
-    - StreamKit/UIScrollView (= 1.2.2)
-    - StreamKit/UIView (= 1.2.2)
-    - StreamKit/UIViewController (= 1.2.2)
-  - StreamKit/NSObject (1.2.2)
-  - StreamKit/UIGestureRecognizer (1.2.2):
+  - StreamKit (1.2.3):
+    - StreamKit/NSObject (= 1.2.3)
+    - StreamKit/UIGestureRecognizer (= 1.2.3)
+    - StreamKit/UIScrollView (= 1.2.3)
+    - StreamKit/UIView (= 1.2.3)
+    - StreamKit/UIViewController (= 1.2.3)
+  - StreamKit/NSObject (1.2.3)
+  - StreamKit/UIGestureRecognizer (1.2.3):
     - StreamKit/NSObject
-  - StreamKit/UIScrollView (1.2.2):
+  - StreamKit/UIScrollView (1.2.3):
     - StreamKit/NSObject
     - StreamKit/UIView
-  - StreamKit/UIView (1.2.2):
+  - StreamKit/UIView (1.2.3):
     - StreamKit/NSObject
-  - StreamKit/UIViewController (1.2.2):
+  - StreamKit/UIViewController (1.2.3):
     - StreamKit/NSObject
 
 DEPENDENCIES:
   - StreamKit
 
 SPEC CHECKSUMS:
-  StreamKit: 8739b77711d3e3180f3dba0377646c837d306047
+  StreamKit: 4624626a50fc5b122f568426a602504f2d740fa2
 
 PODFILE CHECKSUM: 972764eb922b679e8c6c6334be6947de092ea767
 
