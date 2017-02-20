@@ -159,7 +159,6 @@ void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* pro
         });
     }
     free(type);
-    imp= NULL;
     if (imp) {
         class_addMethod(cls, desc.name, imp, desc.types);
     }

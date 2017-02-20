@@ -63,17 +63,17 @@
     /*
      NSNotification
      */
-//    NSNotificationCenter* defaultNotification = [NSNotificationCenter defaultCenter];
-//    defaultNotification.sk_addNotification(UITextFieldTextDidChangeNotification,^(NSNotification* noti){
-//    
-//    })
-//    .sk_addNotification(UITextFieldTextDidEndEditingNotification,^(NSNotification* noti){
-//    
-//    });
+    NSNotificationCenter* defaultNotification = [NSNotificationCenter defaultCenter];
+    defaultNotification.sk_addNotification(UITextFieldTextDidChangeNotification,^(NSNotification* noti){
+    
+    })
+    .sk_addNotification(UITextFieldTextDidEndEditingNotification,^(NSNotification* noti){
+    
+    });
     
     UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(100, 100, 300, 30)];
     textView.sk_text(@"aaa").sk_textColor([UIColor redColor]).sk_textViewDidChange(^(UITextView* textView){
-    
+        NSLog(@"aaa");
     });
     [self.view addSubview:textView];
     // Do any additional setup after loading the view, typically from a nib.
