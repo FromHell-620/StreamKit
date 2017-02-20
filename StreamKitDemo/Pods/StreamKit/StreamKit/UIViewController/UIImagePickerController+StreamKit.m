@@ -134,7 +134,7 @@
                                                @"imagePickerControllerDidCancel:":@"sk_imagePickerControllerDidCancel"
                                                };
     [streamMethodsAndProtocol enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
-        StreamSetImplementationToDelegateMethod(self, "UIImagePickerControllerDelegate", obj.UTF8String, key.UTF8String);
+        StreamSetImplementationToDelegateMethod(self, @protocol(UIImagePickerControllerDelegate), obj.UTF8String, key.UTF8String);
     }];
 }
 

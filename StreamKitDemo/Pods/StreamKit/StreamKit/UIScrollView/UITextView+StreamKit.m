@@ -167,7 +167,7 @@
                                                @"textViewDidChangeSelection:":@"sk_textViewDidChangeSelection"
                                                };
     [streamMethodsAndProtocol enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
-        StreamSetImplementationToDelegateMethod(self, "UITextViewDelegate", obj.UTF8String, key.UTF8String);
+        StreamSetImplementationToDelegateMethod(self, @protocol(UITextViewDelegate), obj.UTF8String, key.UTF8String);
     }];
 }
 

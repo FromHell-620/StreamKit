@@ -21,7 +21,7 @@
     NSMapTable* blocks_table = objc_getAssociatedObject(self, (__bridge const void*)self);
     if (!blocks_table) {
         blocks_table = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsCopyIn valueOptions:NSPointerFunctionsStrongMemory];
-        objc_setAssociatedObject(self, (__bridge const void*)self, eventBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+        objc_setAssociatedObject(self, (__bridge const void*)self, blocks_table, OBJC_ASSOCIATION_COPY_NONATOMIC);
     }
     NSMutableSet* blocks_set = [blocks_table objectForKey:aName];
     if (!blocks_set) {

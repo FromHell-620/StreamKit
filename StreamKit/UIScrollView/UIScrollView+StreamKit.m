@@ -183,7 +183,7 @@
                                 @"scrollViewDidScrollToTop:":@"sk_scrollViewDidScrollToTop"
                                 };
     [streamMethodAndProtocol enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
-        StreamSetImplementationToDelegateMethod(objc_getClass("UIScrollView"), "UIScrollViewDelegate", obj.UTF8String, key.UTF8String);
+        StreamSetImplementationToDelegateMethod(objc_getClass("UIScrollView"), @protocol(UIScrollViewDelegate), obj.UTF8String, key.UTF8String);
     }];
 }
 

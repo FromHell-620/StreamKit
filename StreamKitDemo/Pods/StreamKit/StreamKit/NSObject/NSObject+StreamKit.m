@@ -56,16 +56,14 @@ FOUNDATION_STATIC_INLINE const char* compatibility_type(const char* type) {
 #endif
 }
 
-void StreamInitializeDelegateMethod(Class cls,const char* protocol_name,const char* protocol_method_name,const void* AssociatedKey)
+void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* protocol_method_name,const void* AssociatedKey)
 {
-    NSCParameterAssert(protocol_name);
+    NSCParameterAssert(protocol);
     NSCParameterAssert(protocol_method_name);
     SEL sel = sel_registerName(protocol_method_name);
     if (class_getInstanceMethod(cls, sel)) {
         return;
     }
-    Protocol* protocol = objc_getProtocol(protocol_name);
-    NSCParameterAssert(protocol);
     struct objc_method_description desc = protocol_getMethodDescription(protocol, sel, NO, YES);
     IMP imp = NULL;
     char* type = disposeMethodType(desc.types);
@@ -161,6 +159,7 @@ void StreamInitializeDelegateMethod(Class cls,const char* protocol_name,const ch
         });
     }
     free(type);
+    imp= NULL;
     if (imp) {
         class_addMethod(cls, desc.name, imp, desc.types);
     }
@@ -193,14 +192,14 @@ void StreamDataSourceBindBlock(SEL method,NSObject* dataSourceObject,id block)
     objc_setAssociatedObject(dataSourceObject, method, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-void StreamSetImplementationToDelegateMethod(Class cls,const char* protocol_name,const char* method_name,const char* protocol_method_name)
+void StreamSetImplementationToDelegateMethod(Class cls,Protocol* protocol,const char* method_name,const char* protocol_method_name)
 {
     NSCParameterAssert(method_name);
     NSCParameterAssert(protocol_method_name);
     SEL sel = sel_registerName(method_name);
     __block id (*originalImp)(__unsafe_unretained id ,SEL) = NULL;
     id (^newImp)(__unsafe_unretained id target) = ^ id (__unsafe_unretained id target){
-        StreamInitializeDelegateMethod(cls, protocol_name, protocol_method_name, sel_getUid(method_name));
+        StreamInitializeDelegateMethod(cls, protocol, protocol_method_name, sel_getUid(method_name));
         if (originalImp) return originalImp(target,sel);
         else return nil;
     };

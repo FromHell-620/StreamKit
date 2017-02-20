@@ -119,7 +119,7 @@ UIKIT_STATIC_INLINE NSDictionary* StreamMethodAndProtocol()
 + (void)load
 {
     [StreamMethodAndProtocol() enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
-        StreamSetImplementationToDelegateMethod(objc_getClass("UIGestureRecognizer"), "UIGestureRecognizerDelegate", obj.UTF8String, key.UTF8String);
+        StreamSetImplementationToDelegateMethod(objc_getClass("UIGestureRecognizer"), @protocol(UIGestureRecognizerDelegate), obj.UTF8String, key.UTF8String);
     }];
 }
 

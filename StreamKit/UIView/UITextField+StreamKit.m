@@ -206,7 +206,7 @@ UIKIT_STATIC_INLINE NSDictionary* StreamMethodAndProtocol()
 + (void)load
 {
     [StreamMethodAndProtocol() enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
-        StreamSetImplementationToDelegateMethod(objc_getClass("UITextField"), "UITextFieldDelegate", obj.UTF8String, key.UTF8String);
+        StreamSetImplementationToDelegateMethod(objc_getClass("UITextField"), @protocol(UITextFieldDelegate), obj.UTF8String, key.UTF8String);
     }];
 }
 

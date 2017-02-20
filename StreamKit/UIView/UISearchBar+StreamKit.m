@@ -167,7 +167,7 @@
                                 };
     
     [streamMethodAndProtocol enumerateKeysAndObjectsUsingBlock:^(NSString*  _Nonnull key, NSString*  _Nonnull obj, BOOL * _Nonnull stop) {
-        StreamSetImplementationToDelegateMethod(self, "UISearchBarDelegate", obj.UTF8String, key.UTF8String);
+        StreamSetImplementationToDelegateMethod(self, @protocol(UISearchBarDelegate), obj.UTF8String, key.UTF8String);
     }];
 }
 

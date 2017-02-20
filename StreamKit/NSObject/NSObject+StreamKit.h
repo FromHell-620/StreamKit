@@ -12,13 +12,13 @@ typedef IMP (*implementation)(const struct objc_method_description method_desc);
 
 @interface NSObject (StreamProtocol)
 
-void StreamInitializeDelegateMethod(Class cls,const char* protocol_name,const char* protocol_method_name,const void* AssociatedKey);
+void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* protocol_method_name,const void* AssociatedKey);
 
 void StreamDelegateBindBlock(SEL method,NSObject* delegateObject,id block);
 
 void StreamDataSourceBindBlock(SEL method,NSObject* dataSourceObject,id block);
 
-void StreamSetImplementationToDelegateMethod(Class cls,const char* protocol_name,const char* method_name,const char* protocol_method_name);
+void StreamSetImplementationToDelegateMethod(Class cls,Protocol* protocol,const char* method_name,const char* protocol_method_name);
 
 void StreamHookMehtod(Class hookClass,const char* hookMethodName, void(^aspectBlock)(id target));
 

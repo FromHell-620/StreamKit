@@ -53,25 +53,7 @@
     /*
      delegate block
      */
-    UITextField* textField = UITextField.sk_init(CGRectZero)
-                             .sk_textColor([UIColor blackColor])
-                             .sk_fontSize(15)
-                             .sk_placeholder(@"begin")
-                             .sk_addEventBlock(UIControlEventEditingChanged,^(UITextField* textField){
-    
-                              })
-                             .sk_textFieldShouldReturn(^BOOL(UITextField* textField){
-                                 return YES;
-                             })
-                             .sk_textFieldShouldBeginEditing(^BOOL(UITextField* textField){
-                                 return YES;
-                             })
-                             .sk_textFieldShouldChangeCharactersInRange(^BOOL(UITextField* textField,NSRange range,NSString* string){
-                                 return YES;
-                             });
-    [self.view addSubview:textField];
-    
-    /*
+        /*
      KVO
      */
     label.sk_addObserverWithKeyPath(@"text",^(NSDictionary* change){
@@ -81,13 +63,19 @@
     /*
      NSNotification
      */
-    NSNotificationCenter* defaultNotification = [NSNotificationCenter defaultCenter];
-    defaultNotification.sk_addNotification(UITextFieldTextDidChangeNotification,^(NSNotification* noti){
+//    NSNotificationCenter* defaultNotification = [NSNotificationCenter defaultCenter];
+//    defaultNotification.sk_addNotification(UITextFieldTextDidChangeNotification,^(NSNotification* noti){
+//    
+//    })
+//    .sk_addNotification(UITextFieldTextDidEndEditingNotification,^(NSNotification* noti){
+//    
+//    });
     
-    })
-    .sk_addNotification(UITextFieldTextDidEndEditingNotification,^(NSNotification* noti){
+    UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(100, 100, 300, 30)];
+    textView.sk_text(@"aaa").sk_textColor([UIColor redColor]).sk_textViewDidChange(^(UITextView* textView){
     
     });
+    [self.view addSubview:textView];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
