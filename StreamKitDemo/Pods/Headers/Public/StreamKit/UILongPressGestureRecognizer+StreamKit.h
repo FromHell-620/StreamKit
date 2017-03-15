@@ -1,1 +1,0 @@
-../../../StreamKit/StreamKit/UIGestureRecognizer/UILongPressGestureRecognizer+StreamKit.h

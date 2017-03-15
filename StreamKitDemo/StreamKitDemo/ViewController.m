@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import <StreamKit/StreamKit.h>
+#import "StreamKit.h"
 @interface ViewController ()
 
 @end

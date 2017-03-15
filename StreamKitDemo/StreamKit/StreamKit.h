@@ -9,7 +9,7 @@
 #ifndef StreamKit_h
 #define StreamKit_h
 
-
+#import "StreamMacros.h"
 #pragma mark- NSObject
 #import "NSObject+StreamKit.h"
 #import "UIAlertAction+StreamKit.h"
