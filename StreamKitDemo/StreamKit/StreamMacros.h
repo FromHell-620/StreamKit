@@ -63,13 +63,17 @@ typedef void(^KVOCallback)(NSDictionary* change);
  return @"path"
 */
 #define sk_keypath(...) \
-    SK_PASTEARG2(sk_keypath,sk_argcount(__VA_ARGS__))
+    SK_PASTEARG2(sk_keypath,sk_argcount(__VA_ARGS__)) \
+    (((void)NO && sk_keypath1(__VA_ARGS__)),NO) \
+    (((void)NO && sk_keypath2(__VA_ARGS__)),NO)
 
 #define sk_keypath1(path) \
-    ((void)(NO && ((void)path,NO)),strchr(# path,.)+1)
+    ((void)(NO && ((void)path,NO)),strchr(# path,'.')+1)
 
 #define sk_keypath2(obj,path) \
     ((void)(NO && ((void)obj.path,NO)),# path)
+
+#define SKObserverKeypath(keypath,block) \
 
 
 

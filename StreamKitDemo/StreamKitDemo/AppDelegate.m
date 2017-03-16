@@ -18,6 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+//    sk_keypath1(self.canBecomeFirstResponder)
+//    sk_keypath2(self, canBecomeFirstResponder);
     return YES;
 }
 
