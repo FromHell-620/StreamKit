@@ -53,7 +53,23 @@ typedef void(^KVOCallback)(NSDictionary* change);
 
 
 #define sk_classify(Class) \
-    (void)(NO&&((void)[Class class],NO))
+    ((void)(NO&&((void)[Class class],NO)))
+
+
+/*
+ example:
+ @sk_keypath(self.path);
+ @sk_keypath(self,path);
+ return @"path"
+*/
+#define sk_keypath(...) \
+    SK_PASTEARG2(sk_keypath,sk_argcount(__VA_ARGS__))
+
+#define sk_keypath1(path) \
+    ((void)(NO && ((void)path,NO)),strchr(# path,.)+1)
+
+#define sk_keypath2(obj,path) \
+    ((void)(NO && ((void)obj.path,NO)),# path)
 
 
 
