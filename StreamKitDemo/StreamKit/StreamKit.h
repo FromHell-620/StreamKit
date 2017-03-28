@@ -9,7 +9,10 @@
 #ifndef StreamKit_h
 #define StreamKit_h
 
-#import "StreamMacros.h"
+#import "SKMetaMarco.h"
+#import "SKKeyPathMarco.h"
+#import "SKObjectifyMarco.h"
+
 #pragma mark- NSObject
 #import "NSObject+StreamKit.h"
 #import "UIAlertAction+StreamKit.h"

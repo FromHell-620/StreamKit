@@ -20,6 +20,7 @@
     // Override point for customization after application launch.
 //    sk_keypath1(self.canBecomeFirstResponder)
 //    sk_keypath2(self, canBecomeFirstResponder);
+    [self addObserver:self forKeyPath:@sk_keypath(self.canBecomeFirstResponder) options:NSKeyValueObservingOptionNew context:nil];
     return YES;
 }
 

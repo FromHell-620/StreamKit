@@ -126,7 +126,9 @@
 		C91514111E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+StreamKit.m"; sourceTree = "<group>"; };
 		C91514121E7679F800BFBCE5 /* UIPageViewController+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPageViewController+StreamKit.h"; sourceTree = "<group>"; };
 		C91514131E7679F800BFBCE5 /* UIPageViewController+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPageViewController+StreamKit.m"; sourceTree = "<group>"; };
-		C915142E1E769B6C00BFBCE5 /* StreamMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamMacros.h; sourceTree = "<group>"; };
+		C981B1F51E8A40230057425D /* SKMetaMarco.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKMetaMarco.h; sourceTree = "<group>"; };
+		C981B1F61E8A43E70057425D /* SKKeyPathMarco.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKKeyPathMarco.h; sourceTree = "<group>"; };
+		C981B20E1E8A51820057425D /* SKObjectifyMarco.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKObjectifyMarco.h; sourceTree = "<group>"; };
 		C9B62B711E06BE0400920035 /* StreamKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreamKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B62B8A1E06BE0400920035 /* StreamKitDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StreamKitDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B62B8E1E06BE0400920035 /* StreamKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StreamKitTests.m; sourceTree = "<group>"; };
@@ -200,7 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				C91513E11E7679F800BFBCE5 /* StreamKit.h */,
-				C915142E1E769B6C00BFBCE5 /* StreamMacros.h */,
+				C981B1F41E8A40030057425D /* Marco */,
 				C91513DA1E7679F800BFBCE5 /* NSObject */,
 				C91513E21E7679F800BFBCE5 /* UIGestureRecognizer */,
 				C91513F11E7679F800BFBCE5 /* UIScrollView */,
@@ -295,6 +297,16 @@
 				C91514131E7679F800BFBCE5 /* UIPageViewController+StreamKit.m */,
 			);
 			path = UIViewController;
+			sourceTree = "<group>";
+		};
+		C981B1F41E8A40030057425D /* Marco */ = {
+			isa = PBXGroup;
+			children = (
+				C981B1F51E8A40230057425D /* SKMetaMarco.h */,
+				C981B1F61E8A43E70057425D /* SKKeyPathMarco.h */,
+				C981B20E1E8A51820057425D /* SKObjectifyMarco.h */,
+			);
+			path = Marco;
 			sourceTree = "<group>";
 		};
 		C9B62B681E06BE0300920035 = {
