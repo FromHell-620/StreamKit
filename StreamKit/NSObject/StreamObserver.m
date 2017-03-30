@@ -49,9 +49,4 @@
     });
 }
 
-- (void)dealloc
-{
-    NSLog(@"delloc %@==============",self.name);
-}
-
 @end
