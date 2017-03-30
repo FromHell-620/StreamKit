@@ -61,7 +61,7 @@ static const void* block_key = &block_key;
                 IMP imp = imp_implementationWithBlock(^(id target,__kindof UIControl* control) {
                     NSMapTable* cacheBlocks = objc_getAssociatedObject(self, (__bridge const void *)target);
                     char* event_name = strdup(sel_getName(invoke_name));
-                    void(^block)(id sender) = [cacheBlocks objectForKey:@(strtoul(event_name, NULL, 0))];
+                    void(^block)(id) = [cacheBlocks objectForKey:@(strtoul(event_name, NULL, 0))];
                     free(event_name);
                     if (block) block(control);
                 });

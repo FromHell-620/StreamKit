@@ -14,6 +14,7 @@
 #import "SKObjectifyMarco.h"
 
 #pragma mark- NSObject
+#import "StreamObserver.h"
 #import "NSObject+StreamKit.h"
 #import "UIAlertAction+StreamKit.h"
 #import "NSNotificationCenter+StreamKit.h"

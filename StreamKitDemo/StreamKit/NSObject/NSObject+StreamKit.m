@@ -69,7 +69,7 @@ void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* pro
     IMP imp = NULL;
     char* type = disposeMethodType(desc.types);
     if (strcasecmp(type, compatibility_type("B@:@")) == 0) {
-        imp = imp_implementationWithBlock(^BOOL(id target,id param) {
+        imp = imp_implementationWithBlock(^BOOL( id target,id param) {
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
                 return sk_objcmsgSend(BOOL(*)(id,SEL,id),target,desc.name,param);
@@ -211,7 +211,7 @@ void StreamHookMehtod(Class hookClass,const char* hookMethodName,void(^aspectBlo
     NSCParameterAssert(hookMethodName);
     SEL hook_method = sel_registerName(hookMethodName);
     __block void(*original_method)(__unsafe_unretained id,SEL) = NULL;
-    IMP hook_imp = imp_implementationWithBlock(^(id target) {
+    IMP hook_imp = imp_implementationWithBlock(^(__unsafe_unretained id target) {
         !aspectBlock?:aspectBlock(target);
         if (!original_method) {
             struct objc_super super_objc = {
@@ -258,6 +258,7 @@ static void* StreamObserverContextKey = &StreamObserverContextKey;
             });
             [hookClassCaches addObject:hook_class];
         }
+        
         [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:StreamObserverContextKey];
         NSMutableDictionary* blocks = objc_getAssociatedObject(self, StreamObserverKey);
         if (!blocks) {

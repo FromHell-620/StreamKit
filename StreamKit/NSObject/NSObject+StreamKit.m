@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+StreamKit.h"
+#import "SKObjectifyMarco.h"
 #import <UIKit/UIKit.h>
 @import ObjectiveC.runtime;
 @import ObjectiveC.message;
@@ -68,93 +69,93 @@ void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* pro
     IMP imp = NULL;
     char* type = disposeMethodType(desc.types);
     if (strcasecmp(type, compatibility_type("B@:@")) == 0) {
-        imp = imp_implementationWithBlock(^BOOL(id target,id param) {
+        imp = imp_implementationWithBlock(^BOOL( id target,id param) {
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                return ((BOOL(*)(id,SEL,id))objc_msgSend)(target,desc.name,param);
+                return sk_objcmsgSend(BOOL(*)(id,SEL,id),target,desc.name,param);
             }
-            BOOL(^block)(id object) = objc_getAssociatedObject(target, AssociatedKey);
+            BOOL(^block)(id) = objc_getAssociatedObject(target, AssociatedKey);
             return !block?YES:block(param);
         });
     }else if (strcasecmp(type, compatibility_type("v@:@")) == 0) {
         imp = imp_implementationWithBlock(^(id target,id param) {
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                ((void(*)(id,SEL,id))objc_msgSend)(target,desc.name,param);
+                sk_objcmsgSend(void(*)(id,SEL,id),target,desc.name,param);
             }
-            void(^block)(id object) = objc_getAssociatedObject(target, AssociatedKey);
-            block(param);
+            void(^block)(id) = objc_getAssociatedObject(target, AssociatedKey);
+            !block?:block(param);
         });
     }else if (strcasecmp(type, compatibility_type("v@:@q")) == 0) {
         imp = imp_implementationWithBlock(^(id target,id param,long l){
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                ((void(*)(id,SEL,id,long))objc_msgSend)(target,desc.name,param,l);
+                sk_objcmsgSend(void(*)(id,SEL,id,long),target,desc.name,param,l);
             }
-            void(^block)(id object,long l) = objc_getAssociatedObject(target, AssociatedKey);
-            block(param,l);
+            void(^block)(id,long) = objc_getAssociatedObject(target, AssociatedKey);
+            !block?:block(param,l);
         });
     }else if (strcasecmp(type, compatibility_type("B@:@{_NSRange=QQ}@")) == 0) {
         imp = imp_implementationWithBlock(^BOOL(id target,id param1,NSRange range,id param2){
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                return ((BOOL(*)(id,SEL,id,NSRange,id))objc_msgSend)(target,desc.name,param1,range,param2);
+                return sk_objcmsgSend(BOOL(*)(id,SEL,id,NSRange,id),target,desc.name,param1,range,param2);
             }
-            BOOL(^block)(id object1,NSRange range,id object2) = objc_getAssociatedObject(target, AssociatedKey);
+            BOOL(^block)(id,NSRange,id) = objc_getAssociatedObject(target, AssociatedKey);
             return !block?YES:block(param1,range,param2);
         });
     }else if (strcasecmp(type, compatibility_type("v@:@{CGPoint=dd}N^{CGPoint=dd}")) == 0) {
         imp = imp_implementationWithBlock(^(id target,id param,CGPoint point1,CGPoint* point2) {
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                ((void(*)(id,SEL,id,CGPoint,CGPoint*))objc_msgSend)(target,desc.name,param,point1,point2);
+                sk_objcmsgSend(void(*)(id,SEL,id,CGPoint,CGPoint*),target,desc.name,param,point1,point2);
             }
-            void(^block)(id object,CGPoint point1,CGPoint* point2) = objc_getAssociatedObject(target, AssociatedKey);
+            void(^block)(id,CGPoint,CGPoint*) = objc_getAssociatedObject(target, AssociatedKey);
             block(param,point1,point2);
         });
     }else if (strcasecmp(type, compatibility_type("v@:@B")) == 0) {
         imp = imp_implementationWithBlock(^(id target,id param,BOOL b){
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                ((void(*)(id,SEL,id,BOOL))objc_msgSend)(target,desc.name,param,b);
+                sk_objcmsgSend(void(*)(id,SEL,id,BOOL),target,desc.name,param,b);
             }
-            void(^block)(id object,BOOL b) = objc_getAssociatedObject(target, AssociatedKey);
-            block(param,b);
+            void(^block)(id,BOOL) = objc_getAssociatedObject(target, AssociatedKey);
+            !block?:block(param,b);
         });
     }else if (strcasecmp(type, compatibility_type("@@:@")) == 0) {
         imp = imp_implementationWithBlock(^id(id target,id param) {
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-               return ((id(*)(id,SEL,id))objc_msgSend)(target,desc.name,param);
+                return sk_objcmsgSend(id(*)(id,SEL,id),target,desc.name,param);
             }
-            id(^block)(id object) = objc_getAssociatedObject(target, AssociatedKey);
+            id(^block)(id) = objc_getAssociatedObject(target, AssociatedKey);
             return !block?nil:block(param);
         });
     }else if (strcasecmp(type, compatibility_type("v@:@@")) == 0) {
         imp = imp_implementationWithBlock(^(id target,id param1,id param2){
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                ((void(*)(id,SEL,id,id))objc_msgSend)(target,desc.name,param1,param2);
+                sk_objcmsgSend(void(*)(id,SEL,id,id),target,desc.name,param1,param2);
             }
-            id(^block)(id object1,id object2) = objc_getAssociatedObject(target, AssociatedKey);
-            block(param1,param2);
+            void(^block)(id,id) = objc_getAssociatedObject(target, AssociatedKey);
+            !block?:block(param1,param2);
         });
     }else if (strcasecmp(type, compatibility_type("v@:@@d")) == 0) {
         imp = imp_implementationWithBlock(^(id target,id param,float f) {
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                ((void(*)(id,SEL,id,float))objc_msgSend)(target,desc.name,param,f);
+                sk_objcmsgSend(void(*)(id,SEL,id,float),target,desc.name,param,f);
             }
-            id(^block)(id object1,float f) = objc_getAssociatedObject(target, AssociatedKey);
-            block(param,f);
+            void(^block)(id,float) = objc_getAssociatedObject(target, AssociatedKey);
+            !block?:block(param,f);
         });
     }else if (strcasecmp(type, compatibility_type("B@:@@")) == 0) {
         imp = imp_implementationWithBlock(^BOOL(id target,id param1,id param2) {
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                return ((BOOL(*)(id,SEL,id,id))objc_msgSend)(target,desc.name,param1,param2);
+                return sk_objcmsgSend(BOOL(*)(id,SEL,id,id),target,desc.name,param1,param2);
             }
-            BOOL(^block)(id object1,id object2) = objc_getAssociatedObject(target, AssociatedKey);
+            BOOL(^block)(id,id) = objc_getAssociatedObject(target, AssociatedKey);
             return !block?YES:block(param1,param2);
         });
     }
@@ -169,10 +170,10 @@ void StreamDelegateBindBlock(SEL method,NSObject* delegateObject,id block)
     NSCParameterAssert((__bridge const void*)delegateObject);
     NSCParameterAssert((__bridge const void*)block);
     SEL get_delegate_sel = sel_registerName("delegate");
-    id realDelegate = ((id(*)(id,SEL))objc_msgSend)(delegateObject,get_delegate_sel);
+    id realDelegate = sk_objcmsgSend(id(*)(id,SEL),delegateObject,get_delegate_sel);
     if (realDelegate != delegateObject) {
         SEL set_delegate_sel = sel_registerName("setDelegate:");
-        ((void(*)(id,SEL,id))objc_msgSend)(delegateObject,set_delegate_sel,delegateObject);
+        sk_objcmsgSend(void(*)(id,SEL,id),delegateObject,set_delegate_sel,delegateObject);
         objc_setAssociatedObject(delegateObject, (__bridge const void*)delegateObject, realDelegate, OBJC_ASSOCIATION_ASSIGN);
     }
     objc_setAssociatedObject(delegateObject, method, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
@@ -183,10 +184,10 @@ void StreamDataSourceBindBlock(SEL method,NSObject* dataSourceObject,id block)
     NSCParameterAssert((__bridge const void*)dataSourceObject);
     NSCParameterAssert((__bridge const void*)block);
     SEL get_dataSource_sel = sel_registerName("dataSource");
-    id realDataSource = ((id(*)(id,SEL))objc_msgSend)(dataSourceObject,get_dataSource_sel);
+    id realDataSource = sk_objcmsgSend(id(*)(id,SEL),dataSourceObject,get_dataSource_sel);
     if (realDataSource != dataSourceObject) {
         SEL set_dataSource_sel = sel_registerName("setDataSource:");
-        ((void(*)(id,SEL,id))objc_msgSend)(dataSourceObject,set_dataSource_sel,dataSourceObject);
+        sk_objcmsgSend(void(*)(id,SEL,id),dataSourceObject,set_dataSource_sel,dataSourceObject);
     }
     objc_setAssociatedObject(dataSourceObject, method, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
@@ -210,7 +211,7 @@ void StreamHookMehtod(Class hookClass,const char* hookMethodName,void(^aspectBlo
     NSCParameterAssert(hookMethodName);
     SEL hook_method = sel_registerName(hookMethodName);
     __block void(*original_method)(__unsafe_unretained id,SEL) = NULL;
-    IMP hook_imp = imp_implementationWithBlock(^(id target) {
+    IMP hook_imp = imp_implementationWithBlock(^(__unsafe_unretained id target) {
         !aspectBlock?:aspectBlock(target);
         if (!original_method) {
             struct objc_super super_objc = {
@@ -257,6 +258,7 @@ static void* StreamObserverContextKey = &StreamObserverContextKey;
             });
             [hookClassCaches addObject:hook_class];
         }
+        
         [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:StreamObserverContextKey];
         NSMutableDictionary* blocks = objc_getAssociatedObject(self, StreamObserverKey);
         if (!blocks) {

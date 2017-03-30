@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "StreamKit"
-  s.version      = "1.2.3"
+  s.version      = "1.2.4"
   s.summary      = "A streaming programming framework for UIKit."
   s.homepage     = "https://github.com/godL/StreamKit"
   s.license      = "MIT"
@@ -42,4 +42,9 @@ Pod::Spec.new do |s|
   ss.public_header_files = 'StreamKit/UIViewController/*.h'
   ss.source_files = 'StreamKit/UIViewController/*.{h,m}'
   end
+
+  s.subspec 'Marco' do |ss|
+  	ss.dependency 'StreamKit/NSObject'
+  	ss.public_header_files = 'StreamKit/Marco/*.h'
+  	ss.source_files = 'StreamKit/Marco/*.{h}'
 end

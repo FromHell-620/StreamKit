@@ -40,6 +40,8 @@
 		C915142B1E7679F800BFBCE5 /* UIView+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C915140E1E7679F800BFBCE5 /* UIView+StreamKit.m */; };
 		C915142C1E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91514111E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m */; };
 		C915142D1E7679F800BFBCE5 /* UIPageViewController+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91514131E7679F800BFBCE5 /* UIPageViewController+StreamKit.m */; };
+		C930C4E91E8BBB8D00AE392B /* StreamObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = C930C4E81E8BBB8D00AE392B /* StreamObserver.m */; };
+		C955498C1E8CE92B003C55AF /* SecondController.m in Sources */ = {isa = PBXBuildFile; fileRef = C955498B1E8CE92B003C55AF /* SecondController.m */; };
 		C9B62B8F1E06BE0400920035 /* StreamKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B8E1E06BE0400920035 /* StreamKitTests.m */; };
 		C9B62B9A1E06BE0400920035 /* StreamKitUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B991E06BE0400920035 /* StreamKitUITests.m */; };
 /* End PBXBuildFile section */
@@ -126,6 +128,10 @@
 		C91514111E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+StreamKit.m"; sourceTree = "<group>"; };
 		C91514121E7679F800BFBCE5 /* UIPageViewController+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPageViewController+StreamKit.h"; sourceTree = "<group>"; };
 		C91514131E7679F800BFBCE5 /* UIPageViewController+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPageViewController+StreamKit.m"; sourceTree = "<group>"; };
+		C930C4E71E8BBB8D00AE392B /* StreamObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamObserver.h; sourceTree = "<group>"; };
+		C930C4E81E8BBB8D00AE392B /* StreamObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamObserver.m; sourceTree = "<group>"; };
+		C955498A1E8CE92B003C55AF /* SecondController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondController.h; sourceTree = "<group>"; };
+		C955498B1E8CE92B003C55AF /* SecondController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondController.m; sourceTree = "<group>"; };
 		C981B1F51E8A40230057425D /* SKMetaMarco.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKMetaMarco.h; sourceTree = "<group>"; };
 		C981B1F61E8A43E70057425D /* SKKeyPathMarco.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKKeyPathMarco.h; sourceTree = "<group>"; };
 		C981B20E1E8A51820057425D /* SKObjectifyMarco.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKObjectifyMarco.h; sourceTree = "<group>"; };
@@ -194,6 +200,8 @@
 				7416AA731E121B0C00A970A3 /* main.m */,
 				7416AAAA1E121B0C00A970A3 /* ViewController.h */,
 				7416AAAB1E121B0C00A970A3 /* ViewController.m */,
+				C955498A1E8CE92B003C55AF /* SecondController.h */,
+				C955498B1E8CE92B003C55AF /* SecondController.m */,
 			);
 			path = StreamKitDemo;
 			sourceTree = "<group>";
@@ -221,6 +229,8 @@
 				C91513DE1E7679F800BFBCE5 /* NSObject+StreamKit.m */,
 				C91513DF1E7679F800BFBCE5 /* UIAlertAction+StreamKit.h */,
 				C91513E01E7679F800BFBCE5 /* UIAlertAction+StreamKit.m */,
+				C930C4E71E8BBB8D00AE392B /* StreamObserver.h */,
+				C930C4E81E8BBB8D00AE392B /* StreamObserver.m */,
 			);
 			path = NSObject;
 			sourceTree = "<group>";
@@ -420,6 +430,7 @@
 				TargetAttributes = {
 					C9B62B701E06BE0300920035 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = DHF573YC2L;
 						ProvisioningStyle = Automatic;
 					};
 					C9B62B891E06BE0400920035 = {
@@ -560,9 +571,11 @@
 				C91514141E7679F800BFBCE5 /* NSNotificationCenter+StreamKit.m in Sources */,
 				7416AAAC1E121B0C00A970A3 /* AppDelegate.m in Sources */,
 				C91514241E7679F800BFBCE5 /* UIImageView+StreamKit.m in Sources */,
+				C955498C1E8CE92B003C55AF /* SecondController.m in Sources */,
 				C915141A1E7679F800BFBCE5 /* UIPinchGestureRecognizer+StreamKit.m in Sources */,
 				C915142A1E7679F800BFBCE5 /* UITextField+StreamKit.m in Sources */,
 				C915141F1E7679F800BFBCE5 /* UIScrollView+StreamKit.m in Sources */,
+				C930C4E91E8BBB8D00AE392B /* StreamObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -714,6 +727,7 @@
 			baseConfigurationReference = E4DCE42D9F4B44C44D1CA9FA /* Pods-StreamKitDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = DHF573YC2L;
 				INFOPLIST_FILE = "$(SRCROOT)/StreamKitDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = LH.StreamKit;
@@ -726,6 +740,7 @@
 			baseConfigurationReference = C2B74F3A9131EAA4C24F954E /* Pods-StreamKitDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = DHF573YC2L;
 				INFOPLIST_FILE = "$(SRCROOT)/StreamKitDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = LH.StreamKit;

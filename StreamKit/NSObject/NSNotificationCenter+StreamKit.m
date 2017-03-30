@@ -8,6 +8,7 @@
 
 #import "NSNotificationCenter+StreamKit.h"
 #import "NSObject+StreamKit.h"
+#import "SKObjectifyMarco.h"
 @import ObjectiveC.runtime;
 @import ObjectiveC.message;
 
@@ -54,8 +55,7 @@
             NSMapTable* block_cache = objc_getAssociatedObject(target, (__bridge const void*)target);
             NSSet* blocks = [block_cache objectForKey:aName];
             [blocks enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
-                void(^block_instance)(id) = obj;
-                block_instance(param);
+                SK_BasicForceify(obj, void(^)(id))(param);
             }];
         });
         class_addMethod(object_getClass(self), block_action, block_imp, "v@:@");
