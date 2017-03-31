@@ -58,8 +58,8 @@ static const void* block_key = &block_key;
             SEL invoke_name = sel_registerName(sel_name);
             free(sel_name);
             if (!class_getInstanceMethod(NSClassFromString(@"UIControl"), invoke_name)) {
-                IMP imp = imp_implementationWithBlock(^(id target,__kindof UIControl* control) {
-                    NSMapTable* cacheBlocks = objc_getAssociatedObject(self, (__bridge const void *)target);
+                IMP imp = imp_implementationWithBlock(^(__unsafe_unretained id target,__kindof UIControl* control) {
+                    NSMapTable* cacheBlocks = objc_getAssociatedObject(target, (__bridge const void *)target);
                     char* event_name = strdup(sel_getName(invoke_name));
                     void(^block)(id) = [cacheBlocks objectForKey:@(strtoul(event_name, NULL, 0))];
                     free(event_name);
