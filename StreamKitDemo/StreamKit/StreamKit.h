@@ -18,6 +18,7 @@
 #import "NSObject+StreamKit.h"
 #import "UIAlertAction+StreamKit.h"
 #import "NSNotificationCenter+StreamKit.h"
+#import "NSString+StreamKit.h"
 
 #pragma mark- UIGestureRecognizer+StreamKit
 #import "UIGestureRecognizer+StreamKit.h"
