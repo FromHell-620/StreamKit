@@ -21,6 +21,6 @@
 #define sk_stringify(A) sk_stringify_(A)
 
 #define sk_classify(Class) \
-    ((void)(NO&&((void)[Class class],NO)),Class)
+    ((NO&&((void)[Class class],NO)),Class)
 
 #endif /* SKObjectifyMarco_h */
