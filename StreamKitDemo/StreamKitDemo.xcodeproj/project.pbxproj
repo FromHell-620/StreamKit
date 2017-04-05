@@ -46,6 +46,8 @@
 		C955498C1E8CE92B003C55AF /* SecondController.m in Sources */ = {isa = PBXBuildFile; fileRef = C955498B1E8CE92B003C55AF /* SecondController.m */; };
 		C9B62B8F1E06BE0400920035 /* StreamKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B8E1E06BE0400920035 /* StreamKitTests.m */; };
 		C9B62B9A1E06BE0400920035 /* StreamKitUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B991E06BE0400920035 /* StreamKitUITests.m */; };
+		C9F3E0E51E94E440000661E0 /* UIControl+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3E0E41E94E440000661E0 /* UIControl+ReactiveX.m */; };
+		C9F3E0ED1E94EACA000661E0 /* SKSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3E0EC1E94EACA000661E0 /* SKSubscriber.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +150,10 @@
 		C9B62B951E06BE0400920035 /* StreamKitDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StreamKitDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B62B991E06BE0400920035 /* StreamKitUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StreamKitUITests.m; sourceTree = "<group>"; };
 		C9B62B9B1E06BE0400920035 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9F3E0E31E94E440000661E0 /* UIControl+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+ReactiveX.h"; sourceTree = "<group>"; };
+		C9F3E0E41E94E440000661E0 /* UIControl+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+ReactiveX.m"; sourceTree = "<group>"; };
+		C9F3E0E91E94E9CA000661E0 /* SKSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSubscriber.h; sourceTree = "<group>"; };
+		C9F3E0EC1E94EACA000661E0 /* SKSubscriber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSubscriber.m; sourceTree = "<group>"; };
 		E4DCE42D9F4B44C44D1CA9FA /* Pods-StreamKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamKitDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StreamKitDemo/Pods-StreamKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -323,6 +329,10 @@
 			children = (
 				C95273A81E8E6A0B0017B78F /* SKSignal.h */,
 				C95273A91E8E6A0B0017B78F /* SKSignal.m */,
+				C9F3E0E91E94E9CA000661E0 /* SKSubscriber.h */,
+				C9F3E0EC1E94EACA000661E0 /* SKSubscriber.m */,
+				C9F3E0E31E94E440000661E0 /* UIControl+ReactiveX.h */,
+				C9F3E0E41E94E440000661E0 /* UIControl+ReactiveX.m */,
 			);
 			path = Reactive;
 			sourceTree = "<group>";
@@ -594,7 +604,9 @@
 				C955498C1E8CE92B003C55AF /* SecondController.m in Sources */,
 				C915141A1E7679F800BFBCE5 /* UIPinchGestureRecognizer+StreamKit.m in Sources */,
 				C915142A1E7679F800BFBCE5 /* UITextField+StreamKit.m in Sources */,
+				C9F3E0E51E94E440000661E0 /* UIControl+ReactiveX.m in Sources */,
 				C915141F1E7679F800BFBCE5 /* UIScrollView+StreamKit.m in Sources */,
+				C9F3E0ED1E94EACA000661E0 /* SKSubscriber.m in Sources */,
 				C930C4E91E8BBB8D00AE392B /* StreamObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

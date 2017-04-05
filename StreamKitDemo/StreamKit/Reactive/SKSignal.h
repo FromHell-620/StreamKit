@@ -8,8 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol SKSubscriber;
 @interface SKSignal : NSObject
 
-+ (instancetype)signalWithBlock:(void(^)(id value))block;
++ (instancetype)signalWithBlock:(void(^)(id<SKSubscriber> subscriber))block;
+
+- (void)subscribe:(void(^)(id x))send;
+
+@end
+
+@interface SKSignal (operation)
+
+- (SKSignal*)concat:(void(^)(id<SKSubscriber> subscriber))block;
+
+- (SKSignal*)map:(id(^)(id x))block;
+
+
 
 @end

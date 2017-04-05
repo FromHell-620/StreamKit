@@ -19,25 +19,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    __weak typeof(self) weakSelf = self;
-
-    UILabel* label = [UILabel new];//UILabel.new
-    label.sk_frame(CGRectMake(100, 200, 100, 30))
-    .sk_fontSize(15)
-    .sk_textAlignment(NSTextAlignmentCenter)
-    .sk_textColor([UIColor redColor])
-    .sk_text(@"a label")
-    .sk_addSimpleClickAction(^{
-        [weakSelf dismissViewControllerAnimated:YES completion:nil];
-    });
-    [self.view addSubview:label];
-    
-    UITextView* textView = [[UITextView alloc] initWithFrame:CGRectMake(100, 100, 300, 30)];
-    textView.sk_text(@"aaa").sk_textColor([UIColor redColor]).sk_textViewDidChange(^(UITextView* textView){
-        weakSelf.textContent = textView.text;
-    });
-    [self.view addSubview:textView];
-    SK(label,text,@"我为空了") = SKObserve(self, textContent,@"");
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(100, 100, 100, 100);
+    [button setTitle:@"点击" forState:UIControlStateNormal];
+    button.backgroundColor = [UIColor redColor];
+    [self.view addSubview:button];
+    [[[button sk_signalForControlEvents:UIControlEventTouchUpInside] map:^id(UIButton* x) {
+        return x.currentTitle;
+    }] subscribe:^(id x) {
+        NSLog(@"%@",x);
+    }];
     // Do any additional setup after loading the view.
 }
 

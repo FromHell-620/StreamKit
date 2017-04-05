@@ -9,6 +9,8 @@
 #ifndef SKObjectifyMarco_h
 #define SKObjectifyMarco_h
 
+#import "SKMetaMarco.h"
+
 #define SK_ClassForceify(obj,Class) \
     (NO && ((void)[Class class],NO),((Class*)obj))
 
