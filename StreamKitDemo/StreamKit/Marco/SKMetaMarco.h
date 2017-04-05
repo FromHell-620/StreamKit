@@ -59,6 +59,40 @@
 #define sk_argcount_if_3(...) \
     sk_argexpand_
 
+#define foreach_argcount_if_1(key,_0) \
+    key(_0)
+
+#define foreach_argcount_if_2(key,_0,_1) \
+    foreach_argcount_if_1(key,_0) \
+    key(_1)
+
+#define foreach_argcount_if_3(key,_0,_1,_3) \
+    foreach_argcount_if_2(key,_0,_1) \
+    key(_3)
+
+#define foreach_argcount_if_4(key,_0,_1,_3,_4) \
+    foreach_argcount_if_3(key,_0,_1,_3) \
+    key(_4)
+
+#define foreach_argcount_if_5(key,_0,_1,_3,_4,_5) \
+    foreach_argcount_if_4(key,_0,_1,_3,_4) \
+    key(_5)
+
+#define foreach_argcount_if_6(key,_0,_1,_3,_4,_5,_6) \
+    foreach_argcount_if_5(key,_0,_1,_3,_4,_5) \
+    key(_6)
+
+#define foreach_argcount_if_7(key,_0,_1,_3,_4,_5,_6,_7) \
+    foreach_argcount_if_6(key,_0,_1,_3,_4,_5,_6) \
+    key(_7)
+
+#define foreach_argcount_if_8(key,_0,_1,_3,_4,_5,_6,_7,_8) \
+    foreach_argcount_if_7(key,_0,_1,_3,_4,_5,_6,_7) \
+    key(_8)
+
+#define foreach_argcount_if_9(key,_0,_1,_3,_4,_5,_6,_7,_8,_9) \
+    foreach_argcount_if_8(key,_0,_1,_3,_4,_5,_6,_7,_8) \
+    key(_9)
 
 #if DEBUG
 #define sk_keywordify autoreleasepool {}
