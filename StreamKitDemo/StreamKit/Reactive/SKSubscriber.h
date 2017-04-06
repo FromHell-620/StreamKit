@@ -10,12 +10,16 @@
 
 @protocol SKSubscriber <NSObject>
 
-- (void)sendMessage:(id)value;
+- (void)sendNext:(id)value;
+
+- (void)sendComplete:(id)value;
 
 @end
 
 @interface SKSubscriber : NSObject <SKSubscriber>
 
-+ (instancetype)subscriberWithMessage:(void(^)(id value))message;
++ (instancetype)subscriberWithNext:(void(^)(id value))next
+                          complete:(void(^)(id value))complete;
+
 
 @end

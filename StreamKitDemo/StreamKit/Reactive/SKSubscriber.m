@@ -10,19 +10,27 @@
 #import "SKObjectifyMarco.h"
 
 @implementation SKSubscriber {
-    void(^message_block)(id value);
+    void(^_next)(id value);
+    void(^_complete)(id value);
 }
 
-+ (instancetype)subscriberWithMessage:(void(^)(id value))message
++ (instancetype)subscriberWithNext:(void(^)(id value))next
+                          complete:(void(^)(id value))complete
 {
     SKSubscriber* subscriber = [SKSubscriber new];
-    subscriber->message_block = [message copy];
+    subscriber->_next = [next copy];
+    subscriber->_complete = [complete copy];
     return subscriber;
 }
 
-- (void)sendMessage:(id)value
+- (void)sendNext:(id)value
 {
-    if(message_block) message_block(value);
+    if(_next) _next(value);
+}
+
+- (void)sendComplete:(id)value
+{
+    if (_complete) ^{_complete(value);_next = nil;_complete = nil;}();
 }
 
 - (void)dealloc
