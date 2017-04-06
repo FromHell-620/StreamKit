@@ -24,8 +24,10 @@
     [button setTitle:@"点击" forState:UIControlStateNormal];
     button.backgroundColor = [UIColor redColor];
     [self.view addSubview:button];
-    [[[button sk_signalForControlEvents:UIControlEventTouchUpInside] map:^id(UIButton* x) {
+    [[[[button sk_signalForControlEvents:UIControlEventTouchUpInside] map:^id(UIButton* x) {
         return x.currentTitle;
+    }] filter:^BOOL(id x) {
+        return [x isEqualToString:@"点击"];
     }] subscribe:^(id x) {
         NSLog(@"%@",x);
     }];
