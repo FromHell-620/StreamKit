@@ -40,7 +40,6 @@
 		C915142B1E7679F800BFBCE5 /* UIView+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C915140E1E7679F800BFBCE5 /* UIView+StreamKit.m */; };
 		C915142C1E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91514111E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m */; };
 		C915142D1E7679F800BFBCE5 /* UIPageViewController+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91514131E7679F800BFBCE5 /* UIPageViewController+StreamKit.m */; };
-		C930C4E91E8BBB8D00AE392B /* StreamObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = C930C4E81E8BBB8D00AE392B /* StreamObserver.m */; };
 		C95273A61E8E5A8B0017B78F /* NSString+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C95273A51E8E5A8B0017B78F /* NSString+StreamKit.m */; };
 		C95273AA1E8E6A0B0017B78F /* SKSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C95273A91E8E6A0B0017B78F /* SKSignal.m */; };
 		C955498C1E8CE92B003C55AF /* SecondController.m in Sources */ = {isa = PBXBuildFile; fileRef = C955498B1E8CE92B003C55AF /* SecondController.m */; };
@@ -48,6 +47,7 @@
 		C9B62B9A1E06BE0400920035 /* StreamKitUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B991E06BE0400920035 /* StreamKitUITests.m */; };
 		C9DCC3E71E97441C006E9B82 /* UITextField+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DCC3E61E97441C006E9B82 /* UITextField+ReactiveX.m */; };
 		C9DCC3EA1E9747CC006E9B82 /* UITextView+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DCC3E91E9747CC006E9B82 /* UITextView+ReactiveX.m */; };
+		C9DCC3ED1E975A18006E9B82 /* StreamObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DCC3EC1E975A18006E9B82 /* StreamObserver.m */; };
 		C9EB62A61E973A8000B08FCE /* NSObject+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EB62A51E973A8000B08FCE /* NSObject+ReactiveX.m */; };
 		C9F3E0E51E94E440000661E0 /* UIControl+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3E0E41E94E440000661E0 /* UIControl+ReactiveX.m */; };
 		C9F3E0ED1E94EACA000661E0 /* SKSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3E0EC1E94EACA000661E0 /* SKSubscriber.m */; };
@@ -135,8 +135,6 @@
 		C91514111E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+StreamKit.m"; sourceTree = "<group>"; };
 		C91514121E7679F800BFBCE5 /* UIPageViewController+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPageViewController+StreamKit.h"; sourceTree = "<group>"; };
 		C91514131E7679F800BFBCE5 /* UIPageViewController+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPageViewController+StreamKit.m"; sourceTree = "<group>"; };
-		C930C4E71E8BBB8D00AE392B /* StreamObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamObserver.h; sourceTree = "<group>"; };
-		C930C4E81E8BBB8D00AE392B /* StreamObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamObserver.m; sourceTree = "<group>"; };
 		C95273A41E8E5A8B0017B78F /* NSString+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StreamKit.h"; sourceTree = "<group>"; };
 		C95273A51E8E5A8B0017B78F /* NSString+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StreamKit.m"; sourceTree = "<group>"; };
 		C95273A81E8E6A0B0017B78F /* SKSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSignal.h; sourceTree = "<group>"; };
@@ -157,6 +155,8 @@
 		C9DCC3E61E97441C006E9B82 /* UITextField+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+ReactiveX.m"; sourceTree = "<group>"; };
 		C9DCC3E81E9747CC006E9B82 /* UITextView+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+ReactiveX.h"; sourceTree = "<group>"; };
 		C9DCC3E91E9747CC006E9B82 /* UITextView+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+ReactiveX.m"; sourceTree = "<group>"; };
+		C9DCC3EB1E975A18006E9B82 /* StreamObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamObserver.h; sourceTree = "<group>"; };
+		C9DCC3EC1E975A18006E9B82 /* StreamObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamObserver.m; sourceTree = "<group>"; };
 		C9EB62A41E973A8000B08FCE /* NSObject+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ReactiveX.h"; sourceTree = "<group>"; };
 		C9EB62A51E973A8000B08FCE /* NSObject+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ReactiveX.m"; sourceTree = "<group>"; };
 		C9F3E0E31E94E440000661E0 /* UIControl+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+ReactiveX.h"; sourceTree = "<group>"; };
@@ -251,8 +251,6 @@
 				C91513DE1E7679F800BFBCE5 /* NSObject+StreamKit.m */,
 				C91513DF1E7679F800BFBCE5 /* UIAlertAction+StreamKit.h */,
 				C91513E01E7679F800BFBCE5 /* UIAlertAction+StreamKit.m */,
-				C930C4E71E8BBB8D00AE392B /* StreamObserver.h */,
-				C930C4E81E8BBB8D00AE392B /* StreamObserver.m */,
 				C95273A41E8E5A8B0017B78F /* NSString+StreamKit.h */,
 				C95273A51E8E5A8B0017B78F /* NSString+StreamKit.m */,
 			);
@@ -345,6 +343,8 @@
 				C9F3E0E31E94E440000661E0 /* UIControl+ReactiveX.h */,
 				C9F3E0E41E94E440000661E0 /* UIControl+ReactiveX.m */,
 				C9DCC3E51E97441C006E9B82 /* UITextField+ReactiveX.h */,
+				C9DCC3EB1E975A18006E9B82 /* StreamObserver.h */,
+				C9DCC3EC1E975A18006E9B82 /* StreamObserver.m */,
 				C9DCC3E61E97441C006E9B82 /* UITextField+ReactiveX.m */,
 				C9DCC3E81E9747CC006E9B82 /* UITextView+ReactiveX.h */,
 				C9DCC3E91E9747CC006E9B82 /* UITextView+ReactiveX.m */,
@@ -595,6 +595,7 @@
 				C91514171E7679F800BFBCE5 /* UIGestureRecognizer+StreamKit.m in Sources */,
 				C91514201E7679F800BFBCE5 /* UITableView+StreamKit.m in Sources */,
 				C95273A61E8E5A8B0017B78F /* NSString+StreamKit.m in Sources */,
+				C9DCC3ED1E975A18006E9B82 /* StreamObserver.m in Sources */,
 				C91514161E7679F800BFBCE5 /* UIAlertAction+StreamKit.m in Sources */,
 				C915141C1E7679F800BFBCE5 /* UISwipeGestureRecognizer+StreamKit.m in Sources */,
 				C91514211E7679F800BFBCE5 /* UITextView+StreamKit.m in Sources */,
@@ -625,7 +626,6 @@
 				C9F3E0E51E94E440000661E0 /* UIControl+ReactiveX.m in Sources */,
 				C915141F1E7679F800BFBCE5 /* UIScrollView+StreamKit.m in Sources */,
 				C9F3E0ED1E94EACA000661E0 /* SKSubscriber.m in Sources */,
-				C930C4E91E8BBB8D00AE392B /* StreamObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
