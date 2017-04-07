@@ -41,6 +41,7 @@
 		C915142C1E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91514111E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m */; };
 		C915142D1E7679F800BFBCE5 /* UIPageViewController+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91514131E7679F800BFBCE5 /* UIPageViewController+StreamKit.m */; };
 		C939E58B1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C939E58A1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m */; };
+		C939E58E1E978C9A00F23E0E /* UIView+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C939E58D1E978C9A00F23E0E /* UIView+ReactiveX.m */; };
 		C95273A61E8E5A8B0017B78F /* NSString+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C95273A51E8E5A8B0017B78F /* NSString+StreamKit.m */; };
 		C95273AA1E8E6A0B0017B78F /* SKSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C95273A91E8E6A0B0017B78F /* SKSignal.m */; };
 		C955498C1E8CE92B003C55AF /* SecondController.m in Sources */ = {isa = PBXBuildFile; fileRef = C955498B1E8CE92B003C55AF /* SecondController.m */; };
@@ -138,6 +139,8 @@
 		C91514131E7679F800BFBCE5 /* UIPageViewController+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPageViewController+StreamKit.m"; sourceTree = "<group>"; };
 		C939E5891E97881900F23E0E /* UIGestureRecognizer+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+ReactiveX.h"; sourceTree = "<group>"; };
 		C939E58A1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+ReactiveX.m"; sourceTree = "<group>"; };
+		C939E58C1E978C9A00F23E0E /* UIView+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ReactiveX.h"; sourceTree = "<group>"; };
+		C939E58D1E978C9A00F23E0E /* UIView+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ReactiveX.m"; sourceTree = "<group>"; };
 		C95273A41E8E5A8B0017B78F /* NSString+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StreamKit.h"; sourceTree = "<group>"; };
 		C95273A51E8E5A8B0017B78F /* NSString+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StreamKit.m"; sourceTree = "<group>"; };
 		C95273A81E8E6A0B0017B78F /* SKSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSignal.h; sourceTree = "<group>"; };
@@ -349,6 +352,8 @@
 				C9DCC3EC1E975A18006E9B82 /* StreamObserver.m */,
 				C939E5891E97881900F23E0E /* UIGestureRecognizer+ReactiveX.h */,
 				C939E58A1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m */,
+				C939E58C1E978C9A00F23E0E /* UIView+ReactiveX.h */,
+				C939E58D1E978C9A00F23E0E /* UIView+ReactiveX.m */,
 				C9DCC3E51E97441C006E9B82 /* UITextField+ReactiveX.h */,
 				C9DCC3E61E97441C006E9B82 /* UITextField+ReactiveX.m */,
 				C9DCC3E81E9747CC006E9B82 /* UITextView+ReactiveX.h */,
@@ -597,6 +602,7 @@
 				C915142D1E7679F800BFBCE5 /* UIPageViewController+StreamKit.m in Sources */,
 				C91514271E7679F800BFBCE5 /* UIProgressView+StreamKit.m in Sources */,
 				7416AACC1E121B0C00A970A3 /* ViewController.m in Sources */,
+				C939E58E1E978C9A00F23E0E /* UIView+ReactiveX.m in Sources */,
 				C91514171E7679F800BFBCE5 /* UIGestureRecognizer+StreamKit.m in Sources */,
 				C91514201E7679F800BFBCE5 /* UITableView+StreamKit.m in Sources */,
 				C95273A61E8E5A8B0017B78F /* NSString+StreamKit.m in Sources */,

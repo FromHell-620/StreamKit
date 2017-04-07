@@ -18,6 +18,7 @@
 #import "SKSubscriber.h"
 #import "NSObject+ReactiveX.h"
 #import "UIControl+ReactiveX.h"
+#import "UIView+ReactiveX.h"
 #import "UITextField+ReactiveX.h"
 #import "UITextView+ReactiveX.h"
 #import "UIGestureRecognizer+ReactiveX.h"
