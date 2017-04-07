@@ -22,8 +22,10 @@
 #define SK_(obj,keypath,nil_Value) \
     [[StreamObserver alloc] initWithObject:(obj) nilValue:(nil_Value)][@sk_keypath(obj,keypath)]
 
-#define SKObserve_(obj,keypath,VALUE) \
-    [[StreamObserver alloc] initWithObject:(obj) keyPath:(@sk_keypath(obj,keypath)) nilValue:(VALUE)]
+#define SKObserve_(obj,keypath) \
+    [[obj sk_ObserveForKeyPath:@sk_keypath(obj,keypath)] map:^id(id x) { \
+        return [x objectForKey:@"new"]; \
+    }]
 
 #define SK(obj,...) \
     SK_PASTEARG2(sk_argcount_if_,sk_argcount(__VA_ARGS__)) \
@@ -31,7 +33,7 @@
 
 #define SKObserve(obj,...) \
     SK_PASTEARG2(sk_argcount_if_,sk_argcount(__VA_ARGS__)) \
-    (SKObserve_(obj,__VA_ARGS__,nil)) \
+    (SKObserve_(obj,__VA_ARGS__)) \
     (SKObserve_(obj,__VA_ARGS__))
 
     

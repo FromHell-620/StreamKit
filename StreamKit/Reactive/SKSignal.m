@@ -7,22 +7,176 @@
 //
 
 #import "SKSignal.h"
+#import "SKSubscriber.h"
 
 @implementation SKSignal {
-    id _block;
+    void(^_block)(id<SKSubscriber> subscriber);
 }
 
-+ (instancetype)signalWithBlock:(void(^)(id value))block
++ (instancetype)signalWithBlock:(void(^)(id<SKSubscriber> subscriber))block
 {
     SKSignal* signal = [SKSignal new];
     signal->_block = [block copy];
     return signal;
 }
 
-- (SKSignal*)map:(id)block
+- (void)subscribe:(void(^)(id x))next
 {
-    return [SKSignal signalWithBlock:^(id value) {
+    SKSubscriber* subscriber = [SKSubscriber subscriberWithNext:next complete:nil];
+    !_block?:_block(subscriber);
+}
+
+- (void)subscribe:(void (^)(id value))next complete:(void(^)(id value))complete
+{
+    SKSubscriber* subscriber = [SKSubscriber subscriberWithNext:next complete:complete];
+    !_block?:_block(subscriber);
+}
+
+@end
+
+@implementation SKSignal (operation)
+
+- (SKSignal*)concat:(void(^)(id<SKSubscriber> subscriber))block
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+            [self subscribe:^(id x) {
+                [subscriber sendNext:x];
+            }];
+        }];
+}
+
+- (SKSignal*)map:(id(^)(id x))block
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        [self subscribe:^(id x) {
+            [subscriber sendNext:block(x)];
+        }];
+    }];
+}
+
+- (SKSignal*)filter:(BOOL(^)(id x))block
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        [self subscribe:^(id x) {
+            if (block(x)) {
+                [subscriber sendNext:x];
+            }
+        }];
+    }];
+}
+
+- (SKSignal*)ignore:(id)value
+{
+    return [self filter:^BOOL(id x) {
+        return [x isEqual:value];
+    }];
+}
+
+- (SKSignal*)takeUntil:(SKSignal*)signal
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+            [signal subscribe:^(id value) {
+                [subscriber sendComplete:value];
+            } complete:^(id value) {
+                [subscriber sendComplete:value];
+            }];
         
+        [self subscribe:^(id x) {
+            [subscriber sendNext:x];
+        }];
+    }];
+}
+
+- (SKSignal*)distinctUntilChanged
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        __block id pre_value = nil;
+            [self subscribe:^(id x) {
+                if (!(pre_value == x || [pre_value isEqual:x])) {
+                    [subscriber sendNext:x];
+                }
+                pre_value = x;
+            }];
+    }];
+}
+
+- (SKSignal*)take:(NSUInteger)takes
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        __block NSUInteger already_takes = 0;
+        [self subscribe:^(id x) {
+            if (already_takes >= takes) {
+                [subscriber sendNext:x];
+            }
+            already_takes ++;
+        }];
+    }];
+}
+
+- (SKSignal*)takeUntilBlock:(BOOL(^)(id x))block
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        [self subscribe:^(id x) {
+            if (block(x) == NO ) {
+                [subscriber sendNext:x];
+            }
+        }];
+    }];
+}
+
+- (SKSignal*)takeWhileBlock:(BOOL(^)(id x))block
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        [self subscribe:^(id x) {
+            if (block(x) == YES) {
+                [subscriber sendNext:x];
+            }
+        }];
+    }];
+}
+
+- (SKSignal*)skip:(NSUInteger)takes
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        __block NSUInteger already = 0;
+        [self subscribe:^(id x) {
+            already ++;
+            if (already > takes) {
+                [subscriber sendNext:x];
+            }
+        }];
+    }];
+}
+
+- (SKSignal*)skipUntilBlock:(BOOL(^)(id x))block
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+       [self subscribe:^(id x) {
+           if (block(x) == YES) {
+               [subscriber sendNext:x];
+           }
+       }];
+    }];
+}
+
+- (SKSignal*)skipWhileBlock:(BOOL(^)(id x))block
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        [self subscribe:^(id x) {
+            if (block(x) == NO) {
+                [subscriber sendNext:x];
+            }
+        }];
+    }];
+}
+
+- (SKSignal*)startWith:(id)value
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        [subscriber sendNext:value];
+        [self subscribe:^(id x) {
+            [subscriber sendNext:x];
+        }];
     }];
 }
 
