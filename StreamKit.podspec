@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "StreamKit"
-  s.version      = "1.3.5"
+  s.version      = "1.3.6"
   s.summary      = "A streaming programming framework for UIKit."
   s.homepage     = "https://github.com/godL/StreamKit"
   s.license      = "MIT"
@@ -19,6 +19,7 @@ Pod::Spec.new do |s|
   ss.dependency 'StreamKit/Marco'
   ss.dependency 'StreamKit/NSObject'
   ss.dependency 'StreamKit/UIView'
+  ss.dependency 'StreamKit/UIGestureRecognizer'
   ss.dependency 'StreamKit/UIScrollView'
   end
 
