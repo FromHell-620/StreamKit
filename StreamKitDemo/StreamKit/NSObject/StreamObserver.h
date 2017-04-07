@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class SKSignal;
+
 @interface StreamObserver : NSObject
 
 @property (nonatomic,unsafe_unretained,readonly) NSObject* object;
@@ -16,14 +18,8 @@
 
 @property (nonatomic,readonly) id nilValue;
 
-#ifdef DEBUG
-@property (nonatomic,readonly,copy) NSString* name;
-#endif
-
 - (instancetype)initWithObject:(id)object nilValue:(id)nilValue;
 
-- (instancetype)initWithObject:(id)object keyPath:(id)keyPath nilValue:(id)nilValue;
-
-- (void)setObject:(StreamObserver*)object forKeyedSubscript:(NSString *)keyPath;
+- (void)setObject:(SKSignal*)object forKeyedSubscript:(NSString *)keyPath;
 
 @end

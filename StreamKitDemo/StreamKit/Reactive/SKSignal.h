@@ -45,4 +45,6 @@
 
 - (SKSignal*)skipWhileBlock:(BOOL(^)(id x))block;
 
+- (SKSignal*)startWith:(id)value;
+
 @end

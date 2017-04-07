@@ -170,4 +170,14 @@
     }];
 }
 
+- (SKSignal*)startWith:(id)value
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        [subscriber sendNext:value];
+        [self subscribe:^(id x) {
+            [subscriber sendNext:x];
+        }];
+    }];
+}
+
 @end

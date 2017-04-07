@@ -19,18 +19,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(100, 100, 100, 100);
-    [button setTitle:@"点击" forState:UIControlStateNormal];
-    button.backgroundColor = [UIColor redColor];
-    [self.view addSubview:button];
-    [[[[button sk_signalForControlEvents:UIControlEventTouchUpInside] map:^id(UIButton* x) {
-        return x.currentTitle;
-    }] filter:^BOOL(id x) {
-        return [x isEqualToString:@"点击"];
-    }] subscribe:^(id x) {
-        NSLog(@"%@",x);
-    }];
+    self.view.backgroundColor = [UIColor whiteColor];
+    UITextView* text = [[UITextView alloc] initWithFrame:CGRectMake(30, 100, 200, 30)];
+    text.backgroundColor = [UIColor redColor];
+    text.textColor = [UIColor blackColor];
+    [self.view addSubview:text];
+    
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(60, 200, 100, 30)];
+    label.textColor = [UIColor redColor];
+    [self.view addSubview:label];
+    @weakify(self)
+    text.sk_textViewDidChange(^(UITextView* textField){
+        @strongify(self)
+        self.textContent = textField.text;
+    });
+    
+    SK(label,text) = [SKObserve(self,textContent) startWith:@"aaa"];
+//    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    button.frame = CGRectMake(100, 100, 100, 100);
+//    [button setTitle:@"点击" forState:UIControlStateNormal];
+//    button.backgroundColor = [UIColor redColor];
+//    [self.view addSubview:button];
+//    __block int y = 0;
+//    [[[[button sk_signalForControlEvents:UIControlEventTouchUpInside] map:^id(UIButton* x) {
+//        return x.currentTitle;
+//    }] filter:^BOOL(id x) {
+//        return [x isEqualToString:@"点击"];
+//    }] subscribe:^(id x) {
+//        y++;
+//        NSLog(@"%@",x);
+//    }];
     // Do any additional setup after loading the view.
 }
 

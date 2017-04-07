@@ -20,7 +20,7 @@
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
         @strongify(self)
         self.sk_addEventBlock(controlEvents,^(UIControl* control) {
-            [subscriber sendMessage:control];
+            [subscriber sendNext:control];
         });
     }];
     
