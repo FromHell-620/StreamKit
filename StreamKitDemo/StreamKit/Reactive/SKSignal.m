@@ -180,4 +180,21 @@
     }];
 }
 
+- (SKSignal*)combineLatestWithSignal:(SKSignal*)signal
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        [self subscribe:^(id value) {
+            [subscriber sendNext:value];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
+        }];
+        
+        [signal subscribe:^(id value) {
+            [subscriber sendNext:value];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
+        }];
+    }];
+}
+
 @end

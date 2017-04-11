@@ -47,4 +47,6 @@
 
 - (SKSignal*)startWith:(id)value;
 
+- (SKSignal*)combineLatestWithSignal:(SKSignal*)signal;
+
 @end
