@@ -72,7 +72,7 @@ void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* pro
         imp = imp_implementationWithBlock(^BOOL( id target,id param) {
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                return sk_objcmsgSend(BOOL(*)(id,SEL,id),target,desc.name,param);
+                return sk_objcmsgSend(BOOL(*)(id,SEL,id),realDelegate,desc.name,param);
             }
             BOOL(^block)(id) = objc_getAssociatedObject(target, AssociatedKey);
             return !block?YES:block(param);
@@ -81,7 +81,7 @@ void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* pro
         imp = imp_implementationWithBlock(^(id target,id param) {
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                sk_objcmsgSend(void(*)(id,SEL,id),target,desc.name,param);
+                sk_objcmsgSend(void(*)(id,SEL,id),realDelegate,desc.name,param);
             }
             void(^block)(id) = objc_getAssociatedObject(target, AssociatedKey);
             !block?:block(param);
@@ -90,7 +90,7 @@ void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* pro
         imp = imp_implementationWithBlock(^(id target,id param,long l){
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                sk_objcmsgSend(void(*)(id,SEL,id,long),target,desc.name,param,l);
+                sk_objcmsgSend(void(*)(id,SEL,id,long),realDelegate,desc.name,param,l);
             }
             void(^block)(id,long) = objc_getAssociatedObject(target, AssociatedKey);
             !block?:block(param,l);
@@ -99,7 +99,7 @@ void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* pro
         imp = imp_implementationWithBlock(^BOOL(id target,id param1,NSRange range,id param2){
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                return sk_objcmsgSend(BOOL(*)(id,SEL,id,NSRange,id),target,desc.name,param1,range,param2);
+                return sk_objcmsgSend(BOOL(*)(id,SEL,id,NSRange,id),realDelegate,desc.name,param1,range,param2);
             }
             BOOL(^block)(id,NSRange,id) = objc_getAssociatedObject(target, AssociatedKey);
             return !block?YES:block(param1,range,param2);
@@ -108,7 +108,7 @@ void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* pro
         imp = imp_implementationWithBlock(^(id target,id param,CGPoint point1,CGPoint* point2) {
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                sk_objcmsgSend(void(*)(id,SEL,id,CGPoint,CGPoint*),target,desc.name,param,point1,point2);
+                sk_objcmsgSend(void(*)(id,SEL,id,CGPoint,CGPoint*),realDelegate,desc.name,param,point1,point2);
             }
             void(^block)(id,CGPoint,CGPoint*) = objc_getAssociatedObject(target, AssociatedKey);
             block(param,point1,point2);
@@ -117,7 +117,7 @@ void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* pro
         imp = imp_implementationWithBlock(^(id target,id param,BOOL b){
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                sk_objcmsgSend(void(*)(id,SEL,id,BOOL),target,desc.name,param,b);
+                sk_objcmsgSend(void(*)(id,SEL,id,BOOL),realDelegate,desc.name,param,b);
             }
             void(^block)(id,BOOL) = objc_getAssociatedObject(target, AssociatedKey);
             !block?:block(param,b);
@@ -126,7 +126,7 @@ void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* pro
         imp = imp_implementationWithBlock(^id(id target,id param) {
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                return sk_objcmsgSend(id(*)(id,SEL,id),target,desc.name,param);
+                return sk_objcmsgSend(id(*)(id,SEL,id),realDelegate,desc.name,param);
             }
             id(^block)(id) = objc_getAssociatedObject(target, AssociatedKey);
             return !block?nil:block(param);
@@ -135,7 +135,7 @@ void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* pro
         imp = imp_implementationWithBlock(^(id target,id param1,id param2){
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                sk_objcmsgSend(void(*)(id,SEL,id,id),target,desc.name,param1,param2);
+                sk_objcmsgSend(void(*)(id,SEL,id,id),realDelegate,desc.name,param1,param2);
             }
             void(^block)(id,id) = objc_getAssociatedObject(target, AssociatedKey);
             !block?:block(param1,param2);
@@ -144,7 +144,7 @@ void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* pro
         imp = imp_implementationWithBlock(^(id target,id param,float f) {
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                sk_objcmsgSend(void(*)(id,SEL,id,float),target,desc.name,param,f);
+                sk_objcmsgSend(void(*)(id,SEL,id,float),realDelegate,desc.name,param,f);
             }
             void(^block)(id,float) = objc_getAssociatedObject(target, AssociatedKey);
             !block?:block(param,f);
@@ -153,7 +153,7 @@ void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* pro
         imp = imp_implementationWithBlock(^BOOL(id target,id param1,id param2) {
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                return sk_objcmsgSend(BOOL(*)(id,SEL,id,id),target,desc.name,param1,param2);
+                return sk_objcmsgSend(BOOL(*)(id,SEL,id,id),realDelegate,desc.name,param1,param2);
             }
             BOOL(^block)(id,id) = objc_getAssociatedObject(target, AssociatedKey);
             return !block?YES:block(param1,param2);
