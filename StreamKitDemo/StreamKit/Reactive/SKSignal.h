@@ -49,4 +49,6 @@
 
 - (SKSignal*)combineLatestWithSignal:(SKSignal*)signal;
 
++ (SKSignal*)combineLatestSignals:(NSArray<SKSignal*>*)signals;
+
 @end

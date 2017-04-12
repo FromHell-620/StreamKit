@@ -197,4 +197,22 @@
     }];
 }
 
++ (SKSignal*)combineLatestSignals:(NSArray<SKSignal*>*)signals
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        SKSignal* theFirst = nil;
+        for (SKSignal* signal in signals) {
+            if (theFirst == nil) {
+                theFirst = signal;
+                break;
+            }
+            
+            theFirst = [theFirst combineLatestWithSignal:signal];
+        }
+       [theFirst subscribe:^(id x) {
+           [subscriber sendNext:x];
+       }];
+    }];
+}
+
 @end
