@@ -15,7 +15,11 @@
 
 - (void)subscribe:(void(^)(id x))next;
 
+- (void)subscribeWithReturnValue:(id(^)(id x))next;
+
 - (void)subscribe:(void (^)(id value))next complete:(void(^)(id value))complete;
+
+- (void)subscribeWithReturnValue:(id(^)(id x))next complete:(id(^)(id x))complete;
 
 @end
 

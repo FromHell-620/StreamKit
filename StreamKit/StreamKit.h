@@ -23,6 +23,7 @@
 #import "UITextView+ReactiveX.h"
 #import "UIGestureRecognizer+ReactiveX.h"
 #import "UIScrollView+ReactiveX.h"
+#import "UISearchBar+ReactiveX.h"
 
 #pragma mark- NSObject
 #import "StreamObserver.h"

@@ -26,9 +26,21 @@
     !_block?:_block(subscriber);
 }
 
+- (void)subscribeWithReturnValue:(id(^)(id x))next
+{
+    SKSubscriber* subscriber = [SKSubscriber subscriberWithReturnValueNext:next complete:nil];
+    !_block?:_block(subscriber);
+}
+
 - (void)subscribe:(void (^)(id value))next complete:(void(^)(id value))complete
 {
     SKSubscriber* subscriber = [SKSubscriber subscriberWithNext:next complete:complete];
+    !_block?:_block(subscriber);
+}
+
+- (void)subscribeWithReturnValue:(id(^)(id x))next complete:(id(^)(id x))complete
+{
+    SKSubscriber* subscriber = [SKSubscriber subscriberWithReturnValueNext:next complete:complete];
     !_block?:_block(subscriber);
 }
 
@@ -177,6 +189,41 @@
         [self subscribe:^(id x) {
             [subscriber sendNext:x];
         }];
+    }];
+}
+
+- (SKSignal*)combineLatestWithSignal:(SKSignal*)signal
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        [self subscribe:^(id value) {
+            [subscriber sendNext:value];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
+        }];
+        
+        [signal subscribe:^(id value) {
+            [subscriber sendNext:value];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
+        }];
+    }];
+}
+
++ (SKSignal*)combineLatestSignals:(NSArray<SKSignal*>*)signals
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        SKSignal* theFirst = nil;
+        for (SKSignal* signal in signals) {
+            if (theFirst == nil) {
+                theFirst = signal;
+                break;
+            }
+            
+            theFirst = [theFirst combineLatestWithSignal:signal];
+        }
+       [theFirst subscribe:^(id x) {
+           [subscriber sendNext:x];
+       }];
     }];
 }
 

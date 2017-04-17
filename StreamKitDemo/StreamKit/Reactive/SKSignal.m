@@ -26,9 +26,21 @@
     !_block?:_block(subscriber);
 }
 
+- (void)subscribeWithReturnValue:(id(^)(id x))next
+{
+    SKSubscriber* subscriber = [SKSubscriber subscriberWithReturnValueNext:next complete:nil];
+    !_block?:_block(subscriber);
+}
+
 - (void)subscribe:(void (^)(id value))next complete:(void(^)(id value))complete
 {
     SKSubscriber* subscriber = [SKSubscriber subscriberWithNext:next complete:complete];
+    !_block?:_block(subscriber);
+}
+
+- (void)subscribeWithReturnValue:(id(^)(id x))next complete:(id(^)(id x))complete
+{
+    SKSubscriber* subscriber = [SKSubscriber subscriberWithReturnValueNext:next complete:complete];
     !_block?:_block(subscriber);
 }
 

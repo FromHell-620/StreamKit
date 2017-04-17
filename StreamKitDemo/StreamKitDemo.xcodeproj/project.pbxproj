@@ -13,6 +13,7 @@
 		7416AAAF1E121B0C00A970A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7416AA701E121B0C00A970A3 /* Main.storyboard */; };
 		7416AAB11E121B0C00A970A3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416AA731E121B0C00A970A3 /* main.m */; };
 		7416AACC1E121B0C00A970A3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7416AAAB1E121B0C00A970A3 /* ViewController.m */; };
+		880BA6941EA49EDA0089B71F /* UISearchBar+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = 880BA6931EA49EDA0089B71F /* UISearchBar+ReactiveX.m */; };
 		C3E73CBF94C220E3528C6998 /* libPods-StreamKitDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B378167200FBC5A990C676 /* libPods-StreamKitDemo.a */; };
 		C91514141E7679F800BFBCE5 /* NSNotificationCenter+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91513DC1E7679F800BFBCE5 /* NSNotificationCenter+StreamKit.m */; };
 		C91514151E7679F800BFBCE5 /* NSObject+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91513DE1E7679F800BFBCE5 /* NSObject+StreamKit.m */; };
@@ -84,6 +85,8 @@
 		7416AA731E121B0C00A970A3 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7416AAAA1E121B0C00A970A3 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		7416AAAB1E121B0C00A970A3 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		880BA6921EA49EDA0089B71F /* UISearchBar+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISearchBar+ReactiveX.h"; sourceTree = "<group>"; };
+		880BA6931EA49EDA0089B71F /* UISearchBar+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISearchBar+ReactiveX.m"; sourceTree = "<group>"; };
 		C2B74F3A9131EAA4C24F954E /* Pods-StreamKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamKitDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreamKitDemo/Pods-StreamKitDemo.release.xcconfig"; sourceTree = "<group>"; };
 		C91513DB1E7679F800BFBCE5 /* NSNotificationCenter+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+StreamKit.h"; sourceTree = "<group>"; };
 		C91513DC1E7679F800BFBCE5 /* NSNotificationCenter+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+StreamKit.m"; sourceTree = "<group>"; };
@@ -363,6 +366,8 @@
 				C9DCC3E91E9747CC006E9B82 /* UITextView+ReactiveX.m */,
 				C9D6C6CB1E9CB83D00CD8E8F /* UIScrollView+ReactiveX.h */,
 				C9D6C6CC1E9CB83D00CD8E8F /* UIScrollView+ReactiveX.m */,
+				880BA6921EA49EDA0089B71F /* UISearchBar+ReactiveX.h */,
+				880BA6931EA49EDA0089B71F /* UISearchBar+ReactiveX.m */,
 			);
 			path = Reactive;
 			sourceTree = "<group>";
@@ -628,6 +633,7 @@
 				C915142C1E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m in Sources */,
 				C9DCC3EA1E9747CC006E9B82 /* UITextView+ReactiveX.m in Sources */,
 				C91514191E7679F800BFBCE5 /* UIPanGestureRecognizer+StreamKit.m in Sources */,
+				880BA6941EA49EDA0089B71F /* UISearchBar+ReactiveX.m in Sources */,
 				C9DCC3E71E97441C006E9B82 /* UITextField+ReactiveX.m in Sources */,
 				C91514221E7679F800BFBCE5 /* UIButton+StreamKit.m in Sources */,
 				C91514291E7679F800BFBCE5 /* UISwitch+StreamKit.m in Sources */,

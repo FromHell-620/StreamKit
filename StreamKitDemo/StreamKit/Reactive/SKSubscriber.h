@@ -12,7 +12,11 @@
 
 - (void)sendNext:(id)value;
 
+- (id)sendNextWithReturnValue:(id)value;
+
 - (void)sendComplete:(id)value;
+
+- (id)sendCompleteWithReturnValue:(id)value;
 
 @end
 
@@ -20,6 +24,10 @@
 
 + (instancetype)subscriberWithNext:(void(^)(id value))next
                           complete:(void(^)(id value))complete;
+
+
++ (instancetype)subscriberWithReturnValueNext:(id)next
+                                     complete:(id)complete;
 
 
 @end
