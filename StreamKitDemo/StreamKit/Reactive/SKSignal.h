@@ -55,4 +55,6 @@
 
 + (SKSignal*)combineLatestSignals:(NSArray<SKSignal*>*)signals;
 
+- (SKSignal*)throttle:(NSTimeInterval)interval;
+
 @end

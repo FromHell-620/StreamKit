@@ -227,4 +227,19 @@
     }];
 }
 
+- (SKSignal*)throttle:(NSTimeInterval)interval
+{
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        __block BOOL hasNextInvoke = YES;
+        [self subscribe:^(id x) {
+            if (hasNextInvoke == NO) return ;
+            hasNextInvoke = NO;
+            [subscriber sendNext:x];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                hasNextInvoke = YES;
+            });
+        }];
+    }];
+}
+
 @end

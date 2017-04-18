@@ -81,7 +81,7 @@ void StreamInitializeDelegateMethod(Class cls,Protocol* protocol,const char* pro
         imp = imp_implementationWithBlock(^(id target,id param) {
             id realDelegate = objc_getAssociatedObject(target, (__bridge const void*)target);
             if (realDelegate&&[realDelegate respondsToSelector:desc.name]) {
-                sk_objcmsgSend(void(*)(id,SEL,id),realDelegate,desc.name,param);
+                ((void(*)(id,SEL,id))objc_msgSend)(realDelegate,desc.name,param);
             }
             void(^block)(id) = objc_getAssociatedObject(target, AssociatedKey);
             !block?:block(param);
