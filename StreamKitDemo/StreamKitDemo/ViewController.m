@@ -19,13 +19,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIScrollView* scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    scrollView.contentSize = CGSizeMake(self.view.frame.size.width*4, self.view.frame.size.height);
-    scrollView.delegate = self;
-    [[scrollView sk_signalForDelegateEndDecelerating] subscribe:^(id x) {
-        NSLog(@"b");
+    NSMutableArray<UILabel*>* arr = [NSMutableArray  array];
+    for (int i=0; i<3; i++) {
+        UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(10+i*80, 200, 70, 60);
+        [button setTitle:(@1).stringValue forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
+        UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(button.frame.origin.x, 300, 70, 30)];
+        label.text = @"aaa";
+        [arr addObject:label];
+        [self.view addSubview:button];
+        [self.view addSubview:label];
+        [[button sk_signalForControlEvents:UIControlEventTouchUpInside] subscribe:^(id x) {
+            label.hidden = !label.isHidden;
+        }];
+        
+    }
+    
+    [[[SKSignal combineLatestSignals:@[[arr[0] sk_ObserveForKeyPath:@"hidden"],[arr[1] sk_ObserveForKeyPath:@"hidden"],[arr[2] sk_ObserveForKeyPath:@"hidden"]]] map:^id(NSDictionary* x) {
+        return [x objectForKey:@"new"];
+    }] subscribe:^(id x) {
+        NSLog(@"%@",x);
     }];
-    [self.view addSubview:scrollView];
     
 //    SK(label,text) = SKObserve(self, textContent);
     // Do any additional setup after loading the view, typically from a nib.

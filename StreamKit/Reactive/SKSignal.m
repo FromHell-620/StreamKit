@@ -212,11 +212,11 @@
 + (SKSignal*)combineLatestSignals:(NSArray<SKSignal*>*)signals
 {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        SKSignal* theFirst = nil;
+        __block SKSignal* theFirst = nil;
         for (SKSignal* signal in signals) {
             if (theFirst == nil) {
                 theFirst = signal;
-                break;
+                continue;
             }
             
             theFirst = [theFirst combineLatestWithSignal:signal];
