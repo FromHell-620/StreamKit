@@ -61,7 +61,7 @@
 {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
         [self subscribe:^(id x) {
-            [subscriber sendNext:block(x)];
+            [subscriber sendNext:block(x) ];
         }];
     }];
 }
@@ -117,7 +117,7 @@
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
         __block NSUInteger already_takes = 0;
         [self subscribe:^(id x) {
-            if (already_takes >= takes) {
+            if (already_takes < takes) {
                 [subscriber sendNext:x];
             }
             already_takes ++;

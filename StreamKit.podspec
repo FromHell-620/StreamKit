@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "StreamKit"
-  s.version      = "1.4.1"
+  s.version      = "1.4.2"
   s.summary      = "A streaming programming framework for UIKit."
   s.homepage     = "https://github.com/godL/StreamKit"
   s.license      = "MIT"
