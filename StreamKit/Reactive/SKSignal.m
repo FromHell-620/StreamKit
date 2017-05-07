@@ -57,21 +57,36 @@
         }];
 }
 
+- (SKSignal*)flattenMap:(SKSignal*(^)(id value))block {
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+       [self subscribe:^(id x) {
+           SKSignal* signal = block(x);
+           if (signal) {
+               [signal subscribe:^(id value) {
+                   [subscriber sendNext:value];
+               } complete:^(id value) {
+                   [subscriber sendComplete:value];
+               }];
+           }
+       }];
+    }];
+}
+
 - (SKSignal*)map:(id(^)(id x))block
 {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        [self subscribe:^(id x) {
-            [subscriber sendNext:block(x) ];
+    return [self flattenMap:^SKSignal *(id value) {
+        return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+            [subscriber sendNext:block(value)];
         }];
     }];
 }
 
 - (SKSignal*)filter:(BOOL(^)(id x))block
 {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        [self subscribe:^(id x) {
-            if (block(x)) {
-                [subscriber sendNext:x];
+    return [self flattenMap:^SKSignal *(id value) {
+        return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+            if (block(value)) {
+                [subscriber sendNext:value];
             }
         }];
     }];

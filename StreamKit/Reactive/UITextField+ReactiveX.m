@@ -11,13 +11,29 @@
 #import "UITextField+StreamKit.h"
 #import "SKObjectifyMarco.h"
 #import "SKSignal.h"
+#import "SKSubscriber.h"
 
 @implementation UITextField (ReactiveX)
 
-- (SKSignal*)sk_textSignal
-{
+- (SKSignal*)sk_textSignal {
     return [[self sk_signalForControlEvents:UIControlEventAllEditingEvents] map:^id(UITextField* x) {
         return x.text;
+    }];
+}
+
+- (SKSignal*)sk_shouldBeginSignal {
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        self.sk_textFieldShouldBeginEditing(^BOOL(UITextField* textField) {
+            return [subscriber sendNextWithReturnValue:textField];
+        });
+    }];
+}
+
+- (SKSignal*)sk_shouldChangeCharactersSignal {
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        self.sk_textFieldShouldChangeCharactersInRange(^BOOL(UITextField* textField,NSRange range,NSString* string){
+            return [subscriber sendNextWithReturnValue:string];
+        });
     }];
 }
 

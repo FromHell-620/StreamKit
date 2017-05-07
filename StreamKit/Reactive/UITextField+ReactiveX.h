@@ -13,4 +13,8 @@
 
 - (SKSignal*)sk_textSignal;
 
+- (SKSignal*)sk_shouldBeginSignal;
+
+- (SKSignal*)sk_shouldChangeCharactersSignal;
+
 @end

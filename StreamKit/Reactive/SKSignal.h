@@ -27,6 +27,8 @@
 
 - (SKSignal*)concat:(void(^)(id<SKSubscriber> subscriber))block;
 
+- (SKSignal*)flattenMap:(SKSignal*(^)(id value))block;
+
 - (SKSignal*)map:(id(^)(id x))block;
 
 - (SKSignal*)filter:(BOOL(^)(id x))block;
