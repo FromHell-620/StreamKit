@@ -24,7 +24,7 @@
 - (SKSignal*)sk_shouldBeginSignal {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
         self.sk_textFieldShouldBeginEditing(^BOOL(UITextField* textField) {
-            return [subscriber sendNextWithReturnValue:textField];
+            return [[subscriber sendNextWithReturnValue:textField] boolValue];
         });
     }];
 }
@@ -32,7 +32,7 @@
 - (SKSignal*)sk_shouldChangeCharactersSignal {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
         self.sk_textFieldShouldChangeCharactersInRange(^BOOL(UITextField* textField,NSRange range,NSString* string){
-            return [subscriber sendNextWithReturnValue:string];
+            return [[subscriber sendNextWithReturnValue:string] boolValue];
         });
     }];
 }
