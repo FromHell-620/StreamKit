@@ -15,8 +15,12 @@
 
 @implementation UITextField (ReactiveX)
 
+- (SKSignal*)sk_signal {
+    return [self sk_signalForControlEvents:UIControlEventAllEditingEvents];
+}
+
 - (SKSignal*)sk_textSignal {
-    return [[self sk_signalForControlEvents:UIControlEventAllEditingEvents] map:^id(UITextField* x) {
+    return [[self sk_signal] map:^id(UITextField* x) {
         return x.text;
     }];
 }

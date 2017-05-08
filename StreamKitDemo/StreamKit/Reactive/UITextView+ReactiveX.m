@@ -14,15 +14,17 @@
 
 @implementation UITextView (ReactiveX)
 
-- (SKSignal*)sk_textSignal
-{
-    @weakify(self)
-    return [[SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        @strongify(self)
+- (SKSignal*)sk_signal {
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
         self.sk_textViewDidChange(^(UITextView* textView){
             [subscriber sendNext:textView];
         });
-    }] map:^id(UITextView* x) {
+    }];
+}
+
+- (SKSignal*)sk_textSignal
+{
+    return [[self sk_signal] map:^id(UITextView* x) {
         return x.text;
     }];
 }

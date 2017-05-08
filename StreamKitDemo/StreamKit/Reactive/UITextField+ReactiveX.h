@@ -11,6 +11,8 @@
 @class SKSignal;
 @interface UITextField (ReactiveX)
 
+- (SKSignal*)sk_signal;
+
 - (SKSignal*)sk_textSignal;
 
 - (SKSignal*)sk_shouldBeginSignal;
