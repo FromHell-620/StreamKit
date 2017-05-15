@@ -17,6 +17,8 @@
 #import "SKSignal.h"
 #import "SKSubscriber.h"
 #import "NSObject+ReactiveX.h"
+#import "NSArray+ReactiveX.h"
+#import "NSDictionary+ReactiveX.h"
 #import "UIControl+ReactiveX.h"
 #import "UIView+ReactiveX.h"
 #import "UITextField+ReactiveX.h"

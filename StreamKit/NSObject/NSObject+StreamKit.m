@@ -260,12 +260,17 @@ static void* StreamObserverContextKey = &StreamObserverContextKey;
         }
         
         [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:StreamObserverContextKey];
-        NSMutableDictionary* blocks = objc_getAssociatedObject(self, StreamObserverKey);
-        if (!blocks) {
-            blocks = [NSMutableDictionary dictionary];
-            objc_setAssociatedObject(self, StreamObserverKey, blocks, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        NSMutableDictionary* blocksCache = objc_getAssociatedObject(self, StreamObserverKey);
+        if (!blocksCache) {
+            blocksCache = [NSMutableDictionary dictionary];
+            objc_setAssociatedObject(self, StreamObserverKey, blocksCache, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
-        [blocks setObject:block forKey:keyPath];
+        NSMutableSet* blocks = [blocksCache objectForKey:keyPath];
+        if (!blocks) {
+            blocks = [NSMutableSet set];
+            [blocksCache setObject:blocks forKey:keyPath];
+        }
+        [blocks addObject:block];
         return self;
     };
 }
@@ -275,8 +280,12 @@ static void* StreamObserverContextKey = &StreamObserverContextKey;
     return ^NSObject* (NSString* keyPath) {
         NSParameterAssert(keyPath);
         [self removeObserver:self forKeyPath:keyPath];
-        NSMutableDictionary* blocks = objc_getAssociatedObject(self, StreamObserverKey);
-        [blocks removeObjectForKey:keyPath];
+        NSMutableDictionary* blocksCache = objc_getAssociatedObject(self, StreamObserverKey);
+        NSMutableSet* blocks = [blocksCache objectForKey:keyPath];
+        [blocks enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
+            [self removeObserver:self forKeyPath:keyPath];
+        }];
+        [blocks removeAllObjects];
         return self;
     };
 }
@@ -284,11 +293,11 @@ static void* StreamObserverContextKey = &StreamObserverContextKey;
 - (NSObject*(^)())sk_removeAllObserver
 {
     return ^NSObject* {
-        NSMutableDictionary* blocks = objc_getAssociatedObject(self, StreamObserverKey);
-        [blocks enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            [self removeObserver:self forKeyPath:key];
+        NSMutableDictionary* blocksCache = objc_getAssociatedObject(self, StreamObserverKey);
+        [blocksCache enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            self.sk_removeOvserverWithKeyPath(key);
         }];
-        [blocks removeAllObjects];
+        [blocksCache removeAllObjects];
         return self;
     };
 }
@@ -297,9 +306,11 @@ static void* StreamObserverContextKey = &StreamObserverContextKey;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
     if (context != StreamObserverContextKey) return;
-    NSMutableDictionary* blocks = objc_getAssociatedObject(self, StreamObserverKey);
-    void(^block)(NSDictionary* change) = [blocks objectForKey:keyPath];
-    !block?:block(change);
+    NSMutableDictionary* blocksCache = objc_getAssociatedObject(self, StreamObserverKey);
+    NSMutableSet* blocks = [blocksCache objectForKey:keyPath];
+    [blocks enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
+        ((void(^)(NSDictionary*))obj)(change);
+    }];
 }
 
 @end
