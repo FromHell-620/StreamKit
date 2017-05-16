@@ -33,6 +33,14 @@
     }];
 }
 
+- (SKSignal*)sk_didEndEditeSignal {
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        self.sk_textFieldDidEndEditing(^(UITextField* textField) {
+            [subscriber sendNext:textField];
+        });
+    }];
+}
+
 - (SKSignal*)sk_shouldChangeCharactersSignal {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
         self.sk_textFieldShouldChangeCharactersInRange(^BOOL(UITextField* textField,NSRange range,NSString* string){

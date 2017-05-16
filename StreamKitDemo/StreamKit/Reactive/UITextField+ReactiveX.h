@@ -17,6 +17,8 @@
 
 - (SKSignal*)sk_shouldBeginSignal;
 
+- (SKSignal*)sk_didEndEditeSignal;
+
 - (SKSignal*)sk_shouldChangeCharactersSignal;
 
 @end
