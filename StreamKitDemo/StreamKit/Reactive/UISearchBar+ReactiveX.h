@@ -22,4 +22,6 @@
 
 - (SKSignal*)sk_signalForClickSearchButton;
 
+- (SKSignal*)sk_signalForClickCancelButton;
+
 @end

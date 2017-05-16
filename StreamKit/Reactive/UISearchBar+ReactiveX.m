@@ -33,17 +33,6 @@
     return SK_ClassForceify(objc_getAssociatedObject(self, @selector(setIsEditing:)), NSNumber).boolValue;
 }
 
-- (SKSignal*)sk_signalForClickSearchButton
-{
-    @weakify(self)
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        @strongify(self)
-        self.sk_searchBarSearchButtonClicked(^(UISearchBar* searchBar) {
-            [subscriber sendNext:searchBar];
-        });
-    }];
-}
-
 - (SKSignal*)sk_signalForTextChange
 {
     @weakify(self)
@@ -75,6 +64,27 @@
         self.sk_searchBarTextDidEndEditing(^(UISearchBar* searchBar) {
             [subscriber sendNext:searchBar];
             self.isEditing = NO;
+        });
+    }];
+}
+
+- (SKSignal*)sk_signalForClickSearchButton
+{
+    @weakify(self)
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        @strongify(self)
+        self.sk_searchBarSearchButtonClicked(^(UISearchBar* searchBar) {
+            [subscriber sendNext:searchBar];
+        });
+    }];
+}
+
+- (SKSignal*)sk_signalForClickCancelButton {
+    @weakify(self)
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        @strongify(self)
+        self.sk_searchBarCancelButtonClicked(^(UISearchBar* searchBar) {
+            [subscriber sendNext:searchBar];
         });
     }];
 }
