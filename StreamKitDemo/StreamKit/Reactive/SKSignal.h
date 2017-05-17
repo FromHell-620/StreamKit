@@ -13,13 +13,26 @@
 
 + (instancetype)signalWithBlock:(void(^)(id<SKSubscriber> subscriber))block;
 
-- (void)subscribe:(void(^)(id x))next;
+- (void)subscribe:(id<SKSubscriber>)subscriber;
+
+- (void)subscribeNext:(void(^)(id x))next;
+
+- (void)subscribeError:(void(^)(NSError* error))error;
+
+- (void)subscribeNext:(void (^)(id x))next
+                error:(void(^)(NSError *error))error;
+
+- (void)subscribe:(void (^)(id x))next
+         complete:(void(^)(id value))complete;
+
+- (void)subscribeNext:(void (^)(id x))next
+                error:(void(^)(NSError* error))error
+             complete:(void(^)(id value))complete;
 
 - (void)subscribeWithReturnValue:(id(^)(id x))next;
 
-- (void)subscribe:(void (^)(id value))next complete:(void(^)(id value))complete;
-
-- (void)subscribeWithReturnValue:(id(^)(id x))next complete:(id(^)(id x))complete;
+- (void)subscribeWithReturnValue:(id(^)(id x))next
+                        complete:(id(^)(id x))complete;
 
 @end
 

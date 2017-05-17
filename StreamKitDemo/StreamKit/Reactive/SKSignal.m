@@ -20,9 +20,32 @@
     return signal;
 }
 
-- (void)subscribe:(void(^)(id x))next
-{
-    SKSubscriber* subscriber = [SKSubscriber subscriberWithNext:next complete:nil];
+- (void)subscribe:(id<SKSubscriber>)subscriber {
+    !_block?:_block(subscriber);
+}
+
+- (void)subscribeNext:(void(^)(id x))next {
+    [self subscribeNext:next error:nil complete:nil];
+}
+
+- (void)subscribeError:(void(^)(NSError *error))error {
+    [self subscribeNext:nil error:error complete:nil];
+}
+
+- (void)subscribeNext:(void (^)(id x))next
+                error:(void(^)(NSError *error))error {
+    [self subscribeNext:next error:error complete:nil];
+}
+
+- (void)subscribe:(void (^)(id value))next
+         complete:(void(^)(id value))complete {
+    [self subscribeNext:next error:nil complete:complete];
+}
+
+- (void)subscribeNext:(void (^)(id))next
+                error:(void(^)(NSError *error))error
+             complete:(void(^)(id value))complete {
+    SKSubscriber* subscriber = [SKSubscriber subscriberWithNext:next error:error complete:complete];
     !_block?:_block(subscriber);
 }
 
@@ -32,11 +55,7 @@
     !_block?:_block(subscriber);
 }
 
-- (void)subscribe:(void (^)(id value))next complete:(void(^)(id value))complete
-{
-    SKSubscriber* subscriber = [SKSubscriber subscriberWithNext:next complete:complete];
-    !_block?:_block(subscriber);
-}
+
 
 - (void)subscribeWithReturnValue:(id(^)(id x))next complete:(id(^)(id x))complete
 {
@@ -51,24 +70,32 @@
 - (SKSignal*)concat:(void(^)(id<SKSubscriber> subscriber))block
 {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-            [self subscribe:^(id x) {
+            [self subscribeNext:^(id x) {
                 [subscriber sendNext:x];
+            } error:^(NSError *error) {
+                [subscriber sendError:error];
+            } complete:^(id value) {
+                [subscriber sendComplete:value];
             }];
         }];
 }
 
 - (SKSignal*)flattenMap:(SKSignal*(^)(id value))block {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-       [self subscribe:^(id x) {
-           SKSignal* signal = block(x);
-           if (signal) {
-               [signal subscribe:^(id value) {
-                   [subscriber sendNext:value];
-               } complete:^(id value) {
-                   [subscriber sendComplete:value];
-               }];
-           }
-       }];
+        [self subscribeNext:^(id x) {
+            SKSignal* signal = block(x);
+            [signal subscribeNext:^(id x) {
+                [subscriber sendNext:x];
+            } error:^(NSError *error) {
+                [subscriber sendError:error];
+            } complete:^(id value) {
+                [subscriber sendComplete:value];
+            }];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
+        }];
     }];
 }
 
@@ -102,14 +129,20 @@
 - (SKSignal*)takeUntil:(SKSignal*)signal
 {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-            [signal subscribe:^(id value) {
-                [subscriber sendComplete:value];
-            } complete:^(id value) {
-                [subscriber sendComplete:value];
-            }];
+        [signal subscribeNext:^(id x) {
+            [subscriber sendComplete:x];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
+        }];
         
-        [self subscribe:^(id x) {
+        [self subscribeNext:^(id x) {
             [subscriber sendNext:x];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
         }];
     }];
 }
@@ -118,11 +151,15 @@
 {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
         __block id pre_value = nil;
-            [self subscribe:^(id x) {
+            [self subscribeNext:^(id x) {
                 if (!(pre_value == x || [pre_value isEqual:x])) {
                     [subscriber sendNext:x];
                 }
                 pre_value = x;
+            } error:^(NSError *error) {
+                [subscriber sendError:error];
+            } complete:^(id value) {
+                [subscriber sendComplete:value];
             }];
     }];
 }
@@ -131,34 +168,39 @@
 {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
         __block NSUInteger already_takes = 0;
-        [self subscribe:^(id x) {
+        [self subscribeNext:^(id x) {
             if (already_takes < takes) {
                 [subscriber sendNext:x];
             }
             already_takes ++;
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
         }];
-    }];
+}];
 }
 
 - (SKSignal*)takeUntilBlock:(BOOL(^)(id x))block
 {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        [self subscribe:^(id x) {
+        [self subscribeNext:^(id x) {
             if (block(x) == NO ) {
                 [subscriber sendNext:x];
-            }
+            }else
+                [subscriber sendComplete:x];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
         }];
     }];
 }
 
 - (SKSignal*)takeWhileBlock:(BOOL(^)(id x))block
 {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        [self subscribe:^(id x) {
-            if (block(x) == YES) {
-                [subscriber sendNext:x];
-            }
-        }];
+    return [self takeUntilBlock:^BOOL(id x) {
+        return !block(x);
     }];
 }
 
@@ -166,11 +208,15 @@
 {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
         __block NSUInteger already = 0;
-        [self subscribe:^(id x) {
+        [self subscribeNext:^(id x) {
             already ++;
             if (already > takes) {
                 [subscriber sendNext:x];
             }
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
         }];
     }];
 }
@@ -178,21 +224,29 @@
 - (SKSignal*)skipUntilBlock:(BOOL(^)(id x))block
 {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-       [self subscribe:^(id x) {
-           if (block(x) == YES) {
-               [subscriber sendNext:x];
-           }
-       }];
+        [self subscribeNext:^(id x) {
+            if (block(x) == YES) {
+                [subscriber sendNext:x];
+            }
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
+        }];
     }];
 }
 
 - (SKSignal*)skipWhileBlock:(BOOL(^)(id x))block
 {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        [self subscribe:^(id x) {
+        [self subscribeNext:^(id x) {
             if (block(x) == NO) {
                 [subscriber sendNext:x];
             }
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
         }];
     }];
 }
@@ -201,8 +255,12 @@
 {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
         [subscriber sendNext:value];
-        [self subscribe:^(id x) {
+        [self subscribeNext:^(id x) {
             [subscriber sendNext:x];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
         }];
     }];
 }
@@ -210,14 +268,18 @@
 - (SKSignal*)combineLatestWithSignal:(SKSignal*)signal
 {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        [self subscribe:^(id value) {
-            [subscriber sendNext:value];
+        [self subscribeNext:^(id x) {
+            [subscriber sendNext:x];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
         } complete:^(id value) {
             [subscriber sendComplete:value];
         }];
         
-        [signal subscribe:^(id value) {
-            [subscriber sendNext:value];
+        [signal subscribeNext:^(id x) {
+            [subscriber sendNext:x];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
         } complete:^(id value) {
             [subscriber sendComplete:value];
         }];
@@ -236,9 +298,13 @@
             
             theFirst = [theFirst combineLatestWithSignal:signal];
         }
-       [theFirst subscribe:^(id x) {
-           [subscriber sendNext:x];
-       }];
+        [theFirst subscribeNext:^(id x) {
+            [subscriber sendNext:x];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
+        }];
     }];
 }
 
@@ -246,13 +312,17 @@
 {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
         __block BOOL hasNextInvoke = YES;
-        [self subscribe:^(id x) {
+        [self subscribeNext:^(id x) {
             if (hasNextInvoke == NO) return ;
             hasNextInvoke = NO;
             [subscriber sendNext:x];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 hasNextInvoke = YES;
             });
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
         }];
     }];
 }

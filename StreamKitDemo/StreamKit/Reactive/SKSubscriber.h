@@ -12,6 +12,8 @@
 
 - (void)sendNext:(id)value;
 
+- (void)sendError:(NSError*)error;
+
 - (id)sendNextWithReturnValue:(id)value;
 
 - (void)sendComplete:(id)value;
@@ -28,6 +30,10 @@
 
 + (instancetype)subscriberWithReturnValueNext:(id)next
                                      complete:(id)complete;
+
++ (instancetype)subscriberWithNext:(void (^)(id))next
+                             error:(void(^)(NSError* error))error
+                          complete:(void (^)(id))complete;
 
 
 @end
