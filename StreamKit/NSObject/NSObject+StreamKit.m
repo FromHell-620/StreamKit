@@ -230,7 +230,6 @@ void StreamHookMehtod(Class hookClass,const char* hookMethodName,void(^aspectBlo
     if (!class_addMethod(hookClass, hook_method, hook_imp, "v@:")) {
         original_method = (void(*)(__unsafe_unretained id,SEL))method_setImplementation(class_getInstanceMethod(hookClass, hook_method), hook_imp);
     }
-    
 }
 
 @end
@@ -246,7 +245,7 @@ static void* StreamObserverContextKey = &StreamObserverContextKey;
     return ^NSObject* (NSString* keyPath,void(^block)(NSDictionary* change)) {
         NSParameterAssert(keyPath);
         NSParameterAssert(block);
-        Class hook_class = object_getClass(self);
+        Class hook_class = self.class;
         static NSMutableSet* hookClassCaches = nil;
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{

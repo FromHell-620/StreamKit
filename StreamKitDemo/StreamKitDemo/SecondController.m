@@ -13,6 +13,10 @@
 
 @property (nonatomic,strong) NSString* textContent;
 
+@property (nonatomic,copy) NSDictionary* arr1;
+
+@property (nonatomic,copy) NSDictionary* arr2;
+
 @end
 
 @implementation SecondController
@@ -32,9 +36,20 @@
     text.sk_textViewDidChange(^(UITextView* textField){
         @strongify(self)
         self.textContent = textField.text;
+        self.arr2 = @{@"aa":textField.text};
+        NSLog(@"%@",self.arr1);
     });
     
-    SK(label,text) = [SKObserve(self,textContent) startWith:@"aaa"];
+//    [self bk_addObserverForKeyPath:@"textContent" task:^(id target) {
+//        
+//    }];
+//    
+//    [self bk_addObserverForKeyPath:@"arr2" task:^(id target) {
+//        
+//    }];
+    SK(label,text) = SKObserve(self,textContent);
+    SK(self,arr1) = SKObserve(self,arr2);
+
 //    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
 //    button.frame = CGRectMake(100, 100, 100, 100);
 //    [button setTitle:@"点击" forState:UIControlStateNormal];
