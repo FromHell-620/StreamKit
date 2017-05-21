@@ -38,6 +38,8 @@
 
 @interface SKSignal (operation)
 
+- (SKSignal *)doNext:(void(^)(id x))next;
+
 - (SKSignal*)concat:(void(^)(id<SKSubscriber> subscriber))block;
 
 - (SKSignal*)flattenMap:(SKSignal*(^)(id value))block;
@@ -66,10 +68,18 @@
 
 - (SKSignal*)startWith:(id)value;
 
+- (SKSignal *)startWithBlock:(void(^)(id x))block;
+
 - (SKSignal*)combineLatestWithSignal:(SKSignal*)signal;
 
 + (SKSignal*)combineLatestSignals:(NSArray<SKSignal*>*)signals;
 
 - (SKSignal*)throttle:(NSTimeInterval)interval;
+
+- (SKSignal *)Y;
+
+- (SKSignal *)N;
+
+- (SKSignal *)not;
 
 @end

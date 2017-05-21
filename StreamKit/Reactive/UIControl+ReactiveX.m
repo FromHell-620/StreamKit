@@ -8,6 +8,7 @@
 
 #import "UIControl+ReactiveX.h"
 #import "UIControl+StreamKit.h"
+#import "UIView+ReactiveX.h"
 #import "SKObjectifyMarco.h"
 #import "SKSubscriber.h"
 #import "SKSignal.h"
@@ -23,7 +24,10 @@
             [subscriber sendNext:control];
         });
     }];
-    
+}
+
+- (SKSignal *)sk_eventSignal {
+    return [self sk_signalForControlEvents:UIControlEventTouchUpInside];
 }
 
 @end

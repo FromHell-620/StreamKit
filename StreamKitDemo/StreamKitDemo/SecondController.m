@@ -8,6 +8,7 @@
 
 #import "SecondController.h"
 #import "StreamKit.h"
+#import "Test.h"
 
 @interface SecondController ()
 
@@ -17,9 +18,18 @@
 
 @property (nonatomic,copy) NSDictionary* arr2;
 
+@property (nonatomic,strong) Test *test;
+
 @end
 
 @implementation SecondController
+
+- (Test *)test {
+    if (!_test) {
+        _test = [Test new];
+    }
+    return _test;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,8 +57,9 @@
 //    [self bk_addObserverForKeyPath:@"arr2" task:^(id target) {
 //        
 //    }];
-    SK(label,text) = SKObserve(self,textContent);
-    SK(self,arr1) = SKObserve(self,arr2);
+    [SKObserve(self.test,text) subscribeNext:^(id x) {
+        
+    }];
 
 //    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
 //    button.frame = CGRectMake(100, 100, 100, 100);
