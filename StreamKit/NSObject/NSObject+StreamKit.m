@@ -253,7 +253,7 @@ static void* StreamObserverContextKey = &StreamObserverContextKey;
         });
         if (![hookClassCaches containsObject:hook_class]) {
             StreamHookMehtod(hook_class, "dealloc", ^(NSObject* target){
-                target.sk_removeAllObserver();
+                [target sk_removeAllObserver];
             });
             [hookClassCaches addObject:hook_class];
         }
@@ -274,6 +274,14 @@ static void* StreamObserverContextKey = &StreamObserverContextKey;
     };
 }
 
+- (void)sk_removeObserverWithKeyPath:(NSString *)keyPath {
+    NSParameterAssert(keyPath);
+    [self removeObserver:self forKeyPath:keyPath];
+    NSMutableDictionary* blocksCache = objc_getAssociatedObject(self, StreamObserverKey);
+    NSMutableSet* blocks = [blocksCache objectForKey:keyPath];
+    [blocks removeAllObjects];
+}
+
 - (NSObject*(^)(NSString* keyPath))sk_removeOvserverWithKeyPath
 {
     return ^NSObject* (NSString* keyPath) {
@@ -286,16 +294,12 @@ static void* StreamObserverContextKey = &StreamObserverContextKey;
     };
 }
 
-- (NSObject*(^)())sk_removeAllObserver
-{
-    return ^NSObject* {
-        NSMutableDictionary* blocksCache = objc_getAssociatedObject(self, StreamObserverKey);
-        [blocksCache enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            self.sk_removeOvserverWithKeyPath(key);
-        }];
-        [blocksCache removeAllObjects];
-        return self;
-    };
+- (void)sk_removeAllObserver {
+    NSMutableDictionary* blocksCache = objc_getAssociatedObject(self, StreamObserverKey);
+    [blocksCache enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [self sk_removeObserverWithKeyPath:key];
+    }];
+    [blocksCache removeAllObjects];
 }
 
 #pragma mark- Private
