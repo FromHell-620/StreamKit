@@ -40,7 +40,7 @@
 
 - (SKSignal *)doNext:(void(^)(id x))next;
 
-- (SKSignal*)concat:(void(^)(id<SKSubscriber> subscriber))block;
+- (SKSignal*)concat:(SKSignal *)signal;
 
 - (SKSignal*)flattenMap:(SKSignal*(^)(id value))block;
 
