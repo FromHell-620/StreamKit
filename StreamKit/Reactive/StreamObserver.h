@@ -12,7 +12,7 @@
 
 @interface StreamObserver : NSObject
 
-@property (nonatomic,unsafe_unretained,readonly) NSObject* object;
+@property (nonatomic,weak,readonly) NSObject* object;
 
 @property (nonatomic,readonly) id keyPath;
 
