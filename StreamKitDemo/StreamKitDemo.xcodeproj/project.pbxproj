@@ -43,6 +43,7 @@
 		C915142D1E7679F800BFBCE5 /* UIPageViewController+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91514131E7679F800BFBCE5 /* UIPageViewController+StreamKit.m */; };
 		C939E58B1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C939E58A1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m */; };
 		C939E58E1E978C9A00F23E0E /* UIView+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C939E58D1E978C9A00F23E0E /* UIView+ReactiveX.m */; };
+		C94058791EEB345700679812 /* WCDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C94058721EEB344400679812 /* WCDB.framework */; };
 		C94EF6451ECF655C0037D06E /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = C94EF6441ECF655C0037D06E /* Test.m */; };
 		C95273A61E8E5A8B0017B78F /* NSString+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C95273A51E8E5A8B0017B78F /* NSString+StreamKit.m */; };
 		C95273AA1E8E6A0B0017B78F /* SKSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C95273A91E8E6A0B0017B78F /* SKSignal.m */; };
@@ -64,6 +65,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C94058711EEB344400679812 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C940586A1EEB344300679812 /* WCDB.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 239326611E836D7300D677CC;
+			remoteInfo = WCDB;
+		};
+		C94058731EEB344400679812 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C940586A1EEB344300679812 /* WCDB.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 23D5CCFD1EB8616D00A5B8F9;
+			remoteInfo = Sample;
+		};
+		C94058751EEB344400679812 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C940586A1EEB344300679812 /* WCDB.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 238A3A801EB8B5A700986614;
+			remoteInfo = Benchmark;
+		};
+		C94058771EEB345200679812 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C940586A1EEB344300679812 /* WCDB.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 239326601E836D7300D677CC;
+			remoteInfo = WCDB;
+		};
 		C9B62B8B1E06BE0400920035 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9B62B691E06BE0300920035 /* Project object */;
@@ -151,6 +180,7 @@
 		C939E58A1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+ReactiveX.m"; sourceTree = "<group>"; };
 		C939E58C1E978C9A00F23E0E /* UIView+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ReactiveX.h"; sourceTree = "<group>"; };
 		C939E58D1E978C9A00F23E0E /* UIView+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ReactiveX.m"; sourceTree = "<group>"; };
+		C940586A1EEB344300679812 /* WCDB.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WCDB.xcodeproj; path = ../../../OC/wcdb/WCDB/WCDB.xcodeproj; sourceTree = "<group>"; };
 		C94EF6431ECF655C0037D06E /* Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
 		C94EF6441ECF655C0037D06E /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test.m; sourceTree = "<group>"; };
 		C95273A41E8E5A8B0017B78F /* NSString+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StreamKit.h"; sourceTree = "<group>"; };
@@ -201,6 +231,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C94058791EEB345700679812 /* WCDB.framework in Frameworks */,
 				C3E73CBF94C220E3528C6998 /* libPods-StreamKitDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,6 +394,16 @@
 			path = UIViewController;
 			sourceTree = "<group>";
 		};
+		C940586B1EEB344300679812 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C94058721EEB344400679812 /* WCDB.framework */,
+				C94058741EEB344400679812 /* Sample */,
+				C94058761EEB344400679812 /* Benchmark */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C95273A71E8E69210017B78F /* Reactive */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,6 +456,7 @@
 		C9B62B681E06BE0300920035 = {
 			isa = PBXGroup;
 			children = (
+				C940586A1EEB344300679812 /* WCDB.xcodeproj */,
 				C91513D91E7679F800BFBCE5 /* StreamKit */,
 				7416AA6A1E121B0C00A970A3 /* StreamKitDemo */,
 				C9B62B8D1E06BE0400920035 /* StreamKitTests */,
@@ -470,6 +512,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C94058781EEB345200679812 /* PBXTargetDependency */,
 			);
 			name = StreamKitDemo;
 			productName = StreamKit;
@@ -549,6 +592,12 @@
 			mainGroup = C9B62B681E06BE0300920035;
 			productRefGroup = C9B62B721E06BE0400920035 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C940586B1EEB344300679812 /* Products */;
+					ProjectRef = C940586A1EEB344300679812 /* WCDB.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C9B62B701E06BE0300920035 /* StreamKitDemo */,
@@ -557,6 +606,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C94058721EEB344400679812 /* WCDB.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = WCDB.framework;
+			remoteRef = C94058711EEB344400679812 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C94058741EEB344400679812 /* Sample */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = Sample;
+			remoteRef = C94058731EEB344400679812 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C94058761EEB344400679812 /* Benchmark */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = Benchmark;
+			remoteRef = C94058751EEB344400679812 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C9B62B6F1E06BE0300920035 /* Resources */ = {
@@ -708,6 +781,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C94058781EEB345200679812 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = WCDB;
+			targetProxy = C94058771EEB345200679812 /* PBXContainerItemProxy */;
+		};
 		C9B62B8C1E06BE0400920035 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C9B62B701E06BE0300920035 /* StreamKitDemo */;
@@ -838,6 +916,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = DHF573YC2L;
+				FRAMEWORK_SEARCH_PATHS = "/Users/lihao-mac/Desktop/OC/wcdb/WCDB";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"$(SRCROOT)/../../../OC/wcdb/WCDB\"",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/StreamKitDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = LH.StreamKit;
@@ -851,6 +935,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = DHF573YC2L;
+				FRAMEWORK_SEARCH_PATHS = "/Users/lihao-mac/Desktop/OC/wcdb/WCDB";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"$(SRCROOT)/../../../OC/wcdb/WCDB\"",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/StreamKitDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = LH.StreamKit;

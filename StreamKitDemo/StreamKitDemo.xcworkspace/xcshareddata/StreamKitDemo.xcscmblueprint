@@ -4,13 +4,17 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "6F2B10FB6B44CA69C58E014D8E5B3B39E1691D30" : 9223372036854775807,
     "EF48625F7523D750D16A7D5B59A8A10768A1C7BA" : 9223372036854775807,
-    "1E6A6AFA8FD184A9666119397C1D8872BE1E4596" : 9223372036854775807
+    "1E6A6AFA8FD184A9666119397C1D8872BE1E4596" : 9223372036854775807,
+    "55011AEBD444630C0E9DF47BD2E18FDBBDCC285D" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C33F40DA-E032-4CD1-9388-85DEA4DB783E",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "6F2B10FB6B44CA69C58E014D8E5B3B39E1691D30" : "..\/OC\/wcdb",
     "EF48625F7523D750D16A7D5B59A8A10768A1C7BA" : "StreamKit\/",
-    "1E6A6AFA8FD184A9666119397C1D8872BE1E4596" : ""
+    "1E6A6AFA8FD184A9666119397C1D8872BE1E4596" : "",
+    "55011AEBD444630C0E9DF47BD2E18FDBBDCC285D" : "..\/OC\/wcdb\/sqlcipher"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "StreamKitDemo",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -20,6 +24,16 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/godL\/LHDB.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1E6A6AFA8FD184A9666119397C1D8872BE1E4596"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Tencent\/sqlcipher.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "55011AEBD444630C0E9DF47BD2E18FDBBDCC285D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Tencent\/wcdb.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6F2B10FB6B44CA69C58E014D8E5B3B39E1691D30"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/godL\/StreamKit.git",
