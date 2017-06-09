@@ -60,6 +60,10 @@
     [SKObserve(self.test,text) subscribeNext:^(id x) {
         
     }];
+    
+    [SKObserve(self.test,text) subscribeNext:^(id x) {
+        
+    }];
 
 //    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
 //    button.frame = CGRectMake(100, 100, 100, 100);

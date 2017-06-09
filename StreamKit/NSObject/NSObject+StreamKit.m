@@ -276,9 +276,11 @@ static void* StreamObserverContextKey = &StreamObserverContextKey;
 
 - (void)sk_removeObserverWithKeyPath:(NSString *)keyPath {
     NSParameterAssert(keyPath);
-    [self removeObserver:self forKeyPath:keyPath];
     NSMutableDictionary* blocksCache = objc_getAssociatedObject(self, StreamObserverKey);
     NSMutableSet* blocks = [blocksCache objectForKey:keyPath];
+    [blocks enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [self removeObserver:self forKeyPath:keyPath];
+    }];
     [blocks removeAllObjects];
 }
 
