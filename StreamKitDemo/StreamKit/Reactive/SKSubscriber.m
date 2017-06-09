@@ -46,7 +46,7 @@
 }
 
 - (void)sendError:(NSError *)error {
-    if (_error) ^{_error(error);_next = nil;_error = nil;_complete = nil;}();
+    if (_error) ^{_error(error);}();
 }
 
 - (id)sendNextWithReturnValue:(id)value {
