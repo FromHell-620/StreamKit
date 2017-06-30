@@ -7,6 +7,7 @@
 //
 
 #import "SKSignal.h"
+#import "SKSubscriber.h"
 
 @interface SKSubject : SKSignal<SKSubscriber>
 

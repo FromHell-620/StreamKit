@@ -7,7 +7,6 @@
 //
 
 #import "SKSubject.h"
-#import "SKSubscriber.h"
 
 @interface SKSubject ()
 
