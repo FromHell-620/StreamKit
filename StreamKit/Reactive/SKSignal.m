@@ -45,7 +45,7 @@
                 error:(void(^)(NSError *error))error
              complete:(void(^)(id value))complete {
     SKSubscriber *subscriber = [SKSubscriber subscriberWithNext:next error:error complete:complete];
-    !_block?:_block(subscriber);
+    [self subscribe:subscriber];
 }
 
 - (void)subscribeWithReturnValue:(id(^)(id x))next {

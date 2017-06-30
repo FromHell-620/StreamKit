@@ -1,0 +1,22 @@
+//
+//  ToolKit.pch
+//  ToolKit
+//
+//  Created by chunhui on 15/11/24.
+//  Copyright © 2015年 chunhui. All rights reserved.
+//
+
+#ifndef ToolKit_pch
+#define ToolKit_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#ifdef __OBJC__
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "TKDefines.h"
+
+#endif
+
+#endif /* ToolKit_pch */

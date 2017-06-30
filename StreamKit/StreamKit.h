@@ -16,6 +16,7 @@
 #pragma mark- ReactiveX
 #import "SKSignal.h"
 #import "SKSubscriber.h"
+#import "SKSubject.h"
 #import "NSObject+ReactiveX.h"
 #import "NSArray+ReactiveX.h"
 #import "NSDictionary+ReactiveX.h"
