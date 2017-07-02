@@ -10,8 +10,7 @@
 
 @implementation NSString (StreamKit)
 
-- (Class)sk_classify
-{
+- (Class)sk_classify {
     return NSClassFromString(self);
 }
 

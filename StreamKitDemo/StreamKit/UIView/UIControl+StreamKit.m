@@ -9,7 +9,7 @@
 #import "UIControl+StreamKit.h"
 #import <objc/runtime.h>
 
-static const void* block_key = &block_key;
+static const void * const SKControlKey = &SKControlKey;
 
 @implementation UIControl (StreamKit)
 
@@ -59,7 +59,7 @@ static const void* block_key = &block_key;
             free(sel_name);
             if (!class_getInstanceMethod(NSClassFromString(@"UIControl"), invoke_name)) {
                 IMP imp = imp_implementationWithBlock(^(__unsafe_unretained id target,__kindof UIControl* control) {
-                    NSMapTable* cacheBlocks = objc_getAssociatedObject(target, (__bridge const void *)target);
+                    NSMapTable* cacheBlocks = objc_getAssociatedObject(target, SKControlKey);
                     char* event_name = strdup(sel_getName(invoke_name));
                     NSMutableSet* blocks = [cacheBlocks objectForKey:@(strtoul(event_name, NULL, 0))];
                     free(event_name);
@@ -70,10 +70,10 @@ static const void* block_key = &block_key;
                 class_addMethod(NSClassFromString(@"UIControl"), invoke_name, imp, "v@:@");
             }
             
-            NSMapTable* cacheBlocks = objc_getAssociatedObject(self, (__bridge const void*)self);
+            NSMapTable* cacheBlocks = objc_getAssociatedObject(self, SKControlKey);
             if (!cacheBlocks) {
                 cacheBlocks = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsStrongMemory];
-                objc_setAssociatedObject(self, (__bridge const void*)self, cacheBlocks, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, SKControlKey, cacheBlocks, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             NSMutableSet* blocks = [cacheBlocks objectForKey:@(controlEvents)];
             if (blocks == nil) {
@@ -90,7 +90,7 @@ static const void* block_key = &block_key;
 - (UIControl* (^)(UIControlEvents controlEvents))sk_removeEventBlock
 {
     return ^ UIControl* (UIControlEvents controlEvents) {
-        NSMapTable* cacheBlocks = objc_getAssociatedObject(self, (__bridge const void*)self);
+        NSMapTable* cacheBlocks = objc_getAssociatedObject(self, SKControlKey);
         NSMutableSet* blocks = [cacheBlocks objectForKey:@(controlEvents)];
         [blocks removeAllObjects];
         return self;
@@ -100,7 +100,7 @@ static const void* block_key = &block_key;
 - (UIControl* (^)())sk_removeAllEventBlock
 {
     return ^ UIControl* (id target) {
-        NSMapTable* cacheEvent = objc_getAssociatedObject(self, (__bridge const void *)(self));
+        NSMapTable* cacheEvent = objc_getAssociatedObject(self, SKControlKey);
         [cacheEvent removeAllObjects];
         return self;
     };

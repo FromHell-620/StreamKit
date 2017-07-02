@@ -11,6 +11,8 @@
 @import ObjectiveC.runtime;
 @import ObjectiveC.message;
 
+static const void * const SKGestureRecognizerKey = &SKGestureRecognizerKey;
+
 @implementation UIGestureRecognizer (StreamKit)
 
 + (UIGestureRecognizer* (^)(void(^block)(UIGestureRecognizer* recognizer)))sk_initWithBlock
@@ -24,7 +26,7 @@
 {
     return ^ UIGestureRecognizer* (void(^block)(UIGestureRecognizer* recognizer)) {
         if (block) {
-            objc_setAssociatedObject(self, (__bridge const void *)(self), block, OBJC_ASSOCIATION_COPY_NONATOMIC);
+            objc_setAssociatedObject(self, SKGestureRecognizerKey, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
             [self addTarget:self action:@selector(recognizerAction:)];
         }
         return self;
@@ -92,7 +94,7 @@
 - (void)recognizerAction:(__kindof UIGestureRecognizer*)recognizer
 {
 
-    void(^block)(__kindof UIGestureRecognizer* recognizer) = objc_getAssociatedObject(recognizer, (__bridge const void *)(recognizer));
+    void(^block)(__kindof UIGestureRecognizer* recognizer) = objc_getAssociatedObject(recognizer, SKGestureRecognizerKey);
     block(recognizer);
 }
 

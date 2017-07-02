@@ -12,6 +12,8 @@
 @import ObjectiveC.runtime;
 @import ObjectiveC.message;
 
+static const void * const SKNotificationKey = &SKNotificationKey;
+
 @implementation NSNotificationCenter (StreamKit)
 
 - (NSNotificationCenter*)sK_addEventBlockWithObserver:(id)observer name:(NSNotificationName)aName aObject:(id)anObject block:(id)eventBlock
@@ -19,10 +21,10 @@
     NSParameterAssert(aName);
     NSParameterAssert(eventBlock);
     /* cache blocks aName<-->blocks_set */
-    NSMapTable* blocks_table = objc_getAssociatedObject(self, (__bridge const void*)self);
+    NSMapTable* blocks_table = objc_getAssociatedObject(self, SKNotificationKey);
     if (!blocks_table) {
         blocks_table = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsCopyIn valueOptions:NSPointerFunctionsStrongMemory];
-        objc_setAssociatedObject(self, (__bridge const void*)self, blocks_table, OBJC_ASSOCIATION_COPY_NONATOMIC);
+        objc_setAssociatedObject(self, SKNotificationKey, blocks_table, OBJC_ASSOCIATION_COPY_NONATOMIC);
     }
     NSMutableSet* blocks_set = [blocks_table objectForKey:aName];
     if (!blocks_set) {
@@ -52,7 +54,7 @@
     SEL block_action = sel_registerName("sk_notification:");
     if (!class_getInstanceMethod(object_getClass(self), block_action)) {
         IMP block_imp = imp_implementationWithBlock(^(id target,id param){
-            NSMapTable* block_cache = objc_getAssociatedObject(target, (__bridge const void*)target);
+            NSMapTable* block_cache = objc_getAssociatedObject(target, SKNotificationKey);
             NSSet* blocks = [block_cache objectForKey:aName];
             [blocks enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
                 SK_BasicForceify(obj, void(^)(id))(param);
@@ -95,7 +97,7 @@
 - (NSNotificationCenter* (^)(NSNotificationName aName))sk_removeNotification
 {
     return ^ NSNotificationCenter* (NSNotificationName aName) {
-        NSMapTable* block_table = objc_getAssociatedObject(self, (__bridge const void*)self);
+        NSMapTable* block_table = objc_getAssociatedObject(self, SKNotificationKey);
         NSMutableSet* block_set = [block_table objectForKey:aName];
         [block_set removeAllObjects];
         return self;
@@ -133,7 +135,7 @@
 + (NSNotificationCenter* (^)(NSNotificationName aName))sk_removeNotification
 {
     return ^ NSNotificationCenter* (NSNotificationName aName) {
-        NSMapTable* block_table = objc_getAssociatedObject([NSNotificationCenter defaultCenter], (__bridge const void*)[NSNotificationCenter defaultCenter]);
+        NSMapTable* block_table = objc_getAssociatedObject([NSNotificationCenter defaultCenter], SKNotificationKey);
         NSMutableSet* block_set = [block_table objectForKey:aName];
         [block_set removeAllObjects];
         return [NSNotificationCenter defaultCenter];
