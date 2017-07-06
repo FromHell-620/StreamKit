@@ -10,13 +10,17 @@
 
 @protocol SKSubscriber <NSObject>
 
+@required
+
 - (void)sendNext:(id)value;
 
 - (void)sendError:(NSError*)error;
 
-- (id)sendNextWithReturnValue:(id)value;
-
 - (void)sendComplete:(id)value;
+
+@optional
+
+- (id)sendNextWithReturnValue:(id)value;
 
 - (id)sendCompleteWithReturnValue:(id)value;
 

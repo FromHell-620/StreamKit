@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SKSubscriber.h"
 
 @class SKSignal;
-@interface NSArray (ReactiveX)
+@interface NSArray (ReactiveX)<SKSubscriber>
 
 - (SKSignal*)sk_enumSignal;
 

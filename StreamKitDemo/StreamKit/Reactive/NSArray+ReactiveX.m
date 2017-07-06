@@ -8,7 +8,6 @@
 
 #import "NSArray+ReactiveX.h"
 #import "SKSignal.h"
-#import "SKSubscriber.h"
 
 @implementation NSArray (ReactiveX)
 
@@ -18,6 +17,30 @@
             [subscriber sendNext:obj];
         }];
         [subscriber sendComplete:nil];
+    }];
+}
+
+- (void)sendNext:(id)value {
+    [[self sk_enumSignal] subscribeNext:^(id<SKSubscriber> x) {
+        if ([x respondsToSelector:@selector(sendNext:)]) {
+            [x sendNext:value];
+        }
+    }];
+}
+
+- (void)sendError:(NSError *)error {
+    [[self sk_enumSignal] subscribeNext:^(id<SKSubscriber> x) {
+        if ([x respondsToSelector:@selector(sendError:)]) {
+            [x sendError:error];
+        }
+    }];
+}
+
+- (void)sendComplete:(id)value {
+    [[self sk_enumSignal] subscribeNext:^(id x) {
+        if ([x respondsToSelector:@selector(sendComplete:)]) {
+            [x sendComplete:value];
+        }
     }];
 }
 

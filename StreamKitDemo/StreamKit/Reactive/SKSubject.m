@@ -7,19 +7,43 @@
 //
 
 #import "SKSubject.h"
+#import "NSArray+ReactiveX.h"
+#import "SKObjectifyMarco.h"
 
 @interface SKSubject ()
 
 @property (nonatomic,strong) NSMutableArray<id<SKSubscriber>> *subscribers;
 
+@property (nonatomic,strong) NSMutableArray<id<SKSubscriber>> *completeSubscribers;
+
 @end
 
 @implementation SKSubject
+
+@synthesize completeSignal = _completeSignal;
 
 + (instancetype)subject {
     SKSubject *subject = [SKSubject new];
     subject.subscribers = [NSMutableArray array];
     return subject;
+}
+
+- (NSMutableArray<id<SKSubscriber>> *)completeSubscribers {
+    if (!_completeSubscribers) {
+        _completeSubscribers = [NSMutableArray array];
+    }
+    return _completeSubscribers;
+}
+
+- (SKSignal *)completeSignal {
+    if (!_completeSignal) {
+        @weakify(self)
+        _completeSignal = [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+            @strongify(self)
+            [self.completeSubscribers addObject:subscriber];
+        }];
+    }
+    return self;
 }
 
 - (void)subscribe:(id<SKSubscriber>)subscriber {

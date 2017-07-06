@@ -11,6 +11,8 @@
 
 @interface SKSubject : SKSignal<SKSubscriber>
 
+@property (nonatomic,strong,readonly) SKSignal *completeSignal;
+
 + (instancetype)subject;
 
 @end
