@@ -13,6 +13,8 @@
 
 @property (nonatomic,strong,readonly) SKSignal *completeSignal;
 
+@property (nonatomic,copy,readonly) NSArray<id<SKSubscriber>> *completeSubscribers;
+
 + (instancetype)subject;
 
 @end

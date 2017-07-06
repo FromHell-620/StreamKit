@@ -14,7 +14,7 @@
 
 @property (nonatomic,strong) NSMutableArray<id<SKSubscriber>> *subscribers;
 
-@property (nonatomic,strong) NSMutableArray<id<SKSubscriber>> *completeSubscribers;
+@property (nonatomic,strong) NSMutableArray<id<SKSubscriber>> *privateSubscribers;
 
 @end
 
@@ -28,11 +28,15 @@
     return subject;
 }
 
-- (NSMutableArray<id<SKSubscriber>> *)completeSubscribers {
-    if (!_completeSubscribers) {
-        _completeSubscribers = [NSMutableArray array];
+- (NSMutableArray<id<SKSubscriber>> *)privateSubscribers {
+    if (!_privateSubscribers) {
+        _privateSubscribers = [NSMutableArray array];
     }
-    return _completeSubscribers;
+    return _privateSubscribers;
+}
+
+- (NSArray<id<SKSubscriber>> *)completeSubscribers {
+    return [self.privateSubscribers copy];
 }
 
 - (SKSignal *)completeSignal {
@@ -40,7 +44,7 @@
         @weakify(self)
         _completeSignal = [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
             @strongify(self)
-            [self.completeSubscribers addObject:subscriber];
+            [self.privateSubscribers addObject:subscriber];
         }];
     }
     return self;
