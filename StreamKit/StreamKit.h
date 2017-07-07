@@ -18,6 +18,7 @@
 #import "SKSubscriber.h"
 #import "SKSubject.h"
 #import "NSObject+ReactiveX.h"
+#import "NSNotificationCenter+ReactiveX.h"
 #import "NSArray+ReactiveX.h"
 #import "NSDictionary+ReactiveX.h"
 #import "UIControl+ReactiveX.h"

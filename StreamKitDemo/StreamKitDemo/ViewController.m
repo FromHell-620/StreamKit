@@ -9,7 +9,6 @@
 #import "ViewController.h"
 #import "StreamKit.h"
 #import "SecondController.h"
-#import <WCDB/WCDB.h>
 
 
 @interface ViewController ()<UIScrollViewDelegate>

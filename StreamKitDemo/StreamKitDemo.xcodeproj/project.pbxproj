@@ -55,6 +55,7 @@
 		C9B62B9A1E06BE0400920035 /* StreamKitUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B991E06BE0400920035 /* StreamKitUITests.m */; };
 		C9B751261EC0C75B0034C413 /* NSArray+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B751251EC0C75B0034C413 /* NSArray+ReactiveX.m */; };
 		C9B751291EC0C8080034C413 /* NSDictionary+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B751281EC0C8080034C413 /* NSDictionary+ReactiveX.m */; };
+		C9C65F2B1F10039A0071450A /* NSNotificationCenter+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C65F2A1F10039A0071450A /* NSNotificationCenter+ReactiveX.m */; };
 		C9D6C6CD1E9CB83D00CD8E8F /* UIScrollView+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C6CC1E9CB83D00CD8E8F /* UIScrollView+ReactiveX.m */; };
 		C9DCC3E71E97441C006E9B82 /* UITextField+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DCC3E61E97441C006E9B82 /* UITextField+ReactiveX.m */; };
 		C9DCC3EA1E9747CC006E9B82 /* UITextView+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DCC3E91E9747CC006E9B82 /* UITextView+ReactiveX.m */; };
@@ -182,6 +183,8 @@
 		C9B751251EC0C75B0034C413 /* NSArray+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+ReactiveX.m"; sourceTree = "<group>"; };
 		C9B751271EC0C8080034C413 /* NSDictionary+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ReactiveX.h"; sourceTree = "<group>"; };
 		C9B751281EC0C8080034C413 /* NSDictionary+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ReactiveX.m"; sourceTree = "<group>"; };
+		C9C65F291F10039A0071450A /* NSNotificationCenter+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+ReactiveX.h"; sourceTree = "<group>"; };
+		C9C65F2A1F10039A0071450A /* NSNotificationCenter+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+ReactiveX.m"; sourceTree = "<group>"; };
 		C9D6C6CB1E9CB83D00CD8E8F /* UIScrollView+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+ReactiveX.h"; sourceTree = "<group>"; };
 		C9D6C6CC1E9CB83D00CD8E8F /* UIScrollView+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+ReactiveX.m"; sourceTree = "<group>"; };
 		C9DCC3E51E97441C006E9B82 /* UITextField+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+ReactiveX.h"; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 				C9EB62A51E973A8000B08FCE /* NSObject+ReactiveX.m */,
 				C9F3E0E31E94E440000661E0 /* UIControl+ReactiveX.h */,
 				C9F3E0E41E94E440000661E0 /* UIControl+ReactiveX.m */,
+				C9C65F291F10039A0071450A /* NSNotificationCenter+ReactiveX.h */,
+				C9C65F2A1F10039A0071450A /* NSNotificationCenter+ReactiveX.m */,
 				C9DCC3EB1E975A18006E9B82 /* StreamObserver.h */,
 				C9DCC3EC1E975A18006E9B82 /* StreamObserver.m */,
 				C9B751241EC0C75B0034C413 /* NSArray+ReactiveX.h */,
@@ -667,6 +672,7 @@
 				C9AC59501F06AADD006829CC /* SKSubject.m in Sources */,
 				C915141B1E7679F800BFBCE5 /* UIRotationGestureRecognizer+StreamKit.m in Sources */,
 				C91514231E7679F800BFBCE5 /* UIControl+StreamKit.m in Sources */,
+				C9C65F2B1F10039A0071450A /* NSNotificationCenter+ReactiveX.m in Sources */,
 				C915141D1E7679F800BFBCE5 /* UITapGestureRecognizer+StreamKit.m in Sources */,
 				C915142C1E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m in Sources */,
 				C9DCC3EA1E9747CC006E9B82 /* UITextView+ReactiveX.m in Sources */,
@@ -844,11 +850,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = DHF573YC2L;
-				FRAMEWORK_SEARCH_PATHS = "/Users/lihao-mac/Desktop/OC/wcdb/WCDB";
+				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"$(SRCROOT)/../../../OC/wcdb/WCDB\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/StreamKitDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -863,11 +868,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = DHF573YC2L;
-				FRAMEWORK_SEARCH_PATHS = "/Users/lihao-mac/Desktop/OC/wcdb/WCDB";
+				FRAMEWORK_SEARCH_PATHS = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"$(SRCROOT)/../../../OC/wcdb/WCDB\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/StreamKitDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

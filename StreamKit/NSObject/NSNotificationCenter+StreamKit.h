@@ -77,17 +77,7 @@ typedef void(^SKNotificationBlock)(NSNotification* noti);
  */
 - (NSNotificationCenter* (^)(NSNotificationName aName,id observer,id anObject,SKNotificationBlock block))sk_addNotificationToObserverWithObject;
 
-
-/**
- remove a notification 
-
- @code
- self.sk_removeNotification(aName);
- @endcode
- 
- @return a block which receive a NotificationName.
- */
-- (NSNotificationCenter* (^)(NSNotificationName aName))sk_removeNotification;
+- (void)sk_removeNotificationWithName:(NSNotificationName)name;
 
 #pragma mark- defaultCenter
 
@@ -102,6 +92,6 @@ typedef void(^SKNotificationBlock)(NSNotification* noti);
 
 + (NSNotificationCenter* (^)(NSNotificationName aName,id observer,id anObject,SKNotificationBlock block))sk_addNotificationToObserverWithObject;
 
-+ (NSNotificationCenter* (^)(NSNotificationName aName))sk_removeNotification;
++ (void)sk_removeNotificationWithName:(NSNotificationName)name;
 
 @end

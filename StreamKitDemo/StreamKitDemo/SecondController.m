@@ -50,6 +50,11 @@
         NSLog(@"%@",self.arr1);
     });
     
+    [[[NSNotificationCenter defaultCenter] sk_signalWithName:@"aa" observer:self] subscribeNext:^(id x) {
+        
+    }];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"aa" object:@"aa"];
 //    [self bk_addObserverForKeyPath:@"textContent" task:^(id target) {
 //        
 //    }];
