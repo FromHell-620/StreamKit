@@ -163,9 +163,9 @@
         __block id pre_value = nil;
             [self subscribeNext:^(id x) {
                 if (!(pre_value == x || [pre_value isEqual:x])) {
+                    pre_value = x;
                     [subscriber sendNext:x];
                 }
-                pre_value = x;
             } error:^(NSError *error) {
                 [subscriber sendError:error];
             } complete:^(id value) {
