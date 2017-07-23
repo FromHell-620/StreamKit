@@ -50,11 +50,6 @@
         NSLog(@"%@",self.arr1);
     });
     
-    [[[NSNotificationCenter defaultCenter] sk_signalWithName:@"aa" observer:self] subscribeNext:^(id x) {
-        
-    }];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"aa" object:@"aa"];
 //    [self bk_addObserverForKeyPath:@"textContent" task:^(id target) {
 //        
 //    }];
@@ -62,7 +57,9 @@
 //    [self bk_addObserverForKeyPath:@"arr2" task:^(id target) {
 //        
 //    }];
-    [SKObserve(self.test,text) subscribeNext:^(id x) {
+    [[[[SKObserve(self,textContent) scheduleOn:[SKScheduler serialScheduler]] map:^id(id x) {
+        return x;
+    }] scheduleOn:[SKScheduler mainThreadScheduler]] subscribeNext:^(id x) {
         
     }];
     

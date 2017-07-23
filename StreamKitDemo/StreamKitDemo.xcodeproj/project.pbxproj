@@ -43,6 +43,11 @@
 		C915142D1E7679F800BFBCE5 /* UIPageViewController+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91514131E7679F800BFBCE5 /* UIPageViewController+StreamKit.m */; };
 		C939E58B1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C939E58A1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m */; };
 		C939E58E1E978C9A00F23E0E /* UIView+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C939E58D1E978C9A00F23E0E /* UIView+ReactiveX.m */; };
+		C94CD4651F24AB760083E200 /* SKConcurrentQueueScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = C94CD45C1F24AB760083E200 /* SKConcurrentQueueScheduler.m */; };
+		C94CD4661F24AB760083E200 /* SKMainQueueScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = C94CD45E1F24AB760083E200 /* SKMainQueueScheduler.m */; };
+		C94CD4671F24AB760083E200 /* SKQueueScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = C94CD4601F24AB760083E200 /* SKQueueScheduler.m */; };
+		C94CD4681F24AB760083E200 /* SKScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = C94CD4621F24AB760083E200 /* SKScheduler.m */; };
+		C94CD4691F24AB760083E200 /* SKSerialQueueScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = C94CD4641F24AB760083E200 /* SKSerialQueueScheduler.m */; };
 		C94EF6451ECF655C0037D06E /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = C94EF6441ECF655C0037D06E /* Test.m */; };
 		C95273A61E8E5A8B0017B78F /* NSString+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C95273A51E8E5A8B0017B78F /* NSString+StreamKit.m */; };
 		C95273AA1E8E6A0B0017B78F /* SKSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = C95273A91E8E6A0B0017B78F /* SKSignal.m */; };
@@ -153,6 +158,16 @@
 		C939E58A1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+ReactiveX.m"; sourceTree = "<group>"; };
 		C939E58C1E978C9A00F23E0E /* UIView+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ReactiveX.h"; sourceTree = "<group>"; };
 		C939E58D1E978C9A00F23E0E /* UIView+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ReactiveX.m"; sourceTree = "<group>"; };
+		C94CD45B1F24AB760083E200 /* SKConcurrentQueueScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKConcurrentQueueScheduler.h; sourceTree = "<group>"; };
+		C94CD45C1F24AB760083E200 /* SKConcurrentQueueScheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKConcurrentQueueScheduler.m; sourceTree = "<group>"; };
+		C94CD45D1F24AB760083E200 /* SKMainQueueScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKMainQueueScheduler.h; sourceTree = "<group>"; };
+		C94CD45E1F24AB760083E200 /* SKMainQueueScheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKMainQueueScheduler.m; sourceTree = "<group>"; };
+		C94CD45F1F24AB760083E200 /* SKQueueScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKQueueScheduler.h; sourceTree = "<group>"; };
+		C94CD4601F24AB760083E200 /* SKQueueScheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKQueueScheduler.m; sourceTree = "<group>"; };
+		C94CD4611F24AB760083E200 /* SKScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKScheduler.h; sourceTree = "<group>"; };
+		C94CD4621F24AB760083E200 /* SKScheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKScheduler.m; sourceTree = "<group>"; };
+		C94CD4631F24AB760083E200 /* SKSerialQueueScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSerialQueueScheduler.h; sourceTree = "<group>"; };
+		C94CD4641F24AB760083E200 /* SKSerialQueueScheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSerialQueueScheduler.m; sourceTree = "<group>"; };
 		C94EF6431ECF655C0037D06E /* Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
 		C94EF6441ECF655C0037D06E /* Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Test.m; sourceTree = "<group>"; };
 		C95273A41E8E5A8B0017B78F /* NSString+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StreamKit.h"; sourceTree = "<group>"; };
@@ -269,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				C91513E11E7679F800BFBCE5 /* StreamKit.h */,
+				C94CD45A1F24AB760083E200 /* SKScheduler */,
 				C95273A71E8E69210017B78F /* Reactive */,
 				C981B1F41E8A40030057425D /* Marco */,
 				C91513DA1E7679F800BFBCE5 /* NSObject */,
@@ -367,6 +383,23 @@
 				C91514131E7679F800BFBCE5 /* UIPageViewController+StreamKit.m */,
 			);
 			path = UIViewController;
+			sourceTree = "<group>";
+		};
+		C94CD45A1F24AB760083E200 /* SKScheduler */ = {
+			isa = PBXGroup;
+			children = (
+				C94CD45B1F24AB760083E200 /* SKConcurrentQueueScheduler.h */,
+				C94CD45C1F24AB760083E200 /* SKConcurrentQueueScheduler.m */,
+				C94CD45D1F24AB760083E200 /* SKMainQueueScheduler.h */,
+				C94CD45E1F24AB760083E200 /* SKMainQueueScheduler.m */,
+				C94CD45F1F24AB760083E200 /* SKQueueScheduler.h */,
+				C94CD4601F24AB760083E200 /* SKQueueScheduler.m */,
+				C94CD4611F24AB760083E200 /* SKScheduler.h */,
+				C94CD4621F24AB760083E200 /* SKScheduler.m */,
+				C94CD4631F24AB760083E200 /* SKSerialQueueScheduler.h */,
+				C94CD4641F24AB760083E200 /* SKSerialQueueScheduler.m */,
+			);
+			path = SKScheduler;
 			sourceTree = "<group>";
 		};
 		C95273A71E8E69210017B78F /* Reactive */ = {
@@ -673,12 +706,14 @@
 				C915141B1E7679F800BFBCE5 /* UIRotationGestureRecognizer+StreamKit.m in Sources */,
 				C91514231E7679F800BFBCE5 /* UIControl+StreamKit.m in Sources */,
 				C9C65F2B1F10039A0071450A /* NSNotificationCenter+ReactiveX.m in Sources */,
+				C94CD4671F24AB760083E200 /* SKQueueScheduler.m in Sources */,
 				C915141D1E7679F800BFBCE5 /* UITapGestureRecognizer+StreamKit.m in Sources */,
 				C915142C1E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m in Sources */,
 				C9DCC3EA1E9747CC006E9B82 /* UITextView+ReactiveX.m in Sources */,
 				C91514191E7679F800BFBCE5 /* UIPanGestureRecognizer+StreamKit.m in Sources */,
 				880BA6941EA49EDA0089B71F /* UISearchBar+ReactiveX.m in Sources */,
 				C9DCC3E71E97441C006E9B82 /* UITextField+ReactiveX.m in Sources */,
+				C94CD4691F24AB760083E200 /* SKSerialQueueScheduler.m in Sources */,
 				C91514221E7679F800BFBCE5 /* UIButton+StreamKit.m in Sources */,
 				C9A392F91ED1EE1C00EFA3B8 /* UIView+SKCommand.m in Sources */,
 				C91514291E7679F800BFBCE5 /* UISwitch+StreamKit.m in Sources */,
@@ -688,6 +723,8 @@
 				C91514281E7679F800BFBCE5 /* UISearchBar+StreamKit.m in Sources */,
 				C91514141E7679F800BFBCE5 /* NSNotificationCenter+StreamKit.m in Sources */,
 				C9D6C6CD1E9CB83D00CD8E8F /* UIScrollView+ReactiveX.m in Sources */,
+				C94CD4681F24AB760083E200 /* SKScheduler.m in Sources */,
+				C94CD4651F24AB760083E200 /* SKConcurrentQueueScheduler.m in Sources */,
 				7416AAAC1E121B0C00A970A3 /* AppDelegate.m in Sources */,
 				C9B751291EC0C8080034C413 /* NSDictionary+ReactiveX.m in Sources */,
 				C91514241E7679F800BFBCE5 /* UIImageView+StreamKit.m in Sources */,
@@ -695,6 +732,7 @@
 				C915141A1E7679F800BFBCE5 /* UIPinchGestureRecognizer+StreamKit.m in Sources */,
 				C915142A1E7679F800BFBCE5 /* UITextField+StreamKit.m in Sources */,
 				C9F3E0E51E94E440000661E0 /* UIControl+ReactiveX.m in Sources */,
+				C94CD4661F24AB760083E200 /* SKMainQueueScheduler.m in Sources */,
 				C9A392F31ED1BB6B00EFA3B8 /* SKCommand.m in Sources */,
 				C915141F1E7679F800BFBCE5 /* UIScrollView+StreamKit.m in Sources */,
 				C9F3E0ED1E94EACA000661E0 /* SKSubscriber.m in Sources */,
@@ -856,6 +894,7 @@
 					"\"${PODS_ROOT}/Headers/Public\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/StreamKitDemo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = LH.StreamKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -874,6 +913,7 @@
 					"\"${PODS_ROOT}/Headers/Public\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/StreamKitDemo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = LH.StreamKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";

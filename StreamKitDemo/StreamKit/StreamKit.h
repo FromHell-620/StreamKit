@@ -31,6 +31,7 @@
 #import "SKCommand.h"
 #import "UIButton+SKCommand.h"
 #import "UIView+SKCommand.h"
+#import "SKScheduler.h"
 
 #pragma mark- NSObject
 #import "StreamObserver.h"

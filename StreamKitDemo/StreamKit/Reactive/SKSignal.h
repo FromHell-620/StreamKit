@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @protocol SKSubscriber;
+
+@class SKScheduler;
+
 @interface SKSignal : NSObject
 
 + (instancetype)signalWithBlock:(void(^)(id<SKSubscriber> subscriber))block;
@@ -81,5 +84,7 @@
 - (SKSignal *)N;
 
 - (SKSignal *)not;
+
+- (SKSignal *)scheduleOn:(SKScheduler *)scheduler;
 
 @end
