@@ -127,6 +127,10 @@
  */
 - (UILabel* (^)(NSLineBreakMode lineBreakMode))sk_lineBreakMode;
 
+- (UILabel* (^)(UIColor *color))sk_shadowColor;
+
+- (UILabel* (^)(CGSize size))sk_shadowSize;
+
 /**
  Set attributedString.
  @code

@@ -59,6 +59,18 @@
     };
 }
 
+- (UILabel* (^)(UIColor *color))sk_shadowColor {
+    return ^ UILabel *(UIColor *color) {
+        return ({self.shadowColor = color;self;});
+    };
+}
+
+- (UILabel* (^)(CGSize size))sk_shadowSize {
+    return ^ UILabel *(CGSize size) {
+        return ({self.shadowOffset = size;self;});
+    };
+}
+
 - (UILabel* (^)(NSAttributedString* attributedString))sk_attributedString
 {
     return ^ UILabel* (NSAttributedString* attributedString) {

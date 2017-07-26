@@ -8,6 +8,7 @@
 
 #import "SKSignal.h"
 #import "SKSubscriber.h"
+#import "SKScheduler.h"
 
 @implementation SKSignal {
     void(^_block)(id<SKSubscriber> subscriber);
@@ -359,6 +360,24 @@
     return [self map:^id(NSNumber *x) {
         NSCAssert([x isKindOfClass:NSNumber.class], @"-not must only be used on a signal of NSNumbers. Instead, got: %@", x);
         return @(!x.boolValue);
+    }];
+}
+
+- (SKSignal *)scheduleOn:(SKScheduler *)scheduler {
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        [self subscribeNext:^(id x) {
+            [scheduler schedule:^{
+                [subscriber sendNext:x];
+            }];
+        } error:^(NSError *error) {
+            [scheduler schedule:^{
+                [subscriber sendError:error];
+            }];
+        } complete:^(id value) {
+            [scheduler schedule:^{
+                [subscriber sendComplete:value];
+            }];
+        }];
     }];
 }
 
