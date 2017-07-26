@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "StreamKit.h"
 #import "SecondController.h"
 
 
@@ -23,12 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIButton* button = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    button.frame = CGRectMake(100, 100, 100, 100);
-    [[button sk_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-        [self.navigationController pushViewController:[SecondController new] animated:YES];
-    }];
-    [self.view addSubview:button];
+    
     //    SK(label,text) = SKObserve(self, textContent);
     // Do any additional setup after loading the view, typically from a nib.
 }
