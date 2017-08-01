@@ -47,7 +47,7 @@
             [self.privateSubscribers addObject:subscriber];
         }];
     }
-    return self;
+    return _completeSignal;
 }
 
 - (void)subscribe:(id<SKSubscriber>)subscriber {
