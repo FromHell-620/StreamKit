@@ -14,17 +14,28 @@
 
 static const void * const SKNotificationKey = &SKNotificationKey;
 
+static const void * const SKNotificationObserverKey = &SKNotificationObserverKey;
+
 @implementation NSNotificationCenter (StreamKit)
 
 - (NSNotificationCenter*)sK_addEventBlockWithObserver:(NSObject *)observer name:(NSNotificationName)aName aObject:(id)anObject block:(id)eventBlock
 {
     NSParameterAssert(aName);
     NSParameterAssert(eventBlock);
+    NSParameterAssert(observer);
     /* cache blocks aName<-->blocks_set */
-    NSMutableDictionary* blocks_table = objc_getAssociatedObject(self, SKNotificationKey);
+    NSHashTable *observers = objc_getAssociatedObject(self, SKNotificationObserverKey);
+    if (observers == nil) {
+        observers = [[NSHashTable alloc] initWithOptions:NSPointerFunctionsWeakMemory|NSPointerFunctionsObjectPersonality capacity:1];
+        objc_setAssociatedObject(self, SKNotificationObserverKey, observers, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    if (![observers containsObject:observer]) {
+        [observers addObject:observer];
+    }
+    NSMutableDictionary* blocks_table = objc_getAssociatedObject(observer, SKNotificationKey);
     if (!blocks_table) {
         blocks_table = [NSMutableDictionary dictionary];
-        objc_setAssociatedObject(self, SKNotificationKey, blocks_table, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(observer, SKNotificationKey, blocks_table, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     NSMutableSet* blocks_set = [blocks_table objectForKey:aName];
     if (!blocks_set) {
@@ -42,9 +53,10 @@ static const void * const SKNotificationKey = &SKNotificationKey;
     Class hook_class = observer.class;
     if (hook_class&&![classes containsObject:hook_class]) {
         StreamHookMehtod(hook_class, "dealloc", ^(NSObject* target) {
-            NSArray* allKeys = blocks_table.keyEnumerator.allObjects;
+            NSDictionary *cache = objc_getAssociatedObject(target, SKNotificationKey);
+            NSArray* allKeys = cache.keyEnumerator.allObjects;
             [allKeys enumerateObjectsUsingBlock:^(NSString*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [self sk_removeNotificationWithName:obj];
+                [self sk_removeNotificationWithObserver:target name:obj];
             }];
         });
         [classes addObject:hook_class];
@@ -53,11 +65,15 @@ static const void * const SKNotificationKey = &SKNotificationKey;
     /* realize noti callback */
     SEL block_action = sel_registerName("sk_notification:");
     if (!class_getInstanceMethod(self.class, block_action)) {
-        IMP block_imp = imp_implementationWithBlock(^(id target,id param){
-            NSDictionary* block_cache = objc_getAssociatedObject(self, SKNotificationKey);
-            NSSet* blocks = [block_cache objectForKey:aName];
-            [blocks enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
-                SK_BasicForceify(obj, void(^)(id))(param);
+        IMP block_imp = imp_implementationWithBlock(^(id target,NSNotification *param){
+            NSHashTable *table = objc_getAssociatedObject(target, SKNotificationObserverKey);
+            NSArray *objs = table.objectEnumerator.allObjects;
+            [objs enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                NSDictionary* block_cache = objc_getAssociatedObject(obj, SKNotificationKey);
+                NSSet* blocks = [block_cache objectForKey:param.name];
+                [blocks enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
+                    SK_BasicForceify(obj, void(^)(id))(param);
+                }];
             }];
         });
         class_addMethod(object_getClass(self), block_action, block_imp, "v@:@");
@@ -94,8 +110,8 @@ static const void * const SKNotificationKey = &SKNotificationKey;
     };
 }
 
-- (void)sk_removeNotificationWithName:(NSNotificationName)name {
-    NSDictionary* block_table = objc_getAssociatedObject(self, SKNotificationKey);
+- (void)sk_removeNotificationWithObserver:(id)observer name:(NSNotificationName)name {
+    NSDictionary* block_table = objc_getAssociatedObject(observer, SKNotificationKey);
     NSMutableSet* block_set = [block_table objectForKey:name];
     [block_set enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
         [self removeObserver:self name:name object:nil];
@@ -131,8 +147,8 @@ static const void * const SKNotificationKey = &SKNotificationKey;
     };
 }
 
-+ (void)sk_removeNotificationWithName:(NSNotificationName)name {
-    [[NSNotificationCenter defaultCenter] sk_removeNotificationWithName:name];
++ (void)sk_removeNotificationWithObserver:(id)observer name:(NSNotificationName)name {
+    [[NSNotificationCenter defaultCenter] sk_removeNotificationWithObserver:observer name:name];
 }
 
 @end

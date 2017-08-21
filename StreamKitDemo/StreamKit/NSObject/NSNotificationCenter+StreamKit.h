@@ -77,7 +77,7 @@ typedef void(^SKNotificationBlock)(NSNotification* noti);
  */
 - (NSNotificationCenter* (^)(NSNotificationName aName,id observer,id anObject,SKNotificationBlock block))sk_addNotificationToObserverWithObject;
 
-- (void)sk_removeNotificationWithName:(NSNotificationName)name;
+- (void)sk_removeNotificationWithObserver:(id)observer name:(NSNotificationName)name;
 
 #pragma mark- defaultCenter
 
@@ -92,6 +92,6 @@ typedef void(^SKNotificationBlock)(NSNotification* noti);
 
 + (NSNotificationCenter* (^)(NSNotificationName aName,id observer,id anObject,SKNotificationBlock block))sk_addNotificationToObserverWithObject;
 
-+ (void)sk_removeNotificationWithName:(NSNotificationName)name;
++ (void)sk_removeNotificationWithObserver:(id)observer name:(NSNotificationName)name;
 
 @end

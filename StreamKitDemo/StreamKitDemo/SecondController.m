@@ -8,6 +8,7 @@
 
 #import "SecondController.h"
 #import "Test.h"
+#import "StreamKit.h"
 
 @interface SecondController ()
 
@@ -32,7 +33,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    button.frame = CGRectMake(100, 100, 100, 100);
+    [[button sk_eventSignal] subscribeNext:^(id x) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"111" object:nil];
+    }];
+    [self.view addSubview:button];
     
+    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    button.frame = CGRectMake(100, 300, 100, 100);
+    [button1.sk_eventSignal subscribeNext:^(id x) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"222" object:nil];
+
+    }];
+    [self.view addSubview:button1];
+    
+    [[[NSNotificationCenter defaultCenter] sk_signalWithName:@"111" observer:self] subscribeNext:^(NSNotification* x) {
+        NSLog(@"x1 = %@",x.name);
+    }];
+    [[[NSNotificationCenter defaultCenter] sk_signalWithName:@"222" observer:self] subscribeNext:^(NSNotification *x) {
+        NSLog(@"x2 == %@",x.name);
+    }];
     // Do any additional setup after loading the view.
 }
 
