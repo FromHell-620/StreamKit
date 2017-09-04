@@ -41,6 +41,7 @@
 		C915142B1E7679F800BFBCE5 /* UIView+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C915140E1E7679F800BFBCE5 /* UIView+StreamKit.m */; };
 		C915142C1E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91514111E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m */; };
 		C915142D1E7679F800BFBCE5 /* UIPageViewController+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91514131E7679F800BFBCE5 /* UIPageViewController+StreamKit.m */; };
+		C921E1441F584D4F00B6A4EE /* UIButton+aa.m in Sources */ = {isa = PBXBuildFile; fileRef = C921E1431F584D4F00B6A4EE /* UIButton+aa.m */; };
 		C939E58B1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C939E58A1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m */; };
 		C939E58E1E978C9A00F23E0E /* UIView+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C939E58D1E978C9A00F23E0E /* UIView+ReactiveX.m */; };
 		C94CD4651F24AB760083E200 /* SKConcurrentQueueScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = C94CD45C1F24AB760083E200 /* SKConcurrentQueueScheduler.m */; };
@@ -154,6 +155,8 @@
 		C91514111E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+StreamKit.m"; sourceTree = "<group>"; };
 		C91514121E7679F800BFBCE5 /* UIPageViewController+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPageViewController+StreamKit.h"; sourceTree = "<group>"; };
 		C91514131E7679F800BFBCE5 /* UIPageViewController+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPageViewController+StreamKit.m"; sourceTree = "<group>"; };
+		C921E1421F584D4F00B6A4EE /* UIButton+aa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+aa.h"; sourceTree = "<group>"; };
+		C921E1431F584D4F00B6A4EE /* UIButton+aa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+aa.m"; sourceTree = "<group>"; };
 		C939E5891E97881900F23E0E /* UIGestureRecognizer+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+ReactiveX.h"; sourceTree = "<group>"; };
 		C939E58A1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+ReactiveX.m"; sourceTree = "<group>"; };
 		C939E58C1E978C9A00F23E0E /* UIView+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ReactiveX.h"; sourceTree = "<group>"; };
@@ -272,6 +275,8 @@
 				7416AA731E121B0C00A970A3 /* main.m */,
 				7416AAAA1E121B0C00A970A3 /* ViewController.h */,
 				7416AAAB1E121B0C00A970A3 /* ViewController.m */,
+				C921E1421F584D4F00B6A4EE /* UIButton+aa.h */,
+				C921E1431F584D4F00B6A4EE /* UIButton+aa.m */,
 				C955498A1E8CE92B003C55AF /* SecondController.h */,
 				C955498B1E8CE92B003C55AF /* SecondController.m */,
 				C94EF6431ECF655C0037D06E /* Test.h */,
@@ -720,6 +725,7 @@
 				C94EF6451ECF655C0037D06E /* Test.m in Sources */,
 				C91514151E7679F800BFBCE5 /* NSObject+StreamKit.m in Sources */,
 				C939E58B1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m in Sources */,
+				C921E1441F584D4F00B6A4EE /* UIButton+aa.m in Sources */,
 				C91514281E7679F800BFBCE5 /* UISearchBar+StreamKit.m in Sources */,
 				C91514141E7679F800BFBCE5 /* NSNotificationCenter+StreamKit.m in Sources */,
 				C9D6C6CD1E9CB83D00CD8E8F /* UIScrollView+ReactiveX.m in Sources */,

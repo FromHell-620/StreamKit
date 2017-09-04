@@ -60,6 +60,28 @@
     !_block?:_block(subscriber);
 }
 
+- (void)dealloc {
+
+}
+
+@end
+
+@implementation SKSignal (Debug)
+
+- (SKSignal *)setSignalName:(NSString *)name {
+    SKSignal *signal = [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        [self subscribeNext:^(id x) {
+            [subscriber sendNext:x];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } complete:^(id value) {
+            [subscriber sendComplete:value];
+        }];
+    }];
+    signal.debugName = name;
+    return signal;
+}
+
 @end
 
 @implementation SKSignal (operation)

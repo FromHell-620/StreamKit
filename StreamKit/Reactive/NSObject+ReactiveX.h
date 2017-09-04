@@ -14,4 +14,6 @@
 
 - (SKSignal*)sk_ObserveForKeyPath:(NSString*)keypath;
 
+- (SKSignal *)sk_dellocSignal;
+
 @end

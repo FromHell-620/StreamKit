@@ -12,6 +12,6 @@
 
 @interface NSNotificationCenter (ReactiveX)
 
-- (SKSignal *)sk_signalWithName:(NSNotificationName)name observer:(id)observer;
+- (SKSignal *)sk_signalWithName:(NSNotificationName)name object:(id)object;
 
 @end

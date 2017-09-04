@@ -25,4 +25,12 @@
     }];
 }
 
+- (SKSignal *)sk_dellocSignal {
+    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        StreamHookMehtod([self class], "delloc", ^(id target) {
+            [subscriber sendNext:nil];
+        });
+    }];
+}
+
 @end

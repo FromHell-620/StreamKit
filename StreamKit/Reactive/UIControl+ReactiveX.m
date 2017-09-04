@@ -27,7 +27,7 @@
 }
 
 - (SKSignal *)sk_eventSignal {
-    return [self sk_signalForControlEvents:UIControlEventTouchUpInside];
+    return [[self sk_signalForControlEvents:UIControlEventTouchUpInside] setSignalName:@"UIControl"];
 }
 
 @end

@@ -12,23 +12,25 @@
 
 @class SKScheduler;
 
-@interface SKSignal : NSObject
+@interface SKSignal<ObjectType> : NSObject
+
+@property (nonatomic,copy) NSString *debugName;
 
 + (instancetype)signalWithBlock:(void(^)(id<SKSubscriber> subscriber))block;
 
 - (void)subscribe:(id<SKSubscriber>)subscriber;
 
-- (void)subscribeNext:(void(^)(id x))next;
+- (void)subscribeNext:(void(^)(ObjectType x))next;
 
 - (void)subscribeError:(void(^)(NSError* error))error;
 
-- (void)subscribeNext:(void (^)(id x))next
+- (void)subscribeNext:(void (^)(ObjectType x))next
                 error:(void(^)(NSError *error))error;
 
-- (void)subscribe:(void (^)(id x))next
+- (void)subscribe:(void (^)(ObjectType x))next
          complete:(void(^)(id value))complete;
 
-- (void)subscribeNext:(void (^)(id x))next
+- (void)subscribeNext:(void (^)(ObjectType x))next
                 error:(void(^)(NSError* error))error
              complete:(void(^)(id value))complete;
 
@@ -39,52 +41,58 @@
 
 @end
 
-@interface SKSignal (operation)
+@interface SKSignal (Debug)
 
-- (SKSignal *)doNext:(void(^)(id x))next;
+- (SKSignal *)setSignalName:(NSString *)name;
 
-- (SKSignal*)concat:(SKSignal *)signal;
+@end
 
-- (SKSignal*)flattenMap:(SKSignal*(^)(id value))block;
+@interface SKSignal<ObjectType> (operation)
 
-- (SKSignal*)map:(id(^)(id x))block;
+- (SKSignal *)doNext:(void(^)(ObjectType x))next;
 
-- (SKSignal*)filter:(BOOL(^)(id x))block;
+- (SKSignal *)concat:(SKSignal *)signal;
 
-- (SKSignal*)ignore:(id)value;
+- (SKSignal *)flattenMap:(SKSignal*(^)(id value))block;
 
-- (SKSignal*)takeUntil:(SKSignal*)signal;
+- (SKSignal *)map:(id(^)(id x))block;
 
-- (SKSignal*)distinctUntilChanged;
+- (SKSignal<ObjectType> *)filter:(BOOL(^)(ObjectType x))block;
 
-- (SKSignal*)take:(NSUInteger)takes;
+- (SKSignal<ObjectType> *)ignore:(id)value;
 
-- (SKSignal*)takeUntilBlock:(BOOL(^)(id x))block;
+- (SKSignal *)takeUntil:(SKSignal*)signal;
 
-- (SKSignal*)takeWhileBlock:(BOOL(^)(id x))block;
+- (SKSignal<ObjectType> *)distinctUntilChanged;
 
-- (SKSignal*)skip:(NSUInteger)takes;
+- (SKSignal<ObjectType> *)take:(NSUInteger)takes;
 
-- (SKSignal*)skipUntilBlock:(BOOL(^)(id x))block;
+- (SKSignal<ObjectType> *)takeUntilBlock:(BOOL(^)(id x))block;
 
-- (SKSignal*)skipWhileBlock:(BOOL(^)(id x))block;
+- (SKSignal<ObjectType> *)takeWhileBlock:(BOOL(^)(id x))block;
 
-- (SKSignal*)startWith:(id)value;
+- (SKSignal<ObjectType> *)skip:(NSUInteger)takes;
 
-- (SKSignal *)startWithBlock:(void(^)(id x))block;
+- (SKSignal<ObjectType> *)skipUntilBlock:(BOOL(^)(id x))block;
 
-- (SKSignal*)combineLatestWithSignal:(SKSignal*)signal;
+- (SKSignal<ObjectType> *)skipWhileBlock:(BOOL(^)(id x))block;
 
-+ (SKSignal*)combineLatestSignals:(NSArray<SKSignal*>*)signals;
+- (SKSignal<ObjectType> *)startWith:(id)value;
 
-- (SKSignal*)throttle:(NSTimeInterval)interval;
+- (SKSignal<ObjectType> *)startWithBlock:(void(^)(id x))block;
 
-- (SKSignal *)Y;
+- (SKSignal *)combineLatestWithSignal:(SKSignal *)signal;
 
-- (SKSignal *)N;
++ (SKSignal *)combineLatestSignals:(NSArray<SKSignal *> *)signals;
 
-- (SKSignal *)not;
+- (SKSignal<ObjectType> *)throttle:(NSTimeInterval)interval;
 
-- (SKSignal *)scheduleOn:(SKScheduler *)scheduler;
+- (SKSignal<ObjectType> *)Y;
+
+- (SKSignal<ObjectType> *)N;
+
+- (SKSignal<ObjectType> *)not;
+
+- (SKSignal<ObjectType> *)scheduleOn:(SKScheduler *)scheduler;
 
 @end
