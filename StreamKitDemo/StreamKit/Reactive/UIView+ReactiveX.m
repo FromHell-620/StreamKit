@@ -9,7 +9,6 @@
 #import "UIView+ReactiveX.h"
 #import "UIView+StreamKit.h"
 #import "SKSubscriber.h"
-#import "SKSignal.h"
 #import "SKObjectifyMarco.h"
 
 @implementation UIView (ReactiveX)

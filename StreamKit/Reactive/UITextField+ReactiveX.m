@@ -10,7 +10,6 @@
 #import "UIControl+ReactiveX.h"
 #import "UITextField+StreamKit.h"
 #import "SKObjectifyMarco.h"
-#import "SKSignal.h"
 #import "SKSubscriber.h"
 
 @implementation UITextField (ReactiveX)

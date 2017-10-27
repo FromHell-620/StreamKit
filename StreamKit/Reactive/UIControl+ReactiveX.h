@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SKSignal.h"
 
-@class SKSignal;
 @interface UIControl (ReactiveX)
 
 - (SKSignal<UIControl *> *)sk_signalForControlEvents:(UIControlEvents)controlEvents;

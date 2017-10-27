@@ -11,7 +11,6 @@
 #import "UIView+ReactiveX.h"
 #import "SKObjectifyMarco.h"
 #import "SKSubscriber.h"
-#import "SKSignal.h"
 
 @implementation UIControl (ReactiveX)
 

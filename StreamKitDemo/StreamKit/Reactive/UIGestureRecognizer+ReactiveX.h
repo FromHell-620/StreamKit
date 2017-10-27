@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SKSignal.h"
 
-@class SKSignal;
 @interface UIGestureRecognizer (ReactiveX)
 
 - (SKSignal<UIGestureRecognizer *> *)sk_eventSignal;

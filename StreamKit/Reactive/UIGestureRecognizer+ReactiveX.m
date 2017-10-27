@@ -8,7 +8,6 @@
 
 #import "UIGestureRecognizer+ReactiveX.h"
 #import "UIGestureRecognizer+StreamKit.h"
-#import "SKSignal.h"
 #import "SKSubscriber.h"
 #import "SKObjectifyMarco.h"
 

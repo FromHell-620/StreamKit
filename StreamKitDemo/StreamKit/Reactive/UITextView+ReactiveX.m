@@ -10,7 +10,6 @@
 #import "UITextView+StreamKit.h"
 #import "SKObjectifyMarco.h"
 #import "SKSubscriber.h"
-#import "SKSignal.h"
 
 @implementation UITextView (ReactiveX)
 

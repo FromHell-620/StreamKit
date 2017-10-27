@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SKSignal.h"
 
-@class SKSignal;
 @interface UITextField (ReactiveX)
 
 - (SKSignal<UITextField *> *)sk_signal;
