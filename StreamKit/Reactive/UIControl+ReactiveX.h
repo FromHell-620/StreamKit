@@ -11,6 +11,6 @@
 @class SKSignal;
 @interface UIControl (ReactiveX)
 
-- (SKSignal*)sk_signalForControlEvents:(UIControlEvents)controlEvents;
+- (SKSignal<UIControl *> *)sk_signalForControlEvents:(UIControlEvents)controlEvents;
 
 @end

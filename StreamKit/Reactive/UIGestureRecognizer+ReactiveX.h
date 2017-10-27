@@ -11,6 +11,6 @@
 @class SKSignal;
 @interface UIGestureRecognizer (ReactiveX)
 
-- (SKSignal*)sk_eventSignal;
+- (SKSignal<UIGestureRecognizer *> *)sk_eventSignal;
 
 @end

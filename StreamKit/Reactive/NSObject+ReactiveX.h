@@ -12,7 +12,7 @@
 
 @interface NSObject (ReactiveX)
 
-- (SKSignal*)sk_ObserveForKeyPath:(NSString*)keypath;
+- (SKSignal *)sk_ObserveForKeyPath:(NSString*)keypath;
 
 - (SKSignal *)sk_dellocSignal;
 
