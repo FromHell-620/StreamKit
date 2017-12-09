@@ -27,23 +27,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    button.frame = CGRectMake(100, 100, 100, 100);
-//    [[button sk_eventSignal] subscribeNext:^(id x) {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"111" object:nil];
-//    }];
-//    [self.view addSubview:button];
-    
-    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    button1.frame = CGRectMake(100, 300, 100, 100);
-    [button1.sk_eventSignal subscribeNext:^(id x) {
-        [self.navigationController pushViewController:[SecondController new] animated:YES];
+   SKSignal *signal1 = [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+           [subscriber sendComplete:@1];
+       });
+   }];
+    SKSignal *signal2 = [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [subscriber sendComplete:@1];
+        });
     }];
-    [self.view addSubview:button1];
-    dispatch_queue_t queue = dispatch_queue_create("nnn", 0);
-    dispatch_async(queue, ^{
-        [button class];
-    });
+    SKSignal *signal3 = [signal1 concat:signal2];
+    [signal3 subscribe:^(id x) {
+        
+    } complete:^(id value) {
+        
+    }];
     // Do any additional setup after loading the view, typically from a nib.
 }
 

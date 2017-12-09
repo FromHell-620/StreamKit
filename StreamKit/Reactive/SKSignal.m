@@ -32,12 +32,16 @@
     [self subscribeNext:nil error:error complete:nil];
 }
 
+- (void)subscribeComplete:(void (^)(id))complete {
+    [self subscribeNext:nil error:nil complete:complete];
+}
+
 - (void)subscribeNext:(void (^)(id x))next
                 error:(void(^)(NSError *error))error {
     [self subscribeNext:next error:error complete:nil];
 }
 
-- (void)subscribe:(void (^)(id value))next
+- (void)subscribeNext:(void (^)(id value))next
          complete:(void(^)(id value))complete {
     [self subscribeNext:next error:nil complete:complete];
 }
@@ -106,14 +110,7 @@
             } error:^(NSError *error) {
                 [subscriber sendError:error];
             } complete:^(id value) {
-                [subscriber sendComplete:value];
-                [signal subscribeNext:^(id x) {
-                    [subscriber sendNext:x];
-                } error:^(NSError *error) {
-                    [subscriber sendError:error];
-                } complete:^(id value) {
-                    [subscriber sendComplete:value];
-                }];
+                [signal subscribe:subscriber];
             }];
         }];
 }

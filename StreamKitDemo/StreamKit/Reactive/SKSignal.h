@@ -24,20 +24,22 @@
 
 - (void)subscribeError:(void(^)(NSError* error))error;
 
-- (void)subscribeNext:(void (^)(ObjectType x))next
+- (void)subscribeComplete:(void(^)(ObjectType value))complete;
+
+- (void)subscribeNext:(void(^)(ObjectType x))next
                 error:(void(^)(NSError *error))error;
 
-- (void)subscribe:(void (^)(ObjectType x))next
-         complete:(void(^)(id value))complete;
+- (void)subscribeNext:(void(^)(ObjectType x))next
+             complete:(void(^)(ObjectType value))complete;
 
-- (void)subscribeNext:(void (^)(ObjectType x))next
+- (void)subscribeNext:(void(^)(ObjectType x))next
                 error:(void(^)(NSError* error))error
-             complete:(void(^)(id value))complete;
+             complete:(void(^)(ObjectType value))complete;
 
-- (void)subscribeWithReturnValue:(id(^)(id x))next;
+- (void)subscribeWithReturnValue:(id(^)(ObjectType x))next;
 
-- (void)subscribeWithReturnValue:(id(^)(id x))next
-                        complete:(id(^)(id x))complete;
+- (void)subscribeWithReturnValue:(id(^)(ObjectType x))next
+                        complete:(id(^)(ObjectType x))complete;
 
 @end
 
@@ -53,15 +55,15 @@
 
 - (SKSignal *)concat:(SKSignal *)signal;
 
-- (SKSignal *)flattenMap:(SKSignal*(^)(id value))block;
+- (SKSignal *)flattenMap:(SKSignal*(^)(ObjectType value))block;
 
-- (SKSignal *)map:(id(^)(id x))block;
+- (SKSignal *)map:(id(^)(ObjectType x))block;
 
 - (SKSignal<ObjectType> *)filter:(BOOL(^)(ObjectType x))block;
 
-- (SKSignal<ObjectType> *)ignore:(id)value;
+- (SKSignal<ObjectType> *)ignore:(ObjectType)value;
 
-- (SKSignal *)takeUntil:(SKSignal*)signal;
+- (SKSignal *)takeUntil:(SKSignal *)signal;
 
 - (SKSignal<ObjectType> *)distinctUntilChanged;
 
@@ -77,7 +79,7 @@
 
 - (SKSignal<ObjectType> *)skipWhileBlock:(BOOL(^)(id x))block;
 
-- (SKSignal<ObjectType> *)startWith:(id)value;
+- (SKSignal<ObjectType> *)startWith:(ObjectType)value;
 
 - (SKSignal<ObjectType> *)startWithBlock:(void(^)(id x))block;
 
