@@ -11,6 +11,6 @@
 
 @interface UIView (ReactiveX)
 
-- (SKSignal<UIView *> *)sk_eventSignal;
+- (SKSignal<__kindof UIView *> *)sk_eventSignal;
 
 @end
