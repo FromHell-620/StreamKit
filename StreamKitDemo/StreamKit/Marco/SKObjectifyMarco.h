@@ -39,5 +39,5 @@
     sk_keywordify \
     SK_PASTEARG2(foreach_argcount_if_,sk_argcount(__VA_ARGS__))(strongify_,__VA_ARGS__)
 
-
+#define mapify(...) {SK_PASTEARG2(mapify_argcount_if_,sk_argcount(__VA_ARGS__))(__VA_ARGS__)}
 #endif /* SKObjectifyMarco_h */

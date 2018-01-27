@@ -94,6 +94,32 @@
     foreach_argcount_if_8(key,_0,_1,_3,_4,_5,_6,_7,_8) \
     key(_9)
 
+#define mapify_argcount_if_1(_0) @sk_stringify(_0):_0
+
+#define mapify_argcount_if_2(_0,_1) mapify_argcount_if_1(_0),\
+    @sk_stringify(_1):_1
+
+#define mapify_argcount_if_3(_0,_1,_2) mapify_argcount_if_2(_0,_1),\
+    @sk_stringify(_2):_2
+
+#define mapify_argcount_if_4(_0,_1,_2,_3) mapify_argcount_if_3(_0,_1,_2),\
+    @sk_stringify(_3):_3
+
+#define mapify_argcount_if_5(_0,_1,_2,_3,_4) mapify_argcount_if_4(_0,_1,_2,_3),\
+    @sk_stringify(_4):_4
+
+#define mapify_argcount_if_6(_0,_1,_2,_3,_4,_5) mapify_argcount_if_5(_0,_1,_2,_3,_4),\
+    @sk_stringify(_5):_5
+
+#define mapify_argcount_if_7(_0,_1,_2,_3,_4,_5,_6) mapify_argcount_if_6(_0,_1,_2,_3,_4,_5),\
+    @sk_stringify(_6):_6
+
+#define mapify_argcount_if_8(_0,_1,_2,_3,_4,_5,_6,_7) mapify_argcount_if_7(_0,_1,_2,_3,_4,_5,_6),\
+    @sk_stringify(_7):_7
+
+#define mapify_argcount_if_9(_0,_1,_2,_3,_4,_5,_6,_7,_8) mapify_argcount_if_8(_0,_1,_2,_3,_4,_5,_6,_7),\
+    @sk_stringify(_8):_8
+
 #if DEBUG
 #define sk_keywordify autoreleasepool {}
 #else
