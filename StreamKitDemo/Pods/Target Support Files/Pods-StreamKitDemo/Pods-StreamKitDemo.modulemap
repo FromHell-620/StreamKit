@@ -1,0 +1,6 @@
+module Pods_StreamKitDemo [system] {
+  umbrella header "Pods-StreamKitDemo-umbrella.h"
+
+  export *
+  module * { export * }
+}
