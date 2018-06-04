@@ -15,7 +15,7 @@
 
 - (UIRotationGestureRecognizer* (^)(void(^block)(UIRotationGestureRecognizer* recognizer)))sk_addTargetBlock;
 
-- (UIRotationGestureRecognizer* (^)())sk_removeTargetBlock;
+- (UIRotationGestureRecognizer* (^)(void))sk_removeTargetBlock;
 
 - (UIRotationGestureRecognizer* (^)(id<UIGestureRecognizerDelegate> delegate))sk_delegate;
 

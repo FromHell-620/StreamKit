@@ -33,7 +33,7 @@ static const void * const SKGestureRecognizerKey = &SKGestureRecognizerKey;
     };
 }
 
-- (UIGestureRecognizer* (^)())sk_removeTargetBlock
+- (UIGestureRecognizer* (^)(void))sk_removeTargetBlock
 {
     return ^ UIGestureRecognizer* {
         objc_removeAssociatedObjects(self);

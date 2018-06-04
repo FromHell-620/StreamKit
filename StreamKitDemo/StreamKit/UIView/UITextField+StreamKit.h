@@ -74,7 +74,7 @@
 
 - (UITextField* (^)(UIControlEvents controlEvents))sk_removeEventBlock;
 
-- (UITextField* (^)())sk_removeAllEventBlock;
+- (UITextField* (^)(void))sk_removeAllEventBlock;
 
 @end
 

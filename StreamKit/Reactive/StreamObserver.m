@@ -25,7 +25,7 @@
 - (void)setObject:(SKSignal*)object forKeyedSubscript:(NSString *)keyPath
 {
     [object subscribeNext:^(id x) {
-        [_object setValue:x?x:_nilValue forKeyPath:keyPath];
+        [self->_object setValue:x?x:self->_nilValue forKeyPath:keyPath];
     }];
 }
 

@@ -15,7 +15,7 @@
 
 - (UITapGestureRecognizer* (^)(void(^block)(UITapGestureRecognizer* recognizer)))sk_addTargetBlock;
 
-- (UITapGestureRecognizer* (^)())sk_removeTargetBlock;
+- (UITapGestureRecognizer* (^)(void))sk_removeTargetBlock;
 
 - (UITapGestureRecognizer* (^)(id<UIGestureRecognizerDelegate> delegate))sk_delegate;
 

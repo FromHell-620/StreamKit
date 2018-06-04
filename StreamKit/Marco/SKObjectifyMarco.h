@@ -28,12 +28,19 @@
 #define weakify_(VAR) \
     __weak __typeof__(VAR) SK_PASTEARG2(weak_,VAR) = (VAR);
 
+#define unsafeify_(VAR) \
+    __unsafe_unretained __typeof__(VAR) SK_PASTEARG2(weak_,VAR) = (VAR);
+
 #define strongify_(VAR) \
     __strong __typeof__(VAR) (VAR) = SK_PASTEARG2(weak_,VAR);
 
 #define weakify(...) \
     sk_keywordify \
      SK_PASTEARG2(foreach_argcount_if_,sk_argcount(__VA_ARGS__))(weakify_,__VA_ARGS__)
+
+#define unsafeify(...) \
+    sk_keywordify \
+    SK_PASTEARG2(foreach_argcount_if_,sk_argcount(__VA_ARGS__))(unsafeify_,__VA_ARGS__)
 
 #define strongify(...) \
     sk_keywordify \

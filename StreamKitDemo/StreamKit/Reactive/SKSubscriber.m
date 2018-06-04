@@ -46,7 +46,7 @@
 }
 
 - (void)sendError:(NSError *)error {
-    if (_error) ^{_error(error);}();
+    if (_error) ^{self->_error(error);}();
 }
 
 - (id)sendNextWithReturnValue:(id)value {
@@ -55,13 +55,13 @@
 }
 
 - (void)sendComplete:(id)value {
-    if (_complete) ^{_complete(value);_next = nil;_complete = nil;}();
+    if (_complete) ^{self->_complete(value);self->_next = nil;self->_complete = nil;}();
 }
 
 - (id)sendCompleteWithReturnValue:(id)value {
-    if (_completeWithReturnValue) return ^id{id returnValue = _completeWithReturnValue(value);_nextWithReturnValue = nil;_completeWithReturnValue = nil;
+    if (_completeWithReturnValue) return ^id{id returnValue = self->_completeWithReturnValue(value);self->_nextWithReturnValue = nil;self->_completeWithReturnValue = nil;
         return returnValue;}();
-    return ^id{_nextWithReturnValue = nil;_completeWithReturnValue = nil;return nil;}();
+    return ^id{self->_nextWithReturnValue = nil;self->_completeWithReturnValue = nil;return nil;}();
 }
 
 @end

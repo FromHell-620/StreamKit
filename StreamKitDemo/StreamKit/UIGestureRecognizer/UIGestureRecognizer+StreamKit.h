@@ -45,7 +45,7 @@
  
  @return a block you should invoke.
  */
-- (UIGestureRecognizer* (^)())sk_removeTargetBlock;
+- (UIGestureRecognizer* (^)(void))sk_removeTargetBlock;
 
 
 /**

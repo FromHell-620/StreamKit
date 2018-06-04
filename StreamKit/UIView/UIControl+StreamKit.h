@@ -76,6 +76,6 @@
  self.sk_removeAllEventBlock();
  @endcode
  */
-- (UIControl* (^)())sk_removeAllEventBlock;
+- (UIControl* (^)(void))sk_removeAllEventBlock;
 
 @end

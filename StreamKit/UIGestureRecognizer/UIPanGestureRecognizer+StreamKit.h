@@ -15,7 +15,7 @@
 
 - (UIPanGestureRecognizer* (^)(void(^block)(UIPanGestureRecognizer* recognizer)))sk_addTargetBlock;
 
-- (UIPanGestureRecognizer* (^)())sk_removeTargetBlock;
+- (UIPanGestureRecognizer* (^)(void))sk_removeTargetBlock;
 
 - (UIPanGestureRecognizer* (^)(id<UIGestureRecognizerDelegate> delegate))sk_delegate;
 

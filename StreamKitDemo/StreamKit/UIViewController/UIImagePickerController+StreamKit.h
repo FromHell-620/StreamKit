@@ -66,17 +66,17 @@
 /**
  takePicture.
  */
-- (UIImagePickerController* (^)())sk_takePicture;
+- (UIImagePickerController* (^)(void))sk_takePicture;
 
 /**
  startVideoCapture.
  */
-- (UIImagePickerController* (^)())sk_startVideoCapture;
+- (UIImagePickerController* (^)(void))sk_startVideoCapture;
 
 /**
  stopVideoCapture.
  */
-- (UIImagePickerController* (^)())sk_stopVideoCapture;
+- (UIImagePickerController* (^)(void))sk_stopVideoCapture;
 
 /**
  Set cameraCaptureMode.

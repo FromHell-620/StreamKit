@@ -17,4 +17,6 @@
 
 + (instancetype)subject;
 
+- (void)cleanCompleteSubscribers;
+
 @end

@@ -50,6 +50,10 @@
     return _completeSignal;
 }
 
+- (void)cleanCompleteSubscribers {
+    [self.privateSubscribers removeAllObjects];
+}
+
 - (void)subscribe:(id<SKSubscriber>)subscriber {
     NSParameterAssert(subscriber);
     @synchronized (self) {

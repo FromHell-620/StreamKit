@@ -15,7 +15,7 @@
 
 - (UIPinchGestureRecognizer* (^)(void(^block)(UIPinchGestureRecognizer* recognizer)))sk_addTargetBlock;
 
-- (UIPinchGestureRecognizer* (^)())sk_removeTargetBlock;
+- (UIPinchGestureRecognizer* (^)(void))sk_removeTargetBlock;
 
 - (UIPinchGestureRecognizer* (^)(id<UIGestureRecognizerDelegate> delegate))sk_delegate;
 

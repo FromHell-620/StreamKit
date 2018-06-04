@@ -15,7 +15,7 @@
 
 - (UISwipeGestureRecognizer* (^)(void(^block)(UISwipeGestureRecognizer* recognizer)))sk_addTargetBlock;
 
-- (UISwipeGestureRecognizer* (^)())sk_removeTargetBlock;
+- (UISwipeGestureRecognizer* (^)(void))sk_removeTargetBlock;
 
 - (UISwipeGestureRecognizer* (^)(id<UIGestureRecognizerDelegate> delegate))sk_delegate;
 

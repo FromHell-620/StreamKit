@@ -97,9 +97,9 @@ static const void * const SKControlKey = &SKControlKey;
     };
 }
 
-- (UIControl* (^)())sk_removeAllEventBlock
+- (UIControl* (^)(void))sk_removeAllEventBlock
 {
-    return ^ UIControl* (id target) {
+    return ^ UIControl* (void) {
         NSMapTable* cacheEvent = objc_getAssociatedObject(self, SKControlKey);
         [cacheEvent removeAllObjects];
         return self;

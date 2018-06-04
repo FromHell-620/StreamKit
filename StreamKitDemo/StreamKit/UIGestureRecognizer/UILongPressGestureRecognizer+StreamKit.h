@@ -15,7 +15,7 @@
 
 - (UILongPressGestureRecognizer* (^)(void(^block)(UILongPressGestureRecognizer* recognizer)))sk_addTargetBlock;
 
-- (UILongPressGestureRecognizer* (^)())sk_removeTargetBlock;
+- (UILongPressGestureRecognizer* (^)(void))sk_removeTargetBlock;
 
 - (UILongPressGestureRecognizer* (^)(id<UIGestureRecognizerDelegate> delegate))sk_delegate;
 

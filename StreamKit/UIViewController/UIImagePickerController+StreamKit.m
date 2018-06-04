@@ -81,21 +81,21 @@
     };
 }
 
-- (UIImagePickerController* (^)())sk_takePicture
+- (UIImagePickerController* (^)(void))sk_takePicture
 {
     return ^ UIImagePickerController* () {
         return ({[self takePicture];self;});
     };
 }
 
-- (UIImagePickerController* (^)())sk_startVideoCapture
+- (UIImagePickerController* (^)(void))sk_startVideoCapture
 {
     return ^ UIImagePickerController* () {
         return ({[self startVideoCapture];self;});
     };
 }
 
-- (UIImagePickerController* (^)())sk_stopVideoCapture
+- (UIImagePickerController* (^)(void))sk_stopVideoCapture
 {
     return ^ UIImagePickerController* () {
         return ({[self stopVideoCapture];self;});

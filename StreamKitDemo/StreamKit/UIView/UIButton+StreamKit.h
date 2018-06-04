@@ -74,7 +74,7 @@
 
 - (UIButton* (^)(UIControlEvents controlEvents))sk_removeEventBlock;
 
-- (UIButton* (^)())sk_removeAllEventBlock;
+- (UIButton* (^)(void))sk_removeAllEventBlock;
 
 @end
 
