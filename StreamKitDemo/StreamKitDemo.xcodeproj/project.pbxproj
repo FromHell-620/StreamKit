@@ -42,6 +42,8 @@
 		C915142C1E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91514111E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m */; };
 		C915142D1E7679F800BFBCE5 /* UIPageViewController+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91514131E7679F800BFBCE5 /* UIPageViewController+StreamKit.m */; };
 		C921E1441F584D4F00B6A4EE /* UIButton+aa.m in Sources */ = {isa = PBXBuildFile; fileRef = C921E1431F584D4F00B6A4EE /* UIButton+aa.m */; };
+		C930A1E220CB886100E9789B /* SKDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = C930A1E120CB886100E9789B /* SKDisposable.m */; };
+		C930A1E520CBB95C00E9789B /* SKCompoundDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = C930A1E420CBB95C00E9789B /* SKCompoundDisposable.m */; };
 		C939E58B1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C939E58A1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m */; };
 		C939E58E1E978C9A00F23E0E /* UIView+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C939E58D1E978C9A00F23E0E /* UIView+ReactiveX.m */; };
 		C94CD4651F24AB760083E200 /* SKConcurrentQueueScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = C94CD45C1F24AB760083E200 /* SKConcurrentQueueScheduler.m */; };
@@ -157,6 +159,10 @@
 		C91514131E7679F800BFBCE5 /* UIPageViewController+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPageViewController+StreamKit.m"; sourceTree = "<group>"; };
 		C921E1421F584D4F00B6A4EE /* UIButton+aa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+aa.h"; sourceTree = "<group>"; };
 		C921E1431F584D4F00B6A4EE /* UIButton+aa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+aa.m"; sourceTree = "<group>"; };
+		C930A1E020CB886100E9789B /* SKDisposable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKDisposable.h; sourceTree = "<group>"; };
+		C930A1E120CB886100E9789B /* SKDisposable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKDisposable.m; sourceTree = "<group>"; };
+		C930A1E320CBB95C00E9789B /* SKCompoundDisposable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKCompoundDisposable.h; sourceTree = "<group>"; };
+		C930A1E420CBB95C00E9789B /* SKCompoundDisposable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKCompoundDisposable.m; sourceTree = "<group>"; };
 		C939E5891E97881900F23E0E /* UIGestureRecognizer+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+ReactiveX.h"; sourceTree = "<group>"; };
 		C939E58A1E97881900F23E0E /* UIGestureRecognizer+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIGestureRecognizer+ReactiveX.m"; sourceTree = "<group>"; };
 		C939E58C1E978C9A00F23E0E /* UIView+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ReactiveX.h"; sourceTree = "<group>"; };
@@ -446,6 +452,10 @@
 				C9A392F51ED1E41A00EFA3B8 /* UIButton+SKCommand.m */,
 				C9A392F71ED1EE1C00EFA3B8 /* UIView+SKCommand.h */,
 				C9A392F81ED1EE1C00EFA3B8 /* UIView+SKCommand.m */,
+				C930A1E020CB886100E9789B /* SKDisposable.h */,
+				C930A1E120CB886100E9789B /* SKDisposable.m */,
+				C930A1E320CBB95C00E9789B /* SKCompoundDisposable.h */,
+				C930A1E420CBB95C00E9789B /* SKCompoundDisposable.m */,
 			);
 			path = Reactive;
 			sourceTree = "<group>";
@@ -671,6 +681,7 @@
 				C91514211E7679F800BFBCE5 /* UITextView+StreamKit.m in Sources */,
 				C9A392F61ED1E41A00EFA3B8 /* UIButton+SKCommand.m in Sources */,
 				7416AAB11E121B0C00A970A3 /* main.m in Sources */,
+				C930A1E520CBB95C00E9789B /* SKCompoundDisposable.m in Sources */,
 				C95273AA1E8E6A0B0017B78F /* SKSignal.m in Sources */,
 				C915142B1E7679F800BFBCE5 /* UIView+StreamKit.m in Sources */,
 				C9EB62A61E973A8000B08FCE /* NSObject+ReactiveX.m in Sources */,
@@ -712,6 +723,7 @@
 				C94CD4661F24AB760083E200 /* SKMainQueueScheduler.m in Sources */,
 				C9A392F31ED1BB6B00EFA3B8 /* SKCommand.m in Sources */,
 				C915141F1E7679F800BFBCE5 /* UIScrollView+StreamKit.m in Sources */,
+				C930A1E220CB886100E9789B /* SKDisposable.m in Sources */,
 				C9F3E0ED1E94EACA000661E0 /* SKSubscriber.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
