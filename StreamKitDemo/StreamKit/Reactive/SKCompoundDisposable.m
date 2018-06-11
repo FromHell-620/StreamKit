@@ -15,6 +15,11 @@
     OSSpinLock _lock;
 }
 
+static void disposeEach(const void *item ,void *context) {
+    SKDisposable *disposable = (__bridge id)item;
+    [disposable dispose];
+}
+
 - (instancetype)initWithBlock:(dispatch_block_t)block {
     return [self initWithDisposes:@[[SKDisposable disposableWithBlock:block]]];
 }
@@ -62,7 +67,7 @@
     OSSpinLockLock(&_lock);
     if (_disposes != NULL) {
         NSInteger item_count = CFArrayGetCount(_disposes);
-        for (int i = item_count - 1; item_count >= 0; i --) {
+        for (NSInteger i = item_count - 1; item_count >= 0; i --) {
             if (disposable == (__bridge SKDisposable *)CFArrayGetValueAtIndex(_disposes, i)) {
                 CFArrayRemoveValueAtIndex(_disposes, i);
                 break;
@@ -73,9 +78,18 @@
 }
 
 - (void)dispose {
-    CFArrayApplyFunction(_disposes, CFRangeMake(0, CFArrayGetCount(_disposes)), <#CFArrayApplierFunction applier#>, nil);
+    if (_disposes) {
+        CFArrayApplyFunction(_disposes, CFRangeMake(0, CFArrayGetCount(_disposes)), disposeEach, nil);
+        CFRelease(_disposes);
+        _disposes = NULL;
+    }
 }
 
-static 
+- (void)dealloc {
+    if (_disposes) {
+        CFRelease(_disposes);
+        _disposes = NULL;
+    }
+}
 
 @end

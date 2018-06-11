@@ -8,6 +8,7 @@
 
 #import "SKDisposable.h"
 #import <libkern/OSAtomic.h>
+#import "SKScopedDisposable.h"
 
 @interface SKDisposable ()
 
@@ -48,6 +49,12 @@
     _isDisposed.isDisposed = 1;
     OSSpinLockUnlock(&_lock);
     if (self.disposeBlock) self.disposeBlock();
+}
+
+- (SKDisposable *)asScopedDisposable {
+    return [SKScopedDisposable disposableWithBlock:^{
+        [self dispose];
+    }];
 }
 
 @end

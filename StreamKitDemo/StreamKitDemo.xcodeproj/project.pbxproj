@@ -71,6 +71,7 @@
 		C9EB62A61E973A8000B08FCE /* NSObject+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C9EB62A51E973A8000B08FCE /* NSObject+ReactiveX.m */; };
 		C9F3E0E51E94E440000661E0 /* UIControl+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3E0E41E94E440000661E0 /* UIControl+ReactiveX.m */; };
 		C9F3E0ED1E94EACA000661E0 /* SKSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3E0EC1E94EACA000661E0 /* SKSubscriber.m */; };
+		C9FB33D820CEBA7D007E32A4 /* SKScopedDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB33D720CEBA7D007E32A4 /* SKScopedDisposable.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -223,6 +224,8 @@
 		C9F3E0E41E94E440000661E0 /* UIControl+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+ReactiveX.m"; sourceTree = "<group>"; };
 		C9F3E0E91E94E9CA000661E0 /* SKSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSubscriber.h; sourceTree = "<group>"; };
 		C9F3E0EC1E94EACA000661E0 /* SKSubscriber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSubscriber.m; sourceTree = "<group>"; };
+		C9FB33D620CEBA7D007E32A4 /* SKScopedDisposable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKScopedDisposable.h; sourceTree = "<group>"; };
+		C9FB33D720CEBA7D007E32A4 /* SKScopedDisposable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKScopedDisposable.m; sourceTree = "<group>"; };
 		E4DCE42D9F4B44C44D1CA9FA /* Pods-StreamKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamKitDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StreamKitDemo/Pods-StreamKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -456,6 +459,8 @@
 				C930A1E120CB886100E9789B /* SKDisposable.m */,
 				C930A1E320CBB95C00E9789B /* SKCompoundDisposable.h */,
 				C930A1E420CBB95C00E9789B /* SKCompoundDisposable.m */,
+				C9FB33D620CEBA7D007E32A4 /* SKScopedDisposable.h */,
+				C9FB33D720CEBA7D007E32A4 /* SKScopedDisposable.m */,
 			);
 			path = Reactive;
 			sourceTree = "<group>";
@@ -673,6 +678,7 @@
 				7416AACC1E121B0C00A970A3 /* ViewController.m in Sources */,
 				C939E58E1E978C9A00F23E0E /* UIView+ReactiveX.m in Sources */,
 				C91514171E7679F800BFBCE5 /* UIGestureRecognizer+StreamKit.m in Sources */,
+				C9FB33D820CEBA7D007E32A4 /* SKScopedDisposable.m in Sources */,
 				C91514201E7679F800BFBCE5 /* UITableView+StreamKit.m in Sources */,
 				C95273A61E8E5A8B0017B78F /* NSString+StreamKit.m in Sources */,
 				C9DCC3ED1E975A18006E9B82 /* StreamObserver.m in Sources */,
