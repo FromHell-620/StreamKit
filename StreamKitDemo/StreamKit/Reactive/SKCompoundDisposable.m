@@ -43,10 +43,10 @@
 }
 
 - (void)addDisposable:(SKDisposable *)disposable {
-    NSParameterAssert(disposable);
-    if (disposable.isDisposed) return;
+    if (disposable.isDisposed || disposable == nil) return;
+    BOOL shouldDispose = NO;
     OSSpinLockLock(&_lock);
-    if (self.isDisposed) [disposable dispose];
+    if (self.isDisposed) shouldDispose = YES;
     else {
         if (_disposes == NULL) {
             _disposes = CFArrayCreateMutable(CFAllocatorGetDefault(), 0, &kCFTypeArrayCallBacks);
@@ -54,11 +54,28 @@
         CFArrayAppendValue(_disposes, (__bridge const void *)(disposable));
     }
     OSSpinLockUnlock(&_lock);
-    
+    if (shouldDispose) [disposable dispose];
+}
+
+- (void)removeDisposable:(SKDisposable *)disposable {
+    if (disposable == nil) return;
+    OSSpinLockLock(&_lock);
+    if (_disposes != NULL) {
+        NSInteger item_count = CFArrayGetCount(_disposes);
+        for (int i = item_count - 1; item_count >= 0; i --) {
+            if (disposable == (__bridge SKDisposable *)CFArrayGetValueAtIndex(_disposes, i)) {
+                CFArrayRemoveValueAtIndex(_disposes, i);
+                break;
+            }
+        }
+    }
+    OSSpinLockUnlock(&_lock);
 }
 
 - (void)dispose {
-    
+    CFArrayApplyFunction(_disposes, CFRangeMake(0, CFArrayGetCount(_disposes)), <#CFArrayApplierFunction applier#>, nil);
 }
+
+static 
 
 @end
