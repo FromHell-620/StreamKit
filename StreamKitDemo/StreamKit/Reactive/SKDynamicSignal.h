@@ -11,7 +11,7 @@
 @protocol SKSubscriber;
 @class SKDisposable;
 
-@interface SKDymamicSignal : SKSignal
+@interface SKDynamicSignal : SKSignal
 
 + (instancetype)signalWithBlock:(SKDisposable * (^)(id<SKSubscriber> subscriber))block;
 

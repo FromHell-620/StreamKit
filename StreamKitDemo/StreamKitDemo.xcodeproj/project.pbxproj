@@ -15,7 +15,7 @@
 		880BA6941EA49EDA0089B71F /* UISearchBar+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = 880BA6931EA49EDA0089B71F /* UISearchBar+ReactiveX.m */; };
 		8857DB9D20D254AA00AF3B01 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857DB9C20D254AA00AF3B01 /* ViewController.m */; };
 		8857DBA020D2601900AF3B01 /* SKSubscriptionScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857DB9F20D2601900AF3B01 /* SKSubscriptionScheduler.m */; };
-		8857DBA320D26B7D00AF3B01 /* SKDymamicSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857DBA220D26B7D00AF3B01 /* SKDymamicSignal.m */; };
+		8857DBA320D26B7D00AF3B01 /* SKDynamicSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857DBA220D26B7D00AF3B01 /* SKDynamicSignal.m */; };
 		8857DBA620D26BA100AF3B01 /* SKSignal+Operations.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857DBA520D26BA100AF3B01 /* SKSignal+Operations.m */; };
 		8857DBA920D27A6400AF3B01 /* SKReturnSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857DBA820D27A6400AF3B01 /* SKReturnSignal.m */; };
 		8857DBAC20D27D1600AF3B01 /* SKErrorSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857DBAB20D27D1600AF3B01 /* SKErrorSignal.m */; };
@@ -112,8 +112,8 @@
 		8857DB9C20D254AA00AF3B01 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8857DB9E20D2601900AF3B01 /* SKSubscriptionScheduler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKSubscriptionScheduler.h; sourceTree = "<group>"; };
 		8857DB9F20D2601900AF3B01 /* SKSubscriptionScheduler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKSubscriptionScheduler.m; sourceTree = "<group>"; };
-		8857DBA120D26B7D00AF3B01 /* SKDymamicSignal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKDymamicSignal.h; sourceTree = "<group>"; };
-		8857DBA220D26B7D00AF3B01 /* SKDymamicSignal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKDymamicSignal.m; sourceTree = "<group>"; };
+		8857DBA120D26B7D00AF3B01 /* SKDynamicSignal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKDynamicSignal.h; sourceTree = "<group>"; };
+		8857DBA220D26B7D00AF3B01 /* SKDynamicSignal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKDynamicSignal.m; sourceTree = "<group>"; };
 		8857DBA420D26BA100AF3B01 /* SKSignal+Operations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SKSignal+Operations.h"; sourceTree = "<group>"; };
 		8857DBA520D26BA100AF3B01 /* SKSignal+Operations.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SKSignal+Operations.m"; sourceTree = "<group>"; };
 		8857DBA720D27A6400AF3B01 /* SKReturnSignal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKReturnSignal.h; sourceTree = "<group>"; };
@@ -443,8 +443,8 @@
 				C95273A91E8E6A0B0017B78F /* SKSignal.m */,
 				8857DBA420D26BA100AF3B01 /* SKSignal+Operations.h */,
 				8857DBA520D26BA100AF3B01 /* SKSignal+Operations.m */,
-				8857DBA120D26B7D00AF3B01 /* SKDymamicSignal.h */,
-				8857DBA220D26B7D00AF3B01 /* SKDymamicSignal.m */,
+				8857DBA120D26B7D00AF3B01 /* SKDynamicSignal.h */,
+				8857DBA220D26B7D00AF3B01 /* SKDynamicSignal.m */,
 				8857DBA720D27A6400AF3B01 /* SKReturnSignal.h */,
 				8857DBA820D27A6400AF3B01 /* SKReturnSignal.m */,
 				8857DBAA20D27D1600AF3B01 /* SKErrorSignal.h */,
@@ -722,7 +722,7 @@
 				C9EB62A61E973A8000B08FCE /* NSObject+ReactiveX.m in Sources */,
 				C915141E1E7679F800BFBCE5 /* UICollectionView+StreamKit.m in Sources */,
 				C91514261E7679F800BFBCE5 /* UILabel+StreamKit.m in Sources */,
-				8857DBA320D26B7D00AF3B01 /* SKDymamicSignal.m in Sources */,
+				8857DBA320D26B7D00AF3B01 /* SKDynamicSignal.m in Sources */,
 				C91514181E7679F800BFBCE5 /* UILongPressGestureRecognizer+StreamKit.m in Sources */,
 				C9B751261EC0C75B0034C413 /* NSArray+ReactiveX.m in Sources */,
 				C9AC59501F06AADD006829CC /* SKSubject.m in Sources */,

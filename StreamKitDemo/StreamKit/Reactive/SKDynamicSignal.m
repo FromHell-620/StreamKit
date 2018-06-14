@@ -6,20 +6,20 @@
 //  Copyright © 2018年 李浩. All rights reserved.
 //
 
-#import "SKDymamicSignal.h"
+#import "SKDynamicSignal.h"
 #import "SKScheduler.h"
 #import "SKCompoundDisposable.h"
 
-@interface SKDymamicSignal ()
+@interface SKDynamicSignal ()
 
 @property (nonatomic,copy) SKDisposable *(^subscriberBlock)(id<SKSubscriber> subscriber);
 
 @end
 
-@implementation SKDymamicSignal
+@implementation SKDynamicSignal
 
 + (instancetype)signalWithBlock:(SKDisposable * (^)(id<SKSubscriber> subscriber))block {
-    SKDymamicSignal *signal = [SKDymamicSignal new];
+    SKDynamicSignal *signal = [SKDynamicSignal new];
     signal.subscriberBlock = block;
     return signal;
 }

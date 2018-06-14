@@ -10,50 +10,60 @@
 
 @interface SKSignal (Operations)
 
-- (SKSignal *)doNext:(void(^)(ObjectType x))next;
+/**
+ Call next when signal's next event come.
+
+ @param next Do what you want do
+ @return A new signal.
+ */
+- (SKSignal *)doNext:(void (^)(id x))next;
+
+- (SKSignal *)doError:(void (^)(NSError *error))block;
+
+- (SKSignal *)doCompleted:(void (^)(void))block;
 
 - (SKSignal *)concat:(SKSignal *)signal;
 
-- (SKSignal *)flattenMap:(SKSignal*(^)(ObjectType value))block;
+- (SKSignal *)flattenMap:(SKSignal*(^)(id value))block;
 
-- (SKSignal *)map:(id(^)(ObjectType x))block;
+- (SKSignal *)map:(id(^)(id x))block;
 
-- (SKSignal<ObjectType> *)filter:(BOOL(^)(ObjectType x))block;
+- (SKSignal *)filter:(BOOL(^)(id x))block;
 
-- (SKSignal<ObjectType> *)ignore:(ObjectType)value;
+- (SKSignal *)ignore:(id)value;
 
 - (SKSignal *)takeUntil:(SKSignal *)signal;
 
-- (SKSignal<ObjectType> *)distinctUntilChanged;
+- (SKSignal *)distinctUntilChanged;
 
-- (SKSignal<ObjectType> *)take:(NSUInteger)takes;
+- (SKSignal *)take:(NSUInteger)takes;
 
-- (SKSignal<ObjectType> *)takeUntilBlock:(BOOL(^)(id x))block;
+- (SKSignal *)takeUntilBlock:(BOOL(^)(id x))block;
 
-- (SKSignal<ObjectType> *)takeWhileBlock:(BOOL(^)(id x))block;
+- (SKSignal *)takeWhileBlock:(BOOL(^)(id x))block;
 
-- (SKSignal<ObjectType> *)skip:(NSUInteger)takes;
+- (SKSignal *)skip:(NSUInteger)takes;
 
-- (SKSignal<ObjectType> *)skipUntilBlock:(BOOL(^)(id x))block;
+- (SKSignal *)skipUntilBlock:(BOOL(^)(id x))block;
 
-- (SKSignal<ObjectType> *)skipWhileBlock:(BOOL(^)(id x))block;
+- (SKSignal *)skipWhileBlock:(BOOL(^)(id x))block;
 
-- (SKSignal<ObjectType> *)startWith:(ObjectType)value;
+- (SKSignal *)startWith:(id)value;
 
-- (SKSignal<ObjectType> *)startWithBlock:(void(^)(id x))block;
+- (SKSignal *)startWithBlock:(void(^)(id x))block;
 
 - (SKSignal *)combineLatestWithSignal:(SKSignal *)signal;
 
 + (SKSignal *)combineLatestSignals:(NSArray<SKSignal *> *)signals;
 
-- (SKSignal<ObjectType> *)throttle:(NSTimeInterval)interval;
+- (SKSignal *)throttle:(NSTimeInterval)interval;
 
-- (SKSignal<ObjectType> *)Y;
+- (SKSignal *)Y;
 
-- (SKSignal<ObjectType> *)N;
+- (SKSignal *)N;
 
-- (SKSignal<ObjectType> *)not;
+- (SKSignal *)not;
 
-- (SKSignal<ObjectType> *)scheduleOn:(SKScheduler *)scheduler;
+- (SKSignal *)scheduleOn:(SKScheduler *)scheduler;
 
 @end

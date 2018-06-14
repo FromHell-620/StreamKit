@@ -7,18 +7,20 @@
 //
 
 #import "SKSignal+Operations.h"
+#import "SKSubscriber.h"
 
 @implementation SKSignal (Operations)
 
 - (SKSignal *)doNext:(void (^)(id))next {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        [self subscribeNext:^(id x) {
+    NSCParameterAssert(next);
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        return [self subscribeNext:^(id x) {
             next(x);
             [subscriber sendNext:x];
         } error:^(NSError *error) {
             [subscriber sendError:error];
-        } complete:^(id value) {
-            [subscriber sendComplete:value];
+        } completed:^{
+            [subscriber sendCompleted];
         }];
     }];
 }
