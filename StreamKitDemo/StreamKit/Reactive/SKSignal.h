@@ -11,30 +11,69 @@
 @protocol SKSubscriber;
 
 @class SKScheduler;
+@class SKDisposable;
 
 @interface SKSignal<ObjectType> : NSObject
 
-@property (nonatomic,copy) NSString *debugName;
++ (instancetype)signalWithBlock:(SKDisposable *(^)(id<SKSubscriber> subscriber))block;
 
-+ (instancetype)signalWithBlock:(void(^)(id<SKSubscriber> subscriber))block;
++ (instancetype)return:(id)value;
 
-- (void)subscribe:(id<SKSubscriber>)subscriber;
++ (instancetype)error:(NSError *)error;
 
-- (void)subscribeNext:(void(^)(ObjectType x))next;
++ (instancetype)empty;
 
-- (void)subscribeError:(void(^)(NSError* error))error;
+@end
 
-- (void)subscribeComplete:(void(^)(ObjectType value))complete;
+@interface SKSignal<ObjectType> (Subscriber)
 
-- (void)subscribeNext:(void(^)(ObjectType x))next
+/**
+ Send a subscriber to this signal
+
+ @param subscriber  A object which conform SKSubscriber protocol.
+ @return You can user the return value to end this subscriber.
+ */
+- (SKDisposable *)subscribe:(id<SKSubscriber>)subscriber;
+
+/**
+ Subscriber the next events
+
+ @param next This block will call when next event become.
+ */
+- (SKDisposable *)subscribeNext:(void(^)(ObjectType x))next;
+
+/**
+ Subscriber the error events.
+
+ @param error This block will call when next event become.
+ */
+- (SKDisposable *)subscribeError:(void(^)(NSError* error))error;
+
+/**
+ Subscriber the completed events.
+
+ @param completed This block will call when completed event become.
+ */
+- (SKDisposable *)subscribeCompleted:(void(^)(void))completed;
+
+/**
+ Subscriber the next, error events
+ */
+- (SKDisposable *)subscribeNext:(void(^)(ObjectType x))next
                 error:(void(^)(NSError *error))error;
 
-- (void)subscribeNext:(void(^)(ObjectType x))next
-             complete:(void(^)(ObjectType value))complete;
+/**
+ Subscriber the next,completed events
+ */
+- (SKDisposable *)subscribeNext:(void(^)(ObjectType x))next
+             completed:(void(^)(void))completed;
 
-- (void)subscribeNext:(void(^)(ObjectType x))next
+/**
+ Subscriber the next,error,completed events
+ */
+- (SKDisposable *)subscribeNext:(void(^)(ObjectType x))next
                 error:(void(^)(NSError* error))error
-             complete:(void(^)(ObjectType value))complete;
+             completed:(void(^)(void))completed;
 
 - (void)subscribeWithReturnValue:(id(^)(ObjectType x))next;
 
@@ -43,58 +82,3 @@
 
 @end
 
-@interface SKSignal (Debug)
-
-- (SKSignal *)setSignalName:(NSString *)name;
-
-@end
-
-@interface SKSignal<ObjectType> (operation)
-
-- (SKSignal *)doNext:(void(^)(ObjectType x))next;
-
-- (SKSignal *)concat:(SKSignal *)signal;
-
-- (SKSignal *)flattenMap:(SKSignal*(^)(ObjectType value))block;
-
-- (SKSignal *)map:(id(^)(ObjectType x))block;
-
-- (SKSignal<ObjectType> *)filter:(BOOL(^)(ObjectType x))block;
-
-- (SKSignal<ObjectType> *)ignore:(ObjectType)value;
-
-- (SKSignal *)takeUntil:(SKSignal *)signal;
-
-- (SKSignal<ObjectType> *)distinctUntilChanged;
-
-- (SKSignal<ObjectType> *)take:(NSUInteger)takes;
-
-- (SKSignal<ObjectType> *)takeUntilBlock:(BOOL(^)(id x))block;
-
-- (SKSignal<ObjectType> *)takeWhileBlock:(BOOL(^)(id x))block;
-
-- (SKSignal<ObjectType> *)skip:(NSUInteger)takes;
-
-- (SKSignal<ObjectType> *)skipUntilBlock:(BOOL(^)(id x))block;
-
-- (SKSignal<ObjectType> *)skipWhileBlock:(BOOL(^)(id x))block;
-
-- (SKSignal<ObjectType> *)startWith:(ObjectType)value;
-
-- (SKSignal<ObjectType> *)startWithBlock:(void(^)(id x))block;
-
-- (SKSignal *)combineLatestWithSignal:(SKSignal *)signal;
-
-+ (SKSignal *)combineLatestSignals:(NSArray<SKSignal *> *)signals;
-
-- (SKSignal<ObjectType> *)throttle:(NSTimeInterval)interval;
-
-- (SKSignal<ObjectType> *)Y;
-
-- (SKSignal<ObjectType> *)N;
-
-- (SKSignal<ObjectType> *)not;
-
-- (SKSignal<ObjectType> *)scheduleOn:(SKScheduler *)scheduler;
-
-@end

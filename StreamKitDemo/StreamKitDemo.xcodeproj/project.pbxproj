@@ -15,6 +15,11 @@
 		880BA6941EA49EDA0089B71F /* UISearchBar+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = 880BA6931EA49EDA0089B71F /* UISearchBar+ReactiveX.m */; };
 		8857DB9D20D254AA00AF3B01 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857DB9C20D254AA00AF3B01 /* ViewController.m */; };
 		8857DBA020D2601900AF3B01 /* SKSubscriptionScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857DB9F20D2601900AF3B01 /* SKSubscriptionScheduler.m */; };
+		8857DBA320D26B7D00AF3B01 /* SKDymamicSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857DBA220D26B7D00AF3B01 /* SKDymamicSignal.m */; };
+		8857DBA620D26BA100AF3B01 /* SKSignal+Operations.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857DBA520D26BA100AF3B01 /* SKSignal+Operations.m */; };
+		8857DBA920D27A6400AF3B01 /* SKReturnSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857DBA820D27A6400AF3B01 /* SKReturnSignal.m */; };
+		8857DBAC20D27D1600AF3B01 /* SKErrorSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857DBAB20D27D1600AF3B01 /* SKErrorSignal.m */; };
+		8857DBAF20D27F3300AF3B01 /* SKEmptySignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8857DBAE20D27F3300AF3B01 /* SKEmptySignal.m */; };
 		C3E73CBF94C220E3528C6998 /* libPods-StreamKitDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B378167200FBC5A990C676 /* libPods-StreamKitDemo.a */; };
 		C91514141E7679F800BFBCE5 /* NSNotificationCenter+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91513DC1E7679F800BFBCE5 /* NSNotificationCenter+StreamKit.m */; };
 		C91514151E7679F800BFBCE5 /* NSObject+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91513DE1E7679F800BFBCE5 /* NSObject+StreamKit.m */; };
@@ -107,6 +112,16 @@
 		8857DB9C20D254AA00AF3B01 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8857DB9E20D2601900AF3B01 /* SKSubscriptionScheduler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKSubscriptionScheduler.h; sourceTree = "<group>"; };
 		8857DB9F20D2601900AF3B01 /* SKSubscriptionScheduler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKSubscriptionScheduler.m; sourceTree = "<group>"; };
+		8857DBA120D26B7D00AF3B01 /* SKDymamicSignal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKDymamicSignal.h; sourceTree = "<group>"; };
+		8857DBA220D26B7D00AF3B01 /* SKDymamicSignal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKDymamicSignal.m; sourceTree = "<group>"; };
+		8857DBA420D26BA100AF3B01 /* SKSignal+Operations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SKSignal+Operations.h"; sourceTree = "<group>"; };
+		8857DBA520D26BA100AF3B01 /* SKSignal+Operations.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SKSignal+Operations.m"; sourceTree = "<group>"; };
+		8857DBA720D27A6400AF3B01 /* SKReturnSignal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKReturnSignal.h; sourceTree = "<group>"; };
+		8857DBA820D27A6400AF3B01 /* SKReturnSignal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKReturnSignal.m; sourceTree = "<group>"; };
+		8857DBAA20D27D1600AF3B01 /* SKErrorSignal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKErrorSignal.h; sourceTree = "<group>"; };
+		8857DBAB20D27D1600AF3B01 /* SKErrorSignal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKErrorSignal.m; sourceTree = "<group>"; };
+		8857DBAD20D27F3300AF3B01 /* SKEmptySignal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKEmptySignal.h; sourceTree = "<group>"; };
+		8857DBAE20D27F3300AF3B01 /* SKEmptySignal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKEmptySignal.m; sourceTree = "<group>"; };
 		C2B74F3A9131EAA4C24F954E /* Pods-StreamKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamKitDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreamKitDemo/Pods-StreamKitDemo.release.xcconfig"; sourceTree = "<group>"; };
 		C91513DB1E7679F800BFBCE5 /* NSNotificationCenter+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+StreamKit.h"; sourceTree = "<group>"; };
 		C91513DC1E7679F800BFBCE5 /* NSNotificationCenter+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+StreamKit.m"; sourceTree = "<group>"; };
@@ -426,6 +441,16 @@
 			children = (
 				C95273A81E8E6A0B0017B78F /* SKSignal.h */,
 				C95273A91E8E6A0B0017B78F /* SKSignal.m */,
+				8857DBA420D26BA100AF3B01 /* SKSignal+Operations.h */,
+				8857DBA520D26BA100AF3B01 /* SKSignal+Operations.m */,
+				8857DBA120D26B7D00AF3B01 /* SKDymamicSignal.h */,
+				8857DBA220D26B7D00AF3B01 /* SKDymamicSignal.m */,
+				8857DBA720D27A6400AF3B01 /* SKReturnSignal.h */,
+				8857DBA820D27A6400AF3B01 /* SKReturnSignal.m */,
+				8857DBAA20D27D1600AF3B01 /* SKErrorSignal.h */,
+				8857DBAB20D27D1600AF3B01 /* SKErrorSignal.m */,
+				8857DBAD20D27F3300AF3B01 /* SKEmptySignal.h */,
+				8857DBAE20D27F3300AF3B01 /* SKEmptySignal.m */,
 				C9AC594E1F06AADD006829CC /* SKSubject.h */,
 				C9AC594F1F06AADD006829CC /* SKSubject.m */,
 				C9F3E0E91E94E9CA000661E0 /* SKSubscriber.h */,
@@ -697,6 +722,7 @@
 				C9EB62A61E973A8000B08FCE /* NSObject+ReactiveX.m in Sources */,
 				C915141E1E7679F800BFBCE5 /* UICollectionView+StreamKit.m in Sources */,
 				C91514261E7679F800BFBCE5 /* UILabel+StreamKit.m in Sources */,
+				8857DBA320D26B7D00AF3B01 /* SKDymamicSignal.m in Sources */,
 				C91514181E7679F800BFBCE5 /* UILongPressGestureRecognizer+StreamKit.m in Sources */,
 				C9B751261EC0C75B0034C413 /* NSArray+ReactiveX.m in Sources */,
 				C9AC59501F06AADD006829CC /* SKSubject.m in Sources */,
@@ -704,6 +730,7 @@
 				C91514231E7679F800BFBCE5 /* UIControl+StreamKit.m in Sources */,
 				C9C65F2B1F10039A0071450A /* NSNotificationCenter+ReactiveX.m in Sources */,
 				C94CD4671F24AB760083E200 /* SKQueueScheduler.m in Sources */,
+				8857DBA920D27A6400AF3B01 /* SKReturnSignal.m in Sources */,
 				C915141D1E7679F800BFBCE5 /* UITapGestureRecognizer+StreamKit.m in Sources */,
 				C915142C1E7679F800BFBCE5 /* UIImagePickerController+StreamKit.m in Sources */,
 				C9DCC3EA1E9747CC006E9B82 /* UITextView+ReactiveX.m in Sources */,
@@ -711,6 +738,7 @@
 				C91514191E7679F800BFBCE5 /* UIPanGestureRecognizer+StreamKit.m in Sources */,
 				880BA6941EA49EDA0089B71F /* UISearchBar+ReactiveX.m in Sources */,
 				C9DCC3E71E97441C006E9B82 /* UITextField+ReactiveX.m in Sources */,
+				8857DBA620D26BA100AF3B01 /* SKSignal+Operations.m in Sources */,
 				C94CD4691F24AB760083E200 /* SKSerialQueueScheduler.m in Sources */,
 				C91514221E7679F800BFBCE5 /* UIButton+StreamKit.m in Sources */,
 				C9A392F91ED1EE1C00EFA3B8 /* UIView+SKCommand.m in Sources */,
@@ -722,6 +750,8 @@
 				C91514281E7679F800BFBCE5 /* UISearchBar+StreamKit.m in Sources */,
 				C91514141E7679F800BFBCE5 /* NSNotificationCenter+StreamKit.m in Sources */,
 				C9D6C6CD1E9CB83D00CD8E8F /* UIScrollView+ReactiveX.m in Sources */,
+				8857DBAF20D27F3300AF3B01 /* SKEmptySignal.m in Sources */,
+				8857DBAC20D27D1600AF3B01 /* SKErrorSignal.m in Sources */,
 				C94CD4681F24AB760083E200 /* SKScheduler.m in Sources */,
 				C94CD4651F24AB760083E200 /* SKConcurrentQueueScheduler.m in Sources */,
 				7416AAAC1E121B0C00A970A3 /* AppDelegate.m in Sources */,
