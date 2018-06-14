@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class SKDisposable;
+
 @interface SKScheduler : NSObject
 
 + (instancetype)mainThreadScheduler;
@@ -20,8 +22,15 @@
 
 + (instancetype)concurrentSchedulerWithQos:(NSQualityOfService)qos;
 
-- (void)schedule:(dispatch_block_t)block;
++ (instancetype)subscriptionScheduler;
 
-- (void)afterDelay:(NSTimeInterval)delay schedule:(dispatch_block_t)block;
+- (SKDisposable *)schedule:(dispatch_block_t)block;
+
+- (SKDisposable *)afterDelay:(NSTimeInterval)delay schedule:(dispatch_block_t)block;
+
+- (SKDisposable *)afterDelay:(NSTimeInterval )delay
+                   repeating:(NSTimeInterval)interval
+                  withLeeway:(NSTimeInterval)leeway
+                    schedule:(void (^)(void))block;
 
 @end

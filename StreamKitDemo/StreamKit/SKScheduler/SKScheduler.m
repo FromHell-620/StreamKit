@@ -10,6 +10,7 @@
 #import "SKMainQueueScheduler.h"
 #import "SKSerialQueueScheduler.h"
 #import "SKConcurrentQueueScheduler.h"
+#import "SKSubscriptionScheduler.h"
 
 @implementation SKScheduler
 
@@ -54,6 +55,15 @@ FOUNDATION_STATIC_INLINE SKScheduler *FHConcurrentQosScheduler(NSQualityOfServic
     return main;
 }
 
++ (instancetype)subscriptionScheduler {
+    static SKSubscriptionScheduler *scheduler = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        scheduler = [[SKSubscriptionScheduler alloc] initWithQos:NSQualityOfServiceDefault];
+    });
+    return scheduler;
+}
+
 + (instancetype)serialScheduler {
     return [self serialSchedulerWithQos:NSQualityOfServiceDefault];
 }
@@ -70,12 +80,18 @@ FOUNDATION_STATIC_INLINE SKScheduler *FHConcurrentQosScheduler(NSQualityOfServic
     return FHConcurrentQosScheduler(qos);
 }
 
-- (void)schedule:(dispatch_block_t)block {
-    [self afterDelay:0 schedule:block];
+- (SKDisposable *)schedule:(dispatch_block_t)block {
+    return [self afterDelay:0 schedule:block];
 }
 
-- (void)afterDelay:(NSTimeInterval)delay schedule:(dispatch_block_t)block {
+- (SKDisposable *)afterDelay:(NSTimeInterval)delay schedule:(dispatch_block_t)block {
     NSAssert(NO, @"must overwrite with subclass");
+    return nil;
+}
+
+- (SKDisposable *)afterDelay:(NSTimeInterval)delay repeating:(NSTimeInterval)interval withLeeway:(NSTimeInterval)leeway schedule:(void (^)(void))block {
+    return nil;
+    
 }
 
 @end

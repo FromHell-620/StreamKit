@@ -12,11 +12,28 @@
 
 @required
 
+
+/**
+ Send value to subscribers.
+
+ @param value The value send to subscribers.
+ */
 - (void)sendNext:(id)value;
 
+/**
+ Send error to subscribers.
+
+ @param error The error to send to subscribers.
+ This will terminate the signal.
+ */
 - (void)sendError:(NSError*)error;
 
-- (void)sendComplete:(id)value;
+/**
+ Send completed to subscribers.
+ 
+ This will terminate the signal.
+ */
+- (void)sendCompleted;
 
 @optional
 
@@ -28,16 +45,9 @@
 
 @interface SKSubscriber : NSObject <SKSubscriber>
 
-+ (instancetype)subscriberWithNext:(void(^)(id value))next
-                          complete:(void(^)(id value))complete;
-
-
-+ (instancetype)subscriberWithReturnValueNext:(id)next
-                                     complete:(id)complete;
-
 + (instancetype)subscriberWithNext:(void (^)(id))next
-                             error:(void(^)(NSError* error))error
-                          complete:(void (^)(id))complete;
+                             error:(void (^)(NSError* error))error
+                          completed:(void (^)(void))completed;
 
 
 @end

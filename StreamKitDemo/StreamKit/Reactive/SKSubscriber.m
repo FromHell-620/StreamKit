@@ -7,20 +7,25 @@
 //
 
 #import "SKSubscriber.h"
+#import "SKDisposable.h"
+#import "SKCompoundDisposable.h"
 #import "SKObjectifyMarco.h"
 
+@interface SKSubscriber ()
+
+@property (nonatomic,copy) void (^nextBlock)(id value);
+
+@property (nonatomic,copy) void (^errorBlock)(NSError *error);
+
+@property (nonatomic,copy) void (^completeBlock)(void);
+
+@property (nonatomic,strong) SKCompoundDisposable *subscribersDisposable;
+
+@end
+
 @implementation SKSubscriber {
-    void(^_next)(id value);
-    void(^_error)(NSError* error);
-    void(^_complete)(id value);
-    
     id (^_nextWithReturnValue)(id value);
     id (^_completeWithReturnValue)(id value);
-}
-
-+ (instancetype)subscriberWithNext:(void(^)(id value))next
-                          complete:(void(^)(id value))complete {
-    return [SKSubscriber subscriberWithNext:next error:nil complete:complete];
 }
 
 + (instancetype)subscriberWithReturnValueNext:(id)next
@@ -32,21 +37,46 @@
 }
 
 + (instancetype)subscriberWithNext:(void (^)(id))next
-                             error:(void(^)(NSError* error))error
-                          complete:(void (^)(id))complete {
-    SKSubscriber *subscriber = [SKSubscriber new];
-    subscriber->_next = [next copy];
-    subscriber->_error = [error copy];
-    subscriber->_complete = [complete copy];
+                             error:(void (^)(NSError* error))error
+                          completed:(void (^)(void))completed {
+    SKSubscriber *subscriber = [[SKSubscriber alloc] init];
+    subscriber.nextBlock = next;
+    subscriber.errorBlock = error;
+    subscriber.completeBlock = completed;
     return subscriber;
 }
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        @unsafeify(self)
+        SKDisposable *disposable = [SKDisposable disposableWithBlock:^{
+            @strongify(self)
+            self.nextBlock = nil;
+            self.errorBlock = nil;
+            self.completeBlock = nil;
+        }];
+        _subscribersDisposable = [SKCompoundDisposable disposableWithdisposes:@[disposable]];
+    }
+    return self;
+}
+
 - (void)sendNext:(id)value {
-    if(_next) _next(value);
+    if (self.nextBlock) {
+        @synchronized (self) {
+            self.nextBlock(value);
+        }
+    }
 }
 
 - (void)sendError:(NSError *)error {
-    if (_error) ^{self->_error(error);}();
+    if (self.errorBlock) {
+        @synchronized (self) {
+            void (^errorBlock)(NSError *) = [self.errorBlock copy];
+            [self.subscribersDisposable dispose];
+            errorBlock(error);
+        }
+    }
 }
 
 - (id)sendNextWithReturnValue:(id)value {
@@ -54,8 +84,14 @@
     return nil;
 }
 
-- (void)sendComplete:(id)value {
-    if (_complete) ^{self->_complete(value);self->_next = nil;self->_complete = nil;}();
+- (void)sendCompleted {
+    if (self.completeBlock) {
+        @synchronized (self) {
+            dispatch_block_t completeBlock = [self.completeBlock copy];
+            [self.subscribersDisposable dispose];
+            completeBlock();
+        }
+    }
 }
 
 - (id)sendCompleteWithReturnValue:(id)value {
