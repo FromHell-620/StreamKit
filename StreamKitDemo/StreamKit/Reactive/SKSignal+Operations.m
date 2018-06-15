@@ -8,6 +8,9 @@
 
 #import "SKSignal+Operations.h"
 #import "SKSubscriber.h"
+#import "SKScheduler.h"
+#import "SKCompoundDisposable.h"
+#import "SKObjectifyMarco.h"
 
 @implementation SKSignal (Operations)
 
@@ -22,6 +25,169 @@
         } completed:^{
             [subscriber sendCompleted];
         }];
+    }];
+}
+
+- (SKSignal *)doError:(void (^)(NSError *))block {
+    NSCParameterAssert(block);
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        return [self subscribeNext:^(id x) {
+            [subscriber sendNext:x];
+        } error:^(NSError *error) {
+            block(error);
+            [subscriber sendError:error];
+        } completed:^{
+            [subscriber sendCompleted];
+        }];
+    }];
+}
+
+- (SKSignal *)doCompleted:(void (^)(void))block {
+    NSCParameterAssert(block);
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        return [self subscribeNext:^(id x) {
+            [subscriber sendNext:x];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } completed:^{
+            block();
+            [subscriber sendCompleted];
+        }];
+    }];
+}
+
+- (SKSignal *)throttle:(NSTimeInterval)interval {
+    return [self throttle:interval valuesPredicate:^BOOL(id x) {
+        return YES;
+    }];
+}
+
+- (SKSignal *)throttle:(NSTimeInterval)interval valuesPredicate:(BOOL (^)(id))predicate {
+    NSCParameterAssert(predicate);
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        SKScheduler *scheduler = [SKScheduler subscriptionScheduler];
+        SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable disposableWithdisposes:nil];
+        __block SKCompoundDisposable *throttleDisposable = [SKCompoundDisposable disposableWithBlock:nil];
+        [compoundDisposable addDisposable:throttleDisposable];
+        @unsafeify(compoundDisposable,throttleDisposable)
+        [throttleDisposable addDisposable:[SKDisposable disposableWithBlock:^{
+            @strongify(compoundDisposable,throttleDisposable)
+            [compoundDisposable removeDisposable:throttleDisposable];
+        }]];
+        void (^throttleDipose)(void) = ^{
+            [throttleDisposable dispose];
+            throttleDisposable = [SKCompoundDisposable disposableWithBlock:nil];
+            [throttleDisposable addDisposable:[SKDisposable disposableWithBlock:^{
+                @strongify(compoundDisposable,throttleDisposable)
+                [compoundDisposable removeDisposable:throttleDisposable];
+            }]];
+            [compoundDisposable addDisposable:throttleDisposable];
+        };
+        
+        void (^immediate)(id,BOOL) = ^ (id x,BOOL send) {
+            @synchronized (compoundDisposable) {
+                throttleDipose();
+                if (send) [subscriber sendNext:x];
+            }
+        };
+        
+        SKDisposable *subscriberDisposable = [self subscribeNext:^(id x) {
+            BOOL shouldThrottle = predicate(x);
+            if (shouldThrottle) {
+                SKDisposable *schedulerDisposable = [scheduler afterDelay:interval schedule:^{
+                    immediate(x,YES);
+                }];
+                [throttleDisposable addDisposable:schedulerDisposable];
+            }else {
+                [subscriber sendNext:x];
+            }
+        } error:^(NSError *error) {
+            [compoundDisposable dispose];
+            [subscriber sendError:error];
+        } completed:^{
+            immediate(nil,NO);
+            [subscriber sendCompleted];
+        }];
+        [compoundDisposable addDisposable:subscriberDisposable];
+        return compoundDisposable;
+    }];
+}
+
+- (SKSignal *)delay:(NSTimeInterval)interval {
+    return [self delay:interval valuesPredicate:^BOOL(id x) {
+        return YES;
+    }];
+}
+
+- (SKSignal *)delay:(NSTimeInterval)interval valuesPredicate:(BOOL (^)(id))predicate {
+    NSCParameterAssert(predicate);
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        SKScheduler *scheduler = [SKScheduler subscriptionScheduler];
+        SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable disposableWithdisposes:nil];
+        __block NSInteger nextTimes = 0.0;
+        
+        void (^changeTimes)(BOOL,BOOL) = ^ (BOOL isConsume,BOOL shouldDelay) {
+            @synchronized (compoundDisposable) {
+                if (!shouldDelay) return ;
+                if (isConsume) nextTimes -= interval;
+                else nextTimes += interval;
+            }
+        };
+        
+        void (^immediate)(id,BOOL) = ^ (id x,BOOL shouldDelay) {
+            @synchronized (compoundDisposable) {
+                changeTimes(YES,shouldDelay);
+                [subscriber sendNext:x];
+            }
+        };
+        
+        SKDisposable *subscriberDisposable = [self subscribeNext:^(id x) {
+            BOOL shouldDelay = predicate(x);
+            changeTimes(NO,shouldDelay);
+            if (shouldDelay) {
+                SKDisposable *schedulerDisposable = [scheduler afterDelay:interval schedule:^{
+                    immediate(x,shouldDelay);
+                }];
+                [compoundDisposable addDisposable:schedulerDisposable];
+            }else {
+                immediate(x,shouldDelay);
+            }
+        } error:^(NSError *error) {
+            [compoundDisposable dispose];
+            [subscriber sendError:error];
+        } completed:^{
+            SKDisposable *completeDisposable = [scheduler afterDelay:nextTimes schedule:^{
+                [subscriber sendCompleted];
+            }];
+            [compoundDisposable addDisposable:completeDisposable];
+        }];
+        [compoundDisposable addDisposable:subscriberDisposable];
+        return compoundDisposable;
+    }];
+}
+
+- (SKSignal *)catch:(SKSignal *(^)(NSError *))errorBlock {
+    NSCParameterAssert(errorBlock);
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        __block SKDisposable *disposable = nil;
+        SKDisposable *subscribeDisposable = [self subscribeNext:^(id x) {
+            [subscriber sendNext:x];
+        } error:^(NSError *error) {
+            SKSignal *signal = errorBlock(error);
+            disposable = [signal subscribe:subscriber];
+        } completed:^{
+            [subscriber sendCompleted];
+        }];
+        return [SKDisposable disposableWithBlock:^{
+            [subscribeDisposable dispose];
+            [disposable dispose];
+        }];
+    }];
+}
+
+- (SKSignal *)catchTo:(SKSignal *)signal {
+    return [self catch:^SKSignal *(NSError *error) {
+        return signal;
     }];
 }
 

@@ -79,11 +79,6 @@
     }
 }
 
-- (id)sendNextWithReturnValue:(id)value {
-    if (_nextWithReturnValue) return _nextWithReturnValue(value);
-    return nil;
-}
-
 - (void)sendCompleted {
     if (self.completeBlock) {
         @synchronized (self) {
@@ -92,6 +87,11 @@
             completeBlock();
         }
     }
+}
+
+- (id)sendNextWithReturnValue:(id)value {
+    if (_nextWithReturnValue) return _nextWithReturnValue(value);
+    return nil;
 }
 
 - (id)sendCompleteWithReturnValue:(id)value {

@@ -13,14 +13,42 @@
 /**
  Call next when signal's next event come.
 
- @param next Do what you want do
+ @param next Do what you want to do
  @return A new signal.
  */
 - (SKSignal *)doNext:(void (^)(id x))next;
 
+/**
+ Call block when signal's error event come.
+ 
+ @param block Do what you want to do
+ @return A new signal.
+ */
 - (SKSignal *)doError:(void (^)(NSError *error))block;
 
+/**
+ Call block when signal's completed event come.
+ 
+ @param block Do what you want to do
+ @return A new signal.
+ */
 - (SKSignal *)doCompleted:(void (^)(void))block;
+
+/**
+ Current-limiting
+ `next` block will current-limiting on the return signal.
+ */
+- (SKSignal *)throttle:(NSTimeInterval)interval;
+
+- (SKSignal *)throttle:(NSTimeInterval)interval valuesPredicate:(BOOL (^)(id x))predicate;
+
+- (SKSignal *)delay:(NSTimeInterval)interval;
+
+- (SKSignal *)delay:(NSTimeInterval)interval valuesPredicate:(BOOL (^)(id x))predicate;
+
+- (SKSignal *)catch:(SKSignal *(^)(NSError *error))errorBlock;
+
+- (SKSignal *)catchTo:(SKSignal *)signal;
 
 - (SKSignal *)concat:(SKSignal *)signal;
 
@@ -56,7 +84,6 @@
 
 + (SKSignal *)combineLatestSignals:(NSArray<SKSignal *> *)signals;
 
-- (SKSignal *)throttle:(NSTimeInterval)interval;
 
 - (SKSignal *)Y;
 
