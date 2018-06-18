@@ -82,6 +82,12 @@
 
 - (SKSignal *)flatten;
 
+- (SKSignal *)merge:(SKSignal *)signal;
+
++ (SKSignal *)merge:(NSArray<SKSignal *> *)signals;
+
+- (SKSignal *)flatten:(NSInteger)maxConcurrent;
+
 - (SKSignal *)ignore:(id)value;
 
 - (SKSignal *)takeUntil:(SKSignal *)signal;

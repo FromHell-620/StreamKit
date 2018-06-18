@@ -429,6 +429,91 @@
     }];
 }
 
+- (SKSignal *)merge:(SKSignal *)signal {
+    return [SKSignal merge:@[self,signal]];
+}
+
++ (SKSignal *)merge:(NSArray<SKSignal *> *)signals {
+    return [[SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        [signals enumerateObjectsUsingBlock:^(SKSignal * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [subscriber sendNext:obj];
+        }];
+        [subscriber sendCompleted];
+        return nil;
+    }] flatten];
+}
+
+- (SKSignal *)flatten:(NSInteger)maxConcurrent {
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable disposableWithdisposes:nil];
+        NSMutableArray *activeDiposables = [NSMutableArray array];
+        //store self signal completed
+        __block BOOL selfCompleted = NO;
+        __block void (^subscribeSignal)(SKSignal *);
+        __weak __block void (^refc)(SKSignal *);
+        void (^sendCompletedIfNeed)(void) = ^ {
+            @synchronized (compoundDisposable) {
+                if (selfCompleted && activeDiposables.count == 0) {
+                    [subscriber sendCompleted];
+                    subscribeSignal = nil;
+                }
+            }
+        };
+        
+        void (^subscribeCompleteIfNeedDispose)(SKDisposable *,BOOL) = ^ (SKDisposable *disposable,BOOL should) {
+            @synchronized (compoundDisposable) {
+                if (should) {
+                    [disposable dispose];
+                }
+                [compoundDisposable removeDisposable:disposable];
+                [activeDiposables removeObjectIdenticalTo:disposable];
+            }
+        };
+        //store the spare signals
+        NSMutableArray *signals = [NSMutableArray array];
+        
+        SKSerialDisposable *subscribeDisposable = [SKSerialDisposable new];
+        [compoundDisposable addDisposable:subscribeDisposable];
+        refc = subscribeSignal = ^ (SKSignal *signal) {
+            subscribeDisposable.disposable = [signal subscribeNext:^(id x) {
+                [subscriber sendNext:x];
+            } error:^(NSError *error) {
+                subscribeCompleteIfNeedDispose(subscribeDisposable,YES);
+            } completed:^{
+                __strong void (^subscribeSignal)(SKSignal *) = refc;
+                SKSignal *next;
+                @synchronized (compoundDisposable) {
+                    if (signals.count > 0) {
+                        next = signals.firstObject;
+                        [signals removeObjectAtIndex:0];
+                    }
+                }
+                subscribeCompleteIfNeedDispose(subscribeDisposable,NO);
+
+                if (signals.count == 0) {
+                    sendCompletedIfNeed();
+                    return ;
+                }
+                //recursion subscribe
+                subscribeSignal(next);
+            }];
+        };
+        SKDisposable *selfDisposable = [self subscribeNext:^(id x) {
+            NSAssert([x isKindOfClass:SKSignal.class], @"must be SKSignal");
+            if (maxConcurrent > 0 && activeDiposables.count >= maxConcurrent) {
+                [signals addObject:x];
+                return ;
+            }
+            subscribeSignal(x);
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } completed:^{
+            selfCompleted = YES;
+            sendCompletedIfNeed();
+        }];
+        [compoundDisposable addDisposable:selfDisposable];
+    }];
+}
 - (SKSignal *)ignore:(id)value {
     return [self filter:^BOOL(id x) {
         return [x isEqual:value];
