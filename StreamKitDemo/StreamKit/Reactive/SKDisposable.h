@@ -7,8 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <libkern/OSAtomic.h>
 
-@interface SKDisposable : NSObject
+@interface SKDisposable : NSObject {
+    @protected
+    OSSpinLock _lock;
+    struct {
+        bool isDisposed : 1;
+    } _isDisposed;
+}
 
 @property (atomic,assign,getter=isDisposed,readonly) BOOL disposed;
 

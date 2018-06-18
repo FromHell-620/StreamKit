@@ -7,7 +7,7 @@
 //
 
 #import "SKSignal.h"
-#import "SKDymamicSignal.h"
+#import "SKDynamicSignal.h"
 #import "SKSubscriber.h"
 #import "SKScheduler.h"
 #import "SKReturnSignal.h"
@@ -17,7 +17,7 @@
 @implementation SKSignal
 
 + (instancetype)signalWithBlock:(SKDisposable *(^)(id<SKSubscriber> subscriber))block {
-    return [SKDymamicSignal signalWithBlock:block];
+    return [SKDynamicSignal signalWithBlock:block];
 }
 
 + (instancetype)return:(id)value {

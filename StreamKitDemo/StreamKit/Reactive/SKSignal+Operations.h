@@ -50,13 +50,37 @@
 
 - (SKSignal *)catchTo:(SKSignal *)signal;
 
-- (SKSignal *)concat:(SKSignal *)signal;
+- (SKSignal *)initially:(dispatch_block_t)block;
+
+- (SKSignal *)finally:(dispatch_block_t)block;
+
++ (SKSignal *)defer:(SKSignal *(^)(void))block;
+
+- (SKSignal *)bufferWithTime:(NSTimeInterval)interval;
+
+- (SKSignal *)bufferWithTime:(NSTimeInterval)interval onScheduler:(SKScheduler *)scheduler;
+
+- (SKSignal *)takeLast;
+
+- (SKSignal *)takeLast:(NSInteger)count;
+
+- (SKSignal *)combineLatestWithSignal:(SKSignal *)signal;
+
++ (SKSignal *)combineLatestWithSignals:(NSArray<SKSignal *> *)signals;
+
++ (SKSignal *)combineLatest:(NSArray<SKSignal *> *)signals reduce:(id (^)(id, ...))reduceBlock;
+
++ (SKSignal *)join:(NSArray<SKSignal *> *)signals block:(SKSignal *(^)(id left,id right))block;
 
 - (SKSignal *)flattenMap:(SKSignal*(^)(id value))block;
+
+- (SKSignal *)reduceEach:(id (^)(id,...))block;
 
 - (SKSignal *)map:(id(^)(id x))block;
 
 - (SKSignal *)filter:(BOOL(^)(id x))block;
+
+- (SKSignal *)flatten;
 
 - (SKSignal *)ignore:(id)value;
 
@@ -79,11 +103,6 @@
 - (SKSignal *)startWith:(id)value;
 
 - (SKSignal *)startWithBlock:(void(^)(id x))block;
-
-- (SKSignal *)combineLatestWithSignal:(SKSignal *)signal;
-
-+ (SKSignal *)combineLatestSignals:(NSArray<SKSignal *> *)signals;
-
 
 - (SKSignal *)Y;
 

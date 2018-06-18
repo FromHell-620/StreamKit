@@ -7,7 +7,6 @@
 //
 
 #import "SKDisposable.h"
-#import <libkern/OSAtomic.h>
 #import "SKScopedDisposable.h"
 
 @interface SKDisposable ()
@@ -16,12 +15,7 @@
 
 @end
 
-@implementation SKDisposable {
-    OSSpinLock _lock;
-    struct {
-        bool isDisposed : 1;
-    } _isDisposed;
-}
+@implementation SKDisposable
 
 - (instancetype)initWithBlock:(dispatch_block_t)block {
     self = [super init];
@@ -45,10 +39,12 @@
 
 - (void)dispose {
     if (self.isDisposed) return;
+    dispatch_block_t selfDisposeBlock = self.disposeBlock;
     OSSpinLockLock(&_lock);
     _isDisposed.isDisposed = 1;
+    self.disposeBlock = nil;
     OSSpinLockUnlock(&_lock);
-    if (self.disposeBlock) self.disposeBlock();
+    selfDisposeBlock();
 }
 
 - (SKDisposable *)asScopedDisposable {

@@ -8,11 +8,9 @@
 
 #import "SKCompoundDisposable.h"
 #import "SKObjectifyMarco.h"
-#import <libkern/OSAtomic.h>
 
 @implementation SKCompoundDisposable {
     CFMutableArrayRef _disposes;
-    OSSpinLock _lock;
 }
 
 static void disposeEach(const void *item ,void *context) {
@@ -29,12 +27,7 @@ static void disposeEach(const void *item ,void *context) {
 }
 
 - (instancetype)initWithDisposes:(NSArray<SKDisposable *> *)disposes {
-    @weakify(self)
-    void (^disposeBlock)(void) = ^{
-        @strongify(self)
-        [self dispose];
-    };
-    self = [super initWithBlock:disposeBlock];
+    self = [super initWithBlock:nil];
     if (self) {
         if (disposes.count > 0) {
             _disposes = CFArrayCreateMutableCopy(CFAllocatorGetDefault(), 0, (__bridge CFArrayRef)disposes);
@@ -47,8 +40,16 @@ static void disposeEach(const void *item ,void *context) {
     return [[self alloc] initWithDisposes:disposes];
 }
 
+- (BOOL)isDisposed {
+    BOOL disposaed = NO;
+    OSSpinLockLock(&_lock);
+    disposaed = _isDisposed.isDisposed;
+    OSSpinLockUnlock(&_lock);
+    return disposaed;
+}
+
 - (void)addDisposable:(SKDisposable *)disposable {
-    if (disposable.isDisposed || disposable == nil) return;
+    if (disposable == nil) return;
     BOOL shouldDispose = NO;
     OSSpinLockLock(&_lock);
     if (self.isDisposed) shouldDispose = YES;
@@ -78,7 +79,10 @@ static void disposeEach(const void *item ,void *context) {
 }
 
 - (void)dispose {
-    if (_disposes) {
+    if (self.isDisposed == 0 && _disposes) {
+        OSSpinLockLock(&_lock);
+        _isDisposed.isDisposed = 1;
+        OSSpinLockUnlock(&_lock);
         CFArrayApplyFunction(_disposes, CFRangeMake(0, CFArrayGetCount(_disposes)), disposeEach, nil);
         CFRelease(_disposes);
         _disposes = NULL;

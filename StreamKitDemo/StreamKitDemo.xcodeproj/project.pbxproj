@@ -78,6 +78,9 @@
 		C9F3E0E51E94E440000661E0 /* UIControl+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3E0E41E94E440000661E0 /* UIControl+ReactiveX.m */; };
 		C9F3E0ED1E94EACA000661E0 /* SKSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3E0EC1E94EACA000661E0 /* SKSubscriber.m */; };
 		C9FB33D820CEBA7D007E32A4 /* SKScopedDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB33D720CEBA7D007E32A4 /* SKScopedDisposable.m */; };
+		C9FB33DB20D62CC2007E32A4 /* SKSerialDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB33DA20D62CC2007E32A4 /* SKSerialDisposable.m */; };
+		C9FB33DE20D6C197007E32A4 /* SKValueNil.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB33DD20D6C197007E32A4 /* SKValueNil.m */; };
+		C9FB33E720D762A2007E32A4 /* SKBlockTrampoline.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB33E620D762A2007E32A4 /* SKBlockTrampoline.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -244,6 +247,12 @@
 		C9F3E0EC1E94EACA000661E0 /* SKSubscriber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSubscriber.m; sourceTree = "<group>"; };
 		C9FB33D620CEBA7D007E32A4 /* SKScopedDisposable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKScopedDisposable.h; sourceTree = "<group>"; };
 		C9FB33D720CEBA7D007E32A4 /* SKScopedDisposable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKScopedDisposable.m; sourceTree = "<group>"; };
+		C9FB33D920D62CC2007E32A4 /* SKSerialDisposable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKSerialDisposable.h; sourceTree = "<group>"; };
+		C9FB33DA20D62CC2007E32A4 /* SKSerialDisposable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKSerialDisposable.m; sourceTree = "<group>"; };
+		C9FB33DC20D6C197007E32A4 /* SKValueNil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKValueNil.h; sourceTree = "<group>"; };
+		C9FB33DD20D6C197007E32A4 /* SKValueNil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKValueNil.m; sourceTree = "<group>"; };
+		C9FB33E520D762A2007E32A4 /* SKBlockTrampoline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKBlockTrampoline.h; sourceTree = "<group>"; };
+		C9FB33E620D762A2007E32A4 /* SKBlockTrampoline.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKBlockTrampoline.m; sourceTree = "<group>"; };
 		E4DCE42D9F4B44C44D1CA9FA /* Pods-StreamKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamKitDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StreamKitDemo/Pods-StreamKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -491,6 +500,12 @@
 				C930A1E420CBB95C00E9789B /* SKCompoundDisposable.m */,
 				C9FB33D620CEBA7D007E32A4 /* SKScopedDisposable.h */,
 				C9FB33D720CEBA7D007E32A4 /* SKScopedDisposable.m */,
+				C9FB33D920D62CC2007E32A4 /* SKSerialDisposable.h */,
+				C9FB33DA20D62CC2007E32A4 /* SKSerialDisposable.m */,
+				C9FB33DC20D6C197007E32A4 /* SKValueNil.h */,
+				C9FB33DD20D6C197007E32A4 /* SKValueNil.m */,
+				C9FB33E520D762A2007E32A4 /* SKBlockTrampoline.h */,
+				C9FB33E620D762A2007E32A4 /* SKBlockTrampoline.m */,
 			);
 			path = Reactive;
 			sourceTree = "<group>";
@@ -720,9 +735,11 @@
 				C95273AA1E8E6A0B0017B78F /* SKSignal.m in Sources */,
 				C915142B1E7679F800BFBCE5 /* UIView+StreamKit.m in Sources */,
 				C9EB62A61E973A8000B08FCE /* NSObject+ReactiveX.m in Sources */,
+				C9FB33E720D762A2007E32A4 /* SKBlockTrampoline.m in Sources */,
 				C915141E1E7679F800BFBCE5 /* UICollectionView+StreamKit.m in Sources */,
 				C91514261E7679F800BFBCE5 /* UILabel+StreamKit.m in Sources */,
 				8857DBA320D26B7D00AF3B01 /* SKDynamicSignal.m in Sources */,
+				C9FB33DE20D6C197007E32A4 /* SKValueNil.m in Sources */,
 				C91514181E7679F800BFBCE5 /* UILongPressGestureRecognizer+StreamKit.m in Sources */,
 				C9B751261EC0C75B0034C413 /* NSArray+ReactiveX.m in Sources */,
 				C9AC59501F06AADD006829CC /* SKSubject.m in Sources */,
@@ -761,6 +778,7 @@
 				C955498C1E8CE92B003C55AF /* SecondController.m in Sources */,
 				C915141A1E7679F800BFBCE5 /* UIPinchGestureRecognizer+StreamKit.m in Sources */,
 				C915142A1E7679F800BFBCE5 /* UITextField+StreamKit.m in Sources */,
+				C9FB33DB20D62CC2007E32A4 /* SKSerialDisposable.m in Sources */,
 				C9F3E0E51E94E440000661E0 /* UIControl+ReactiveX.m in Sources */,
 				C94CD4661F24AB760083E200 /* SKMainQueueScheduler.m in Sources */,
 				C9A392F31ED1BB6B00EFA3B8 /* SKCommand.m in Sources */,
