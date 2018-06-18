@@ -514,6 +514,71 @@
         [compoundDisposable addDisposable:selfDisposable];
     }];
 }
+
+- (SKSignal *)concat {
+    return [self flatten:1];
+}
+
+- (SKSignal *)concat:(SKSignal *)signal {
+    NSCParameterAssert(signal);
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        SKSerialDisposable *disposable = [SKSerialDisposable new];
+        disposable.disposable = [self subscribeNext:^(id x) {
+            [subscriber sendNext:x];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } completed:^{
+            disposable.disposable = [signal subscribe:subscriber];
+        }];
+        return disposable;
+    }];
+}
+
++ (id)interval:(NSTimeInterval)interval {
+    return [self interval:interval onScheduler:[SKScheduler mainThreadScheduler] withLeeway:0.0];
+}
+
++ (id)interval:(NSTimeInterval)interval onScheduler:(id)scheduler {
+    return [self interval:interval onScheduler:scheduler withLeeway:0.0];
+}
+
++ (SKSignal *)interval:(NSTimeInterval)interval onScheduler:(SKScheduler *)scheduler withLeeway:(NSTimeInterval)leeway {
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        return [scheduler afterDelay:0 repeating:interval withLeeway:leeway schedule:^{
+            [subscriber sendNext:[NSDate date]];
+        }];
+    }];
+}
+
+- (SKSignal *)takeUntil:(SKSignal *)other {
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable disposableWithdisposes:nil];
+        void (^sendCompleted)(void) = ^ {
+            [compoundDisposable dispose];
+            [subscriber sendCompleted];
+        };
+        
+        SKDisposable *selfDisposable = [self subscribeNext:^(id x) {
+            [subscriber sendNext:x];
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } completed:^{
+            sendCompleted();
+        }];
+        [compoundDisposable addDisposable:selfDisposable];
+        
+        SKDisposable *otherDisposable = [other subscribeNext:^(id x) {
+            sendCompleted();
+        } error:^(NSError *error) {
+            sendCompleted();
+        } completed:^{
+            sendCompleted();
+        }];
+        [compoundDisposable addDisposable:otherDisposable];
+        return compoundDisposable;
+    }];
+}
+
 - (SKSignal *)ignore:(id)value {
     return [self filter:^BOOL(id x) {
         return [x isEqual:value];

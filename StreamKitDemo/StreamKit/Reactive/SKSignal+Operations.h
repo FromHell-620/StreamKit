@@ -86,11 +86,30 @@
 
 + (SKSignal *)merge:(NSArray<SKSignal *> *)signals;
 
+/**
+This function subscribes to all incoming signals but only the number of maxConcurrent subscriptions.
+ if maxConcurrent is 0,then subscribe all signals
+ @param maxConcurrent The maximum number of one-time subscriptions
+ @return New signal
+ */
 - (SKSignal *)flatten:(NSInteger)maxConcurrent;
 
-- (SKSignal *)ignore:(id)value;
+/**
+ Do flatten:1.
+ */
+- (SKSignal *)concat;
 
-- (SKSignal *)takeUntil:(SKSignal *)signal;
+- (SKSignal *)concat:(SKSignal *)signal;
+
++ (SKSignal *)interval:(NSTimeInterval)interval;
+
++ (SKSignal *)interval:(NSTimeInterval)interval onScheduler:(SKScheduler *)scheduler;
+
++ (SKSignal *)interval:(NSTimeInterval)interval onScheduler:(SKScheduler *)scheduler withLeeway:(NSTimeInterval)leeway;
+
+- (SKSignal *)takeUntil:(SKSignal *)other;
+
+- (SKSignal *)ignore:(id)value;
 
 - (SKSignal *)distinctUntilChanged;
 
