@@ -756,18 +756,12 @@
 }
 
 - (SKSignal *)distinctUntilChanged {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        __block id pre_value = nil;
-        [self subscribeNext:^(id x) {
-            if (!(pre_value == x || [pre_value isEqual:x])) {
-                pre_value = x;
-                [subscriber sendNext:x];
-            }
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        } complete:^(id value) {
-            [subscriber sendComplete:value];
-        }];
+    __block id prveValue = nil;
+    __block BOOL first = YES;
+    return [self flattenMap:^SKSignal *(id value) {
+        if ((!first && prveValue == value) || [prveValue isEqual:value]) return SKSignal.empty;
+        prveValue = value;
+        return [SKSignal return:value];
     }];
 }
 
@@ -797,17 +791,18 @@
 }
 
 - (SKSignal *)takeUntilBlock:(BOOL(^)(id x))block {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        [self subscribeNext:^(id x) {
-            if (block(x) == NO ) {
-                [subscriber sendNext:x];
-            }else
-                [subscriber sendComplete:x];
+    NSCParameterAssert(block);
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        SKSerialDisposable *selfDisposable = [SKSerialDisposable new];
+        selfDisposable.disposable = [self subscribeNext:^(id x) {
+            if (block(x)) [selfDisposable dispose];
+            else [subscriber sendNext:x];
         } error:^(NSError *error) {
             [subscriber sendError:error];
-        } complete:^(id value) {
-            [subscriber sendComplete:value];
+        } completed:^{
+            [subscriber sendCompleted];
         }];
+        return selfDisposable;
     }];
 }
 
@@ -827,44 +822,23 @@
 }
 
 - (SKSignal *)skipUntilBlock:(BOOL(^)(id x))block {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        [self subscribeNext:^(id x) {
-            if (block(x) == YES) {
-                [subscriber sendNext:x];
-            }
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        } complete:^(id value) {
-            [subscriber sendComplete:value];
-        }];
+    NSCParameterAssert(block);
+    __block BOOL skiped = YES;
+    return [self flattenMap:^SKSignal *(id value) {
+        if (skiped) {
+            if (block(value)) {
+                skiped = NO;
+            }else
+                return SKSignal.empty;
+        }
+        return [SKSignal return:value];
     }];
 }
 
 - (SKSignal *)skipWhileBlock:(BOOL(^)(id x))block {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        [self subscribeNext:^(id x) {
-            if (block(x) == NO) {
-                [subscriber sendNext:x];
-            }
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        } complete:^(id value) {
-            [subscriber sendComplete:value];
-        }];
-    }];
-}
-
-- (SKSignal *)startWithBlock:(void (^)(id))block {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        __block BOOL execute = YES;
-        [self subscribeNext:^(id x) {
-            if (execute) {block(x);execute = NO;};
-            [subscriber sendNext:x];
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        } complete:^(id value) {
-            [subscriber sendComplete:value];
-        }];
+    NSCParameterAssert(block);
+    return [self skipUntilBlock:^BOOL(id x) {
+        return !block(x);
     }];
 }
 
@@ -903,6 +877,7 @@
                 [subscriber sendCompleted];
             }]];
         }];
+        [compoundDisposable addDisposable:selfDisposable];
         return compoundDisposable;
     }];
 }
