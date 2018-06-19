@@ -11,22 +11,26 @@
 #import "UIView+ReactiveX.h"
 #import "SKObjectifyMarco.h"
 #import "SKSubscriber.h"
+#import "SKDisposable.h"
 
 @implementation UIControl (ReactiveX)
 
 - (SKSignal*)sk_signalForControlEvents:(UIControlEvents)controlEvents
 {
     @weakify(self)
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
         @strongify(self)
-        self.sk_addEventBlock(controlEvents,^(UIControl* control) {
+        self.sk_addEventBlock(controlEvents,^(UIControl *control) {
             [subscriber sendNext:control];
         });
+        return [SKDisposable disposableWithBlock:^{
+            self.sk_removeEventBlock(controlEvents);
+        }];
     }];
 }
 
 - (SKSignal *)sk_eventSignal {
-    return [[self sk_signalForControlEvents:UIControlEventTouchUpInside] setSignalName:@"UIControl"];
+    return [self sk_signalForControlEvents:UIControlEventTouchUpInside];
 }
 
 @end
