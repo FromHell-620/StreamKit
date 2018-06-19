@@ -78,6 +78,8 @@
 
 - (SKSignal *)map:(id(^)(id x))block;
 
+- (SKSignal *)mapReplace:(id)value;
+
 - (SKSignal *)filter:(BOOL(^)(id x))block;
 
 - (SKSignal *)flatten;
@@ -101,6 +103,8 @@ This function subscribes to all incoming signals but only the number of maxConcu
 
 - (SKSignal *)concat:(SKSignal *)signal;
 
++ (SKSignal *)concat:(NSArray<SKSignal *> *)signals;
+
 + (SKSignal *)interval:(NSTimeInterval)interval;
 
 + (SKSignal *)interval:(NSTimeInterval)interval onScheduler:(SKScheduler *)scheduler;
@@ -109,7 +113,29 @@ This function subscribes to all incoming signals but only the number of maxConcu
 
 - (SKSignal *)takeUntil:(SKSignal *)other;
 
+- (SKSignal *)takeUntilReplacement:(SKSignal *)replacement;
+
+- (SKSignal *)startWith:(id)value;
+
 - (SKSignal *)ignore:(id)value;
+
+- (SKSignal *)aggregateWithStart:(id)startValue reduceBlock:(id (^)(id running,id next))block;
+
+- (SKSignal *)aggregateWithStart:(id)startValue withIndexReduceBlock:(id (^)(id running,id next,NSInteger index))block;
+
+- (SKSignal *)scanWithStart:(id)startValue reduceBlock:(id (^)(id running,id next))block;
+
+- (SKSignal *)scanWithStart:(id)startValue withIndexReduceBlock:(id (^)(id running, id next,NSInteger index))block;
+
+- (SKSignal *)collect;
+
+- (SKSignal *)combinePreviousWithStart:(id)start reduce:(id (^)(id previous, id next))reduceBlock;
+
+- (SKSignal *)zipWith:(SKSignal *)other;
+
++ (SKSignal *)zip:(NSArray<SKSignal *> *)signals;
+
++ (SKSignal *)zip:(NSArray<SKSignal *> *)signals reduce:(id (^)(id,...))block;
 
 - (SKSignal *)distinctUntilChanged;
 
@@ -124,8 +150,6 @@ This function subscribes to all incoming signals but only the number of maxConcu
 - (SKSignal *)skipUntilBlock:(BOOL(^)(id x))block;
 
 - (SKSignal *)skipWhileBlock:(BOOL(^)(id x))block;
-
-- (SKSignal *)startWith:(id)value;
 
 - (SKSignal *)startWithBlock:(void(^)(id x))block;
 

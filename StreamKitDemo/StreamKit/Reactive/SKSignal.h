@@ -23,6 +23,8 @@
 
 + (instancetype)empty;
 
++ (instancetype)nerve;
+
 @end
 
 @interface SKSignal<ObjectType> (Subscriber)

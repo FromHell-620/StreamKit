@@ -262,13 +262,13 @@
     return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
         NSMutableArray *values = [NSMutableArray arrayWithCapacity:count];
         return [self subscribeNext:^(id x) {
-            if (x) [values addObject:x];
+            [values addObject:x ?: SKValueNil.ValueNil];
             if (values.count > count) [values removeObjectAtIndex:0];
         } error:^(NSError *error) {
             [subscriber sendError:error];
         } completed:^{
             for (id obj in values) {
-                [subscriber sendNext:obj];
+                [subscriber sendNext:obj == SKValueNil.ValueNil ? nil : obj];
             }
             [subscriber sendCompleted];
         }];
@@ -408,6 +408,12 @@
     }];
 }
 
+- (SKSignal *)mapReplace:(id)value {
+    return [self map:^id(id x) {
+        return value;
+    }];
+}
+
 - (SKSignal *)reduceEach:(id (^)(id, ...))block {
     NSCParameterAssert(block);
     return [self map:^id(NSArray *x) {
@@ -512,6 +518,7 @@
             sendCompletedIfNeed();
         }];
         [compoundDisposable addDisposable:selfDisposable];
+        return compoundDisposable;
     }];
 }
 
@@ -532,6 +539,15 @@
         }];
         return disposable;
     }];
+}
+
++ (SKSignal *)concat:(NSArray<SKSignal *> *)signals {
+    SKSignal *current = signals.firstObject;
+    for (SKSignal *signal in signals) {
+        if (current == signal) continue;
+        current = [current concat:signal];
+    }
+    return current;
 }
 
 + (id)interval:(NSTimeInterval)interval {
@@ -579,30 +595,164 @@
     }];
 }
 
-- (SKSignal *)ignore:(id)value {
-    return [self filter:^BOOL(id x) {
-        return [x isEqual:value];
+- (SKSignal *)takeUntilReplacement:(SKSignal *)replacement {
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        __block SKSerialDisposable *selfDisposable = [SKSerialDisposable new];
+        void (^competedSelf)(void) = ^ {
+            [selfDisposable dispose];
+            @synchronized (subscriber) {
+                selfDisposable = nil;
+            }
+        };
+        selfDisposable.disposable = [[self concat:[SKSignal nerve]] subscribe:subscriber];
+        SKDisposable *disposable = [replacement subscribeNext:^(id x) {
+            competedSelf();
+            [subscriber sendNext:x];
+        } error:^(NSError *error) {
+            competedSelf();
+            [subscriber sendError:error];
+        } completed:^{
+            competedSelf();
+            [subscriber sendCompleted];
+        }];
+        return [SKDisposable disposableWithBlock:^{
+            [selfDisposable dispose];
+            [disposable dispose];
+        }];
     }];
 }
 
-- (SKSignal *)takeUntil:(SKSignal *)signal {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        [signal subscribeNext:^(id x) {
-            [subscriber sendComplete:x];
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        } complete:^(id value) {
-            [subscriber sendComplete:value];
-        }];
-        
-        [self subscribeNext:^(id x) {
-            [subscriber sendNext:x];
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        } complete:^(id value) {
-            [subscriber sendComplete:value];
-        }];
+- (SKSignal *)startWith:(id)value {
+    return [[SKSignal return:value] concat:self];
+}
+
+- (SKSignal *)ignore:(id)value {
+    return [self filter:^BOOL(id x) {
+        return x == value || [x isEqual:value];
     }];
+}
+
+- (SKSignal *)aggregateWithStart:(id)startValue reduceBlock:(id (^)(id, id))block {
+    NSCParameterAssert(block);
+    return [self aggregateWithStart:startValue withIndexReduceBlock:^id(id running, id next, NSInteger index) {
+        return block(running,next);
+    }];
+}
+
+- (SKSignal *)aggregateWithStart:(id)startValue withIndexReduceBlock:(id (^)(id, id, NSInteger))block {
+    NSCParameterAssert(block);
+    return [[self scanWithStart:startValue withIndexReduceBlock:^id(id running, id next, NSInteger index) {
+        return block(running,next,index);
+    }] takeLast:1];
+}
+
+- (SKSignal *)scanWithStart:(id)startValue reduceBlock:(id (^)(id, id))block {
+    NSCParameterAssert(block);
+    return [self scanWithStart:startValue withIndexReduceBlock:^id(id running, id next, NSInteger index) {
+        return block(running,next);
+    }];
+}
+
+- (SKSignal *)scanWithStart:(id)startValue withIndexReduceBlock:(id (^)(id, id, NSInteger))block {
+    NSCParameterAssert(block);
+    __block id running = startValue;
+    __block NSInteger index = 0;
+    return [self flattenMap:^SKSignal *(id value) {
+        running = block(running,block,index ++);
+        return [SKSignal return:running];
+    }];
+}
+
+- (SKSignal *)collect {
+    return [self scanWithStart:[NSMutableArray array] reduceBlock:^id(NSMutableArray *running, id next) {
+        [running addObject:next ? : NSNull.null];
+        return running;
+    }];
+}
+
+- (SKSignal *)combinePreviousWithStart:(id)start reduce:(id (^)(id, id))reduceBlock {
+    NSCParameterAssert(reduceBlock);
+    return [[self scanWithStart:@[start ?: SKValueNil.ValueNil] reduceBlock:^id(NSArray *running, id next) {
+        id value = reduceBlock(running[0],next);
+        return @[next ?: SKValueNil.ValueNil,value ?: SKValueNil.ValueNil];
+    }] map:^id(NSArray *x) {
+        return x.lastObject;
+    }];
+}
+
+- (SKSignal *)zipWith:(SKSignal *)other {
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable disposableWithdisposes:nil];
+        __block BOOL selfCompleted = NO;
+        NSMutableArray *selfValues = [NSMutableArray array];
+        __block BOOL otherCompleted = NO;
+        NSMutableArray *otherValues = [NSMutableArray array];
+        
+        void (^sendCompletedIfNeed)(void) = ^ {
+            @synchronized (selfValues) {
+                BOOL shouldCompletedSelf = selfCompleted || selfValues.count == 0;
+                BOOL shouldCompletedOther = otherCompleted || otherValues.count == 0;
+                if (shouldCompletedSelf || shouldCompletedOther) [subscriber sendCompleted];
+            }
+        };
+        
+        void (^sendNext)(void) = ^ {
+            @synchronized (selfValues) {
+                if (selfValues.count == 0 || otherValues.count == 0) return ;
+                NSArray *values = @[selfValues.firstObject,otherValues.firstObject];
+                [selfValues removeObjectAtIndex:0];
+                [otherValues removeObjectAtIndex:0];
+                [subscriber sendNext:values];
+                sendCompletedIfNeed();
+            }
+        };
+        
+        void (^addValue)(id,BOOL) = ^ (id x,BOOL isSelf) {
+            @synchronized (selfValues) {
+                NSMutableArray *values = isSelf ? selfValues : otherValues;
+                [values addObject:x ? : SKValueNil.ValueNil];
+            }
+            sendNext();
+        };
+        
+        SKDisposable *selfDisposable = [self subscribeNext:^(id x) {
+            addValue(x,YES);
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } completed:^{
+            @synchronized (selfValues) {
+                selfCompleted = YES;
+            }
+            sendCompletedIfNeed();
+        }];
+        [compoundDisposable addDisposable:selfDisposable];
+        
+        SKDisposable *otherDisposable = [other subscribeNext:^(id x) {
+            addValue(x,NO);
+        } error:^(NSError *error) {
+            [subscriber sendError:error];
+        } completed:^{
+            @synchronized (selfValues) {
+                otherCompleted = YES;
+            }
+            sendCompletedIfNeed();
+        }];
+        [compoundDisposable addDisposable:otherDisposable];
+        return compoundDisposable;
+    }];
+}
+
++ (SKSignal *)zip:(NSArray<SKSignal *> *)signals {
+    return [self join:signals block:^SKSignal *(SKSignal *left, SKSignal *right) {
+        return [left zipWith:right];
+    }];
+}
+
++ (SKSignal *)zip:(NSArray<SKSignal *> *)signals reduce:(id (^)(id, ...))block {
+    NSCParameterAssert(block);
+    SKSignal *signal = [SKSignal zip:signals];
+    signal = [signal reduceEach:block];
+    return signal;
 }
 
 - (SKSignal *)distinctUntilChanged {
@@ -622,18 +772,27 @@
 }
 
 - (SKSignal *)take:(NSUInteger)takes {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        __block NSUInteger already_takes = 0;
-        [self subscribeNext:^(id x) {
-            if (already_takes < takes) {
-                [subscriber sendNext:x];
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable disposableWithdisposes:nil];
+        __block NSUInteger taked = 0;
+        void (^sendNext)(id) = ^ (id value) {
+            @synchronized (compoundDisposable) {
+                ++taked;
+                [subscriber sendNext:value];
+                if (taked == takes) {
+                    [compoundDisposable dispose];
+                }
             }
-            already_takes ++;
+        };
+        SKDisposable *selfDisposable = [self subscribeNext:^(id x) {
+            if (taked < takes) sendNext(x);
         } error:^(NSError *error) {
             [subscriber sendError:error];
-        } complete:^(id value) {
-            [subscriber sendComplete:value];
+        } completed:^{
+            [subscriber sendCompleted];
         }];
+        [compoundDisposable addDisposable:selfDisposable];
+        return compoundDisposable;
     }];
 }
 
@@ -659,18 +818,11 @@
 }
 
 - (SKSignal *)skip:(NSUInteger)takes {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        __block NSUInteger already = 0;
-        [self subscribeNext:^(id x) {
-            already ++;
-            if (already > takes) {
-                [subscriber sendNext:x];
-            }
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        } complete:^(id value) {
-            [subscriber sendComplete:value];
-        }];
+    __block NSUInteger skipCount = 0;
+    return [self flattenMap:^SKSignal *(id value) {
+        if (skipCount >= takes) return [SKSignal return:value];
+        skipCount ++;
+        return SKSignal.empty;
     }];
 }
 
@@ -702,86 +854,12 @@
     }];
 }
 
-- (SKSignal *)startWith:(id)value {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        [subscriber sendNext:value];
-        [self subscribeNext:^(id x) {
-            [subscriber sendNext:x];
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        } complete:^(id value) {
-            [subscriber sendComplete:value];
-        }];
-    }];
-}
-
 - (SKSignal *)startWithBlock:(void (^)(id))block {
     return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
         __block BOOL execute = YES;
         [self subscribeNext:^(id x) {
             if (execute) {block(x);execute = NO;};
             [subscriber sendNext:x];
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        } complete:^(id value) {
-            [subscriber sendComplete:value];
-        }];
-    }];
-}
-
-- (SKSignal*)combineLatestWithSignal:(SKSignal*)signal
-{
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        [self subscribeNext:^(id x) {
-            [subscriber sendNext:x];
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        } complete:^(id value) {
-            [subscriber sendComplete:value];
-        }];
-        
-        [signal subscribeNext:^(id x) {
-            [subscriber sendNext:x];
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        } complete:^(id value) {
-            [subscriber sendComplete:value];
-        }];
-    }];
-}
-
-+ (SKSignal*)combineLatestSignals:(NSArray<SKSignal*>*)signals
-{
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        __block SKSignal* theFirst = nil;
-        for (SKSignal* signal in signals) {
-            if (theFirst == nil) {
-                theFirst = signal;
-                continue;
-            }
-            
-            theFirst = [theFirst combineLatestWithSignal:signal];
-        }
-        [theFirst subscribeNext:^(id x) {
-            [subscriber sendNext:x];
-        } error:^(NSError *error) {
-            [subscriber sendError:error];
-        } complete:^(id value) {
-            [subscriber sendComplete:value];
-        }];
-    }];
-}
-
-- (SKSignal *)throttle:(NSTimeInterval)interval {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        __block BOOL hasNextInvoke = YES;
-        [self subscribeNext:^(id x) {
-            if (hasNextInvoke == NO) return ;
-            hasNextInvoke = NO;
-            [subscriber sendNext:x];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                hasNextInvoke = YES;
-            });
         } error:^(NSError *error) {
             [subscriber sendError:error];
         } complete:^(id value) {
@@ -810,20 +888,22 @@
 }
 
 - (SKSignal *)scheduleOn:(SKScheduler *)scheduler {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        [self subscribeNext:^(id x) {
-            [scheduler schedule:^{
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable disposableWithdisposes:nil];
+        SKDisposable *selfDisposable = [self subscribeNext:^(id x) {
+            [compoundDisposable addDisposable:[scheduler schedule:^{
                 [subscriber sendNext:x];
-            }];
+            }]];
         } error:^(NSError *error) {
-            [scheduler schedule:^{
+            [compoundDisposable addDisposable:[scheduler schedule:^{
                 [subscriber sendError:error];
-            }];
-        } complete:^(id value) {
-            [scheduler schedule:^{
-                [subscriber sendComplete:value];
-            }];
+            }]];
+        } completed:^{
+            [compoundDisposable addDisposable:[scheduler schedule:^{
+                [subscriber sendCompleted];
+            }]];
         }];
+        return compoundDisposable;
     }];
 }
 

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class SKCompoundDisposable;
+
 @protocol SKSubscriber <NSObject>
 
 @required
@@ -34,6 +36,8 @@
  This will terminate the signal.
  */
 - (void)sendCompleted;
+
+- (void)didSubscriberWithDisposable:(SKCompoundDisposable *)other;
 
 @optional
 

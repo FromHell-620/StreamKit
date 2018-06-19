@@ -32,6 +32,12 @@
     return [SKEmptySignal empty];
 }
 
++ (instancetype)nerve {
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        return nil;
+    }];
+}
+
 @end
 
 @implementation SKSignal (Subscriber)

@@ -100,4 +100,16 @@
     return ^id{self->_nextWithReturnValue = nil;self->_completeWithReturnValue = nil;return nil;}();
 }
 
+- (void)didSubscriberWithDisposable:(SKCompoundDisposable *)other {
+    NSCParameterAssert(other);
+    if (other.isDisposed) return;
+    __unsafe_unretained SKDisposable *selfDisposable = self.subscribersDisposable;
+    [selfDisposable addDisposable:other];
+    @unsafeify(other)
+    [other addDisposable:[SKDisposable disposableWithBlock:^{
+        @strongify(other)
+        [selfDisposable removeDisposable:other];
+    }]];
+}
+
 @end
