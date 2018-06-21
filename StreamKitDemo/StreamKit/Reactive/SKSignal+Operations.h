@@ -151,8 +151,6 @@ This function subscribes to all incoming signals but only the number of maxConcu
 
 - (SKSignal *)skipWhileBlock:(BOOL(^)(id x))block;
 
-- (SKSignal *)startWithBlock:(void(^)(id x))block;
-
 - (SKSignal *)Y;
 
 - (SKSignal *)N;

@@ -7,90 +7,90 @@
 //
 
 #import "SKSubject.h"
-#import "NSArray+ReactiveX.h"
 #import "SKObjectifyMarco.h"
+#import "SKCompoundDisposable.h"
+#import "SKPassthroughSubscriber.h"
+#import "SKScheduler.h"
 
 @interface SKSubject ()
 
 @property (nonatomic,strong) NSMutableArray<id<SKSubscriber>> *subscribers;
 
-@property (nonatomic,strong) NSMutableArray<id<SKSubscriber>> *privateSubscribers;
+@property (nonatomic,strong) SKCompoundDisposable *compoundDisposable;
 
 @end
 
 @implementation SKSubject
 
-@synthesize completeSignal = _completeSignal;
-
 + (instancetype)subject {
     SKSubject *subject = [SKSubject new];
-    subject.subscribers = [NSMutableArray array];
     return subject;
 }
 
-- (NSMutableArray<id<SKSubscriber>> *)privateSubscribers {
-    if (!_privateSubscribers) {
-        _privateSubscribers = [NSMutableArray array];
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _subscribers = [NSMutableArray array];
+        _compoundDisposable = [SKCompoundDisposable disposableWithBlock:nil];
     }
-    return _privateSubscribers;
+    return self;
 }
 
-- (NSArray<id<SKSubscriber>> *)completeSubscribers {
-    return [self.privateSubscribers copy];
-}
-
-- (SKSignal *)completeSignal {
-    if (!_completeSignal) {
-        @weakify(self)
-        _completeSignal = [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-            @strongify(self)
-            [self.privateSubscribers addObject:subscriber];
-        }];
-    }
-    return _completeSignal;
-}
-
-- (void)cleanCompleteSubscribers {
-    [self.privateSubscribers removeAllObjects];
-}
-
-- (void)subscribe:(id<SKSubscriber>)subscriber {
+- (SKDisposable *)subscribe:(id<SKSubscriber>)subscriber {
     NSParameterAssert(subscriber);
+    SKCompoundDisposable *subscribeDisposable = [SKCompoundDisposable disposableWithdisposes:nil];
+    SKPassthroughSubscriber *passthroughSubscriber = [[SKPassthroughSubscriber alloc] initWithSubscriber:subscriber disposable:subscribeDisposable];
     @synchronized (self) {
-        [self.subscribers addObject:subscriber];
+        [self.subscribers addObject:passthroughSubscriber];
     }
+    [subscribeDisposable addDisposable:[SKDisposable disposableWithBlock:^{
+        @synchronized (self) {
+            [self.subscribers removeObject:passthroughSubscriber];
+        }
+    }]];
+    return subscribeDisposable;
 }
 
 - (void)enumerSubscriber:(void(^)(id<SKSubscriber> subscriber))block {
-    [self.subscribers enumerateObjectsUsingBlock:^(id<SKSubscriber>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSCParameterAssert(block);
+    NSArray<id<SKSubscriber>> *subscribers = nil;
+    @synchronized (self) {
+        subscribers = [self.subscribers copy];
+    }
+    [subscribers enumerateObjectsUsingBlock:^(id<SKSubscriber>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         block(obj);
     }];
 }
 
 - (void)sendNext:(id)value {
+    
     [self enumerSubscriber:^(id<SKSubscriber> subscriber) {
         [subscriber sendNext:value];
     }];
 }
 
 - (void)sendError:(NSError*)error {
+    [self.compoundDisposable dispose];
     [self enumerSubscriber:^(id<SKSubscriber> subscriber) {
         [subscriber sendError:error];
     }];
 }
 
-- (id)sendNextWithReturnValue:(id)value {
-    return nil;
-}
-
-- (void)sendComplete:(id)value {
+- (void)sendCompleted {
+    [self.compoundDisposable dispose];
     [self enumerSubscriber:^(id<SKSubscriber> subscriber) {
-        [subscriber sendComplete:value];
+        [subscriber sendCompleted];
     }];
 }
 
-- (id)sendCompleteWithReturnValue:(id)value {
-    return nil;
+- (void)didSubscriberWithDisposable:(SKCompoundDisposable *)other {
+    if (other == nil || other.isDisposed) return;
+    [self.compoundDisposable addDisposable:other];
+    @weakify(self,other)
+    [other addDisposable:[SKDisposable disposableWithBlock:^{
+        @strongify(self,other)
+        [self.compoundDisposable removeDisposable:other];
+    }]];
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "SKBlockTrampoline.h"
 #import <objc/runtime.h>
+#import "SKValueNil.h"
 
 @interface SKBlockTrampoline ()
 
@@ -39,6 +40,7 @@
     invocation.target = self;
     invocation.selector = sel;
     [arguments enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj = obj == SKValueNil.ValueNil ? nil : obj;
         [invocation setArgument:&obj atIndex:idx + 2];
     }];
     [invocation invoke];

@@ -11,12 +11,6 @@
 
 @interface SKSubject : SKSignal<SKSubscriber>
 
-@property (nonatomic,strong,readonly) SKSignal *completeSignal;
-
-@property (nonatomic,copy,readonly) NSArray<id<SKSubscriber>> *completeSubscribers;
-
 + (instancetype)subject;
-
-- (void)cleanCompleteSubscribers;
 
 @end
