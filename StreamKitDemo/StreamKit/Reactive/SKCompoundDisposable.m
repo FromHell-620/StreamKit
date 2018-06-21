@@ -50,10 +50,9 @@ static void disposeEach(const void *item ,void *context) {
 
 - (void)addDisposable:(SKDisposable *)disposable {
     if (disposable == nil) return;
-    BOOL shouldDispose = NO;
+    BOOL shouldDispose = self.isDisposed;
     OSSpinLockLock(&_lock);
-    if (self.isDisposed) shouldDispose = YES;
-    else {
+    if (!shouldDispose) {
         if (_disposes == NULL) {
             _disposes = CFArrayCreateMutable(CFAllocatorGetDefault(), 0, &kCFTypeArrayCallBacks);
         }

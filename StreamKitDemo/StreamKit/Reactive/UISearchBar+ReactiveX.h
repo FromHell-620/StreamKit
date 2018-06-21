@@ -12,8 +12,6 @@
 
 @interface UISearchBar (ReactiveX)
 
-@property (nonatomic,assign,readonly) BOOL isEditing;
-
 - (SKSignal*)sk_signalForEndEdite;
 
 - (SKSignal*)sk_signalForBeginEdite;

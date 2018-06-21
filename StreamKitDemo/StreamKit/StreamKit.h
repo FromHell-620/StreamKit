@@ -19,13 +19,10 @@
 #import "SKSubject.h"
 #import "NSObject+ReactiveX.h"
 #import "NSNotificationCenter+ReactiveX.h"
-#import "NSArray+ReactiveX.h"
-#import "NSDictionary+ReactiveX.h"
 #import "UIControl+ReactiveX.h"
 #import "UIView+ReactiveX.h"
 #import "UITextField+ReactiveX.h"
 #import "UITextView+ReactiveX.h"
-#import "UIGestureRecognizer+ReactiveX.h"
 #import "UIScrollView+ReactiveX.h"
 #import "UISearchBar+ReactiveX.h"
 #import "SKCommand.h"
@@ -38,15 +35,6 @@
 #import "UIAlertAction+StreamKit.h"
 #import "NSNotificationCenter+StreamKit.h"
 #import "NSString+StreamKit.h"
-
-#pragma mark- UIGestureRecognizer+StreamKit
-#import "UIGestureRecognizer+StreamKit.h"
-#import "UITapGestureRecognizer+StreamKit.h"
-#import "UISwipeGestureRecognizer+StreamKit.h"
-#import "UILongPressGestureRecognizer+StreamKit.h"
-#import "UIPanGestureRecognizer+StreamKit.h"
-#import "UIPinchGestureRecognizer+StreamKit.h"
-#import "UIRotationGestureRecognizer+StreamKit.h"
 
 #pragma mark- UIView
 #import "UIView+StreamKit.h"

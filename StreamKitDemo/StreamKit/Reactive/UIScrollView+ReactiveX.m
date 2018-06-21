@@ -14,15 +14,15 @@
 
 @implementation UIScrollView (ReactiveX)
 
-- (SKSignal*)sk_signalForDelegateEndDecelerating
-{
-    @weakify(self)
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-       @strongify(self)
-        self.sk_scrollViewDidEndDecelerating(^(UIScrollView* scrollView){
-            [subscriber sendNext:scrollView];
-        });
-    }];
-}
+//- (SKSignal*)sk_signalForDelegateEndDecelerating
+//{
+//    @weakify(self)
+//    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
+//       @strongify(self)
+//        self.sk_scrollViewDidEndDecelerating(^(UIScrollView* scrollView){
+//            [subscriber sendNext:scrollView];
+//        });
+//    }];
+//}
 
 @end

@@ -7,21 +7,22 @@
 //
 
 #import "NSNotificationCenter+ReactiveX.h"
-#import "NSNotificationCenter+StreamKit.h"
 #import "SKObjectifyMarco.h"
 #import "SKSignal.h"
 #import "SKSubscriber.h"
+#import "SKDisposable.h"
 
 @implementation NSNotificationCenter (ReactiveX)
 
 - (SKSignal *)sk_signalWithName:(NSNotificationName)name object:(id)object {
-    @weakify(object)
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        @strongify(object)
-        [self addObserverForName:name object:object queue:nil usingBlock:^(NSNotification * _Nonnull note) {
-            [subscriber sendNext:note];
-        }];
+    @weakify(self)
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        @strongify(self)
+        [self addObserver:subscriber selector:@selector(sendNext:) name:name object:object];
         
+        return [SKDisposable disposableWithBlock:^{
+            [self removeObserver:subscriber name:name object:object];
+        }];
     }];
 }
 

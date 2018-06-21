@@ -8,44 +8,18 @@
 
 #import "UITextField+ReactiveX.h"
 #import "UIControl+ReactiveX.h"
-#import "UITextField+StreamKit.h"
+#import "SKSignal+Operations.h"
 #import "SKObjectifyMarco.h"
 #import "SKSubscriber.h"
 
 @implementation UITextField (ReactiveX)
 
-- (SKSignal*)sk_signal {
-    return [self sk_signalForControlEvents:UIControlEventAllEditingEvents];
-}
-
 - (SKSignal*)sk_textSignal {
-    return [[self sk_signal] map:^id(UITextField* x) {
-        return x.text;
-    }];
-}
-
-- (SKSignal*)sk_shouldBeginSignal {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        self.sk_textFieldShouldBeginEditing(^BOOL(UITextField* textField) {
-            return [[subscriber sendNextWithReturnValue:textField] boolValue];
-        });
-    }];
-}
-
-- (SKSignal*)sk_didEndEditeSignal {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        self.sk_textFieldDidEndEditing(^(UITextField* textField) {
-            [subscriber sendNext:textField];
-        });
-    }];
-}
-
-- (SKSignal*)sk_shouldChangeCharactersSignal {
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-        self.sk_textFieldShouldChangeCharactersInRange(^BOOL(UITextField* textField,NSRange range,NSString* string){
-            return [[subscriber sendNextWithReturnValue:string] boolValue];
-        });
-    }];
+    @weakify(self)
+    return [[SKSignal defer:^SKSignal *{
+        @strongify(self)
+        return [SKSignal return:self];
+    }] concat:[self sk_signalForControlEvents:UIControlEventAllEditingEvents]];
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "SecondController.h"
 
 @interface ViewController ()
 
@@ -16,7 +17,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    btn.frame = CGRectMake(100, 100, 100, 100);
+    [self.view addSubview:btn];
+    
+    [btn addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
     // Do any additional setup after loading the view.
+}
+
+- (void)btnAction {
+    SecondController *vc = [SecondController new];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

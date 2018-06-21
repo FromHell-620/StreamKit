@@ -7,8 +7,7 @@
 //
 
 #import "UIControl+ReactiveX.h"
-#import "UIControl+StreamKit.h"
-#import "UIView+ReactiveX.h"
+#import "SKSignal+Operations.h"
 #import "SKObjectifyMarco.h"
 #import "SKSubscriber.h"
 #import "SKDisposable.h"
@@ -20,11 +19,10 @@
     @weakify(self)
     return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
         @strongify(self)
-        self.sk_addEventBlock(controlEvents,^(UIControl *control) {
-            [subscriber sendNext:control];
-        });
+        [self addTarget:subscriber action:@selector(sendNext:) forControlEvents:controlEvents];
+        
         return [SKDisposable disposableWithBlock:^{
-            self.sk_removeEventBlock(controlEvents);
+            [self removeTarget:subscriber action:@selector(sendNext:) forControlEvents:controlEvents];
         }];
     }];
 }

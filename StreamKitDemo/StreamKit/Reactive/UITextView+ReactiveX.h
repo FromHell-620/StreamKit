@@ -11,8 +11,6 @@
 
 @interface UITextView (ReactiveX)
 
-- (SKSignal<UITextView *> *)sk_signal;
-
 - (SKSignal<NSString *> *)sk_textSignal;
 
 @end

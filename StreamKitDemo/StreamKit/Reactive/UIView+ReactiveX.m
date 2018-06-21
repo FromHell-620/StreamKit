@@ -16,11 +16,8 @@
 - (SKSignal*)sk_eventSignal
 {
     @weakify(self)
-    return [SKSignal signalWithBlock:^(id<SKSubscriber> subscriber) {
-       @strongify(self)
-        self.sk_addParamClickAction(^(UIView* view) {
-            [subscriber sendNext:view];
-        });
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        return nil;
     }];
 }
 

@@ -11,14 +11,6 @@
 
 @interface UITextField (ReactiveX)
 
-- (SKSignal<UITextField *> *)sk_signal;
-
 - (SKSignal<NSString *> *)sk_textSignal;
-
-- (SKSignal*)sk_shouldBeginSignal;
-
-- (SKSignal*)sk_didEndEditeSignal;
-
-- (SKSignal*)sk_shouldChangeCharactersSignal;
 
 @end
