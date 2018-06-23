@@ -6,20 +6,21 @@
 //  Copyright © 2017年 李浩. All rights reserved.
 //
 
-#import "UITextField+ReactiveX.h"
+#import "UITextField+SKSignalSupport.h"
 #import "UIControl+ReactiveX.h"
 #import "SKSignal+Operations.h"
 #import "SKObjectifyMarco.h"
 #import "SKSubscriber.h"
+#import "NSObject+SKDeallocating.h"
 
-@implementation UITextField (ReactiveX)
+@implementation UITextField (SKSignalSupport)
 
 - (SKSignal*)sk_textSignal {
     @weakify(self)
-    return [[SKSignal defer:^SKSignal *{
+    return [[[SKSignal defer:^SKSignal *{
         @strongify(self)
         return [SKSignal return:self];
-    }] concat:[self sk_signalForControlEvents:UIControlEventAllEditingEvents]];
+    }] concat:[self sk_signalForControlEvents:UIControlEventAllEditingEvents]] takeUntil:self.deallocSignal];
 }
 
 @end

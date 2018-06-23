@@ -40,6 +40,11 @@
     return self;
 }
 
++ (instancetype)subjectWithCapacity:(NSInteger)capacity {
+    SKReplaySubject *subject = [[SKReplaySubject alloc] initWithCapacity:capacity];
+    return subject;
+}
+
 - (SKDisposable *)subscribe:(id<SKSubscriber>)subscriber {
     SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable disposableWithBlock:nil];
     SKDisposable *schedulerDisposable = [[SKScheduler subscriptionScheduler] schedule:^{

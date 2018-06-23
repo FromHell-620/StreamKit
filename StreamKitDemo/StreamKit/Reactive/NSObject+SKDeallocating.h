@@ -9,9 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @class SKCompoundDisposable;
+@class SKSignal;
 
 @interface NSObject (SKDeallocating)
 
 @property (nonatomic,strong,readonly) SKCompoundDisposable *deallocDisposable;
+
+@property (nonatomic,strong,readonly) SKSignal *deallocSignal;
 
 @end

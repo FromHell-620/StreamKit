@@ -11,6 +11,8 @@
 #import "SKObjectifyMarco.h"
 #import "SKSubscriber.h"
 #import "SKDisposable.h"
+#import "SKCompoundDisposable.h"
+#import "NSObject+SKDeallocating.h"
 
 @implementation UIControl (ReactiveX)
 
@@ -20,7 +22,9 @@
     return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
         @strongify(self)
         [self addTarget:subscriber action:@selector(sendNext:) forControlEvents:controlEvents];
-        
+        [self.deallocDisposable addDisposable:[SKDisposable disposableWithBlock:^{
+            [subscriber sendCompleted];
+        }]];
         return [SKDisposable disposableWithBlock:^{
             [self removeTarget:subscriber action:@selector(sendNext:) forControlEvents:controlEvents];
         }];

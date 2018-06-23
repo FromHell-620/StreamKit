@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SKSignal.h"
 
-@interface UITextField (ReactiveX)
+@interface UITextField (SKSignalSupport)
 
 - (SKSignal<NSString *> *)sk_textSignal;
 

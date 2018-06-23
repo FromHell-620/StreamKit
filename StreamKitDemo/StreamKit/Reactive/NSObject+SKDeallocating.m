@@ -8,6 +8,7 @@
 
 #import "NSObject+SKDeallocating.h"
 #import "SKCompoundDisposable.h"
+#import "SKReplaySubject.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
 
@@ -61,6 +62,17 @@ static void swizzledDeallocIfNeed(Class cls) {
     dellocDisposable = [SKCompoundDisposable disposableWithBlock:nil];
     objc_setAssociatedObject(self, _cmd, dellocDisposable, OBJC_ASSOCIATION_RETAIN);
     return dellocDisposable;
+}
+
+- (SKSignal *)deallocSignal {
+    SKReplaySubject *deallocSignal = objc_getAssociatedObject(self, _cmd);
+    if (deallocSignal) return deallocSignal;
+    deallocSignal = [SKReplaySubject subject];
+    [self.deallocDisposable addDisposable:[SKDisposable disposableWithBlock:^{
+        [deallocSignal sendCompleted];
+    }]];
+    objc_setAssociatedObject(self, _cmd, deallocSignal, OBJC_ASSOCIATION_RETAIN);
+    return deallocSignal;
 }
 
 @end

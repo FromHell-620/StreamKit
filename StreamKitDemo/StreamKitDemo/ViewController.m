@@ -8,8 +8,9 @@
 
 #import "ViewController.h"
 #import "SecondController.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface ViewController ()
+@interface ViewController ()<UITextViewDelegate>
 
 @end
 
@@ -22,7 +23,24 @@
     [self.view addSubview:btn];
     
     [btn addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
+//    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(100, 200, 300, 40)];
+//    textView.backgroundColor = [UIColor redColor];
+//    [self.view addSubview:textView];
+//
+//    [[textView rac_textSignal] subscribeNext:^(id x) {
+//
+//    }];
+    RACSignal *signal = [self rac_signalForSelector:@selector(textViewDidChange:)];
+    
+    [signal subscribeNext:^(id x) {
+        
+    }];
+    [self textViewDidChange:nil];
     // Do any additional setup after loading the view.
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    
 }
 
 - (void)btnAction {
