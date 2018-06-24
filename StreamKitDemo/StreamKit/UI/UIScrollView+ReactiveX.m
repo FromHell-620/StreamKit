@@ -7,7 +7,6 @@
 //
 
 #import "UIScrollView+ReactiveX.h"
-#import "UIScrollView+StreamKit.h"
 #import "SKSignal.h"
 #import "SKSubscriber.h"
 #import "SKObjectifyMarco.h"

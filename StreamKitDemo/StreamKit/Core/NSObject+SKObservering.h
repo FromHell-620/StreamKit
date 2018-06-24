@@ -14,4 +14,6 @@
 
 - (SKSignal *)sk_observerWithKeyPath:(NSString *)keyPath;
 
+- (SKSignal *)sk_observerWithKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options;
+
 @end

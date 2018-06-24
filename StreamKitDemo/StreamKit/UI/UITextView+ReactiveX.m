@@ -7,7 +7,6 @@
 //
 
 #import "UITextView+ReactiveX.h"
-#import "UITextView+StreamKit.h"
 #import "SKObjectifyMarco.h"
 #import "SKSubscriber.h"
 

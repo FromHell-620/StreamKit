@@ -23,19 +23,14 @@
     [self.view addSubview:btn];
     
     [btn addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
-//    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(100, 200, 300, 40)];
-//    textView.backgroundColor = [UIColor redColor];
-//    [self.view addSubview:textView];
+    UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(100, 200, 300, 40)];
+    textView.backgroundColor = [UIColor redColor];
+    [self.view addSubview:textView];
 //
-//    [[textView rac_textSignal] subscribeNext:^(id x) {
-//
-//    }];
-    RACSignal *signal = [self rac_signalForSelector:@selector(textViewDidChange:)];
-    
-    [signal subscribeNext:^(id x) {
-        
+    [[textView rac_textSignal] subscribeNext:^(id x) {
+
     }];
-    [self textViewDidChange:nil];
+    
     // Do any additional setup after loading the view.
 }
 

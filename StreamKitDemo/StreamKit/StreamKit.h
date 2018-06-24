@@ -12,6 +12,9 @@
 #import "SKMetaMarco.h"
 #import "SKKeyPathMarco.h"
 #import "SKObjectifyMarco.h"
+#import "UIView+ReactiveX.h"
+#import "UIControl+ReactiveX.h"
+#import "NSNotificationCenter+ReactiveX.h"
 
 
 

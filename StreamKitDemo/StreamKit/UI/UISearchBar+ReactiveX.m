@@ -7,7 +7,6 @@
 //
 
 #import "UISearchBar+ReactiveX.h"
-#import "UISearchBar+StreamKit.h"
 #import "SKSignal.h"
 #import "SKSubscriber.h"
 #import "SKObjectifyMarco.h"
