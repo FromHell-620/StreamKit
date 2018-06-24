@@ -10,8 +10,8 @@
 
 @class SKSignal;
 
-@interface NSObject (SKObserveing)
+@interface NSObject (SKObservering)
 
-- (SKSignal *)sk_observeWith
+- (SKSignal *)sk_observerWithKeyPath:(NSString *)keyPath;
 
 @end
