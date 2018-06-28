@@ -12,6 +12,6 @@
 
 @interface NSObject (SKSelectorSignal)
 
-- (SKSignal *)sk_signalForSelector:(SEL)selector protocol:(Protocol *)protocol isDelegate:(BOOL)isDelegate;
+- (SKSignal *)sk_signalForSelector:(SEL)selector;
 
 @end

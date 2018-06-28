@@ -8,11 +8,18 @@
 
 #import "NSObject+SKSelectorSignal.h"
 #import <objc/runtime.h>
+#import <objc/message.h>
 #import "SKSubject.h"
 #import "NSObject+SKDeallocating.h"
 #import "SKCompoundDisposable.h"
 
 static NSString *const SKSignalForSelectorAliasPrefix = @"sk_alias_";
+
+static SEL SKAliasSelectorWithSelector(SEL sel) {
+    NSString *alias_name = [[NSString alloc] initWithUTF8String:sel_getName(sel)];
+    NSCParameterAssert(alias_name);
+    return sel_registerName([SKSignalForSelectorAliasPrefix stringByAppendingString:alias_name].UTF8String);
+}
 
 static NSMutableSet *swizzleClasses() {
     static NSMutableSet *set = nil;
@@ -54,6 +61,24 @@ static void SKSwizzleForwardInvocation(Class cls) {
     }
 }
 
+static void SKSwizzleRespondsToSelector(Class cls) {
+    SEL selector = @selector(respondsToSelector:);
+    Method selectorMethod = class_getInstanceMethod(cls, selector);
+    BOOL (*originImplmentation)(id,SEL) = NULL;
+    id newImplmentation = ^ (id self,SEL selector) {
+        Method method = class_getInstanceMethod(object_getClass(self), selector);
+        if (method != NULL && method_getImplementation(method) == _objc_msgForward) {
+            SEL aliasSelector = SKAliasSelectorWithSelector(selector);
+            if ( objc_getAssociatedObject(self, aliasSelector) != NULL) return YES;
+        }
+        return originImplmentation(self,selector);
+    };
+    if (!class_addMethod(cls, selector, imp_implementationWithBlock(newImplmentation), method_getTypeEncoding(selectorMethod))) {
+        originImplmentation = (__typeof__(originImplmentation))method_getImplementation(selectorMethod);
+        originImplmentation = (__typeof__(originImplmentation))method_setImplementation(selectorMethod, imp_implementationWithBlock(newImplmentation));
+    }
+}
+
 static void SKSwizzleClass(Class cls) {
     NSMutableSet *classes = swizzleClasses();
     @synchronized (classes) {
@@ -62,12 +87,6 @@ static void SKSwizzleClass(Class cls) {
             [classes addObject:cls];
         }
     }
-}
-
-static SEL SKAliasSelectorWithSelector(SEL sel) {
-    NSString *alias_name = [[NSString alloc] initWithUTF8String:sel_getName(sel)];
-    NSCParameterAssert(alias_name);
-    return sel_registerName([SKSignalForSelectorAliasPrefix stringByAppendingString:alias_name].UTF8String);
 }
 
 @implementation NSObject (SKSelectorSignal)
