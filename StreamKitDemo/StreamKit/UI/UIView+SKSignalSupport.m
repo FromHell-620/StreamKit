@@ -9,6 +9,7 @@
 #import "UIView+SKSignalSupport.h"
 #import "SKSignal.h"
 #import "SKDisposable.h"
+#import "SKCompoundDisposable.h"
 #import "SKObjectifyMarco.h"
 #import "SKSubscriber.h"
 #import "UIGestureRecognizer+SKSignalSupport.h"
@@ -19,16 +20,22 @@
     @unsafeify(self)
     return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
         @strongify(self)
+        SKCompoundDisposable *selfDisposable = [SKCompoundDisposable disposableWithBlock:nil];
         self.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [UITapGestureRecognizer new];
-        SKSignal *gestureDisposable = [[tap sk_eventSignal] subscribeNext:^(id x) {
+        SKDisposable *gestureDisposable = [[tap sk_eventSignal] subscribeNext:^(id x) {
             [subscriber sendNext:self];
         } error:^(NSError *error) {
             [subscriber sendError:error];
         } completed:^{
             [subscriber sendCompleted];
         }];
-    }]
+        [selfDisposable addDisposable:gestureDisposable];
+        [selfDisposable addDisposable:[SKDisposable disposableWithBlock:^{
+            [self removeGestureRecognizer:tap];
+        }]];
+        return selfDisposable;
+    }];
 }
 
 @end
