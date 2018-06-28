@@ -7,7 +7,7 @@
 //
 
 #import "UITextField+SKSignalSupport.h"
-#import "UIControl+ReactiveX.h"
+#import "UIControl+SKSignalSupport.h"
 #import "SKSignal+Operations.h"
 #import "SKObjectifyMarco.h"
 #import "SKSubscriber.h"
@@ -17,10 +17,12 @@
 
 - (SKSignal*)sk_textSignal {
     @weakify(self)
-    return [[[SKSignal defer:^SKSignal *{
+    return [[[[SKSignal defer:^{
         @strongify(self)
         return [SKSignal return:self];
-    }] concat:[self sk_signalForControlEvents:UIControlEventAllEditingEvents]] takeUntil:self.deallocSignal];
+    }] concat:[self sk_signalForControlEvents:UIControlEventAllEditingEvents]] map:^(UITextField *x) {
+        return x.text;
+    }] takeUntil:self.deallocSignal];
 }
 
 @end
