@@ -13,7 +13,11 @@
 #import "NSObject+SKDeallocating.h"
 #import "SKCompoundDisposable.h"
 
+static const void * SKSubclassAssociationKey = &SKSubclassAssociationKey;
+
 static NSString *const SKSignalForSelectorAliasPrefix = @"sk_alias_";
+
+static NSString *const SKSubclassSuffix = @"_SKSelectorSignalClass";
 
 static SEL SKAliasSelectorWithSelector(SEL sel) {
     NSString *alias_name = [[NSString alloc] initWithUTF8String:sel_getName(sel)];
@@ -79,14 +83,32 @@ static void SKSwizzleRespondsToSelector(Class cls) {
     }
 }
 
-static void SKSwizzleClass(Class cls) {
-    NSMutableSet *classes = swizzleClasses();
-    @synchronized (classes) {
-        if (![classes containsObject:cls]) {
-            SKSwizzleForwardInvocation(cls);
-            [classes addObject:cls];
+static void SKSwizzleGetClass(Class base,Class stated) {
+    SEL selector = @selector(class);
+    Method method = class_getInstanceMethod(base, selector);
+    IMP new = imp_implementationWithBlock(^ (id self) {
+        return stated;
+    });
+    class_replaceMethod(base, selector, new, method_getTypeEncoding(method));
+}
+
+static Class SKSwizzleClass(NSObject *self) {
+    Class statedClass = self.class;
+    Class baseClass = object_getClass(self);
+    Class knowClass = objc_getAssociatedObject(self, SKSubclassAssociationKey);
+    if (knowClass != NULL) return knowClass;
+    if (statedClass != baseClass) {
+        NSMutableSet *classes = swizzleClasses();
+        @synchronized (classes) {
+            if (![classes containsObject:baseClass]) {
+                SKSwizzleForwardInvocation(baseClass);
+                SKSwizzleRespondsToSelector(baseClass);
+                [classes addObject:baseClass];
+            }
         }
+        return baseClass;
     }
+    
 }
 
 @implementation NSObject (SKSelectorSignal)
