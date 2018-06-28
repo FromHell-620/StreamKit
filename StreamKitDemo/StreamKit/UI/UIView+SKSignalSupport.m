@@ -13,6 +13,7 @@
 #import "SKObjectifyMarco.h"
 #import "SKSubscriber.h"
 #import "UIGestureRecognizer+SKSignalSupport.h"
+#import "NSObject+SKDeallocating.h"
 
 @implementation UIView (SKSignalSupport)
 
@@ -30,6 +31,9 @@
         } completed:^{
             [subscriber sendCompleted];
         }];
+        [self.deallocDisposable addDisposable:[SKDisposable disposableWithBlock:^{
+            [subscriber sendCompleted];
+        }]];
         [selfDisposable addDisposable:gestureDisposable];
         [selfDisposable addDisposable:[SKDisposable disposableWithBlock:^{
             [self removeGestureRecognizer:tap];

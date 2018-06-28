@@ -6,7 +6,7 @@
 //  Copyright © 2017年 李浩. All rights reserved.
 //
 
-#import "UIControl+ReactiveX.h"
+#import "UIControl+SKSignalSupport.h"
 #import "SKSignal+Operations.h"
 #import "SKObjectifyMarco.h"
 #import "SKSubscriber.h"
@@ -14,7 +14,7 @@
 #import "SKCompoundDisposable.h"
 #import "NSObject+SKDeallocating.h"
 
-@implementation UIControl (ReactiveX)
+@implementation UIControl (SKSignalSupport)
 
 - (SKSignal*)sk_signalForControlEvents:(UIControlEvents)controlEvents
 {
@@ -29,10 +29,6 @@
             [self removeTarget:subscriber action:@selector(sendNext:) forControlEvents:controlEvents];
         }];
     }];
-}
-
-- (SKSignal *)sk_eventSignal {
-    return [self sk_signalForControlEvents:UIControlEventTouchUpInside];
 }
 
 @end

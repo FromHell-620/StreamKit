@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SKSignal.h"
 
-@interface UIControl (ReactiveX)
+@interface UIControl (SKSignalSupport)
 
 - (SKSignal<__kindof UIControl *> *)sk_signalForControlEvents:(UIControlEvents)controlEvents;
 

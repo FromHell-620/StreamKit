@@ -7,7 +7,13 @@
 //
 
 #import "UIButton+SKSignalSupport.h"
+#import "UIControl+SKSignalSupport.h"
+#import "SKSignal.h"
 
 @implementation UIButton (SKSignalSupport)
+
+- (SKSignal *)sk_clickSignal {
+    return [self sk_signalForControlEvents:UIControlEventTouchUpInside];
+}
 
 @end
