@@ -39,7 +39,7 @@
 		C9AC59501F06AADD006829CC /* SKSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = C9AC594F1F06AADD006829CC /* SKSubject.m */; };
 		C9B62B8F1E06BE0400920035 /* StreamKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B8E1E06BE0400920035 /* StreamKitTests.m */; };
 		C9B62B9A1E06BE0400920035 /* StreamKitUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B991E06BE0400920035 /* StreamKitUITests.m */; };
-		C9C65F2B1F10039A0071450A /* NSNotificationCenter+ReactiveX.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C65F2A1F10039A0071450A /* NSNotificationCenter+ReactiveX.m */; };
+		C9C65F2B1F10039A0071450A /* NSNotificationCenter+SKSignalSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C65F2A1F10039A0071450A /* NSNotificationCenter+SKSignalSupport.m */; };
 		C9DCC3ED1E975A18006E9B82 /* StreamObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DCC3EC1E975A18006E9B82 /* StreamObserver.m */; };
 		C9F3E0ED1E94EACA000661E0 /* SKSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3E0EC1E94EACA000661E0 /* SKSubscriber.m */; };
 		C9FB33D820CEBA7D007E32A4 /* SKScopedDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB33D720CEBA7D007E32A4 /* SKScopedDisposable.m */; };
@@ -143,8 +143,8 @@
 		C9B62B951E06BE0400920035 /* StreamKitDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StreamKitDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B62B991E06BE0400920035 /* StreamKitUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StreamKitUITests.m; sourceTree = "<group>"; };
 		C9B62B9B1E06BE0400920035 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9C65F291F10039A0071450A /* NSNotificationCenter+ReactiveX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+ReactiveX.h"; sourceTree = "<group>"; };
-		C9C65F2A1F10039A0071450A /* NSNotificationCenter+ReactiveX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+ReactiveX.m"; sourceTree = "<group>"; };
+		C9C65F291F10039A0071450A /* NSNotificationCenter+SKSignalSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+SKSignalSupport.h"; sourceTree = "<group>"; };
+		C9C65F2A1F10039A0071450A /* NSNotificationCenter+SKSignalSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+SKSignalSupport.m"; sourceTree = "<group>"; };
 		C9DCC3EB1E975A18006E9B82 /* StreamObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamObserver.h; sourceTree = "<group>"; };
 		C9DCC3EC1E975A18006E9B82 /* StreamObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamObserver.m; sourceTree = "<group>"; };
 		C9F3E0E91E94E9CA000661E0 /* SKSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSubscriber.h; sourceTree = "<group>"; };
@@ -315,8 +315,8 @@
 				C9FB344020DF5A4E007E32A4 /* NSObject+SKObservering.m */,
 				C9FB344220DF75C4007E32A4 /* NSObject+SKSelectorSignal.h */,
 				C9FB344320DF75C4007E32A4 /* NSObject+SKSelectorSignal.m */,
-				C9C65F291F10039A0071450A /* NSNotificationCenter+ReactiveX.h */,
-				C9C65F2A1F10039A0071450A /* NSNotificationCenter+ReactiveX.m */,
+				C9C65F291F10039A0071450A /* NSNotificationCenter+SKSignalSupport.h */,
+				C9C65F2A1F10039A0071450A /* NSNotificationCenter+SKSignalSupport.m */,
 				C9DCC3EB1E975A18006E9B82 /* StreamObserver.h */,
 				C9DCC3EC1E975A18006E9B82 /* StreamObserver.m */,
 				C9A392F11ED1BB6B00EFA3B8 /* SKCommand.h */,
@@ -575,7 +575,7 @@
 				C9FB33DE20D6C197007E32A4 /* SKValueNil.m in Sources */,
 				C9FB346320DFE5C3007E32A4 /* UIGestureRecognizer+SKSignalSupport.m in Sources */,
 				C9AC59501F06AADD006829CC /* SKSubject.m in Sources */,
-				C9C65F2B1F10039A0071450A /* NSNotificationCenter+ReactiveX.m in Sources */,
+				C9C65F2B1F10039A0071450A /* NSNotificationCenter+SKSignalSupport.m in Sources */,
 				C94CD4671F24AB760083E200 /* SKQueueScheduler.m in Sources */,
 				8857DBA920D27A6400AF3B01 /* SKReturnSignal.m in Sources */,
 				8857DBA020D2601900AF3B01 /* SKSubscriptionScheduler.m in Sources */,
