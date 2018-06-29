@@ -22,6 +22,7 @@
 		885A825A20DB5F92004875C1 /* SKReplaySubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 885A825920DB5F92004875C1 /* SKReplaySubject.m */; };
 		885BCB8520E25007003ED802 /* UIView+SKSignalSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 885BCB8420E25007003ED802 /* UIView+SKSignalSupport.m */; };
 		88610DF720D8A273002DE2B7 /* SKPassthroughSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = 88610DF620D8A273002DE2B7 /* SKPassthroughSubscriber.m */; };
+		887CBB1620E638810081B522 /* SKDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 887CBB1520E638810081B522 /* SKDelegateProxy.m */; };
 		C3E73CBF94C220E3528C6998 /* libPods-StreamKitDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B378167200FBC5A990C676 /* libPods-StreamKitDemo.a */; };
 		C91514151E7679F800BFBCE5 /* NSObject+StreamKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C91513DE1E7679F800BFBCE5 /* NSObject+StreamKit.m */; };
 		C921E1441F584D4F00B6A4EE /* UIButton+aa.m in Sources */ = {isa = PBXBuildFile; fileRef = C921E1431F584D4F00B6A4EE /* UIButton+aa.m */; };
@@ -103,6 +104,8 @@
 		885BCB8420E25007003ED802 /* UIView+SKSignalSupport.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SKSignalSupport.m"; sourceTree = "<group>"; };
 		88610DF520D8A273002DE2B7 /* SKPassthroughSubscriber.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKPassthroughSubscriber.h; sourceTree = "<group>"; };
 		88610DF620D8A273002DE2B7 /* SKPassthroughSubscriber.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKPassthroughSubscriber.m; sourceTree = "<group>"; };
+		887CBB1420E638810081B522 /* SKDelegateProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKDelegateProxy.h; sourceTree = "<group>"; };
+		887CBB1520E638810081B522 /* SKDelegateProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKDelegateProxy.m; sourceTree = "<group>"; };
 		C2B74F3A9131EAA4C24F954E /* Pods-StreamKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamKitDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreamKitDemo/Pods-StreamKitDemo.release.xcconfig"; sourceTree = "<group>"; };
 		C91513DD1E7679F800BFBCE5 /* NSObject+StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+StreamKit.h"; sourceTree = "<group>"; };
 		C91513DE1E7679F800BFBCE5 /* NSObject+StreamKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+StreamKit.m"; sourceTree = "<group>"; };
@@ -333,6 +336,8 @@
 				C9FB33DD20D6C197007E32A4 /* SKValueNil.m */,
 				C9FB33E520D762A2007E32A4 /* SKBlockTrampoline.h */,
 				C9FB33E620D762A2007E32A4 /* SKBlockTrampoline.m */,
+				887CBB1420E638810081B522 /* SKDelegateProxy.h */,
+				887CBB1520E638810081B522 /* SKDelegateProxy.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -578,6 +583,7 @@
 				C9C65F2B1F10039A0071450A /* NSNotificationCenter+SKSignalSupport.m in Sources */,
 				C94CD4671F24AB760083E200 /* SKQueueScheduler.m in Sources */,
 				8857DBA920D27A6400AF3B01 /* SKReturnSignal.m in Sources */,
+				887CBB1620E638810081B522 /* SKDelegateProxy.m in Sources */,
 				8857DBA020D2601900AF3B01 /* SKSubscriptionScheduler.m in Sources */,
 				C9FB346020DFE5C3007E32A4 /* UITextField+SKSignalSupport.m in Sources */,
 				C9FB345C20DFE5C3007E32A4 /* UIControl+SKSignalSupport.m in Sources */,
