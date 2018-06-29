@@ -9,12 +9,16 @@
 #ifndef StreamKit_h
 #define StreamKit_h
 
+#import "SKSignal.h"
+#import "SKSignal+Operations.h"
 #import "SKMetaMarco.h"
 #import "SKKeyPathMarco.h"
 #import "SKObjectifyMarco.h"
-#import "UIView+ReactiveX.h"
-#import "UIControl+ReactiveX.h"
-#import "NSNotificationCenter+ReactiveX.h"
+#import "NSObject+SKObservering.h"
+#import "UIView+SKSignalSupport.h"
+#import "UITextField+SKSignalSupport.h"
+#import "UIControl+SKSignalSupport.h"
+#import "NSNotificationCenter+SKSignalSupport.h"
 
 
 

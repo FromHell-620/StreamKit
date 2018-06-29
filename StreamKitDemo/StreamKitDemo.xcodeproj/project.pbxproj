@@ -40,7 +40,7 @@
 		C9B62B8F1E06BE0400920035 /* StreamKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B8E1E06BE0400920035 /* StreamKitTests.m */; };
 		C9B62B9A1E06BE0400920035 /* StreamKitUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B991E06BE0400920035 /* StreamKitUITests.m */; };
 		C9C65F2B1F10039A0071450A /* NSNotificationCenter+SKSignalSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C65F2A1F10039A0071450A /* NSNotificationCenter+SKSignalSupport.m */; };
-		C9DCC3ED1E975A18006E9B82 /* StreamObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DCC3EC1E975A18006E9B82 /* StreamObserver.m */; };
+		C9DCC3ED1E975A18006E9B82 /* SKSubscribringObserverTrampoline.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DCC3EC1E975A18006E9B82 /* SKSubscribringObserverTrampoline.m */; };
 		C9F3E0ED1E94EACA000661E0 /* SKSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3E0EC1E94EACA000661E0 /* SKSubscriber.m */; };
 		C9FB33D820CEBA7D007E32A4 /* SKScopedDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB33D720CEBA7D007E32A4 /* SKScopedDisposable.m */; };
 		C9FB33DB20D62CC2007E32A4 /* SKSerialDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB33DA20D62CC2007E32A4 /* SKSerialDisposable.m */; };
@@ -145,8 +145,8 @@
 		C9B62B9B1E06BE0400920035 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9C65F291F10039A0071450A /* NSNotificationCenter+SKSignalSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+SKSignalSupport.h"; sourceTree = "<group>"; };
 		C9C65F2A1F10039A0071450A /* NSNotificationCenter+SKSignalSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+SKSignalSupport.m"; sourceTree = "<group>"; };
-		C9DCC3EB1E975A18006E9B82 /* StreamObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamObserver.h; sourceTree = "<group>"; };
-		C9DCC3EC1E975A18006E9B82 /* StreamObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamObserver.m; sourceTree = "<group>"; };
+		C9DCC3EB1E975A18006E9B82 /* SKSubscribringObserverTrampoline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSubscribringObserverTrampoline.h; sourceTree = "<group>"; };
+		C9DCC3EC1E975A18006E9B82 /* SKSubscribringObserverTrampoline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSubscribringObserverTrampoline.m; sourceTree = "<group>"; };
 		C9F3E0E91E94E9CA000661E0 /* SKSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSubscriber.h; sourceTree = "<group>"; };
 		C9F3E0EC1E94EACA000661E0 /* SKSubscriber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSubscriber.m; sourceTree = "<group>"; };
 		C9FB33D620CEBA7D007E32A4 /* SKScopedDisposable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKScopedDisposable.h; sourceTree = "<group>"; };
@@ -317,8 +317,8 @@
 				C9FB344320DF75C4007E32A4 /* NSObject+SKSelectorSignal.m */,
 				C9C65F291F10039A0071450A /* NSNotificationCenter+SKSignalSupport.h */,
 				C9C65F2A1F10039A0071450A /* NSNotificationCenter+SKSignalSupport.m */,
-				C9DCC3EB1E975A18006E9B82 /* StreamObserver.h */,
-				C9DCC3EC1E975A18006E9B82 /* StreamObserver.m */,
+				C9DCC3EB1E975A18006E9B82 /* SKSubscribringObserverTrampoline.h */,
+				C9DCC3EC1E975A18006E9B82 /* SKSubscribringObserverTrampoline.m */,
 				C9A392F11ED1BB6B00EFA3B8 /* SKCommand.h */,
 				C9A392F21ED1BB6B00EFA3B8 /* SKCommand.m */,
 				C930A1E020CB886100E9789B /* SKDisposable.h */,
@@ -564,7 +564,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9FB33D820CEBA7D007E32A4 /* SKScopedDisposable.m in Sources */,
-				C9DCC3ED1E975A18006E9B82 /* StreamObserver.m in Sources */,
+				C9DCC3ED1E975A18006E9B82 /* SKSubscribringObserverTrampoline.m in Sources */,
 				7416AAB11E121B0C00A970A3 /* main.m in Sources */,
 				C930A1E520CBB95C00E9789B /* SKCompoundDisposable.m in Sources */,
 				C9FB344420DF75C4007E32A4 /* NSObject+SKSelectorSignal.m in Sources */,

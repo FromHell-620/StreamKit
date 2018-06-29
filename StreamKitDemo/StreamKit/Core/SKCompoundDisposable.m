@@ -19,11 +19,13 @@ static void disposeEach(const void *item ,void *context) {
 }
 
 - (instancetype)initWithBlock:(dispatch_block_t)block {
-    return [self initWithDisposes:@[[SKDisposable disposableWithBlock:block]]];
+    NSArray *disposables = block ? @[[SKDisposable disposableWithBlock:block]] : nil;
+    return [self initWithDisposes:disposables];
 }
 
 + (instancetype)disposableWithBlock:(dispatch_block_t)block {
-    return [self disposableWithdisposes:@[[SKDisposable disposableWithBlock:block]]];
+    NSArray *disposables = block ? @[[SKDisposable disposableWithBlock:block]] : nil;
+    return [self disposableWithdisposes:disposables];
 }
 
 - (instancetype)initWithDisposes:(NSArray<SKDisposable *> *)disposes {
@@ -34,6 +36,10 @@ static void disposeEach(const void *item ,void *context) {
         }
     }
     return self;
+}
+
++ (instancetype)compoundDisposable {
+    return [self disposableWithBlock:nil];
 }
 
 + (instancetype)disposableWithdisposes:(NSArray<SKDisposable *> *)disposes {
@@ -67,7 +73,7 @@ static void disposeEach(const void *item ,void *context) {
     OSSpinLockLock(&_lock);
     if (_disposes != NULL) {
         NSInteger item_count = CFArrayGetCount(_disposes);
-        for (NSInteger i = item_count - 1; item_count >= 0; i --) {
+        for (NSInteger i = item_count - 1; i >= 0; i --) {
             if (disposable == (__bridge SKDisposable *)CFArrayGetValueAtIndex(_disposes, i)) {
                 CFArrayRemoveValueAtIndex(_disposes, i);
                 break;
@@ -82,7 +88,8 @@ static void disposeEach(const void *item ,void *context) {
         OSSpinLockLock(&_lock);
         _isDisposed.isDisposed = 1;
         OSSpinLockUnlock(&_lock);
-        CFArrayApplyFunction(_disposes, CFRangeMake(0, CFArrayGetCount(_disposes)), disposeEach, nil);
+        NSInteger count = CFArrayGetCount(_disposes);
+        CFArrayApplyFunction(_disposes, CFRangeMake(0, count), disposeEach, nil);
         CFRelease(_disposes);
         _disposes = NULL;
     }

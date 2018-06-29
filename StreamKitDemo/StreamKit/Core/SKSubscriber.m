@@ -61,10 +61,6 @@
     return self;
 }
 
-- (void)dealloc {
-    [self.subscribersDisposable dispose];
-}
-
 - (void)sendNext:(id)value {
     if (self.nextBlock) {
         @synchronized (self) {
@@ -107,7 +103,7 @@
 - (void)didSubscriberWithDisposable:(SKCompoundDisposable *)other {
     NSCParameterAssert(other);
     if (other.isDisposed) return;
-    __unsafe_unretained SKCompoundDisposable *selfDisposable = self.subscribersDisposable;
+    SKCompoundDisposable *selfDisposable = self.subscribersDisposable;
     [selfDisposable addDisposable:other];
     @unsafeify(other)
     [other addDisposable:[SKDisposable disposableWithBlock:^{
@@ -115,5 +111,11 @@
         [selfDisposable removeDisposable:other];
     }]];
 }
+
+#ifdef DEBUG
+- (void)dealloc {
+    
+}
+#endif
 
 @end

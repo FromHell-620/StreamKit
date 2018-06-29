@@ -10,7 +10,7 @@
 
 @class SKSignal;
 
-@interface StreamObserver : NSObject
+@interface SKSubscribringObserverTrampoline : NSObject
 
 @property (nonatomic,weak,readonly) NSObject* object;
 
