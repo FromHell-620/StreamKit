@@ -10,8 +10,10 @@
 
 @class SKSignal;
 
-@interface NSNotificationCenter (ReactiveX)
+@interface NSNotificationCenter (SKSignalSupport)
 
 - (SKSignal *)sk_signalWithName:(NSNotificationName)name object:(id)object;
+
+- (SKSignal *)sk_signalWithName:(NSNotificationName)name object:(id)object observer:(id)observer;
 
 @end

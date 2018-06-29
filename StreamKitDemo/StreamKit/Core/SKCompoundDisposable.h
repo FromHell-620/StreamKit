@@ -10,6 +10,8 @@
 
 @interface SKCompoundDisposable : SKDisposable
 
++ (instancetype)compoundDisposable;
+
 + (instancetype)disposableWithdisposes:(NSArray<SKDisposable *> *)disposes;
 
 - (void)addDisposable:(SKDisposable *)disposable;

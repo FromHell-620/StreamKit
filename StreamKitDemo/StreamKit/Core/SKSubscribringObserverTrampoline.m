@@ -6,11 +6,11 @@
 //  Copyright © 2017年 李浩. All rights reserved.
 //
 
-#import "StreamObserver.h"
+#import "SKSubscribringObserverTrampoline.h"
 #import "NSObject+StreamKit.h"
 #import "SKSignal.h"
 
-@implementation StreamObserver
+@implementation SKSubscribringObserverTrampoline
 
 - (instancetype)initWithObject:(id)object nilValue:(id)nilValue;
 {

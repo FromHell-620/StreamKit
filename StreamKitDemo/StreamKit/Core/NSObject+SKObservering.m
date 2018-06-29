@@ -81,12 +81,14 @@
 #else
         target  = [[_SKObserverTarget alloc] initWithSubscriber:subscriber];
 #endif
-        [target addObserver:self forKeyPath:keyPath options:options context:nil];
-        [self.deallocDisposable addDisposable:[SKDisposable disposableWithBlock:^{
-            [target removeObserver:self forKeyPath:keyPath];
-        }]];
+        [self addObserver:target forKeyPath:keyPath options:options context:nil];
+        SKDisposable *removeDisposable = [SKDisposable disposableWithBlock:^{
+            @strongify(self)
+            [self removeObserver:target forKeyPath:keyPath];
+        }];
+        [self.deallocDisposable addDisposable:removeDisposable];
         return [SKDisposable disposableWithBlock:^{
-            [subscriber sendCompleted];
+            [removeDisposable dispose];
         }];
     }] takeUntil:self.deallocSignal];
 }
