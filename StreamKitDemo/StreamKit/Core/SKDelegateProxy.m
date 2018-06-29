@@ -7,6 +7,8 @@
 //
 
 #import "SKDelegateProxy.h"
+#import "NSObject+SKSelectorSignal.h"
+#import <objc/runtime.h>
 
 @implementation SKDelegateProxy {
     Protocol *_protocol;
@@ -18,6 +20,34 @@
         _protocol = protocol;
     }
     return self;
+}
+
+- (SKSignal *)signalForSelector:(SEL)selector {
+    
+    return nil;
+}
+
+- (BOOL)isProxy {
+    return YES;
+}
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation {
+    [anInvocation invokeWithTarget:self.realDelegate];
+}
+
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+    struct objc_method_description method = protocol_getMethodDescription(_protocol, aSelector, YES, YES);
+    if (method.name == NULL) {
+        method = protocol_getMethodDescription(_protocol, aSelector, NO, YES);
+        if (method.name == NULL) return [super methodSignatureForSelector:aSelector];
+    }
+    return [NSMethodSignature signatureWithObjCTypes:method.types];
+}
+
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    __autoreleasing id realDelegate = self.realDelegate;
+    if ([realDelegate respondsToSelector:aSelector]) return YES;
+    return [super respondsToSelector:aSelector];
 }
 
 @end
