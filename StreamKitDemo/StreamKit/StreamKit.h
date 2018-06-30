@@ -15,11 +15,14 @@
 #import "SKKeyPathMarco.h"
 #import "SKObjectifyMarco.h"
 #import "NSObject+SKObservering.h"
-#import "UIView+SKSignalSupport.h"
-#import "UITextField+SKSignalSupport.h"
-#import "UIControl+SKSignalSupport.h"
+#import "NSObject+SKSelectorSignal.h"
+
 #import "NSNotificationCenter+SKSignalSupport.h"
 
-
+//UI
+#import "UIView+SKSignalSupport.h"
+#import "UITextView+SKSignalSupport.h"
+#import "UITextField+SKSignalSupport.h"
+#import "UIControl+SKSignalSupport.h"
 
 #endif /* StreamKit_h */

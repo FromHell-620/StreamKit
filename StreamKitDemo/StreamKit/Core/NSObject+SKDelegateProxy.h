@@ -12,6 +12,6 @@
 
 @interface NSObject (SKDelegateProxy)
 
-@property (nonatomic,strong,readonly) SKDelegateProxy *sk_delegateProxy;
+@property (nonatomic,strong,setter=sk_setDelegateProxy:) SKDelegateProxy *sk_delegateProxy;
 
 @end

@@ -36,7 +36,7 @@
 
 - (id)invokeWithArguments:(NSArray *)arguments {
     SEL sel = [self blockSelWithArgumentCount:arguments.count];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[NSMethodSignature methodSignatureForSelector:sel]];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:sel]];
     invocation.target = self;
     invocation.selector = sel;
     [arguments enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

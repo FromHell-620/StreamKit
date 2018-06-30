@@ -33,6 +33,7 @@
     SKCompoundDisposable *disposable = [SKCompoundDisposable disposableWithBlock:nil];
     [disposable addDisposable:[[SKScheduler subscriptionScheduler] schedule:^{
         [subscriber sendNext:self.value];
+        [subscriber sendCompleted];
     }]];
     return disposable;
 }

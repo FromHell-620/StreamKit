@@ -8,8 +8,7 @@
 
 #import "ViewController.h"
 #import "SecondController.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
-
+#import "StreamKit.h"
 @interface ViewController ()<UITextViewDelegate>
 
 @end
@@ -27,14 +26,22 @@
     textView.backgroundColor = [UIColor redColor];
     [self.view addSubview:textView];
 //
-    [[textView rac_textSignal] subscribeNext:^(id x) {
-
+    [[textView sk_textSignal] subscribeNext:^(id x) {
+        
     }];
-    
+    [[textView sk_signalForSelector:@selector(textViewDidChange:)] subscribeNext:^(id x) {
+        
+    }];
+    textView.delegate = self;
+
     // Do any additional setup after loading the view.
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
+    
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
     
 }
 
