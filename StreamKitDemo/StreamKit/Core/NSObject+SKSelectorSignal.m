@@ -12,6 +12,8 @@
 #import "SKSubject.h"
 #import "NSObject+SKDeallocating.h"
 #import "SKCompoundDisposable.h"
+#import "NSObject+SKDelegateProxy.h"
+#import "SKDelegateProxy.h"
 
 static const void * SKSubclassAssociationKey = &SKSubclassAssociationKey;
 
@@ -68,14 +70,14 @@ static void SKSwizzleForwardInvocation(Class cls) {
 static void SKSwizzleRespondsToSelector(Class cls) {
     SEL selector = @selector(respondsToSelector:);
     Method selectorMethod = class_getInstanceMethod(cls, selector);
-    BOOL (*originImplmentation)(id,SEL) = NULL;
-    id newImplmentation = ^ (id self,SEL selector) {
-        Method method = class_getInstanceMethod(object_getClass(self), selector);
+    BOOL (*originImplmentation)(id,SEL,SEL) = NULL;
+    id newImplmentation = ^ (id self,SEL respondsSelector) {
+        Method method = class_getInstanceMethod(object_getClass(self), respondsSelector);
         if (method != NULL && method_getImplementation(method) == _objc_msgForward) {
-            SEL aliasSelector = SKAliasSelectorWithSelector(selector);
+            SEL aliasSelector = SKAliasSelectorWithSelector(respondsSelector);
             if ( objc_getAssociatedObject(self, aliasSelector) != NULL) return YES;
         }
-        return originImplmentation(self,selector);
+        return originImplmentation(self,selector,respondsSelector);
     };
     if (!class_addMethod(cls, selector, imp_implementationWithBlock(newImplmentation), method_getTypeEncoding(selectorMethod))) {
         originImplmentation = (__typeof__(originImplmentation))method_getImplementation(selectorMethod);
@@ -92,6 +94,30 @@ static void SKSwizzleGetClass(Class base,Class stated) {
     class_replaceMethod(base, selector, new, method_getTypeEncoding(method));
 }
 
+static void SKSwizzleDelegate(Class cls, __unsafe_unretained SKDelegateProxy *proxy) {
+    if (proxy == nil) return;
+    SEL delegateSelector = @selector(setDelegate:);
+    Method delegateMethod = class_getInstanceMethod(cls, delegateSelector);
+    if (delegateMethod == NULL) return;
+    void (*originImplmentation)(__unsafe_unretained id,SEL selector,__unsafe_unretained id) = NULL;
+    IMP newIMP = imp_implementationWithBlock(^ (__unsafe_unretained id self,__unsafe_unretained id delegate){
+        proxy.realDelegate = delegate;
+        if (originImplmentation != NULL) {
+            originImplmentation(self,delegateSelector,proxy);
+        }else {
+            struct objc_super super_objc = {
+                .receiver = self,
+                .super_class = class_getSuperclass(cls)
+            };
+            ((void(*)(void *,SEL,id))objc_msgSendSuper)(&super_objc,delegateSelector,proxy);
+        }
+    });
+    if (!class_addMethod(cls, delegateSelector, newIMP, method_getTypeEncoding(delegateMethod))) {
+        originImplmentation = (__typeof__(originImplmentation))method_getImplementation(delegateMethod);
+        originImplmentation = (__typeof__(originImplmentation))method_setImplementation(delegateMethod, newIMP);
+    }
+}
+
 static Class SKSwizzleClass(NSObject *self) {
     Class statedClass = self.class;
     Class baseClass = object_getClass(self);
@@ -103,12 +129,27 @@ static Class SKSwizzleClass(NSObject *self) {
             if (![classes containsObject:baseClass]) {
                 SKSwizzleForwardInvocation(baseClass);
                 SKSwizzleRespondsToSelector(baseClass);
+                SKSwizzleDelegate(baseClass, self.sk_delegateProxy);
                 [classes addObject:baseClass];
             }
         }
         return baseClass;
     }
-    
+    NSString *className = NSStringFromClass(baseClass);
+    const char *subClassName = [className stringByAppendingString:SKSubclassSuffix].UTF8String;
+    Class subClass = objc_getClass(subClassName);
+    if (subClass == nil) {
+        subClass = objc_allocateClassPair(baseClass, subClassName, 0);
+        if (subClass == nil) return nil;
+        SKSwizzleForwardInvocation(subClass);
+        SKSwizzleRespondsToSelector(subClass);
+        SKSwizzleGetClass(subClass, statedClass);
+        SKSwizzleDelegate(subClass, self.sk_delegateProxy);
+        objc_registerClassPair(subClass);
+    }
+    object_setClass(self, subClass);
+    objc_setAssociatedObject(self, SKSubclassAssociationKey, subClass, OBJC_ASSOCIATION_ASSIGN);
+    return subClass;
 }
 
 @implementation NSObject (SKSelectorSignal)

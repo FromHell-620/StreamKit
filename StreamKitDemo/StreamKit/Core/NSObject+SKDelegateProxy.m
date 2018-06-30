@@ -21,10 +21,6 @@ static CFMutableDictionaryRef protocolsMap() {
     return map;
 }
 
-- (void)sk_setDelegate:(SKDelegateProxy *)sk_delegateProxy {
-    objc_setAssociatedObject(self, @selector(sk_delegateProxy), sk_delegateProxy, OBJC_ASSOCIATION_RETAIN);
-}
-
 - (SKDelegateProxy *)sk_delegateProxy {
     @synchronized (self) {
         SKDelegateProxy *proxy = objc_getAssociatedObject(self, _cmd);
@@ -41,7 +37,7 @@ static CFMutableDictionaryRef protocolsMap() {
                 __unsafe_unretained Protocol **protocols = class_copyProtocolList(object_getClass(self), &protocol_count);
                 for (unsigned int i = 0; i < protocol_count; i ++) {
                     Protocol *protocol = protocols[i];
-                    if (strstr(protocol_getName(protocol), "delegate")) {
+                    if (strstr(protocol_getName(protocol), "delegate") != NULL) {
                         proxy = [[SKDelegateProxy alloc] initWithProtocol:protocol];
                         CFDictionarySetValue(protocolsMap(), className, (__bridge const void *)(proxy));
                         break;
@@ -50,6 +46,7 @@ static CFMutableDictionaryRef protocolsMap() {
                         CFDictionarySetValue(protocolsMap(), className, kCFNull);
                     }
                 }
+                free(protocols);
             }
             objc_setAssociatedObject(self, _cmd, proxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
