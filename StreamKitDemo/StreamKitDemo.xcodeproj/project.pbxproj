@@ -57,6 +57,7 @@
 		C9FB346620E5198A007E32A4 /* UIButton+SKSignalSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB346520E5198A007E32A4 /* UIButton+SKSignalSupport.m */; };
 		C9FB346920E51DB0007E32A4 /* UITextView+SKSignalSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB346820E51DB0007E32A4 /* UITextView+SKSignalSupport.m */; };
 		C9FB346C20E728E9007E32A4 /* NSObject+SKDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB346B20E728E9007E32A4 /* NSObject+SKDelegateProxy.m */; };
+		C9FB346F20E7B60C007E32A4 /* NSInvocation+SKValues.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB346E20E7B60C007E32A4 /* NSInvocation+SKValues.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,6 +182,8 @@
 		C9FB346820E51DB0007E32A4 /* UITextView+SKSignalSupport.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextView+SKSignalSupport.m"; sourceTree = "<group>"; };
 		C9FB346A20E728E9007E32A4 /* NSObject+SKDelegateProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+SKDelegateProxy.h"; sourceTree = "<group>"; };
 		C9FB346B20E728E9007E32A4 /* NSObject+SKDelegateProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SKDelegateProxy.m"; sourceTree = "<group>"; };
+		C9FB346D20E7B60C007E32A4 /* NSInvocation+SKValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSInvocation+SKValues.h"; sourceTree = "<group>"; };
+		C9FB346E20E7B60C007E32A4 /* NSInvocation+SKValues.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSInvocation+SKValues.m"; sourceTree = "<group>"; };
 		E4DCE42D9F4B44C44D1CA9FA /* Pods-StreamKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamKitDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StreamKitDemo/Pods-StreamKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -323,6 +326,8 @@
 				C9FB344320DF75C4007E32A4 /* NSObject+SKSelectorSignal.m */,
 				C9FB346A20E728E9007E32A4 /* NSObject+SKDelegateProxy.h */,
 				C9FB346B20E728E9007E32A4 /* NSObject+SKDelegateProxy.m */,
+				C9FB346D20E7B60C007E32A4 /* NSInvocation+SKValues.h */,
+				C9FB346E20E7B60C007E32A4 /* NSInvocation+SKValues.m */,
 				C9C65F291F10039A0071450A /* NSNotificationCenter+SKSignalSupport.h */,
 				C9C65F2A1F10039A0071450A /* NSNotificationCenter+SKSignalSupport.m */,
 				C9DCC3EB1E975A18006E9B82 /* SKSubscribringObserverTrampoline.h */,
@@ -607,6 +612,7 @@
 				C94CD4681F24AB760083E200 /* SKScheduler.m in Sources */,
 				885BCB8520E25007003ED802 /* UIView+SKSignalSupport.m in Sources */,
 				C94CD4651F24AB760083E200 /* SKConcurrentQueueScheduler.m in Sources */,
+				C9FB346F20E7B60C007E32A4 /* NSInvocation+SKValues.m in Sources */,
 				7416AAAC1E121B0C00A970A3 /* AppDelegate.m in Sources */,
 				8857DB9D20D254AA00AF3B01 /* ViewController.m in Sources */,
 				C955498C1E8CE92B003C55AF /* SecondController.m in Sources */,

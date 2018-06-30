@@ -37,6 +37,15 @@ static NSMutableSet *swizzleClasses() {
 }
 
 static BOOL ForwardInvocation(NSInvocation *invocation) {
+    SEL aliasSelector = SKAliasSelectorWithSelector(invocation.selector);
+    SKSubject *subject = objc_getAssociatedObject(invocation.target, aliasSelector);
+    id cls = object_getClass(invocation.target);
+    BOOL respondsAliasSelector = [cls instancesRespondToSelector:aliasSelector];
+    if (respondsAliasSelector) {
+        invocation.selector = aliasSelector;
+        [invocation invoke];
+    }
+    [subject sendNext:<#(id)#>]
     return YES;
 }
 
@@ -118,6 +127,31 @@ static void SKSwizzleDelegate(Class cls, __unsafe_unretained SKDelegateProxy *pr
     }
 }
 
+static void SKSwizzleDelegateClass(NSObject *self) {
+    static NSMutableSet * classes = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        classes = [NSMutableSet set];
+    });
+    Class statedClass = self.class;
+    Class baseClass = object_getClass(self);
+    if (baseClass != statedClass) {
+        if (![classes containsObject:baseClass]) {
+            SKSwizzleDelegate(baseClass, self.sk_delegateProxy);
+            [classes addObject:baseClass];
+        }
+    }else {
+        const char *subClassName = [NSStringFromClass(baseClass) stringByAppendingString:SKSubclassSuffix].UTF8String;
+        Class subClass = objc_getClass(subClassName);
+        if (subClass == nil) {
+            objc_allocateClassPair(baseClass, subClassName, 0);
+            SKSwizzleDelegate(subClass, self.sk_delegateProxy);
+            objc_registerClassPair(subClass);
+        }
+        object_setClass(self, subClass);
+    }
+}
+
 static Class SKSwizzleClass(NSObject *self) {
     Class statedClass = self.class;
     Class baseClass = object_getClass(self);
@@ -129,7 +163,6 @@ static Class SKSwizzleClass(NSObject *self) {
             if (![classes containsObject:baseClass]) {
                 SKSwizzleForwardInvocation(baseClass);
                 SKSwizzleRespondsToSelector(baseClass);
-                SKSwizzleDelegate(baseClass, self.sk_delegateProxy);
                 [classes addObject:baseClass];
             }
         }
@@ -144,7 +177,6 @@ static Class SKSwizzleClass(NSObject *self) {
         SKSwizzleForwardInvocation(subClass);
         SKSwizzleRespondsToSelector(subClass);
         SKSwizzleGetClass(subClass, statedClass);
-        SKSwizzleDelegate(subClass, self.sk_delegateProxy);
         objc_registerClassPair(subClass);
     }
     object_setClass(self, subClass);
@@ -157,26 +189,39 @@ static Class SKSwizzleClass(NSObject *self) {
 - (SKSignal *)sk_signalForSelector:(SEL)selector {
     SEL aliasSeletor = SKAliasSelectorWithSelector(selector);
     @synchronized (self) {
-        SKSubject *subject = objc_getAssociatedObject(self, aliasSeletor);
+        __unsafe_unretained id objc = self.sk_delegateProxy ?: self;
+        SKSubject *subject = objc_getAssociatedObject(objc, aliasSeletor);
         if (subject) return subject;
-        Class class = SKSwizzleClass(self);
+        Class class = SKSwizzleClass(objc);
+        if (self.sk_delegateProxy) {
+            SKSwizzleDelegateClass(self);
+        }
         subject = [SKSubject subject];
-        objc_setAssociatedObject(self, aliasSeletor, subject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(objc, aliasSeletor, subject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         [self.deallocDisposable addDisposable:[SKDisposable disposableWithBlock:^{
             [subject sendCompleted];
         }]];
         
         Method targetMethod = class_getInstanceMethod(class, selector);
         if (targetMethod == NULL) {
+            const char *typeEncoding;
             Protocol *protocol = self.sk_delegateProxy.protocol;
+            NSParameterAssert(protocol);
             if (protocol) {
                 struct objc_method_description description = protocol_getMethodDescription(protocol, selector, NO, YES);
                 if (description.name == NULL) {
                     description = protocol_getMethodDescription(protocol, selector, YES, YES);
                 }
+                typeEncoding = description.types;
             }
+            class_addMethod(class, selector, _objc_msgForward, typeEncoding);
             
+        }else if (method_getImplementation(targetMethod) != _objc_msgForward) {
+            const char *typeEncoding = method_getTypeEncoding(targetMethod);
+            class_addMethod(class, aliasSeletor, method_getImplementation(targetMethod), typeEncoding);
+            class_replaceMethod(class, selector, _objc_msgForward, typeEncoding);
         }
+        return subject;
     }
 }
 
