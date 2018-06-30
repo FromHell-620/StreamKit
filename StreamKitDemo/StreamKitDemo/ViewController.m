@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "SecondController.h"
 #import "StreamKit.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
+
 @interface ViewController ()<UITextViewDelegate>
 
 @end
@@ -29,10 +31,8 @@
     [[textView sk_textSignal] subscribeNext:^(id x) {
         
     }];
-    [[textView sk_signalForSelector:@selector(textViewDidChange:)] subscribeNext:^(id x) {
-        
-    }];
     textView.delegate = self;
+//    textView.delegate = self;
 
     // Do any additional setup after loading the view.
 }

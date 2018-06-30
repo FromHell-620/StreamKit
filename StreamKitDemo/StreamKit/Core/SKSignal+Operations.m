@@ -350,7 +350,7 @@
 - (SKSignal*)flattenMap:(SKSignal *(^)(id value))block {
     NSCParameterAssert(block);
     return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
-        NSMutableArray *signals = [NSMutableArray array];
+        NSMutableArray *signals = [NSMutableArray arrayWithObject:self];
         SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable disposableWithdisposes:nil];
         
         void (^completeSubscriber)(SKSignal *,SKDisposable *) = ^ (SKSignal *signal,SKDisposable *completeDisposable) {
