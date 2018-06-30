@@ -14,6 +14,8 @@
 
 @property (nonatomic,unsafe_unretained) id realDelegate;
 
+@property (nonatomic,strong,readonly) Protocol *protocol;
+
 - (instancetype)initWithProtocol:(Protocol *)protocol;
 
 - (SKSignal *)signalForSelector:(SEL)selector;

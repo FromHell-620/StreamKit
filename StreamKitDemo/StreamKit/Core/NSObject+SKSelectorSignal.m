@@ -154,31 +154,30 @@ static Class SKSwizzleClass(NSObject *self) {
 
 @implementation NSObject (SKSelectorSignal)
 
-//- (SKSignal *)sk_signalForSelector:(SEL)selector protocol:(Protocol *)protocol isDelegate:(BOOL)isDelegate{
-//    SEL aliasSeletor = SKAliasSelectorWithSelector(selector);
-//    @synchronized (self) {
-//        SKSubject *subject = objc_getAssociatedObject(self, aliasSeletor);
-//        if (subject) return subject;
-//        SKSwizzleClass(object_getClass(self));
-//        subject = [SKSubject subject];
-//        objc_setAssociatedObject(self, aliasSeletor, subject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//        [self.deallocDisposable addDisposable:[SKDisposable disposableWithBlock:^{
-//            [subject sendCompleted];
-//        }]];
-//        
-//        Method targetMethod = class_getInstanceMethod(object_getClass(self), selector);
-//        if (targetMethod == NULL) {
-//            if (protocol) {
-//                struct objc_method_description desc = protocol_getMethodDescription(protocol, selector, YES, YES);
-//                if (desc.name == NULL) {
-//                    desc = protocol_getMethodDescription(protocol, selector, NO, YES);
-//                }
-//            }
-//            if (isDelegate) {
-//                <#statements#>
-//            }
-//        }
-//    }
-//}
+- (SKSignal *)sk_signalForSelector:(SEL)selector {
+    SEL aliasSeletor = SKAliasSelectorWithSelector(selector);
+    @synchronized (self) {
+        SKSubject *subject = objc_getAssociatedObject(self, aliasSeletor);
+        if (subject) return subject;
+        Class class = SKSwizzleClass(self);
+        subject = [SKSubject subject];
+        objc_setAssociatedObject(self, aliasSeletor, subject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        [self.deallocDisposable addDisposable:[SKDisposable disposableWithBlock:^{
+            [subject sendCompleted];
+        }]];
+        
+        Method targetMethod = class_getInstanceMethod(class, selector);
+        if (targetMethod == NULL) {
+            Protocol *protocol = self.sk_delegateProxy.protocol;
+            if (protocol) {
+                struct objc_method_description description = protocol_getMethodDescription(protocol, selector, NO, YES);
+                if (description.name == NULL) {
+                    description = protocol_getMethodDescription(protocol, selector, YES, YES);
+                }
+            }
+            
+        }
+    }
+}
 
 @end
