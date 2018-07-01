@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "StreamKit"
-  s.version      = "1.6.18"
+  s.version      = "2.0"
   s.summary      = "A streaming programming framework for UIKit."
   s.homepage     = "https://github.com/godL/StreamKit"
   s.license      = "MIT"
@@ -13,15 +13,11 @@ Pod::Spec.new do |s|
   s.framework  = "UIKit"
   s.requires_arc = true
 
-  s.subspec 'ReactiveX' do |ss|
-  ss.source_files = 'StreamKit/Reactive/*.{h,m}'
-  ss.public_header_files = 'StreamKit/Reactive/*.h'
+  s.subspec 'Core' do |ss|
+  ss.source_files = 'StreamKit/Core/*.{h,m}'
+  ss.public_header_files = 'StreamKit/Core/*.h'
   ss.dependency 'StreamKit/Marco'
-  ss.dependency 'StreamKit/NSObject'
-  ss.dependency 'StreamKit/UIView'
-  ss.dependency 'StreamKit/UIGestureRecognizer'
-  ss.dependency 'StreamKit/UIScrollView'
-  ss.dependency 'SKScheduler'
+  ss.dependency 'StreamKit/DelegateProxy'
   end
 
   s.subspec 'Marco' do |ss|
@@ -29,36 +25,17 @@ Pod::Spec.new do |s|
   ss.public_header_files = 'StreamKit/Marco/*.h'
   end
 
-  s.subspec 'NSObject' do |ss|
-  ss.dependency 'StreamKit/Marco'
-  ss.source_files = 'StreamKit/NSObject/*.{h,m}'
-  ss.public_header_files = 'StreamKit/NSObject/*.h'
+  s.subspec 'UI' do |ss|
+  ss.dependency 'StreamKit/Core'
+  ss.dependency 'StreamKit/DelegateProxy'
+  ss.public_header_files = 'StreamKit/UI/*.h'
+  ss.source_files = 'StreamKit/UI/*.{h,m}'
   end
 
-  s.subspec 'UIGestureRecognizer' do |ss|
-  ss.dependency 'StreamKit/NSObject'
-  ss.public_header_files = 'StreamKit/UIGestureRecognizer/*.h'
-  ss.source_files = 'StreamKit/UIGestureRecognizer/*.{h,m}'
-  end
-
-  s.subspec 'UIView' do |ss|
-  ss.dependency 'StreamKit/NSObject'
-  ss.public_header_files = 'StreamKit/UIView/*.h'
-  ss.source_files = 'StreamKit/UIView/*.{h,m}'
-  end
-
-  s.subspec 'UIScrollView' do |ss|
-  ss.dependency 'StreamKit/NSObject'
-  ss.dependency 'StreamKit/UIView'
-  ss.public_header_files = 'StreamKit/UIScrollView/*.h'
-  ss.source_files = 'StreamKit/UIScrollView/*.{h,m}'
-  end
-
-  s.subspec 'UIViewController' do |ss|
-  ss.dependency 'StreamKit/NSObject'
-  ss.public_header_files = 'StreamKit/UIViewController/*.h'
-  ss.source_files = 'StreamKit/UIViewController/*.{h,m}'
-
+  s.subspec 'DelegateProxy' do |ss|
+  ss.dependency 'StreamKit/Core'
+  ss.public_header_files = 'StreamKit/DelegateProxy/*.h'
+  ss.source_files = 'StreamKit/DelegateProxy/*.{h,m}'
   end
 
 end
