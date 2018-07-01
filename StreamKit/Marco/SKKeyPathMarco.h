@@ -20,10 +20,10 @@
     (((void)(NO && ((void)obj.path,NO)),sk_stringify(path)))
 
 #define SK_(obj,keypath,nil_Value) \
-    [[StreamObserver alloc] initWithObject:(obj) nilValue:(nil_Value)][@sk_keypath(obj,keypath)]
+    [[SKSubscribringObserverTrampoline alloc] initWithObject:(obj) nilValue:(nil_Value)][@sk_keypath(obj,keypath)]
 
 #define SKObserve_(obj,keypath) \
-    [[obj sk_ObserveForKeyPath:@sk_keypath(obj,keypath)] map:^id(id x) { \
+    [[obj sk_observerWithKeyPath:@sk_keypath(obj,keypath)] map:^id(id x) { \
         return [x objectForKey:@"new"]; \
     }]
 

@@ -11,6 +11,12 @@
 
 #import "SKMetaMarco.h"
 
+typedef void (^sk_cleanupBlock_t)(void);
+
+static inline void sk_executeCleanupBlock (__strong sk_cleanupBlock_t *block) {
+    (*block)();
+}
+
 #define SK_ClassForceify(obj,Class) \
     (NO && ((void)[Class class],NO),((Class*)obj))
 
@@ -33,6 +39,10 @@
 
 #define strongify_(VAR) \
     __strong __typeof__(VAR) (VAR) = SK_PASTEARG2(weak_,VAR);
+
+#define onExit \
+    sk_keywordify \
+        __strong sk_cleanupBlock_t sk_concat(sk_exitBlock_,__LINE__) __attribute__((cleanup(sk_executeCleanupBlock), unused)) = ^
 
 #define weakify(...) \
     sk_keywordify \
