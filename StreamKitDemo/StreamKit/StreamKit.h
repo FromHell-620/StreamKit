@@ -25,6 +25,7 @@
 #import "SKValueNil.h"
 #import "SKDelegateProxy.h"
 #import "NSNotificationCenter+SKSignalSupport.h"
+#import "SKSubscribringObserverTrampoline.h"
 
 //UI
 #import "UIView+SKSignalSupport.h"

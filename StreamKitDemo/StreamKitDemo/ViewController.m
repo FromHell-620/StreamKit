@@ -19,21 +19,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    btn.frame = CGRectMake(100, 100, 100, 100);
-    [self.view addSubview:btn];
+    UILabel *label = [UILabel new];
+    label.frame = CGRectMake(30, 100, 200, 40);
+    label.textColor = [UIColor blackColor];
+    [self.view addSubview:label];
+    label.backgroundColor = [UIColor blueColor];
     
-    [btn addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
     UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(100, 200, 300, 40)];
     textView.backgroundColor = [UIColor redColor];
     textView.delegate = self;
     [self.view addSubview:textView];
 //
-    [[textView sk_textSignal] subscribeNext:^(id x) {
-        
-    }];
-    textView.delegate = self;
-//    textView.delegate = self;
+    
+    SK(label,text) = textView.sk_textSignal;
+    //    textView.delegate = self;
 
     // Do any additional setup after loading the view.
 }

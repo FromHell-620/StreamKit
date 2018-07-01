@@ -33,7 +33,6 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'DelegateProxy' do |ss|
-  ss.dependency 'StreamKit/Core'
   ss.public_header_files = 'StreamKit/DelegateProxy/*.h'
   ss.source_files = 'StreamKit/DelegateProxy/*.{h,m}'
   end

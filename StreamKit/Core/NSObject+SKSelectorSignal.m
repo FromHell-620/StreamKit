@@ -46,7 +46,7 @@ static void ForwardInvocation(NSInvocation *invocation) {
         invocation.selector = aliasSelector;
         [invocation invoke];
     }
-    if (subject == nil) return ;;
+    if (subject == nil) return ;
     [subject sendNext:invocation.sk_values];
     return ;
 }

@@ -9,12 +9,13 @@
 #import "UITextField+SKDelegateProxy.h"
 #import "NSObject+SKDelegateProxy.h"
 #import "SKDelegateProxy.h"
+#import <objc/runtime.h>
 
 @implementation UITextField (SKDelegateProxy)
 
 - (SKDelegateProxy *)sk_delegateProxy {
     @synchronized (self) {
-        SKDelegateProxy *proxy = [super sk_delegateProxy];
+        SKDelegateProxy *proxy = objc_getAssociatedObject(self, _cmd);
         if (!proxy) {
             proxy = [[SKDelegateProxy alloc] initWithProtocol:@protocol(UITextFieldDelegate)];
             proxy.realDelegate = self.delegate;

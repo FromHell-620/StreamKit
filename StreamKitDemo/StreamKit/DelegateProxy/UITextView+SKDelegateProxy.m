@@ -9,12 +9,13 @@
 #import "UITextView+SKDelegateProxy.h"
 #import "NSObject+SKDelegateProxy.h"
 #import "SKDelegateProxy.h"
+#import <objc/runtime.h>
 
 @implementation UITextView (SKDelegateProxy)
 
 - (SKDelegateProxy *)sk_delegateProxy {
     @synchronized (self) {
-        SKDelegateProxy *proxy = [super sk_delegateProxy];
+        SKDelegateProxy *proxy = objc_getAssociatedObject(self, _cmd);
         if (!proxy) {
             proxy = [[SKDelegateProxy alloc] initWithProtocol:@protocol(UITextViewDelegate)];
             proxy.realDelegate = self.delegate;
