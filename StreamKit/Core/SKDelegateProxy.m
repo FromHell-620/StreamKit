@@ -32,7 +32,9 @@
 }
 
 - (void)forwardInvocation:(NSInvocation *)anInvocation {
-    [anInvocation invokeWithTarget:self.realDelegate];
+    if ([self.realDelegate respondsToSelector:anInvocation.selector]) {
+        [anInvocation invokeWithTarget:self.realDelegate];
+    }
 }
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {

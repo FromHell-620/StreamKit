@@ -37,9 +37,9 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)textViewDidChange:(UITextView *)textView {
-    
-}
+//- (void)textViewDidChange:(UITextView *)textView {
+//    
+//}
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     
