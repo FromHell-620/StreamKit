@@ -58,6 +58,10 @@
 		C9FB346920E51DB0007E32A4 /* UITextView+SKSignalSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB346820E51DB0007E32A4 /* UITextView+SKSignalSupport.m */; };
 		C9FB346C20E728E9007E32A4 /* NSObject+SKDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB346B20E728E9007E32A4 /* NSObject+SKDelegateProxy.m */; };
 		C9FB346F20E7B60C007E32A4 /* NSInvocation+SKValues.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB346E20E7B60C007E32A4 /* NSInvocation+SKValues.m */; };
+		C9FB347320E8C27F007E32A4 /* UITextView+SKDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB347220E8C27F007E32A4 /* UITextView+SKDelegateProxy.m */; };
+		C9FB347620E8C349007E32A4 /* UITextField+SKDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB347520E8C349007E32A4 /* UITextField+SKDelegateProxy.m */; };
+		C9FB347920E8C638007E32A4 /* UIScrollView+SKDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB347820E8C638007E32A4 /* UIScrollView+SKDelegateProxy.m */; };
+		C9FB347C20E8C68D007E32A4 /* UIImagePickerController+SKDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB347B20E8C68D007E32A4 /* UIImagePickerController+SKDelegateProxy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -184,6 +188,14 @@
 		C9FB346B20E728E9007E32A4 /* NSObject+SKDelegateProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SKDelegateProxy.m"; sourceTree = "<group>"; };
 		C9FB346D20E7B60C007E32A4 /* NSInvocation+SKValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSInvocation+SKValues.h"; sourceTree = "<group>"; };
 		C9FB346E20E7B60C007E32A4 /* NSInvocation+SKValues.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSInvocation+SKValues.m"; sourceTree = "<group>"; };
+		C9FB347120E8C27F007E32A4 /* UITextView+SKDelegateProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextView+SKDelegateProxy.h"; sourceTree = "<group>"; };
+		C9FB347220E8C27F007E32A4 /* UITextView+SKDelegateProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextView+SKDelegateProxy.m"; sourceTree = "<group>"; };
+		C9FB347420E8C349007E32A4 /* UITextField+SKDelegateProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+SKDelegateProxy.h"; sourceTree = "<group>"; };
+		C9FB347520E8C349007E32A4 /* UITextField+SKDelegateProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+SKDelegateProxy.m"; sourceTree = "<group>"; };
+		C9FB347720E8C638007E32A4 /* UIScrollView+SKDelegateProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SKDelegateProxy.h"; sourceTree = "<group>"; };
+		C9FB347820E8C638007E32A4 /* UIScrollView+SKDelegateProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SKDelegateProxy.m"; sourceTree = "<group>"; };
+		C9FB347A20E8C68D007E32A4 /* UIImagePickerController+SKDelegateProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+SKDelegateProxy.h"; sourceTree = "<group>"; };
+		C9FB347B20E8C68D007E32A4 /* UIImagePickerController+SKDelegateProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+SKDelegateProxy.m"; sourceTree = "<group>"; };
 		E4DCE42D9F4B44C44D1CA9FA /* Pods-StreamKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamKitDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StreamKitDemo/Pods-StreamKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -258,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				C91513E11E7679F800BFBCE5 /* StreamKit.h */,
+				C9FB347020E8C247007E32A4 /* DelegateProxy */,
 				C94CD45A1F24AB760083E200 /* SKScheduler */,
 				C95273A71E8E69210017B78F /* Core */,
 				C9FB344820DFE5C3007E32A4 /* UI */,
@@ -324,8 +337,6 @@
 				C9FB344020DF5A4E007E32A4 /* NSObject+SKObservering.m */,
 				C9FB344220DF75C4007E32A4 /* NSObject+SKSelectorSignal.h */,
 				C9FB344320DF75C4007E32A4 /* NSObject+SKSelectorSignal.m */,
-				C9FB346A20E728E9007E32A4 /* NSObject+SKDelegateProxy.h */,
-				C9FB346B20E728E9007E32A4 /* NSObject+SKDelegateProxy.m */,
 				C9FB346D20E7B60C007E32A4 /* NSInvocation+SKValues.h */,
 				C9FB346E20E7B60C007E32A4 /* NSInvocation+SKValues.m */,
 				C9C65F291F10039A0071450A /* NSNotificationCenter+SKSignalSupport.h */,
@@ -420,6 +431,23 @@
 				C9FB346820E51DB0007E32A4 /* UITextView+SKSignalSupport.m */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		C9FB347020E8C247007E32A4 /* DelegateProxy */ = {
+			isa = PBXGroup;
+			children = (
+				C9FB346A20E728E9007E32A4 /* NSObject+SKDelegateProxy.h */,
+				C9FB346B20E728E9007E32A4 /* NSObject+SKDelegateProxy.m */,
+				C9FB347120E8C27F007E32A4 /* UITextView+SKDelegateProxy.h */,
+				C9FB347220E8C27F007E32A4 /* UITextView+SKDelegateProxy.m */,
+				C9FB347420E8C349007E32A4 /* UITextField+SKDelegateProxy.h */,
+				C9FB347520E8C349007E32A4 /* UITextField+SKDelegateProxy.m */,
+				C9FB347720E8C638007E32A4 /* UIScrollView+SKDelegateProxy.h */,
+				C9FB347820E8C638007E32A4 /* UIScrollView+SKDelegateProxy.m */,
+				C9FB347A20E8C68D007E32A4 /* UIImagePickerController+SKDelegateProxy.h */,
+				C9FB347B20E8C68D007E32A4 /* UIImagePickerController+SKDelegateProxy.m */,
+			);
+			path = DelegateProxy;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -580,6 +608,7 @@
 			files = (
 				C9FB33D820CEBA7D007E32A4 /* SKScopedDisposable.m in Sources */,
 				C9DCC3ED1E975A18006E9B82 /* SKSubscribringObserverTrampoline.m in Sources */,
+				C9FB347620E8C349007E32A4 /* UITextField+SKDelegateProxy.m in Sources */,
 				7416AAB11E121B0C00A970A3 /* main.m in Sources */,
 				C930A1E520CBB95C00E9789B /* SKCompoundDisposable.m in Sources */,
 				C9FB344420DF75C4007E32A4 /* NSObject+SKSelectorSignal.m in Sources */,
@@ -587,6 +616,7 @@
 				C9FB344120DF5A4E007E32A4 /* NSObject+SKObservering.m in Sources */,
 				C9FB33E720D762A2007E32A4 /* SKBlockTrampoline.m in Sources */,
 				8857DBA320D26B7D00AF3B01 /* SKDynamicSignal.m in Sources */,
+				C9FB347320E8C27F007E32A4 /* UITextView+SKDelegateProxy.m in Sources */,
 				C9FB33DE20D6C197007E32A4 /* SKValueNil.m in Sources */,
 				C9FB346320DFE5C3007E32A4 /* UIGestureRecognizer+SKSignalSupport.m in Sources */,
 				C9AC59501F06AADD006829CC /* SKSubject.m in Sources */,
@@ -599,10 +629,12 @@
 				C9FB345C20DFE5C3007E32A4 /* UIControl+SKSignalSupport.m in Sources */,
 				8857DBA620D26BA100AF3B01 /* SKSignal+Operations.m in Sources */,
 				C94CD4691F24AB760083E200 /* SKSerialQueueScheduler.m in Sources */,
+				C9FB347920E8C638007E32A4 /* UIScrollView+SKDelegateProxy.m in Sources */,
 				C9FB346620E5198A007E32A4 /* UIButton+SKSignalSupport.m in Sources */,
 				C9FB33EA20DD33DE007E32A4 /* NSObject+SKDeallocating.m in Sources */,
 				C94EF6451ECF655C0037D06E /* Test.m in Sources */,
 				C9FB346920E51DB0007E32A4 /* UITextView+SKSignalSupport.m in Sources */,
+				C9FB347C20E8C68D007E32A4 /* UIImagePickerController+SKDelegateProxy.m in Sources */,
 				885A825A20DB5F92004875C1 /* SKReplaySubject.m in Sources */,
 				C91514151E7679F800BFBCE5 /* NSObject+StreamKit.m in Sources */,
 				C9FB344720DFE548007E32A4 /* SKTextView.m in Sources */,

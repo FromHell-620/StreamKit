@@ -13,22 +13,9 @@
 #import "NSObject+SKSelectorSignal.h"
 #import "NSObject+SKDeallocating.h"
 #import "NSObject+SKDelegateProxy.h"
-#import "SKDelegateProxy.h"
+#import "UITextView+SKDelegateProxy.h"
 
 @implementation UITextView (SKSignalSupport)
-
-- (SKDelegateProxy *)sk_delegateProxy {
-    @synchronized (self) {
-        SKDelegateProxy *proxy = [super sk_delegateProxy];
-        if (!proxy) {
-            proxy = [[SKDelegateProxy alloc] initWithProtocol:@protocol(UITextViewDelegate)];
-            proxy.realDelegate = self.delegate;
-            self.delegate = (id<UITextViewDelegate>)proxy;
-            [self sk_setDelegateProxy:proxy];
-        }
-        return proxy;
-    }
-}
 
 - (SKSignal *)sk_textSignal {
     @weakify(self)
