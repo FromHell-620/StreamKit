@@ -17,7 +17,6 @@ Pod::Spec.new do |s|
   ss.source_files = 'StreamKit/Core/*.{h,m}'
   ss.public_header_files = 'StreamKit/Core/*.h'
   ss.dependency 'StreamKit/Marco'
-  ss.dependency 'StreamKit/DelegateProxy'
   end
 
   s.subspec 'Marco' do |ss|
@@ -27,14 +26,8 @@ Pod::Spec.new do |s|
 
   s.subspec 'UI' do |ss|
   ss.dependency 'StreamKit/Core'
-  ss.dependency 'StreamKit/DelegateProxy'
   ss.public_header_files = 'StreamKit/UI/*.h'
   ss.source_files = 'StreamKit/UI/*.{h,m}'
-  end
-
-  s.subspec 'DelegateProxy' do |ss|
-  ss.public_header_files = 'StreamKit/DelegateProxy/*.h'
-  ss.source_files = 'StreamKit/DelegateProxy/*.{h,m}'
   end
 
 end
