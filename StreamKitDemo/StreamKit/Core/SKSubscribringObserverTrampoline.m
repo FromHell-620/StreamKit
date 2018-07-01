@@ -7,7 +7,6 @@
 //
 
 #import "SKSubscribringObserverTrampoline.h"
-#import "NSObject+StreamKit.h"
 #import "SKSignal.h"
 
 @implementation SKSubscribringObserverTrampoline
