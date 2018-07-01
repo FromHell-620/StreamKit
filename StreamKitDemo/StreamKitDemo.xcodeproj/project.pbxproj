@@ -324,8 +324,6 @@
 				C9FB33DD20D6C197007E32A4 /* SKValueNil.m */,
 				C9FB33E520D762A2007E32A4 /* SKBlockTrampoline.h */,
 				C9FB33E620D762A2007E32A4 /* SKBlockTrampoline.m */,
-				887CBB1420E638810081B522 /* SKDelegateProxy.h */,
-				887CBB1520E638810081B522 /* SKDelegateProxy.m */,
 				C94CD45B1F24AB760083E200 /* SKConcurrentQueueScheduler.h */,
 				C94CD45C1F24AB760083E200 /* SKConcurrentQueueScheduler.m */,
 				C94CD45D1F24AB760083E200 /* SKMainQueueScheduler.h */,
@@ -415,6 +413,8 @@
 		C9FB347020E8C247007E32A4 /* DelegateProxy */ = {
 			isa = PBXGroup;
 			children = (
+				887CBB1420E638810081B522 /* SKDelegateProxy.h */,
+				887CBB1520E638810081B522 /* SKDelegateProxy.m */,
 				C9FB346A20E728E9007E32A4 /* NSObject+SKDelegateProxy.h */,
 				C9FB346B20E728E9007E32A4 /* NSObject+SKDelegateProxy.m */,
 				C9FB347120E8C27F007E32A4 /* UITextView+SKDelegateProxy.h */,
