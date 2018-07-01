@@ -37,7 +37,7 @@ static NSMutableSet *swizzleClasses() {
     return set;
 }
 
-static BOOL ForwardInvocation(NSInvocation *invocation) {
+static void ForwardInvocation(NSInvocation *invocation) {
     SEL aliasSelector = SKAliasSelectorWithSelector(invocation.selector);
     SKSubject *subject = objc_getAssociatedObject(invocation.target, aliasSelector);
     id cls = object_getClass(invocation.target);
@@ -46,9 +46,9 @@ static BOOL ForwardInvocation(NSInvocation *invocation) {
         invocation.selector = aliasSelector;
         [invocation invoke];
     }
-    if (subject == nil) return respondsAliasSelector;
+    if (subject == nil) return ;;
     [subject sendNext:invocation.sk_values];
-    return YES;
+    return ;
 }
 
 static void SKSwizzleForwardInvocation(Class cls) {
@@ -56,8 +56,7 @@ static void SKSwizzleForwardInvocation(Class cls) {
     Method invocationMethod = class_getInstanceMethod(cls, invocationSel);
     void (*originInvocation)(__unsafe_unretained id,SEL,NSInvocation *) = (__typeof__(originInvocation))method_getImplementation(invocationMethod);
     IMP newInvocation = imp_implementationWithBlock(^ (__unsafe_unretained id self,NSInvocation *invocation) {
-        BOOL math = ForwardInvocation(invocation);
-        if (math) return ;
+        ForwardInvocation(invocation);
         if (originInvocation == NULL) {
             [self doesNotRecognizeSelector:invocationSel];
         }else {
@@ -65,10 +64,6 @@ static void SKSwizzleForwardInvocation(Class cls) {
         }
     });
     class_replaceMethod(cls, invocationSel, newInvocation, method_getTypeEncoding(invocationMethod));
-//    if (!class_addMethod(cls, invocationSel, newInvocation, method_getTypeEncoding(invocationMethod))) {
-//        originInvocation = (__typeof__(originInvocation))method_getImplementation(invocationMethod);
-//        originInvocation = (__typeof__(originInvocation))method_setImplementation(invocationMethod, newInvocation);
-//    }
 }
 
 static void SKSwizzleRespondsToSelector(Class cls) {
@@ -84,10 +79,6 @@ static void SKSwizzleRespondsToSelector(Class cls) {
         return originImplmentation(self,selector,respondsSelector);
     };
     class_replaceMethod(cls, selector, imp_implementationWithBlock(newImplmentation), method_getTypeEncoding(selectorMethod));
-//    if (!class_addMethod(cls, selector, imp_implementationWithBlock(newImplmentation), method_getTypeEncoding(selectorMethod))) {
-//        originImplmentation = (__typeof__(originImplmentation))method_getImplementation(selectorMethod);
-//        originImplmentation = (__typeof__(originImplmentation))method_setImplementation(selectorMethod, imp_implementationWithBlock(newImplmentation));
-//    }
 }
 
 static void SKSwizzleGetClass(Class base,Class stated) {

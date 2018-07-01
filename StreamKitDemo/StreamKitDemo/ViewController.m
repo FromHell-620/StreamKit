@@ -26,6 +26,7 @@
     [btn addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
     UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(100, 200, 300, 40)];
     textView.backgroundColor = [UIColor redColor];
+    textView.delegate = self;
     [self.view addSubview:textView];
 //
     [[textView sk_textSignal] subscribeNext:^(id x) {

@@ -22,6 +22,8 @@
         SKDelegateProxy *proxy = [super sk_delegateProxy];
         if (!proxy) {
             proxy = [[SKDelegateProxy alloc] initWithProtocol:@protocol(UITextViewDelegate)];
+            proxy.realDelegate = self.delegate;
+            self.delegate = (id<UITextViewDelegate>)proxy;
             [self sk_setDelegateProxy:proxy];
         }
         return proxy;
