@@ -267,7 +267,6 @@
 			isa = PBXGroup;
 			children = (
 				C91513E11E7679F800BFBCE5 /* StreamKit.h */,
-				C9FB347020E8C247007E32A4 /* DelegateProxy */,
 				C95273A71E8E69210017B78F /* Core */,
 				C9FB344820DFE5C3007E32A4 /* UI */,
 				C981B1F41E8A40030057425D /* Marco */,
@@ -320,6 +319,18 @@
 				C9FB33D720CEBA7D007E32A4 /* SKScopedDisposable.m */,
 				C9FB33D920D62CC2007E32A4 /* SKSerialDisposable.h */,
 				C9FB33DA20D62CC2007E32A4 /* SKSerialDisposable.m */,
+				887CBB1420E638810081B522 /* SKDelegateProxy.h */,
+				887CBB1520E638810081B522 /* SKDelegateProxy.m */,
+				C9FB346A20E728E9007E32A4 /* NSObject+SKDelegateProxy.h */,
+				C9FB346B20E728E9007E32A4 /* NSObject+SKDelegateProxy.m */,
+				C9FB347120E8C27F007E32A4 /* UITextView+SKDelegateProxy.h */,
+				C9FB347220E8C27F007E32A4 /* UITextView+SKDelegateProxy.m */,
+				C9FB347420E8C349007E32A4 /* UITextField+SKDelegateProxy.h */,
+				C9FB347520E8C349007E32A4 /* UITextField+SKDelegateProxy.m */,
+				C9FB347720E8C638007E32A4 /* UIScrollView+SKDelegateProxy.h */,
+				C9FB347820E8C638007E32A4 /* UIScrollView+SKDelegateProxy.m */,
+				C9FB347A20E8C68D007E32A4 /* UIImagePickerController+SKDelegateProxy.h */,
+				C9FB347B20E8C68D007E32A4 /* UIImagePickerController+SKDelegateProxy.m */,
 				C9FB33DC20D6C197007E32A4 /* SKValueNil.h */,
 				C9FB33DD20D6C197007E32A4 /* SKValueNil.m */,
 				C9FB33E520D762A2007E32A4 /* SKBlockTrampoline.h */,
@@ -408,25 +419,6 @@
 				C9FB346820E51DB0007E32A4 /* UITextView+SKSignalSupport.m */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		C9FB347020E8C247007E32A4 /* DelegateProxy */ = {
-			isa = PBXGroup;
-			children = (
-				887CBB1420E638810081B522 /* SKDelegateProxy.h */,
-				887CBB1520E638810081B522 /* SKDelegateProxy.m */,
-				C9FB346A20E728E9007E32A4 /* NSObject+SKDelegateProxy.h */,
-				C9FB346B20E728E9007E32A4 /* NSObject+SKDelegateProxy.m */,
-				C9FB347120E8C27F007E32A4 /* UITextView+SKDelegateProxy.h */,
-				C9FB347220E8C27F007E32A4 /* UITextView+SKDelegateProxy.m */,
-				C9FB347420E8C349007E32A4 /* UITextField+SKDelegateProxy.h */,
-				C9FB347520E8C349007E32A4 /* UITextField+SKDelegateProxy.m */,
-				C9FB347720E8C638007E32A4 /* UIScrollView+SKDelegateProxy.h */,
-				C9FB347820E8C638007E32A4 /* UIScrollView+SKDelegateProxy.m */,
-				C9FB347A20E8C68D007E32A4 /* UIImagePickerController+SKDelegateProxy.h */,
-				C9FB347B20E8C68D007E32A4 /* UIImagePickerController+SKDelegateProxy.m */,
-			);
-			path = DelegateProxy;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
