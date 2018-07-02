@@ -341,6 +341,7 @@
         while (x) {
             id value = x.lastObject;
             [values insertObject:value atIndex:0];
+            if (x.count == 1) break;
             x = x.firstObject;
         }
         return values;
