@@ -24,6 +24,7 @@
         SKCompoundDisposable *selfDisposable = [SKCompoundDisposable disposableWithBlock:nil];
         self.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [UITapGestureRecognizer new];
+        [self addGestureRecognizer:tap];
         SKDisposable *gestureDisposable = [[tap sk_eventSignal] subscribeNext:^(id x) {
             [subscriber sendNext:self];
         } error:^(NSError *error) {
@@ -36,6 +37,7 @@
         }]];
         [selfDisposable addDisposable:gestureDisposable];
         [selfDisposable addDisposable:[SKDisposable disposableWithBlock:^{
+            @strongify(self)
             [self removeGestureRecognizer:tap];
         }]];
         return selfDisposable;
