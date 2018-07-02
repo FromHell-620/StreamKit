@@ -22,8 +22,7 @@
     return self;
 }
 
-- (SKSignal *)signalForSelector:(SEL)selector {
-    
+- (SKSignal *)sk_signalForSelector:(SEL)selector {
     return nil;
 }
 
