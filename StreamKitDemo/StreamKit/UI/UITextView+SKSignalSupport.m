@@ -22,7 +22,7 @@
     return [[[[SKSignal defer:^{
         @strongify(self)
         return [SKSignal return:@[self]];
-    }] concat:[self sk_signalForSelector:@selector(textViewDidChange:)]] reduceEach:^ id(UITextView *x,...) {
+    }] concat:[self sk_signalForSelector:@selector(textViewDidChange:)]] reduceEach:^ id(UITextView *x) {
         return x.text;
     }] takeUntil:self.deallocSignal];
 }
