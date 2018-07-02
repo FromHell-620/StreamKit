@@ -23,7 +23,7 @@
 @implementation SKReturnSignal
 
 + (instancetype)return:(id)value {
-    SKReturnSignal *signal = [SKReturnSignal new];
+    SKReturnSignal *signal = [self new];
     signal.value = value;
     return signal;
 }
