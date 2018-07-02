@@ -80,6 +80,7 @@
         void (^throttleDipose)(void) = ^{
             [throttleDisposable dispose];
             throttleDisposable = [SKCompoundDisposable disposableWithBlock:nil];
+            @unsafeify(throttleDisposable)
             [throttleDisposable addDisposable:[SKDisposable disposableWithBlock:^{
                 @strongify(compoundDisposable,throttleDisposable)
                 [compoundDisposable removeDisposable:throttleDisposable];

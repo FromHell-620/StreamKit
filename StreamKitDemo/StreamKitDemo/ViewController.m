@@ -30,8 +30,10 @@
     textView.delegate = self;
     [self.view addSubview:textView];
 //
-    
-    SK(label,text) = textView.sk_textSignal;
+
+    [[label.sk_clickSignal throttle:2] subscribeNext:^(id x) {
+        NSLog(@"aaa");
+    }];
     //    textView.delegate = self;
 
     // Do any additional setup after loading the view.
