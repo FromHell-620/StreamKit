@@ -70,38 +70,28 @@
     return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
         SKScheduler *scheduler = [SKScheduler subscriptionScheduler];
         SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable disposableWithdisposes:nil];
-        __block SKCompoundDisposable *throttleDisposable = [SKCompoundDisposable disposableWithBlock:nil];
-        [compoundDisposable addDisposable:throttleDisposable];
-        @unsafeify(compoundDisposable,throttleDisposable)
-        [throttleDisposable addDisposable:[SKDisposable disposableWithBlock:^{
-            @strongify(compoundDisposable,throttleDisposable)
-            [compoundDisposable removeDisposable:throttleDisposable];
-        }]];
-        void (^throttleDipose)(void) = ^{
-            [throttleDisposable dispose];
-            throttleDisposable = [SKCompoundDisposable disposableWithBlock:nil];
-            @unsafeify(throttleDisposable)
-            [throttleDisposable addDisposable:[SKDisposable disposableWithBlock:^{
-                @strongify(compoundDisposable,throttleDisposable)
-                [compoundDisposable removeDisposable:throttleDisposable];
-            }]];
-            [compoundDisposable addDisposable:throttleDisposable];
-        };
-        
+        __block BOOL isExecuting = NO;
         void (^immediate)(id,BOOL) = ^ (id x,BOOL send) {
             @synchronized (compoundDisposable) {
-                throttleDipose();
+                if (isExecuting == NO) isExecuting = YES;
                 if (send) [subscriber sendNext:x];
+            }
+        };
+        
+        void (^prepareNext)(void) = ^ {
+            @synchronized (compoundDisposable) {
+                isExecuting = NO;
             }
         };
         
         SKDisposable *subscriberDisposable = [self subscribeNext:^(id x) {
             BOOL shouldThrottle = predicate(x);
             if (shouldThrottle) {
-                SKDisposable *schedulerDisposable = [scheduler afterDelay:interval schedule:^{
-                    immediate(x,YES);
+                if (isExecuting) return ;
+                immediate(x,YES);
+                [scheduler afterDelay:interval schedule:^{
+                    prepareNext();
                 }];
-                [throttleDisposable addDisposable:schedulerDisposable];
             }else {
                 [subscriber sendNext:x];
             }
