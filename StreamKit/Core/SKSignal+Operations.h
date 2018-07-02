@@ -68,13 +68,13 @@
 
 + (SKSignal *)combineLatestWithSignals:(NSArray<SKSignal *> *)signals;
 
-+ (SKSignal *)combineLatest:(NSArray<SKSignal *> *)signals reduce:(id (^)(id, ...))reduceBlock;
++ (SKSignal *)combineLatest:(NSArray<SKSignal *> *)signals reduce:(id (^)())reduceBlock;
 
 + (SKSignal *)join:(NSArray<SKSignal *> *)signals block:(SKSignal *(^)(id left,id right))block;
 
 - (SKSignal *)flattenMap:(SKSignal*(^)(id value))block;
 
-- (SKSignal *)reduceEach:(id (^)(id,...))block;
+- (SKSignal *)reduceEach:(id (^)())block;
 
 - (SKSignal *)map:(id(^)(id x))block;
 
@@ -135,7 +135,7 @@ This function subscribes to all incoming signals but only the number of maxConcu
 
 + (SKSignal *)zip:(NSArray<SKSignal *> *)signals;
 
-+ (SKSignal *)zip:(NSArray<SKSignal *> *)signals reduce:(id (^)(id,...))block;
++ (SKSignal *)zip:(NSArray<SKSignal *> *)signals reduce:(id (^)())block;
 
 - (SKSignal *)distinctUntilChanged;
 

@@ -395,7 +395,7 @@
     }];
 }
 
-+ (SKSignal *)combineLatest:(NSArray<SKSignal *> *)signals reduce:(id (^)(id, ...))reduceBlock {
++ (SKSignal *)combineLatest:(NSArray<SKSignal *> *)signals reduce:(id (^)())reduceBlock {
     NSCParameterAssert(reduceBlock);
     SKSignal *signal = [self combineLatestWithSignals:signals];
     return [signal reduceEach:reduceBlock];
@@ -414,7 +414,7 @@
     }];
 }
 
-- (SKSignal *)reduceEach:(id (^)(id, ...))block {
+- (SKSignal *)reduceEach:(id (^)())block {
     NSCParameterAssert(block);
     return [self map:^id(NSArray *x) {
         NSAssert([x isKindOfClass: NSArray.class], @"value must be NSArray");
@@ -748,7 +748,7 @@
     }];
 }
 
-+ (SKSignal *)zip:(NSArray<SKSignal *> *)signals reduce:(id (^)(id, ...))block {
++ (SKSignal *)zip:(NSArray<SKSignal *> *)signals reduce:(id (^)())block {
     NSCParameterAssert(block);
     SKSignal *signal = [SKSignal zip:signals];
     signal = [signal reduceEach:block];
