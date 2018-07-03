@@ -346,14 +346,14 @@
         NSMutableArray *signals = [NSMutableArray arrayWithObject:self];
         SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable disposableWithdisposes:nil];
         
-        void (^completeSubscriber)(SKSignal *,SKDisposable *) = ^ (SKSignal *signal,SKDisposable *completeDisposable) {
+        void (^completeSubscriber)(SKSignal *,SKDisposable *) = ^ (SKSignal *signal,SKDisposable *disposable) {
             @synchronized (compoundDisposable) {
                 [signals removeObject:signal];
                 if (signals.count == 0) {
                     [subscriber sendCompleted];
                     [compoundDisposable dispose];
                 }else {
-                    [compoundDisposable removeDisposable:compoundDisposable];
+                    [compoundDisposable removeDisposable:disposable];
                 }
             }
         };
