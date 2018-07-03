@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SKTextView : UITextView
+@interface SKTextView : UITextField
 
 @end

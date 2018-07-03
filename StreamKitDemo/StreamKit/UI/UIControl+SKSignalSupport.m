@@ -26,6 +26,7 @@
             [subscriber sendCompleted];
         }]];
         return [SKDisposable disposableWithBlock:^{
+            @strongify(self)
             [self removeTarget:subscriber action:@selector(sendNext:) forControlEvents:controlEvents];
         }];
     }];

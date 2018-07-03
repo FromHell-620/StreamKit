@@ -24,7 +24,6 @@
 		88610DF720D8A273002DE2B7 /* SKPassthroughSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = 88610DF620D8A273002DE2B7 /* SKPassthroughSubscriber.m */; };
 		887CBB1620E638810081B522 /* SKDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 887CBB1520E638810081B522 /* SKDelegateProxy.m */; };
 		C3E73CBF94C220E3528C6998 /* libPods-StreamKitDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B378167200FBC5A990C676 /* libPods-StreamKitDemo.a */; };
-		C921E1441F584D4F00B6A4EE /* UIButton+aa.m in Sources */ = {isa = PBXBuildFile; fileRef = C921E1431F584D4F00B6A4EE /* UIButton+aa.m */; };
 		C930A1E220CB886100E9789B /* SKDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = C930A1E120CB886100E9789B /* SKDisposable.m */; };
 		C930A1E520CBB95C00E9789B /* SKCompoundDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = C930A1E420CBB95C00E9789B /* SKCompoundDisposable.m */; };
 		C94CD4651F24AB760083E200 /* SKConcurrentQueueScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = C94CD45C1F24AB760083E200 /* SKConcurrentQueueScheduler.m */; };
@@ -113,8 +112,6 @@
 		887CBB1520E638810081B522 /* SKDelegateProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKDelegateProxy.m; sourceTree = "<group>"; };
 		C2B74F3A9131EAA4C24F954E /* Pods-StreamKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamKitDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreamKitDemo/Pods-StreamKitDemo.release.xcconfig"; sourceTree = "<group>"; };
 		C91513E11E7679F800BFBCE5 /* StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamKit.h; sourceTree = "<group>"; };
-		C921E1421F584D4F00B6A4EE /* UIButton+aa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+aa.h"; sourceTree = "<group>"; };
-		C921E1431F584D4F00B6A4EE /* UIButton+aa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+aa.m"; sourceTree = "<group>"; };
 		C930A1E020CB886100E9789B /* SKDisposable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKDisposable.h; sourceTree = "<group>"; };
 		C930A1E120CB886100E9789B /* SKDisposable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKDisposable.m; sourceTree = "<group>"; };
 		C930A1E320CBB95C00E9789B /* SKCompoundDisposable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKCompoundDisposable.h; sourceTree = "<group>"; };
@@ -249,8 +246,6 @@
 				7416AA701E121B0C00A970A3 /* Main.storyboard */,
 				7416AA721E121B0C00A970A3 /* Info.plist */,
 				7416AA731E121B0C00A970A3 /* main.m */,
-				C921E1421F584D4F00B6A4EE /* UIButton+aa.h */,
-				C921E1431F584D4F00B6A4EE /* UIButton+aa.m */,
 				C9FB344520DFE548007E32A4 /* SKTextView.h */,
 				C9FB344620DFE548007E32A4 /* SKTextView.m */,
 				8857DB9B20D254AA00AF3B01 /* ViewController.h */,
@@ -608,7 +603,6 @@
 				C9FB347C20E8C68D007E32A4 /* UIImagePickerController+SKDelegateProxy.m in Sources */,
 				885A825A20DB5F92004875C1 /* SKReplaySubject.m in Sources */,
 				C9FB344720DFE548007E32A4 /* SKTextView.m in Sources */,
-				C921E1441F584D4F00B6A4EE /* UIButton+aa.m in Sources */,
 				8857DBAF20D27F3300AF3B01 /* SKEmptySignal.m in Sources */,
 				8857DBAC20D27D1600AF3B01 /* SKErrorSignal.m in Sources */,
 				C94CD4681F24AB760083E200 /* SKScheduler.m in Sources */,

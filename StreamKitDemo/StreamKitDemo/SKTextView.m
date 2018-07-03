@@ -10,10 +10,9 @@
 
 @implementation SKTextView
 
-- (void)setDelegate:(id<UITextViewDelegate>)delegate {
-    [super setDelegate:delegate];
+- (void)dealloc {
+    NSLog(@"self dealloc %@",self);
 }
-
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

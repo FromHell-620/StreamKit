@@ -9,6 +9,7 @@
 #import "SecondController.h"
 #import "Test.h"
 #import "StreamKit.h"
+#import "SKTextView.h"
 
 @interface SecondController ()
 
@@ -33,29 +34,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    button.frame = CGRectMake(100, 100, 100, 100);
-    [[button sk_clickSignal] subscribeNext:^(id x) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"111" object:nil];
+    SKTextView *textView = [[SKTextView alloc] initWithFrame:CGRectMake(30, 100, 300, 20)];
+    [self.view addSubview:textView];
+    [[textView sk_textSignal] subscribeNext:^(NSString *x) {
+
     }];
-    [self.view addSubview:button];
     
-    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    button1.frame = CGRectMake(100, 300, 100, 100);
-    @weakify(self)
-    [button1.sk_clickSignal subscribeNext:^(id x) {
-        @strongify(self)
-        self.textContent = @"x";
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"222" object:nil];
-    }];
-    [self.view addSubview:button1];
-    
-    [[[NSNotificationCenter defaultCenter] sk_signalWithName:@"111" object:nil observer:self] subscribeNext:^(NSNotification* x) {
-        NSLog(@"x1 = %@",x.name);
-    }];
-    [SKObserve(self,textContent) subscribeNext:^(id x) {
-        NSLog(@"observer %@",x);
-    }];
     // Do any additional setup after loading the view.
 }
 

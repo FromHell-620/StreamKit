@@ -34,6 +34,16 @@
     [[label.sk_clickSignal throttle:2] subscribeNext:^(id x) {
         NSLog(@"aaa");
     }];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
+    btn.frame = CGRectMake(100, 300, 60, 60);
+    [self.view addSubview:btn];
+    @weakify(self)
+    [[btn sk_clickSignal] subscribeNext:^(id x) {
+        @strongify(self)
+        SecondController *vc = [SecondController new];
+        [self.navigationController pushViewController:vc animated:YES];
+    }];
     //    textView.delegate = self;
 
     // Do any additional setup after loading the view.
