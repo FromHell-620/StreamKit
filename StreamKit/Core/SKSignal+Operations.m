@@ -70,37 +70,28 @@
     return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
         SKScheduler *scheduler = [SKScheduler subscriptionScheduler];
         SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable disposableWithdisposes:nil];
-        __block SKCompoundDisposable *throttleDisposable = [SKCompoundDisposable disposableWithBlock:nil];
-        [compoundDisposable addDisposable:throttleDisposable];
-        @unsafeify(compoundDisposable,throttleDisposable)
-        [throttleDisposable addDisposable:[SKDisposable disposableWithBlock:^{
-            @strongify(compoundDisposable,throttleDisposable)
-            [compoundDisposable removeDisposable:throttleDisposable];
-        }]];
-        void (^throttleDipose)(void) = ^{
-            [throttleDisposable dispose];
-            throttleDisposable = [SKCompoundDisposable disposableWithBlock:nil];
-            [throttleDisposable addDisposable:[SKDisposable disposableWithBlock:^{
-                @strongify(compoundDisposable,throttleDisposable)
-                [compoundDisposable removeDisposable:throttleDisposable];
-            }]];
-            [compoundDisposable addDisposable:throttleDisposable];
-        };
-        
+        __block BOOL isExecuting = NO;
         void (^immediate)(id,BOOL) = ^ (id x,BOOL send) {
             @synchronized (compoundDisposable) {
-                throttleDipose();
+                if (isExecuting == NO) isExecuting = YES;
                 if (send) [subscriber sendNext:x];
+            }
+        };
+        
+        void (^prepareNext)(void) = ^ {
+            @synchronized (compoundDisposable) {
+                isExecuting = NO;
             }
         };
         
         SKDisposable *subscriberDisposable = [self subscribeNext:^(id x) {
             BOOL shouldThrottle = predicate(x);
             if (shouldThrottle) {
-                SKDisposable *schedulerDisposable = [scheduler afterDelay:interval schedule:^{
-                    immediate(x,YES);
+                if (isExecuting) return ;
+                immediate(x,YES);
+                [scheduler afterDelay:interval schedule:^{
+                    prepareNext();
                 }];
-                [throttleDisposable addDisposable:schedulerDisposable];
             }else {
                 [subscriber sendNext:x];
             }
@@ -339,6 +330,7 @@
     return [current map:^(NSArray *x) {
         NSMutableArray *values = [NSMutableArray array];
         while (x) {
+            if (![x isKindOfClass:NSArray.class]) break;
             id value = x.lastObject;
             [values insertObject:value atIndex:0];
             if (x.count == 1) break;
@@ -354,14 +346,14 @@
         NSMutableArray *signals = [NSMutableArray arrayWithObject:self];
         SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable disposableWithdisposes:nil];
         
-        void (^completeSubscriber)(SKSignal *,SKDisposable *) = ^ (SKSignal *signal,SKDisposable *completeDisposable) {
+        void (^completeSubscriber)(SKSignal *,SKDisposable *) = ^ (SKSignal *signal,SKDisposable *disposable) {
             @synchronized (compoundDisposable) {
                 [signals removeObject:signal];
                 if (signals.count == 0) {
                     [subscriber sendCompleted];
                     [compoundDisposable dispose];
                 }else {
-                    [compoundDisposable removeDisposable:compoundDisposable];
+                    [compoundDisposable removeDisposable:disposable];
                 }
             }
         };

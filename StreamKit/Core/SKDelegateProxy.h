@@ -18,6 +18,4 @@
 
 - (instancetype)initWithProtocol:(Protocol *)protocol;
 
-- (SKSignal *)signalForSelector:(SEL)selector;
-
 @end

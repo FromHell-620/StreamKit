@@ -73,7 +73,10 @@
 
 - (SKSignal *)sk_observerWithKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options {
     @weakify(self)
-    return [[SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+    return [[[SKSignal defer:^SKSignal *{
+        @strongify(self)
+        return [SKSignal return:[self valueForKeyPath:keyPath]];
+    }] concat:[SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
         @strongify(self)
         _SKObserverTarget *target = nil;
 #ifdef DEBUG
@@ -90,7 +93,7 @@
         return [SKDisposable disposableWithBlock:^{
             [removeDisposable dispose];
         }];
-    }] takeUntil:self.deallocSignal];
+    }]] takeUntil:self.deallocSignal];
 }
 
 @end
