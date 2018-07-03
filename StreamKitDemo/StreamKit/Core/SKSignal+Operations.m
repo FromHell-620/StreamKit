@@ -270,9 +270,9 @@
     return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
         SKCompoundDisposable *disposable = [SKCompoundDisposable disposableWithdisposes:nil];
         __block BOOL selfCompleted = NO;
-        __block id selfValue = nil;
+        __block id selfValue = SKValueNil.ValueNil;
         __block BOOL otherCompleted = NO;
-        __block id otherValue = nil;
+        __block id otherValue = SKValueNil.ValueNil;
         
         void (^sendNext)(void) = ^ {
             @synchronized (disposable) {
