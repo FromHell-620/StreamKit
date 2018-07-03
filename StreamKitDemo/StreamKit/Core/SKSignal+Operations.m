@@ -270,9 +270,9 @@
     return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
         SKCompoundDisposable *disposable = [SKCompoundDisposable disposableWithdisposes:nil];
         __block BOOL selfCompleted = NO;
-        __block id selfValue = SKValueNil.ValueNil;
+        __block id selfValue = nil;
         __block BOOL otherCompleted = NO;
-        __block id otherValue = SKValueNil.ValueNil;
+        __block id otherValue = nil;
         
         void (^sendNext)(void) = ^ {
             @synchronized (disposable) {
@@ -330,7 +330,6 @@
     return [current map:^(NSArray *x) {
         NSMutableArray *values = [NSMutableArray array];
         while (x) {
-            if (![x isKindOfClass:NSArray.class]) break;
             id value = x.lastObject;
             [values insertObject:value atIndex:0];
             if (x.count == 1) break;

@@ -75,7 +75,8 @@
     @weakify(self)
     return [[[SKSignal defer:^SKSignal *{
         @strongify(self)
-        return [SKSignal return:[self valueForKeyPath:keyPath]];
+        id x = [self valueForKeyPath:keyPath];
+        return [SKSignal return:x?@{@"new":x,@"old":x}:nil];
     }] concat:[SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
         @strongify(self)
         _SKObserverTarget *target = nil;
