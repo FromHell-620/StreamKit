@@ -18,6 +18,10 @@
 #import "SKReplaySubject.h"
 #import "SKMulticastConnection+Private.h"
 
+NSString * const SKSignalErrorDomain = @"SKSignalErrorDomain";
+
+const NSUInteger SKSignalErrorTimeout = 1;
+
 @implementation SKSignal (Operations)
 
 - (SKSignal *)doNext:(void (^)(id))next {
@@ -891,6 +895,32 @@
 
 - (SKSignal *)replayLast {
     return [self multicast:[SKReplaySubject subjectWithCapacity:1]].signal;
+}
+
+- (SKSignal *)timeout:(NSTimeInterval)interval {
+    return [self timeout:interval onScheduler:[SKScheduler mainThreadScheduler]];
+}
+
+- (SKSignal *)timeout:(NSTimeInterval)interval onScheduler:(SKScheduler *)scheduler {
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        SKCompoundDisposable *disposable = [SKCompoundDisposable compoundDisposable];
+        SKDisposable *schedulerDisposable = [scheduler afterDelay:interval schedule:^{
+            [disposable dispose];
+            [subscriber sendError:[NSError errorWithDomain:SKSignalErrorDomain code:SKSignalErrorTimeout userInfo:nil]];
+        }];
+        [disposable addDisposable:schedulerDisposable];
+        SKDisposable *subscriberDisposable = [self subscribeNext:^(id x) {
+            [subscriber sendNext:x];
+        } error:^(NSError *error) {
+            [disposable dispose];
+            [subscriber sendError:error];
+        } completed:^{
+            [disposable dispose];
+            [subscriber sendCompleted];
+        }];
+        [disposable addDisposable:subscriberDisposable];
+        return disposable;
+    }];
 }
 
 @end

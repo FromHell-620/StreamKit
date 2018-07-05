@@ -11,6 +11,11 @@
 @class SKMulticastConnection;
 @class SKSubject;
 
+
+FOUNDATION_EXTERN NSString * const SKSignalErrorDomain;
+
+FOUNDATION_EXTERN const NSUInteger SKSignalErrorTimeout;
+
 @interface SKSignal (Operations)
 
 /**
@@ -169,5 +174,9 @@ This function subscribes to all incoming signals but only the number of maxConcu
 - (SKSignal *)replay;
 
 - (SKSignal *)replayLast;
+
+- (SKSignal *)timeout:(NSTimeInterval)interval;
+
+- (SKSignal *)timeout:(NSTimeInterval)interval onScheduler:(SKScheduler *)scheduler;
 
 @end
