@@ -193,7 +193,7 @@
 		C9FB347B20E8C68D007E32A4 /* UIImagePickerController+SKDelegateProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+SKDelegateProxy.m"; sourceTree = "<group>"; };
 		C9FB347D20ED0AC2007E32A4 /* SKMulticastConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKMulticastConnection.h; sourceTree = "<group>"; };
 		C9FB347E20ED0AC2007E32A4 /* SKMulticastConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKMulticastConnection.m; sourceTree = "<group>"; };
-		C9FB348020ED0B1B007E32A4 /* SKMulticastConection+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SKMulticastConection+Private.h"; sourceTree = "<group>"; };
+		C9FB348020ED0B1B007E32A4 /* SKMulticastConnection+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SKMulticastConnection+Private.h"; sourceTree = "<group>"; };
 		E4DCE42D9F4B44C44D1CA9FA /* Pods-StreamKitDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamKitDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StreamKitDemo/Pods-StreamKitDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -312,7 +312,7 @@
 				C9A392F21ED1BB6B00EFA3B8 /* SKCommand.m */,
 				C9FB347D20ED0AC2007E32A4 /* SKMulticastConnection.h */,
 				C9FB347E20ED0AC2007E32A4 /* SKMulticastConnection.m */,
-				C9FB348020ED0B1B007E32A4 /* SKMulticastConection+Private.h */,
+				C9FB348020ED0B1B007E32A4 /* SKMulticastConnection+Private.h */,
 				C930A1E020CB886100E9789B /* SKDisposable.h */,
 				C930A1E120CB886100E9789B /* SKDisposable.m */,
 				C930A1E320CBB95C00E9789B /* SKCompoundDisposable.h */,

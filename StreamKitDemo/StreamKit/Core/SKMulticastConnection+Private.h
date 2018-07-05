@@ -11,7 +11,7 @@
 @class SKSignal;
 @class SKSubject;
 
-@interface SKMulticastConection (Private)
+@interface SKMulticastConnection (Private)
 
 - (instancetype)initWithSourceSignal:(SKSignal *)sourceSignal subject:(SKSubject *)subject;
 

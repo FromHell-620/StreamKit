@@ -8,6 +8,9 @@
 
 #import "SKSignal.h"
 
+@class SKMulticastConnection;
+@class SKSubject;
+
 @interface SKSignal (Operations)
 
 /**
@@ -158,5 +161,9 @@ This function subscribes to all incoming signals but only the number of maxConcu
 - (SKSignal *)not;
 
 - (SKSignal *)scheduleOn:(SKScheduler *)scheduler;
+
+- (SKMulticastConnection *)publish;
+
+- (SKMulticastConnection *)multicast:(SKSubject *)subject;
 
 @end

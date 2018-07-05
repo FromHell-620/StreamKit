@@ -14,6 +14,8 @@
 #import "SKObjectifyMarco.h"
 #import "SKValueNil.h"
 #import "SKBlockTrampoline.h"
+#import "SKSubject.h"
+#import "SKMulticastConnection+Private.h"
 
 @implementation SKSignal (Operations)
 
@@ -872,6 +874,14 @@
         [compoundDisposable addDisposable:selfDisposable];
         return compoundDisposable;
     }];
+}
+
+- (SKMulticastConnection *)publish {
+    return [self multicast:SKSubject.subject];
+}
+
+- (SKMulticastConnection *)multicast:(SKSubject *)subject {
+    return [[SKMulticastConnection alloc] initWithSourceSignal:self subject:subject];
 }
 
 @end
