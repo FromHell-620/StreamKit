@@ -15,6 +15,7 @@
 #import "SKValueNil.h"
 #import "SKBlockTrampoline.h"
 #import "SKSubject.h"
+#import "SKReplaySubject.h"
 #import "SKMulticastConnection+Private.h"
 
 @implementation SKSignal (Operations)
@@ -882,6 +883,14 @@
 
 - (SKMulticastConnection *)multicast:(SKSubject *)subject {
     return [[SKMulticastConnection alloc] initWithSourceSignal:self subject:subject];
+}
+
+- (SKSignal *)replay {
+    return [self multicast:[SKReplaySubject subject]].signal;
+}
+
+- (SKSignal *)replayLast {
+    return [self multicast:[SKReplaySubject subjectWithCapacity:1]].signal;
 }
 
 @end

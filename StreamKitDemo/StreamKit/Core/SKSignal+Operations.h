@@ -166,4 +166,8 @@ This function subscribes to all incoming signals but only the number of maxConcu
 
 - (SKMulticastConnection *)multicast:(SKSubject *)subject;
 
+- (SKSignal *)replay;
+
+- (SKSignal *)replayLast;
+
 @end
