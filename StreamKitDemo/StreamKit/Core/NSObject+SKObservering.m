@@ -99,11 +99,11 @@
 
 - (SKSignal *)sk_autoObserverWithKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options {
     @weakify(self)
-    return [[[SKSignal defer:^SKSignal *{
+    return [[SKSignal defer:^SKSignal *{
         @strongify(self)
         id x = [self valueForKeyPath:keyPath];
         return [SKSignal return:x?@{@"new":x,@"old":x}:nil];
-    }] concat:[self sk_autoObserverWithKeyPath:keyPath options:options];
+    }] concat:[self sk_autoObserverWithKeyPath:keyPath options:options]];
 }
 
 @end
