@@ -21,6 +21,6 @@
 - (instancetype)initWithEnabled:(SKSignal *)enabled
                     signalBlock:(SKSignal *(^)(id value))signalBlock;
 
-- (void)execute:(id)value;
+- (SKSignal *)execute:(id)value;
 
 @end

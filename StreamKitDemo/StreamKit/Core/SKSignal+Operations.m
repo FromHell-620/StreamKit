@@ -983,4 +983,19 @@ const NSUInteger SKSignalErrorTimeout = 1;
     }];
 }
 
+- (SKSignal *)switchToLatest {
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        SKMulticastConnection *connection = [self publish];
+        SKDisposable *subscriberDisposable = [[connection.signal flattenMap:^SKSignal *(SKSignal *value) {
+            NSAssert([value isKindOfClass:SKSignal.class], @"SwitchToLatest must receive signal");
+            return [value takeUntil:[connection.signal concat:[SKSignal nerver]]];//ignore completed event
+        }] subscribe:subscriber];
+        SKDisposable *connectDisposable = [connection connect];
+        return [SKDisposable disposableWithBlock:^{
+            [subscriberDisposable dispose];
+            [connectDisposable dispose];
+        }];
+    }];
+}
+
 @end

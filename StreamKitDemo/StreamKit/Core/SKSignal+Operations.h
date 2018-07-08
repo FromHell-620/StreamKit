@@ -184,4 +184,6 @@ This function subscribes to all incoming signals but only the number of maxConcu
 
 - (SKDisposable *)setKeyPath:(NSString *)keyPath onObject:(id)onObject nilValue:(id)nilValue;
 
+- (SKSignal *)switchToLatest;
+
 @end
