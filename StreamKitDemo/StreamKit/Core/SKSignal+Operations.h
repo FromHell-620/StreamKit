@@ -10,6 +10,7 @@
 
 @class SKMulticastConnection;
 @class SKSubject;
+@class SKDisposable;
 
 
 FOUNDATION_EXTERN NSString * const SKSignalErrorDomain;
@@ -178,5 +179,9 @@ This function subscribes to all incoming signals but only the number of maxConcu
 - (SKSignal *)timeout:(NSTimeInterval)interval;
 
 - (SKSignal *)timeout:(NSTimeInterval)interval onScheduler:(SKScheduler *)scheduler;
+
+- (SKDisposable *)setKeyPath:(NSString *)keyPath onObject:(id)onObject;
+
+- (SKDisposable *)setKeyPath:(NSString *)keyPath onObject:(id)onObject nilValue:(id)nilValue;
 
 @end

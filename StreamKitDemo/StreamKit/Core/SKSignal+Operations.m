@@ -17,6 +17,8 @@
 #import "SKSubject.h"
 #import "SKReplaySubject.h"
 #import "SKMulticastConnection+Private.h"
+#import "NSObject+SKDeallocating.h"
+#import <objc/runtime.h>
 
 NSString * const SKSignalErrorDomain = @"SKSignalErrorDomain";
 
@@ -920,6 +922,64 @@ const NSUInteger SKSignalErrorTimeout = 1;
         }];
         [disposable addDisposable:subscriberDisposable];
         return disposable;
+    }];
+}
+
+- (SKDisposable *)setKeyPath:(NSString *)keyPath onObject:(id)onObject {
+    return [self setKeyPath:keyPath onObject:onObject nilValue:nil];
+}
+
+- (SKDisposable *)setKeyPath:(NSString *)keyPath onObject:(NSObject *)onObject nilValue:(id)nilValue {
+    NSParameterAssert(keyPath);
+    NSParameterAssert(onObject);
+    keyPath = [keyPath copy];
+    __block void *volatile objPtr = (__bridge void *)onObject;
+    SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable compoundDisposable];
+    SKDisposable *subscriberDisposable = [self subscribeNext:^(id x) {
+        __strong NSObject *objc __attribute__((objc_precise_lifetime)) = (__bridge __strong id)objPtr;
+        [objc setValue:x?:nilValue forKeyPath:keyPath];
+    } error:^(NSError *error) {
+        __unused __strong NSObject *objc __attribute((objc_precise_lifetime)) = (__bridge __strong id)objPtr;
+        NSAssert(NO, @"SKSignal receive a error When binding keyPath %@ on object %@",keyPath,objc);
+        [compoundDisposable dispose];
+    } completed:^{
+        [compoundDisposable dispose];
+    }];
+    [compoundDisposable addDisposable:subscriberDisposable];
+    
+#ifdef DEBUG
+    static const void * const SKKeyPathBindingKey = &SKKeyPathBindingKey;
+    NSMutableDictionary *bindKeys;
+    @synchronized (compoundDisposable) {
+        bindKeys = objc_getAssociatedObject(onObject, SKKeyPathBindingKey);
+        if (bindKeys == nilValue) {
+            bindKeys = [NSMutableDictionary dictionary];
+            objc_setAssociatedObject(onObject, SKKeyPathBindingKey, bindKeys, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
+    @synchronized (compoundDisposable) {
+        __unsafe_unretained id bindValue = bindKeys[keyPath];
+        NSAssert(bindValue == nil, @"This object %@ has alreald bind a same keypath %@ on itself",onObject,keyPath);
+        [bindKeys setObject:[NSValue valueWithNonretainedObject:self] forKey:keyPath];
+    }
+#endif
+    
+    SKDisposable *cleanPointerDisposable = [SKDisposable disposableWithBlock:^{
+#ifdef DEBUG
+        @synchronized (compoundDisposable) {
+            [bindKeys removeObjectForKey:keyPath];
+        }
+#endif
+        @synchronized (compoundDisposable) {
+            objPtr = NULL;
+        }
+    }];
+    [compoundDisposable addDisposable:cleanPointerDisposable];
+    [onObject.deallocDisposable addDisposable:compoundDisposable];
+    return [SKDisposable disposableWithBlock:^{
+        [onObject.deallocDisposable removeDisposable:compoundDisposable];
+        [compoundDisposable dispose];
     }];
 }
 

@@ -8,6 +8,7 @@
 
 #import "SKSubscribringObserverTrampoline.h"
 #import "SKSignal.h"
+#import "SKSignal+Operations.h"
 
 @implementation SKSubscribringObserverTrampoline
 
@@ -21,11 +22,9 @@
     return self;
 }
 
-- (void)setObject:(SKSignal*)object forKeyedSubscript:(NSString *)keyPath
+- (void)setObject:(SKSignal*)signal forKeyedSubscript:(NSString *)keyPath
 {
-    [object subscribeNext:^(id x) {
-        [self->_object setValue:x?x:self->_nilValue forKeyPath:keyPath];
-    }];
+    [signal setKeyPath:keyPath onObject:self.object nilValue:self.nilValue];
 }
 
 @end
