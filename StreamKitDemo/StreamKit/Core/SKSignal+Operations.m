@@ -998,4 +998,11 @@ const NSUInteger SKSignalErrorTimeout = 1;
     }];
 }
 
+- (SKSignal *)if:(SKSignal *)boolSignal then:(SKSignal *)tureSignal else:(SKSignal *)falseSignal {
+    return [[boolSignal map:^id(NSNumber *x) {
+        NSAssert([x isKindOfClass:NSNumber.class], @"if operaiton boolSignal must send bool value");
+        return x.boolValue ? tureSignal : falseSignal;
+    }] switchToLatest];
+}
+
 @end
