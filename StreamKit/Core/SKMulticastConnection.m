@@ -7,7 +7,7 @@
 //
 
 #import "SKMulticastConnection.h"
-#import "SKMulticastConection+Private.h"
+#import "SKMulticastConnection+Private.h"
 #import <libkern/OSAtomic.h>
 #import "SKSignal.h"
 #import "SKSerialDisposable.h"

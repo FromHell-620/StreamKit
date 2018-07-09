@@ -605,7 +605,7 @@ const NSUInteger SKSignalErrorTimeout = 1;
                 selfDisposable = nil;
             }
         };
-        selfDisposable.disposable = [[self concat:[SKSignal nerve]] subscribe:subscriber];
+        selfDisposable.disposable = [[self concat:[SKSignal nerver]] subscribe:subscriber];
         SKDisposable *disposable = [replacement subscribeNext:^(id x) {
             competedSelf();
             [subscriber sendNext:x];
