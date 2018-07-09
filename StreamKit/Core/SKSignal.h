@@ -23,7 +23,7 @@
 
 + (instancetype)empty;
 
-+ (instancetype)nerve;
++ (instancetype)nerver;
 
 @end
 

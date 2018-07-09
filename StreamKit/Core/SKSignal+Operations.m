@@ -14,6 +14,15 @@
 #import "SKObjectifyMarco.h"
 #import "SKValueNil.h"
 #import "SKBlockTrampoline.h"
+#import "SKSubject.h"
+#import "SKReplaySubject.h"
+#import "SKMulticastConnection+Private.h"
+#import "NSObject+SKDeallocating.h"
+#import <objc/runtime.h>
+
+NSString * const SKSignalErrorDomain = @"SKSignalErrorDomain";
+
+const NSUInteger SKSignalErrorTimeout = 1;
 
 @implementation SKSignal (Operations)
 
@@ -871,6 +880,121 @@
         }];
         [compoundDisposable addDisposable:selfDisposable];
         return compoundDisposable;
+    }];
+}
+
+- (SKMulticastConnection *)publish {
+    return [self multicast:SKSubject.subject];
+}
+
+- (SKMulticastConnection *)multicast:(SKSubject *)subject {
+    return [[SKMulticastConnection alloc] initWithSourceSignal:self subject:subject];
+}
+
+- (SKSignal *)replay {
+    return [self multicast:[SKReplaySubject subject]].signal;
+}
+
+- (SKSignal *)replayLast {
+    return [self multicast:[SKReplaySubject subjectWithCapacity:1]].signal;
+}
+
+- (SKSignal *)timeout:(NSTimeInterval)interval {
+    return [self timeout:interval onScheduler:[SKScheduler mainThreadScheduler]];
+}
+
+- (SKSignal *)timeout:(NSTimeInterval)interval onScheduler:(SKScheduler *)scheduler {
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        SKCompoundDisposable *disposable = [SKCompoundDisposable compoundDisposable];
+        SKDisposable *schedulerDisposable = [scheduler afterDelay:interval schedule:^{
+            [disposable dispose];
+            [subscriber sendError:[NSError errorWithDomain:SKSignalErrorDomain code:SKSignalErrorTimeout userInfo:nil]];
+        }];
+        [disposable addDisposable:schedulerDisposable];
+        SKDisposable *subscriberDisposable = [self subscribeNext:^(id x) {
+            [subscriber sendNext:x];
+        } error:^(NSError *error) {
+            [disposable dispose];
+            [subscriber sendError:error];
+        } completed:^{
+            [disposable dispose];
+            [subscriber sendCompleted];
+        }];
+        [disposable addDisposable:subscriberDisposable];
+        return disposable;
+    }];
+}
+
+- (SKDisposable *)setKeyPath:(NSString *)keyPath onObject:(id)onObject {
+    return [self setKeyPath:keyPath onObject:onObject nilValue:nil];
+}
+
+- (SKDisposable *)setKeyPath:(NSString *)keyPath onObject:(NSObject *)onObject nilValue:(id)nilValue {
+    NSParameterAssert(keyPath);
+    NSParameterAssert(onObject);
+    keyPath = [keyPath copy];
+    __block void *volatile objPtr = (__bridge void *)onObject;
+    SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable compoundDisposable];
+    SKDisposable *subscriberDisposable = [self subscribeNext:^(id x) {
+        __strong NSObject *objc __attribute__((objc_precise_lifetime)) = (__bridge __strong id)objPtr;
+        [objc setValue:x?:nilValue forKeyPath:keyPath];
+    } error:^(NSError *error) {
+        __unused __strong NSObject *objc __attribute((objc_precise_lifetime)) = (__bridge __strong id)objPtr;
+        NSAssert(NO, @"SKSignal receive a error When binding keyPath %@ on object %@",keyPath,objc);
+        [compoundDisposable dispose];
+    } completed:^{
+        [compoundDisposable dispose];
+    }];
+    [compoundDisposable addDisposable:subscriberDisposable];
+    
+#ifdef DEBUG
+    static const void * const SKKeyPathBindingKey = &SKKeyPathBindingKey;
+    NSMutableDictionary *bindKeys;
+    @synchronized (compoundDisposable) {
+        bindKeys = objc_getAssociatedObject(onObject, SKKeyPathBindingKey);
+        if (bindKeys == nilValue) {
+            bindKeys = [NSMutableDictionary dictionary];
+            objc_setAssociatedObject(onObject, SKKeyPathBindingKey, bindKeys, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
+    @synchronized (compoundDisposable) {
+        __unsafe_unretained id bindValue = bindKeys[keyPath];
+        NSAssert(bindValue == nil, @"This object %@ has alreald bind a same keypath %@ on itself",onObject,keyPath);
+        [bindKeys setObject:[NSValue valueWithNonretainedObject:self] forKey:keyPath];
+    }
+#endif
+    
+    SKDisposable *cleanPointerDisposable = [SKDisposable disposableWithBlock:^{
+#ifdef DEBUG
+        @synchronized (compoundDisposable) {
+            [bindKeys removeObjectForKey:keyPath];
+        }
+#endif
+        @synchronized (compoundDisposable) {
+            objPtr = NULL;
+        }
+    }];
+    [compoundDisposable addDisposable:cleanPointerDisposable];
+    [onObject.deallocDisposable addDisposable:compoundDisposable];
+    return [SKDisposable disposableWithBlock:^{
+        [onObject.deallocDisposable removeDisposable:compoundDisposable];
+        [compoundDisposable dispose];
+    }];
+}
+
+- (SKSignal *)switchToLatest {
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        SKMulticastConnection *connection = [self publish];
+        SKDisposable *subscriberDisposable = [[connection.signal flattenMap:^SKSignal *(SKSignal *value) {
+            NSAssert([value isKindOfClass:SKSignal.class], @"SwitchToLatest must receive signal");
+            return [value takeUntil:[connection.signal concat:[SKSignal nerver]]];//ignore completed event
+        }] subscribe:subscriber];
+        SKDisposable *connectDisposable = [connection connect];
+        return [SKDisposable disposableWithBlock:^{
+            [subscriberDisposable dispose];
+            [connectDisposable dispose];
+        }];
     }];
 }
 

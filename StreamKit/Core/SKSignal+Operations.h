@@ -8,6 +8,15 @@
 
 #import "SKSignal.h"
 
+@class SKMulticastConnection;
+@class SKSubject;
+@class SKDisposable;
+
+
+FOUNDATION_EXTERN NSString * const SKSignalErrorDomain;
+
+FOUNDATION_EXTERN const NSUInteger SKSignalErrorTimeout;
+
 @interface SKSignal (Operations)
 
 /**
@@ -158,5 +167,23 @@ This function subscribes to all incoming signals but only the number of maxConcu
 - (SKSignal *)not;
 
 - (SKSignal *)scheduleOn:(SKScheduler *)scheduler;
+
+- (SKMulticastConnection *)publish;
+
+- (SKMulticastConnection *)multicast:(SKSubject *)subject;
+
+- (SKSignal *)replay;
+
+- (SKSignal *)replayLast;
+
+- (SKSignal *)timeout:(NSTimeInterval)interval;
+
+- (SKSignal *)timeout:(NSTimeInterval)interval onScheduler:(SKScheduler *)scheduler;
+
+- (SKDisposable *)setKeyPath:(NSString *)keyPath onObject:(id)onObject;
+
+- (SKDisposable *)setKeyPath:(NSString *)keyPath onObject:(id)onObject nilValue:(id)nilValue;
+
+- (SKSignal *)switchToLatest;
 
 @end

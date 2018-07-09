@@ -73,11 +73,7 @@
 
 - (SKSignal *)sk_observerWithKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options {
     @weakify(self)
-    return [[[SKSignal defer:^SKSignal *{
-        @strongify(self)
-        id x = [self valueForKeyPath:keyPath];
-        return [SKSignal return:x?@{@"new":x,@"old":x}:nil];
-    }] concat:[SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+    return [[SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
         @strongify(self)
         _SKObserverTarget *target = nil;
 #ifdef DEBUG
@@ -94,7 +90,20 @@
         return [SKDisposable disposableWithBlock:^{
             [removeDisposable dispose];
         }];
-    }]] takeUntil:self.deallocSignal];
+    }] takeUntil:self.deallocSignal];
+}
+
+- (SKSignal *)sk_autoObserverWithKeyPath:(NSString *)keyPath {
+    return [self sk_autoObserverWithKeyPath:keyPath options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld];
+}
+
+- (SKSignal *)sk_autoObserverWithKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options {
+    @weakify(self)
+    return [[SKSignal defer:^SKSignal *{
+        @strongify(self)
+        id x = [self valueForKeyPath:keyPath];
+        return [SKSignal return:x?@{@"new":x,@"old":x}:nil];
+    }] concat:[self sk_autoObserverWithKeyPath:keyPath options:options]];
 }
 
 @end
