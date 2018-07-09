@@ -27,6 +27,8 @@
     return _activeExecutionSignals;
 }
 
+//- (void)add
+
 - (instancetype)initWithSignalBlock:(SKSignal *(^)(id))signalBlock {
     return [self initWithEnabled:nil signalBlock:signalBlock];
 }
