@@ -18,7 +18,7 @@
 
 @property (nonatomic,strong,readonly) SKSignal *errorSignal;
 
-@property (nonatomic,assign) BOOL allowConcurrentExecute;//default is NO
+@property (atomic,assign) BOOL allowConcurrentExecute;//default is NO
 
 - (instancetype)initWithSignalBlock:(SKSignal *(^)(id value))signalBlock;
 
