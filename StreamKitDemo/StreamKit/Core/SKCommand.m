@@ -8,8 +8,12 @@
 
 #import "SKCommand.h"
 #import "SKSignal.h"
+#import "SKSignal+Operations.h"
+#import "NSObject+SKObservering.h"
+#import "NSObject+SKDeallocating.h"
 #import "SKSubscriber.h"
 #import <libkern/OSAtomic.h>
+#import "SKMulticastConnection.h"
 #import "SKKeyPathMarco.h"
 #import "SKMetaMarco.h"
 #import "SKObjectifyMarco.h"
@@ -78,11 +82,22 @@
     if (self) {
         self.signalBlock = signalBlock;
         _enabledSignal = enabled;
+        
+        SKSignal *newAcitveSignals = [[[[[self sk_observerWithKeyPath:@sk_keypath(self,activeExecutionSignals)] map:^id(NSArray *x) {
+            NSAssert([x isKindOfClass:NSArray.class], @"must be NSArray");
+            return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+                [x enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [subscriber sendNext:obj];
+                }];
+                return nil;
+            }];
+        }] concat] publish] autoConnect];
+        
     }
     return self;
 }
 
-- (void)execute:(id)value {
+- (SKSignal *)execute:(id)value {
     __block BOOL enable = YES;
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     [self.enabledSignal subscribeNext:^(NSNumber *x) {
@@ -91,11 +106,10 @@
         dispatch_semaphore_signal(semaphore);
     }];
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-    if (enable == NO) return ;
     
     SKSignal *signal = self.signalBlock(value);
     NSParameterAssert(signal);
-    [self.activeExecutionSignals addObject:signal];
+    return nil;
 }
 
 @end

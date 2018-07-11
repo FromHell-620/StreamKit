@@ -44,6 +44,17 @@
         SecondController *vc = [SecondController new];
         [self.navigationController pushViewController:vc animated:YES];
     }];
+    
+    RACCommand *command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+        return [RACSignal return:input];
+    }];
+    command.allowsConcurrentExecution = YES;
+    [command execute:@1];
+    [command execute:@1];
+    [command execute:@1];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [command execute:@1];
+    });
     //    textView.delegate = self;
 
     // Do any additional setup after loading the view.
