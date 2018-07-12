@@ -85,7 +85,6 @@
     self = [super init];
     if (self) {
         self.signalBlock = signalBlock;
-        _enabledSignal = enabled;
         
         SKSignal *newAcitveSignals = [[[[[self sk_observerWithKeyPath:@sk_keypath(self,activeExecutionSignals)] map:^id(NSArray *x) {
             NSAssert([x isKindOfClass:NSArray.class], @"must be NSArray");

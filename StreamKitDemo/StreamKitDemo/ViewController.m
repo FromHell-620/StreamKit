@@ -45,10 +45,10 @@
         [self.navigationController pushViewController:vc animated:YES];
     }];
     
-    RACCommand *command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        return [RACSignal return:input];
+    SKCommand *command = [[SKCommand alloc] initWithSignalBlock:^SKSignal *(id input) {
+        return [SKSignal return:input];
     }];
-    command.allowsConcurrentExecution = YES;
+    command.allowConcurrentExecute = YES;
     [command execute:@1];
     [command execute:@1];
     [command execute:@1];
