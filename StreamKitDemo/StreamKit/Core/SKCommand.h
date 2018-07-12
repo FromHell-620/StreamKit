@@ -14,7 +14,7 @@
 
 @property (nonatomic,strong,readonly) SKSignal *enabledSignal;
 
-@property (nonatomic,strong,readonly) SKSignal *executeSignal;
+@property (nonatomic,strong,readonly) SKSignal *executeSignals;
 
 @property (nonatomic,strong,readonly) SKSignal *errorSignal;
 

@@ -11,12 +11,14 @@
 #import "SKSignal+Operations.h"
 #import "NSObject+SKObservering.h"
 #import "NSObject+SKDeallocating.h"
+#import "SKReplaySubject.h"
 #import "SKSubscriber.h"
 #import <libkern/OSAtomic.h>
 #import "SKMulticastConnection.h"
 #import "SKKeyPathMarco.h"
 #import "SKMetaMarco.h"
 #import "SKObjectifyMarco.h"
+#import "SKScheduler.h"
 
 @interface SKCommand (){
     volatile uint32_t _allowConcurrentExecute;
@@ -25,6 +27,8 @@
 @property (nonatomic,copy) SKSignal *(^signalBlock)(id x);
 
 @property (nonatomic,strong) NSMutableArray<SKSignal *> *activeExecutionSignals;
+
+@property (nonatomic,strong) SKSignal *immediateEnabled;
 
 @end
 
@@ -92,7 +96,34 @@
                 return nil;
             }];
         }] concat] publish] autoConnect];
+        _executeSignals = [[newAcitveSignals map:^id(SKSignal *x) {
+            return [x catchTo:[SKSignal empty]];
+        }] scheduleOn:[SKScheduler mainThreadScheduler]];
         
+        SKMulticastConnection *errorConnection = [[[newAcitveSignals flattenMap:^SKSignal *(SKSignal *value) {
+            return [[value ignoreValues] catch:^SKSignal *(NSError *error) {
+                return [SKSignal return:error];
+            }];
+        }] scheduleOn:[SKScheduler mainThreadScheduler]] publish];
+        _errorSignal = errorConnection.signal;
+        [errorConnection connect];
+        
+        SKSignal *onExecuteing = [SKObserve(self,activeExecutionSignals) map:^id(NSArray *x) {
+            return @(x.count > 0);
+        }];
+        
+        SKSignal *moreExecutionsAllowed = [SKSignal if:SKObserve(self,allowConcurrentExecute) then:[SKSignal return:@(YES)] else:onExecuteing.not];
+        
+        if (enabled == nil) {
+            enabled = [SKSignal return:@(YES)];
+        }else {
+            enabled = [[[enabled startWith:@(YES)] takeUntil:self.deallocSignal] replayLast];
+        }
+        
+        _immediateEnabled = [SKSignal combineLatest:@[enabled,moreExecutionsAllowed] reduce:^(NSNumber* x,NSNumber *y){
+            return @(x.boolValue && y.boolValue);
+        }];
+        _enabledSignal = [[[_immediateEnabled distinctUntilChanged] scheduleOn:[SKScheduler mainThreadScheduler]] replayLast];
     }
     return self;
 }

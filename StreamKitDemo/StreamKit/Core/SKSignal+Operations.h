@@ -128,6 +128,8 @@ This function subscribes to all incoming signals but only the number of maxConcu
 
 - (SKSignal *)ignore:(id)value;
 
+- (SKSignal *)ignoreValues;
+
 - (SKSignal *)aggregateWithStart:(id)startValue reduceBlock:(id (^)(id running,id next))block;
 
 - (SKSignal *)aggregateWithStart:(id)startValue withIndexReduceBlock:(id (^)(id running,id next,NSInteger index))block;
@@ -186,6 +188,6 @@ This function subscribes to all incoming signals but only the number of maxConcu
 
 - (SKSignal *)switchToLatest;
 
-- (SKSignal *)if:(SKSignal *)boolSignal then:(SKSignal *)tureSignal else:(SKSignal *)falseSignal;
++ (SKSignal *)if:(SKSignal *)boolSignal then:(SKSignal *)tureSignal else:(SKSignal *)falseSignal;
 
 @end
