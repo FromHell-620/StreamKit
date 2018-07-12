@@ -670,6 +670,25 @@ const NSUInteger SKSignalErrorTimeout = 1;
     }];
 }
 
+- (id)first {
+    return [self firstWithDefault:nil];
+}
+
+- (id)firstWithDefault:(id)defaultValue {
+    __block id value = defaultValue;
+    dispatch_semaphore_t lock = dispatch_semaphore_create(0);
+   [[self take:1] subscribeNext:^(id x) {
+        value = x;
+        dispatch_semaphore_signal(lock);
+    } error:^(NSError *error) {
+        dispatch_semaphore_signal(lock);
+    } completed:^{
+        dispatch_semaphore_signal(lock);
+    }];
+    dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
+    return value;
+}
+
 - (SKSignal *)collect {
     return [self scanWithStart:[NSMutableArray array] reduceBlock:^id(NSMutableArray *running, id next) {
         [running addObject:next ? : NSNull.null];

@@ -138,6 +138,10 @@ This function subscribes to all incoming signals but only the number of maxConcu
 
 - (SKSignal *)scanWithStart:(id)startValue withIndexReduceBlock:(id (^)(id running, id next,NSInteger index))block;
 
+- (id)first;
+
+- (id)firstWithDefault:(id)defaultValue;
+
 - (SKSignal *)collect;
 
 - (SKSignal *)combinePreviousWithStart:(id)start reduce:(id (^)(id previous, id next))reduceBlock;

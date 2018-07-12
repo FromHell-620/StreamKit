@@ -129,18 +129,25 @@
 }
 
 - (SKSignal *)execute:(id)value {
-    __block BOOL enable = YES;
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-    [self.enabledSignal subscribeNext:^(NSNumber *x) {
-        NSCAssert([x isKindOfClass:NSNumber.class], @"-not must only be used on a signal of NSNumbers. Instead, got: %@", x);
-        enable = x.boolValue;
-        dispatch_semaphore_signal(semaphore);
-    }];
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    BOOL enabled = [[self.immediateEnabled first] boolValue];
+    if (enabled == NO) {
+        return nil;
+    }
     
     SKSignal *signal = self.signalBlock(value);
     NSParameterAssert(signal);
-    return nil;
+    SKMulticastConnection *connection = [[signal scheduleOn:[SKScheduler mainThreadScheduler]] multicast:[SKReplaySubject subject]];
+    [self addActiveExecutionSignal:connection.signal];
+    @weakify(self)
+    [connection.signal subscribeNext:nil error:^(NSError *error) {
+        @strongify(self)
+        [self removeActiveExecutionSignal:connection.signal];
+    } completed:^{
+        @strongify(self)
+        [self removeActiveExecutionSignal:connection.signal];
+    }];
+    [connection connect];
+    return connection.signal;
 }
 
 @end
