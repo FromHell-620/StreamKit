@@ -103,7 +103,7 @@
         @strongify(self)
         id x = [self valueForKeyPath:keyPath];
         return [SKSignal return:x?@{@"new":x,@"old":x}:nil];
-    }] concat:[self sk_autoObserverWithKeyPath:keyPath options:options]];
+    }] concat:[self sk_observerWithKeyPath:keyPath options:options]];
 }
 
 @end

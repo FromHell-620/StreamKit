@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class SKCommand;
+
 @interface UIButton (SKSignalSupport)
+
+@end
+
+@interface UIButton (SKCommandSupport)
+
+@property (nonatomic,strong) SKCommand *sk_command;
 
 @end

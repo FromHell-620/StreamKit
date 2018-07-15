@@ -633,6 +633,12 @@ const NSUInteger SKSignalErrorTimeout = 1;
     }];
 }
 
+- (SKSignal *)ignoreValues {
+    return [self filter:^BOOL(id x) {
+        return NO;
+    }];
+}
+
 - (SKSignal *)aggregateWithStart:(id)startValue reduceBlock:(id (^)(id, id))block {
     NSCParameterAssert(block);
     return [self aggregateWithStart:startValue withIndexReduceBlock:^id(id running, id next, NSInteger index) {
@@ -662,6 +668,25 @@ const NSUInteger SKSignalErrorTimeout = 1;
         running = block(running,block,index ++);
         return [SKSignal return:running];
     }];
+}
+
+- (id)first {
+    return [self firstWithDefault:nil];
+}
+
+- (id)firstWithDefault:(id)defaultValue {
+    __block id value = defaultValue;
+    dispatch_semaphore_t lock = dispatch_semaphore_create(0);
+   [[self take:1] subscribeNext:^(id x) {
+        value = x;
+        dispatch_semaphore_signal(lock);
+    } error:^(NSError *error) {
+        dispatch_semaphore_signal(lock);
+    } completed:^{
+        dispatch_semaphore_signal(lock);
+    }];
+    dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
+    return value;
 }
 
 - (SKSignal *)collect {
@@ -768,14 +793,14 @@ const NSUInteger SKSignalErrorTimeout = 1;
 
 - (SKSignal *)take:(NSUInteger)takes {
     return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
-        SKCompoundDisposable *compoundDisposable = [SKCompoundDisposable disposableWithdisposes:nil];
+        SKSerialDisposable *serialDisposable = [SKSerialDisposable new];
         __block NSUInteger taked = 0;
         void (^sendNext)(id) = ^ (id value) {
-            @synchronized (compoundDisposable) {
+            @synchronized (serialDisposable) {
                 ++taked;
                 [subscriber sendNext:value];
                 if (taked == takes) {
-                    [compoundDisposable dispose];
+                    [serialDisposable dispose];
                 }
             }
         };
@@ -786,8 +811,8 @@ const NSUInteger SKSignalErrorTimeout = 1;
         } completed:^{
             [subscriber sendCompleted];
         }];
-        [compoundDisposable addDisposable:selfDisposable];
-        return compoundDisposable;
+        serialDisposable.disposable = selfDisposable;
+        return serialDisposable;
     }];
 }
 
@@ -996,6 +1021,13 @@ const NSUInteger SKSignalErrorTimeout = 1;
             [connectDisposable dispose];
         }];
     }];
+}
+
++ (SKSignal *)if:(SKSignal *)boolSignal then:(SKSignal *)trueSignal else:(SKSignal *)falseSignal {
+    return [[boolSignal map:^id(NSNumber *x) {
+        NSAssert([x isKindOfClass:NSNumber.class], @"if operaiton boolSignal must send bool value");
+        return x.boolValue ? trueSignal : falseSignal;
+    }] switchToLatest];
 }
 
 @end

@@ -128,6 +128,8 @@ This function subscribes to all incoming signals but only the number of maxConcu
 
 - (SKSignal *)ignore:(id)value;
 
+- (SKSignal *)ignoreValues;
+
 - (SKSignal *)aggregateWithStart:(id)startValue reduceBlock:(id (^)(id running,id next))block;
 
 - (SKSignal *)aggregateWithStart:(id)startValue withIndexReduceBlock:(id (^)(id running,id next,NSInteger index))block;
@@ -135,6 +137,10 @@ This function subscribes to all incoming signals but only the number of maxConcu
 - (SKSignal *)scanWithStart:(id)startValue reduceBlock:(id (^)(id running,id next))block;
 
 - (SKSignal *)scanWithStart:(id)startValue withIndexReduceBlock:(id (^)(id running, id next,NSInteger index))block;
+
+- (id)first;
+
+- (id)firstWithDefault:(id)defaultValue;
 
 - (SKSignal *)collect;
 
@@ -185,5 +191,7 @@ This function subscribes to all incoming signals but only the number of maxConcu
 - (SKDisposable *)setKeyPath:(NSString *)keyPath onObject:(id)onObject nilValue:(id)nilValue;
 
 - (SKSignal *)switchToLatest;
+
++ (SKSignal *)if:(SKSignal *)boolSignal then:(SKSignal *)trueSignal else:(SKSignal *)falseSignal;
 
 @end

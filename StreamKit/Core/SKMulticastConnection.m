@@ -13,19 +13,17 @@
 #import "SKSerialDisposable.h"
 
 @implementation SKMulticastConnection {
-    SKSubject *_signal;
     SKSignal *_sourceSignal;
     SKSerialDisposable *_serialDisposable;
     int32_t volatile _hasConnected;
 }
 
-@dynamic signal;
 
 - (instancetype)initWithSourceSignal:(SKSignal *)sourceSignal subject:(SKSubject *)subject {
     self = [super init];
     if (self) {
         _sourceSignal = sourceSignal;
-        _signal = subject;
+        _signal = (SKSignal *)subject;
         _serialDisposable = [SKSerialDisposable new];
     }
     return self;
