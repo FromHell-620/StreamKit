@@ -192,6 +192,6 @@ This function subscribes to all incoming signals but only the number of maxConcu
 
 - (SKSignal *)switchToLatest;
 
-+ (SKSignal *)if:(SKSignal *)boolSignal then:(SKSignal *)tureSignal else:(SKSignal *)falseSignal;
++ (SKSignal *)if:(SKSignal *)boolSignal then:(SKSignal *)trueSignal else:(SKSignal *)falseSignal;
 
 @end

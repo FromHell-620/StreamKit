@@ -1023,10 +1023,10 @@ const NSUInteger SKSignalErrorTimeout = 1;
     }];
 }
 
-+ (SKSignal *)if:(SKSignal *)boolSignal then:(SKSignal *)tureSignal else:(SKSignal *)falseSignal {
++ (SKSignal *)if:(SKSignal *)boolSignal then:(SKSignal *)trueSignal else:(SKSignal *)falseSignal {
     return [[boolSignal map:^id(NSNumber *x) {
         NSAssert([x isKindOfClass:NSNumber.class], @"if operaiton boolSignal must send bool value");
-        return x.boolValue ? tureSignal : falseSignal;
+        return x.boolValue ? trueSignal : falseSignal;
     }] switchToLatest];
 }
 

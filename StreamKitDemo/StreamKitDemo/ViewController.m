@@ -46,15 +46,23 @@
     }];
     
     SKCommand *command = [[SKCommand alloc] initWithSignalBlock:^SKSignal *(id input) {
-        return [SKSignal return:input];
+        NSLog(@"%@",input);
+        return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+            [subscriber sendNext:input];
+            return nil;
+        }];
+        
     }];
     command.allowConcurrentExecute = YES;
     [command execute:@1];
-    [command execute:@1];
-    [command execute:@1];
+    [command execute:@2];
+    [command execute:@3];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [command execute:@1];
+        [command execute:@4];
     });
+    [[command.executeSignals switchToLatest] subscribeNext:^(id x) {
+        
+    }];
     //    textView.delegate = self;
 
     // Do any additional setup after loading the view.

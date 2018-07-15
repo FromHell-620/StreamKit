@@ -86,12 +86,15 @@
     if (self) {
         self.signalBlock = signalBlock;
         
-        SKSignal *newAcitveSignals = [[[[[self sk_observerWithKeyPath:@sk_keypath(self,activeExecutionSignals)] map:^id(NSArray *x) {
-            NSAssert([x isKindOfClass:NSArray.class], @"must be NSArray");
+        SKSignal *newAcitveSignals = [[[[[[self sk_observerWithKeyPath:@sk_keypath(self,activeExecutionSignals)] map:^id(NSDictionary *x) {
+            return [x objectForKey:NSKeyValueChangeNewKey];
+        }] map:^id(NSArray *x) {
+            NSAssert([x isKindOfClass:NSArray.class] || x == nil, @"must be NSArray");
             return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
                 [x enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     [subscriber sendNext:obj];
                 }];
+                [subscriber sendCompleted];
                 return nil;
             }];
         }] concat] publish] autoConnect];
@@ -112,13 +115,11 @@
         }];
         
         SKSignal *moreExecutionsAllowed = [SKSignal if:SKObserve(self,allowConcurrentExecute) then:[SKSignal return:@(YES)] else:onExecuteing.not];
-        
         if (enabled == nil) {
             enabled = [SKSignal return:@(YES)];
         }else {
             enabled = [[[enabled startWith:@(YES)] takeUntil:self.deallocSignal] replayLast];
         }
-        
         _immediateEnabled = [SKSignal combineLatest:@[enabled,moreExecutionsAllowed] reduce:^(NSNumber* x,NSNumber *y){
             return @(x.boolValue && y.boolValue);
         }];
@@ -128,7 +129,7 @@
 }
 
 - (SKSignal *)execute:(id)value {
-    BOOL enabled = [[self.immediateEnabled first] boolValue];
+    BOOL enabled = self.allowConcurrentExecute == NO ? self.activeExecutionSignals.count == 0 : YES;
     if (enabled == NO) {
         return nil;
     }
