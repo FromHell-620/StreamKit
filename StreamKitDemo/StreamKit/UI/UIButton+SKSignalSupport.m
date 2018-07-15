@@ -40,18 +40,12 @@ static void * UIButtonEnableSingalDisposable = &UIButtonEnableSingalDisposable;
     [disposable dispose];
     if (command == nil) return;
     SKDisposable *enableDisposable = [command.enabledSignal setKeyPath:@sk_keypath(self,enabled) onObject:self nilValue:@YES];
-    disposable = [SKCompoundDisposable disposableWithdisposes:@[enableDisposable]];
-    @unsafeify(self)
-    [disposable addDisposable:[SKDisposable disposableWithBlock:^{
-        @strongify(self)
-        [self removeTarget:self action:@selector(sk_commandExecute:) forControlEvents:UIControlEventTouchUpInside];
-    }]];
+    
+    SKDisposable *subscriberDisposable = [[self sk_clickSignal] subscribeNext:^(id x) {
+        [command execute:x];
+    }];
+    disposable = [SKCompoundDisposable disposableWithdisposes:@[enableDisposable,subscriberDisposable]];
     objc_setAssociatedObject(self, UIButtonEnableSingalDisposable, disposable, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    [self addTarget:self action:@selector(sk_commandExecute:) forControlEvents:UIControlEventTouchUpInside];
-}
-
-- (void)sk_commandExecute:(id)send {
-    [self.sk_command execute:send];
 }
 
 @end

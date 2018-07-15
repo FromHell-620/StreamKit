@@ -45,26 +45,24 @@
         [self.navigationController pushViewController:vc animated:YES];
     }];
     
-    SKCommand *command = [[SKCommand alloc] initWithSignalBlock:^SKSignal *(id input) {
+    RACCommand *command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         NSLog(@"%@",input);
-        return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+        return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             [subscriber sendNext:input];
+            [subscriber sendCompleted];
             return nil;
         }];
         
     }];
-    command.allowConcurrentExecute = YES;
-    [command execute:@1];
-    [command execute:@2];
-    [command execute:@3];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [command execute:@4];
-    });
-    [[command.executeSignals switchToLatest] subscribeNext:^(id x) {
-        
-    }];
-    //    textView.delegate = self;
-
+    command.allowsConcurrentExecution = YES;
+     textView.delegate = self;
+    UIScrollView *scroller = [[UIScrollView alloc] initWithFrame:CGRectMake(30, 100, 200, 300)];
+    scroller.contentSize = CGSizeMake(200, 1000);
+    [self.view addSubview:scroller];
+    scroller.backgroundColor = [UIColor redColor];
+    UIRefreshControl *control = [UIRefreshControl new];
+    control.rac_command = command;
+    scroller.refreshControl = control;
     // Do any additional setup after loading the view.
 }
 
