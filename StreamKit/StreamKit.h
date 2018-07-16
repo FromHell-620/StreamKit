@@ -35,6 +35,7 @@
 #import "UITextField+SKSignalSupport.h"
 #import "UIControl+SKSignalSupport.h"
 #import "UIButton+SKSignalSupport.h"
+#import "UIRefreshControl+SKCommandSupport.h"
 #import "UIGestureRecognizer+SKSignalSupport.h"
 
 //Marco

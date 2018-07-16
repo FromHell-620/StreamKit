@@ -39,6 +39,7 @@
 		C9B62B8F1E06BE0400920035 /* StreamKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B8E1E06BE0400920035 /* StreamKitTests.m */; };
 		C9B62B9A1E06BE0400920035 /* StreamKitUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B62B991E06BE0400920035 /* StreamKitUITests.m */; };
 		C9C65F2B1F10039A0071450A /* NSNotificationCenter+SKSignalSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C65F2A1F10039A0071450A /* NSNotificationCenter+SKSignalSupport.m */; };
+		C9C989AC20FC2C500019018E /* UIRefreshControl+SKCommandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C989AB20FC2C500019018E /* UIRefreshControl+SKCommandSupport.m */; };
 		C9DCC3ED1E975A18006E9B82 /* SKSubscribringObserverTrampoline.m in Sources */ = {isa = PBXBuildFile; fileRef = C9DCC3EC1E975A18006E9B82 /* SKSubscribringObserverTrampoline.m */; };
 		C9F3E0ED1E94EACA000661E0 /* SKSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = C9F3E0EC1E94EACA000661E0 /* SKSubscriber.m */; };
 		C9FB33D820CEBA7D007E32A4 /* SKScopedDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = C9FB33D720CEBA7D007E32A4 /* SKScopedDisposable.m */; };
@@ -149,6 +150,8 @@
 		C9B62B9B1E06BE0400920035 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9C65F291F10039A0071450A /* NSNotificationCenter+SKSignalSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+SKSignalSupport.h"; sourceTree = "<group>"; };
 		C9C65F2A1F10039A0071450A /* NSNotificationCenter+SKSignalSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+SKSignalSupport.m"; sourceTree = "<group>"; };
+		C9C989AA20FC2C500019018E /* UIRefreshControl+SKCommandSupport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIRefreshControl+SKCommandSupport.h"; sourceTree = "<group>"; };
+		C9C989AB20FC2C500019018E /* UIRefreshControl+SKCommandSupport.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+SKCommandSupport.m"; sourceTree = "<group>"; };
 		C9DCC3EB1E975A18006E9B82 /* SKSubscribringObserverTrampoline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSubscribringObserverTrampoline.h; sourceTree = "<group>"; };
 		C9DCC3EC1E975A18006E9B82 /* SKSubscribringObserverTrampoline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSubscribringObserverTrampoline.m; sourceTree = "<group>"; };
 		C9F3E0E91E94E9CA000661E0 /* SKSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSubscriber.h; sourceTree = "<group>"; };
@@ -411,6 +414,8 @@
 				885BCB8420E25007003ED802 /* UIView+SKSignalSupport.m */,
 				C9FB345A20DFE5C3007E32A4 /* UIControl+SKSignalSupport.h */,
 				C9FB345020DFE5C3007E32A4 /* UIControl+SKSignalSupport.m */,
+				C9C989AA20FC2C500019018E /* UIRefreshControl+SKCommandSupport.h */,
+				C9C989AB20FC2C500019018E /* UIRefreshControl+SKCommandSupport.m */,
 				C9FB346420E5198A007E32A4 /* UIButton+SKSignalSupport.h */,
 				C9FB346520E5198A007E32A4 /* UIButton+SKSignalSupport.m */,
 				C9FB344B20DFE5C3007E32A4 /* UITextField+SKSignalSupport.h */,
@@ -605,6 +610,7 @@
 				C94CD4691F24AB760083E200 /* SKSerialQueueScheduler.m in Sources */,
 				C9FB347920E8C638007E32A4 /* UIScrollView+SKDelegateProxy.m in Sources */,
 				C9FB346620E5198A007E32A4 /* UIButton+SKSignalSupport.m in Sources */,
+				C9C989AC20FC2C500019018E /* UIRefreshControl+SKCommandSupport.m in Sources */,
 				C9FB33EA20DD33DE007E32A4 /* NSObject+SKDeallocating.m in Sources */,
 				C94EF6451ECF655C0037D06E /* Test.m in Sources */,
 				C9FB346920E51DB0007E32A4 /* UITextView+SKSignalSupport.m in Sources */,

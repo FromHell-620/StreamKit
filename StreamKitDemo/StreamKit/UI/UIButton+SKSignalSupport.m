@@ -28,7 +28,7 @@
 
 @implementation UIButton (SKCommandSupport)
 
-static void * UIButtonEnableSingalDisposable = &UIButtonEnableSingalDisposable;
+static void * UIButtonCommandDisposable = &UIButtonCommandDisposable;
 
 - (SKCommand *)sk_command {
     return objc_getAssociatedObject(self, _cmd);
@@ -36,7 +36,7 @@ static void * UIButtonEnableSingalDisposable = &UIButtonEnableSingalDisposable;
 
 - (void)setSk_command:(SKCommand *)command {
     objc_setAssociatedObject(self, @selector(sk_command), command, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    SKCompoundDisposable *disposable = objc_getAssociatedObject(self, UIButtonEnableSingalDisposable);
+    SKCompoundDisposable *disposable = objc_getAssociatedObject(self, UIButtonCommandDisposable);
     [disposable dispose];
     if (command == nil) return;
     SKDisposable *enableDisposable = [command.enabledSignal setKeyPath:@sk_keypath(self,enabled) onObject:self nilValue:@YES];
@@ -45,7 +45,7 @@ static void * UIButtonEnableSingalDisposable = &UIButtonEnableSingalDisposable;
         [command execute:x];
     }];
     disposable = [SKCompoundDisposable disposableWithdisposes:@[enableDisposable,subscriberDisposable]];
-    objc_setAssociatedObject(self, UIButtonEnableSingalDisposable, disposable, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, UIButtonCommandDisposable, disposable, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
