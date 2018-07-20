@@ -23,7 +23,7 @@
 @implementation SKSubject
 
 + (instancetype)subject {
-    SKSubject *subject = [SKSubject new];
+    SKSubject *subject = [self new];
     return subject;
 }
 

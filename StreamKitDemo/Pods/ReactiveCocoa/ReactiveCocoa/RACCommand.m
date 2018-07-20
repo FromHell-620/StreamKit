@@ -140,6 +140,7 @@ const NSInteger RACCommandErrorNotEnabled = 1;
 		rac_valuesAndChangesForKeyPath:@keypath(self.activeExecutionSignals) options:NSKeyValueObservingOptionNew observer:nil]
 		reduceEach:^(id _, NSDictionary *change) {
 			NSArray *signals = change[NSKeyValueChangeNewKey];
+            NSLog(@"RACComman array = %@",signals);
 			if (signals == nil) return [RACSignal empty];
 
 			return [signals.rac_sequence signalWithScheduler:RACScheduler.immediateScheduler];
@@ -262,6 +263,10 @@ const NSInteger RACCommandErrorNotEnabled = 1;
 	// Generate all KVO notifications manually to avoid the performance impact
 	// of unnecessary swizzling.
 	return NO;
+}
+
+- (void)dealloc {
+    NSLog(@"RAC dealloc");
 }
 
 @end

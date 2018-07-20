@@ -418,7 +418,7 @@ const NSUInteger SKSignalErrorTimeout = 1;
 - (SKSignal *)reduceEach:(id (^)())block {
     NSCParameterAssert(block);
     return [self map:^id(NSArray *x) {
-        NSAssert([x isKindOfClass: NSArray.class], @"value must be NSArray");
+        NSCAssert([x isKindOfClass: NSArray.class], @"value must be NSArray");
         return [SKBlockTrampoline invokeBlock:block arguments:x];
     }];
 }
@@ -506,7 +506,7 @@ const NSUInteger SKSignalErrorTimeout = 1;
             }];
         };
         SKDisposable *selfDisposable = [self subscribeNext:^(id x) {
-            NSAssert([x isKindOfClass:SKSignal.class], @"must be SKSignal");
+            NSCAssert([x isKindOfClass:SKSignal.class], @"must be SKSignal");
             if (maxConcurrent > 0 && activeDiposables.count >= maxConcurrent) {
                 [signals addObject:x];
                 return ;
@@ -965,7 +965,7 @@ const NSUInteger SKSignalErrorTimeout = 1;
         [objc setValue:x?:nilValue forKeyPath:keyPath];
     } error:^(NSError *error) {
         __unused __strong NSObject *objc __attribute((objc_precise_lifetime)) = (__bridge __strong id)objPtr;
-        NSAssert(NO, @"SKSignal receive a error When binding keyPath %@ on object %@",keyPath,objc);
+        NSCAssert(NO, @"SKSignal receive a error When binding keyPath %@ on object %@",keyPath,objc);
         [compoundDisposable dispose];
     } completed:^{
         [compoundDisposable dispose];
@@ -985,7 +985,7 @@ const NSUInteger SKSignalErrorTimeout = 1;
     
     @synchronized (compoundDisposable) {
         __unsafe_unretained id bindValue = bindKeys[keyPath];
-        NSAssert(bindValue == nil, @"This object %@ has alreald bind a same keypath %@ on itself",onObject,keyPath);
+        NSCAssert(bindValue == nil, @"This object %@ has alreald bind a same keypath %@ on itself",onObject,keyPath);
         [bindKeys setObject:[NSValue valueWithNonretainedObject:self] forKey:keyPath];
     }
 #endif
@@ -1012,7 +1012,7 @@ const NSUInteger SKSignalErrorTimeout = 1;
     return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
         SKMulticastConnection *connection = [self publish];
         SKDisposable *subscriberDisposable = [[connection.signal flattenMap:^SKSignal *(SKSignal *value) {
-            NSAssert([value isKindOfClass:SKSignal.class], @"SwitchToLatest must receive signal");
+            NSCAssert([value isKindOfClass:SKSignal.class], @"SwitchToLatest must receive signal");
             return [value takeUntil:[connection.signal concat:[SKSignal nerver]]];//ignore completed event
         }] subscribe:subscriber];
         SKDisposable *connectDisposable = [connection connect];
@@ -1025,7 +1025,7 @@ const NSUInteger SKSignalErrorTimeout = 1;
 
 + (SKSignal *)if:(SKSignal *)boolSignal then:(SKSignal *)trueSignal else:(SKSignal *)falseSignal {
     return [[boolSignal map:^id(NSNumber *x) {
-        NSAssert([x isKindOfClass:NSNumber.class], @"if operaiton boolSignal must send bool value");
+        NSCAssert([x isKindOfClass:NSNumber.class], @"if operaiton boolSignal must send bool value");
         return x.boolValue ? trueSignal : falseSignal;
     }] switchToLatest];
 }

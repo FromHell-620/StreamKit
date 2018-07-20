@@ -85,7 +85,7 @@ FOUNDATION_STATIC_INLINE SKScheduler *FHConcurrentQosScheduler(NSQualityOfServic
 }
 
 - (SKDisposable *)afterDelay:(NSTimeInterval)delay schedule:(dispatch_block_t)block {
-    NSAssert(NO, @"must overwrite with subclass");
+    NSCAssert(NO, @"must overwrite with subclass");
     return nil;
 }
 

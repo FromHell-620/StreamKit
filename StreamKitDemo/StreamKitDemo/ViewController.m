@@ -15,7 +15,9 @@
 
 @end
 
-@implementation ViewController
+@implementation ViewController {
+    SKCommand *_command;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,30 +46,52 @@
         SecondController *vc = [SecondController new];
         [self.navigationController pushViewController:vc animated:YES];
     }];
-    
-    RACCommand *command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        NSLog(@"%@",input);
-        return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            [subscriber sendNext:input];
-            [subscriber sendCompleted];
-            return nil;
+    {
+        RACCommand *command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+            NSLog(@"%@",input);
+            return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+                [subscriber sendNext:nil];
+                return nil;
+            }];
+            
         }];
+        command.allowsConcurrentExecution = YES;
         
-    }];
-    command.allowsConcurrentExecution = YES;
-     textView.delegate = self;
-    UIScrollView *scroller = [[UIScrollView alloc] initWithFrame:CGRectMake(30, 100, 200, 300)];
-    scroller.contentSize = CGSizeMake(200, 1000);
-    [self.view addSubview:scroller];
-    scroller.backgroundColor = [UIColor redColor];
-    UIRefreshControl *control = [UIRefreshControl new];
-    control.rac_command = command;
-    scroller.refreshControl = control;
+        [command execute:@1];
+        [command execute:@2];
+        [command.executionSignals.switchToLatest  subscribeNext:^(id x) {
+            NSLog(@"RAC 111");
+        } completed:^{
+            NSLog(@"RAC 11");
+        }];
+    }
+    {
+        SKCommand *command = [[SKCommand alloc] initWithSignalBlock:^SKSignal *(id input) {
+            NSLog(@"%@",input);
+            return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+                [subscriber sendNext:nil];
+                return nil;
+            }];
+            
+        }];
+        command.allowConcurrentExecute = YES;
+        
+        [command execute:@1];
+        [command execute:@2];
+        [command.executeSignals.switchToLatest  subscribeNext:^(id x) {
+            NSLog(@"SK 111");
+        } completed:^{
+            NSLog(@"SK 11");
+        }];
+        [command execute:@1];
+        _command = command;
+    }
+    
     // Do any additional setup after loading the view.
 }
 
 //- (void)textViewDidChange:(UITextView *)textView {
-//    
+//    om
 //}
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {

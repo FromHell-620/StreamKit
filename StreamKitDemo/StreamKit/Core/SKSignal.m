@@ -43,7 +43,7 @@
 @implementation SKSignal (Subscriber)
 
 - (SKDisposable *)subscribe:(id<SKSubscriber>)subscriber {
-    NSAssert(NO, @"must be override by subclass");
+    NSCAssert(NO, @"must be override by subclass");
     return nil;
 }
 

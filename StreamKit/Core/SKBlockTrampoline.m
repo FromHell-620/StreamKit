@@ -50,7 +50,7 @@
 }
 
 - (SEL)blockSelWithArgumentCount:(NSInteger)count {
-    NSParameterAssert(count <= 10);
+    NSAssert(count <= 10,@"Block argument count should <= 10");
     NSMutableString *selString = [NSMutableString string];
     for (int i=0; i<count; i++) {
         [selString appendString:i == 0 ? @"_:" : @":"];

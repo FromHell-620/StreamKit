@@ -86,10 +86,8 @@
     if (self) {
         self.signalBlock = signalBlock;
         
-        SKSignal *newAcitveSignals = [[[[[[self sk_observerWithKeyPath:@sk_keypath(self,activeExecutionSignals)] map:^id(NSDictionary *x) {
-            return [x objectForKey:NSKeyValueChangeNewKey];
-        }] map:^id(NSArray *x) {
-            NSAssert([x isKindOfClass:NSArray.class] || x == nil, @"must be NSArray");
+        SKSignal *newAcitveSignals = [[[[SKObserve(self,activeExecutionSignals)  map:^id( NSArray *x) {
+            NSCAssert(x, @"must be NSArray");
             return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
                 [x enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     [subscriber sendNext:obj];
@@ -97,11 +95,12 @@
                 [subscriber sendCompleted];
                 return nil;
             }];
-        }] concat] publish] autoConnect];
+        }]concat]publish]autoConnect]   ;
+        
         _executeSignals = [[newAcitveSignals map:^id(SKSignal *x) {
             return [x catchTo:[SKSignal empty]];
         }] scheduleOn:[SKScheduler mainThreadScheduler]];
-        
+//
         SKMulticastConnection *errorConnection = [[[newAcitveSignals flattenMap:^SKSignal *(SKSignal *value) {
             return [[value ignoreValues] catch:^SKSignal *(NSError *error) {
                 return [SKSignal return:error];
@@ -109,11 +108,11 @@
         }] scheduleOn:[SKScheduler mainThreadScheduler]] publish];
         _errorSignal = errorConnection.signal;
         [errorConnection connect];
-        
+
         SKSignal *onExecuteing = [SKObserve(self,activeExecutionSignals) map:^id(NSArray *x) {
             return @(x.count > 0);
         }];
-        
+
         SKSignal *moreExecutionsAllowed = [SKSignal if:SKObserve(self,allowConcurrentExecute) then:[SKSignal return:@(YES)] else:onExecuteing.not];
         if (enabled == nil) {
             enabled = [SKSignal return:@(YES)];
@@ -148,6 +147,16 @@
     }];
     [connection connect];
     return connection.signal;
+}
+
++ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)key {
+    // Generate all KVO notifications manually to avoid the performance impact
+    // of unnecessary swizzling.
+    return NO;
+}
+
+- (void)dealloc {
+    NSLog(@"SK dealloc");
 }
 
 @end

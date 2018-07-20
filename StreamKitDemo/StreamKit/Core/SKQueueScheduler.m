@@ -23,7 +23,7 @@ dispatch_qos_class_t FHQueueQosWithQuality(NSQualityOfService qos) {
 }
 
 - (instancetype)initWithQos:(NSQualityOfService)qos {
-    NSAssert(NO, @"must overwrite with subclass");
+    NSCAssert(NO, @"must overwrite with subclass");
     return nil;
 }
 
