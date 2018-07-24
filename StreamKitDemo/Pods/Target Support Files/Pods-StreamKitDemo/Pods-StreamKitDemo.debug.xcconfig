@@ -1,8 +1,8 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/EasyFoundation" "${PODS_ROOT}/Headers/Public/EasyReact" "${PODS_ROOT}/Headers/Public/EasySequence" "${PODS_ROOT}/Headers/Public/EasyTuple" "${PODS_ROOT}/Headers/Public/ReactiveCocoa"
-LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/EasyFoundation" "${PODS_CONFIGURATION_BUILD_DIR}/EasyReact" "${PODS_CONFIGURATION_BUILD_DIR}/EasySequence" "${PODS_CONFIGURATION_BUILD_DIR}/EasyTuple" "${PODS_CONFIGURATION_BUILD_DIR}/ReactiveCocoa"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/EasyFoundation" -isystem "${PODS_ROOT}/Headers/Public/EasyReact" -isystem "${PODS_ROOT}/Headers/Public/EasySequence" -isystem "${PODS_ROOT}/Headers/Public/EasyTuple" -isystem "${PODS_ROOT}/Headers/Public/ReactiveCocoa"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"EasyFoundation" -l"EasyReact" -l"EasySequence" -l"EasyTuple" -l"ReactiveCocoa" -framework "Foundation"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ReactiveCocoa"
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ReactiveCocoa"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/ReactiveCocoa"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"ReactiveCocoa"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.

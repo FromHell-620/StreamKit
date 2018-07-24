@@ -1,1 +1,0 @@
-../../../EasyReact/EasyReact/Classes/Core/NodeTransforms/EZRTakeTransform.h

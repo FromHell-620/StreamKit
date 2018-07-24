@@ -2,5 +2,5 @@ platform:ios,'8.0'
 target ‘StreamKitDemo’ do
 #pod 'StreamKit'
 pod 'ReactiveCocoa','~>2.5'
-pod 'EasyReact'
+#pod 'EasyReact'
 end

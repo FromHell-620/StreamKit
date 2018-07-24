@@ -1,1 +1,0 @@
-../../../EasySequence/EasySequence/Classes/Transfers/NSObject+EZSequence.h

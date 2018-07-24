@@ -1,6 +1,0 @@
-framework module EasyReact {
-  umbrella header "EasyReact.h"
-
-  export *
-  module * { export * }
-}

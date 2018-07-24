@@ -1,6 +1,0 @@
-framework module EasyTuple {
-  umbrella header "EasyTuple.h"
-
-  export *
-  module * { export * }
-}
