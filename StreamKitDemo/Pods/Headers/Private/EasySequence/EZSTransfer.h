@@ -1,0 +1,1 @@
+../../../EasySequence/EasySequence/Classes/Protocols/EZSTransfer.h

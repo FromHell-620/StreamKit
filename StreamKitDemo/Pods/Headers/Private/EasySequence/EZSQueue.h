@@ -1,0 +1,1 @@
+../../../EasySequence/EasySequence/Classes/Sequences/EZSQueue.h

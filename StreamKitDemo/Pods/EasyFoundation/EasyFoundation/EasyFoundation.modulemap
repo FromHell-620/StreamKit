@@ -1,0 +1,6 @@
+framework module EasyFoundation {
+  umbrella header "EasyFoundation.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,1 @@
+../../../EasyFoundation/EasyFoundation/Classes/EZTupleBase+EZFTransfer.h

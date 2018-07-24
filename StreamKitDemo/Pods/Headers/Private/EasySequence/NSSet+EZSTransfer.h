@@ -1,0 +1,1 @@
+../../../EasySequence/EasySequence/Classes/Transfers/NSSet+EZSTransfer.h

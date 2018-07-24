@@ -1,0 +1,6 @@
+framework module EasySequence {
+  umbrella header "EasySequence.h"
+
+  export *
+  module * { export * }
+}
