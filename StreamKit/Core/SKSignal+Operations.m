@@ -917,11 +917,15 @@ const NSUInteger SKSignalErrorTimeout = 1;
 }
 
 - (SKSignal *)replay {
-    return [self multicast:[SKReplaySubject subject]].signal;
+    SKMulticastConnection *connection = [self multicast:SKSubject.subject];
+    [connection connect];
+    return connection.signal;
 }
 
 - (SKSignal *)replayLast {
-    return [self multicast:[SKReplaySubject subjectWithCapacity:1]].signal;
+    SKMulticastConnection *connection = [self multicast:[SKReplaySubject subjectWithCapacity:1]];
+    [connection connect];
+    return connection.signal;
 }
 
 - (SKSignal *)timeout:(NSTimeInterval)interval {

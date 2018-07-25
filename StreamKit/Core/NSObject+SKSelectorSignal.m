@@ -37,7 +37,7 @@ static NSMutableSet *swizzleClasses() {
     return set;
 }
 
-static void ForwardInvocation(NSInvocation *invocation) {
+static BOOL ForwardInvocation(NSInvocation *invocation) {
     SEL aliasSelector = SKAliasSelectorWithSelector(invocation.selector);
     SKSubject *subject = objc_getAssociatedObject(invocation.target, aliasSelector);
     id cls = object_getClass(invocation.target);
@@ -46,9 +46,9 @@ static void ForwardInvocation(NSInvocation *invocation) {
         invocation.selector = aliasSelector;
         [invocation invoke];
     }
-    if (subject == nil) return ;
+    if (subject == nil) return respondsAliasSelector;
     [subject sendNext:invocation.sk_values];
-    return ;
+    return YES;
 }
 
 static void SKSwizzleForwardInvocation(Class cls) {
@@ -56,7 +56,8 @@ static void SKSwizzleForwardInvocation(Class cls) {
     Method invocationMethod = class_getInstanceMethod(cls, invocationSel);
     void (*originInvocation)(__unsafe_unretained id,SEL,NSInvocation *) = (__typeof__(originInvocation))method_getImplementation(invocationMethod);
     IMP newInvocation = imp_implementationWithBlock(^ (__unsafe_unretained id self,NSInvocation *invocation) {
-        ForwardInvocation(invocation);
+        BOOL matched = ForwardInvocation(invocation);
+        if (matched) return ;
         if (originInvocation == NULL) {
             [self doesNotRecognizeSelector:invocationSel];
         }else {
@@ -193,7 +194,6 @@ static Class SKSwizzleClass(NSObject *self) {
         if (targetMethod == NULL) {
             const char *typeEncoding;
             Protocol *protocol = self.sk_delegateProxy.protocol;
-            NSParameterAssert(protocol);
             if (protocol) {
                 struct objc_method_description description = protocol_getMethodDescription(protocol, selector, NO, YES);
                 if (description.name == NULL) {

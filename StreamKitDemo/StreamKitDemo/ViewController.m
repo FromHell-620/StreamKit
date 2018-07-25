@@ -87,6 +87,10 @@
         _command = command;
     }
     
+    [[self sk_signalForSelector:@selector(textViewDidBeginEditing:)] subscribeNext:^(id x) {
+        
+    }];
+    [self textViewDidBeginEditing:nil];
     // Do any additional setup after loading the view.
 }
 

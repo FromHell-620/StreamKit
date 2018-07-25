@@ -87,7 +87,6 @@
         self.signalBlock = signalBlock;
         
         SKSignal *newAcitveSignals = [[[[SKObserve(self,activeExecutionSignals)  map:^id( NSArray *x) {
-            NSCAssert(x, @"must be NSArray");
             return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
                 [x enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     [subscriber sendNext:obj];
