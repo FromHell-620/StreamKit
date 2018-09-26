@@ -112,15 +112,16 @@
             return @(x.count > 0);
         }];
 
-        SKSignal *moreExecutionsAllowed = [SKSignal if:SKObserve(self,allowConcurrentExecute) then:[SKSignal return:@(YES)] else:onExecuteing.not];
+        __unused SKSignal *moreExecutionsAllowed = [SKSignal if:SKObserve(self,allowConcurrentExecute) then:[SKSignal return:@(YES)] else:onExecuteing.not];
         if (enabled == nil) {
             enabled = [SKSignal return:@(YES)];
         }else {
             enabled = [[[enabled startWith:@(YES)] takeUntil:self.deallocSignal] replayLast];
         }
-        _immediateEnabled = [SKSignal combineLatest:@[enabled,moreExecutionsAllowed] reduce:^(NSNumber* x,NSNumber *y){
-            return @(x.boolValue && y.boolValue);
-        }];
+        _immediateEnabled = enabled;
+//        _immediateEnabled = [SKSignal combineLatest:@[enabled,moreExecutionsAllowed] reduce:^(NSNumber* x,NSNumber *y){
+//            return @(x.boolValue && y.boolValue);
+//        }];
         _enabledSignal = [[[_immediateEnabled distinctUntilChanged] scheduleOn:[SKScheduler mainThreadScheduler]] replayLast];
     }
     return self;
@@ -152,10 +153,6 @@
     // Generate all KVO notifications manually to avoid the performance impact
     // of unnecessary swizzling.
     return NO;
-}
-
-- (void)dealloc {
-    NSLog(@"SK dealloc");
 }
 
 @end

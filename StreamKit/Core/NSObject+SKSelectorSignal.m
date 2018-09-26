@@ -91,54 +91,54 @@ static void SKSwizzleGetClass(Class base,Class stated) {
     class_replaceMethod(base, selector, new, method_getTypeEncoding(method));
 }
 
-static void SKSwizzleDelegate(Class cls, __unsafe_unretained SKDelegateProxy *proxy) {
-    if (proxy == nil) return;
-    SEL delegateSelector = @selector(setDelegate:);
-    Method delegateMethod = class_getInstanceMethod(cls, delegateSelector);
-    if (delegateMethod == NULL) return;
-    void (*originImplmentation)(__unsafe_unretained id,SEL selector,__unsafe_unretained id) = NULL;
-    IMP newIMP = imp_implementationWithBlock(^ (__unsafe_unretained id self,__unsafe_unretained id delegate){
-        proxy.realDelegate = delegate;
-        if (originImplmentation != NULL) {
-            originImplmentation(self,delegateSelector,proxy);
-        }else {
-            struct objc_super super_objc = {
-                .receiver = self,
-                .super_class = class_getSuperclass(cls)
-            };
-            ((void(*)(void *,SEL,id))objc_msgSendSuper)(&super_objc,delegateSelector,proxy);
-        }
-    });
-    if (!class_addMethod(cls, delegateSelector, newIMP, method_getTypeEncoding(delegateMethod))) {
-        originImplmentation = (__typeof__(originImplmentation))method_getImplementation(delegateMethod);
-        originImplmentation = (__typeof__(originImplmentation))method_setImplementation(delegateMethod, newIMP);
-    }
-}
+//static void SKSwizzleDelegate(Class cls, __unsafe_unretained SKDelegateProxy *proxy) {
+//    if (proxy == nil) return;
+//    SEL delegateSelector = @selector(setDelegate:);
+//    Method delegateMethod = class_getInstanceMethod(cls, delegateSelector);
+//    if (delegateMethod == NULL) return;
+//    void (*originImplmentation)(__unsafe_unretained id,SEL selector,__unsafe_unretained id) = NULL;
+//    IMP newIMP = imp_implementationWithBlock(^ (__unsafe_unretained id self,__unsafe_unretained id delegate){
+//        proxy.realDelegate = delegate;
+//        if (originImplmentation != NULL) {
+//            originImplmentation(self,delegateSelector,proxy);
+//        }else {
+//            struct objc_super super_objc = {
+//                .receiver = self,
+//                .super_class = class_getSuperclass(cls)
+//            };
+//            ((void(*)(void *,SEL,id))objc_msgSendSuper)(&super_objc,delegateSelector,proxy);
+//        }
+//    });
+//    if (!class_addMethod(cls, delegateSelector, newIMP, method_getTypeEncoding(delegateMethod))) {
+//        originImplmentation = (__typeof__(originImplmentation))method_getImplementation(delegateMethod);
+//        originImplmentation = (__typeof__(originImplmentation))method_setImplementation(delegateMethod, newIMP);
+//    }
+//}
 
-static void SKSwizzleDelegateClass(NSObject *self) {
-    static NSMutableSet * classes = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        classes = [NSMutableSet set];
-    });
-    Class statedClass = self.class;
-    Class baseClass = object_getClass(self);
-    if (baseClass != statedClass) {
-        if (![classes containsObject:baseClass]) {
-            SKSwizzleDelegate(baseClass, self.sk_delegateProxy);
-            [classes addObject:baseClass];
-        }
-    }else {
-        const char *subClassName = [NSStringFromClass(baseClass) stringByAppendingString:SKSubclassSuffix].UTF8String;
-        Class subClass = objc_getClass(subClassName);
-        if (subClass == nil) {
-            subClass = objc_allocateClassPair(baseClass, subClassName, 0);
-            SKSwizzleDelegate(subClass, self.sk_delegateProxy);
-            objc_registerClassPair(subClass);
-        }
-        object_setClass(self, subClass);
-    }
-}
+//static void SKSwizzleDelegateClass(NSObject *self) {
+//    static NSMutableSet * classes = nil;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        classes = [NSMutableSet set];
+//    });
+//    Class statedClass = self.class;
+//    Class baseClass = object_getClass(self);
+//    if (baseClass != statedClass) {
+//        if (![classes containsObject:baseClass]) {
+////            SKSwizzleDelegate(baseClass, self.sk_delegateProxy);
+//            [classes addObject:baseClass];
+//        }
+//    }else {
+//        const char *subClassName = [NSStringFromClass(baseClass) stringByAppendingString:SKSubclassSuffix].UTF8String;
+//        Class subClass = objc_getClass(subClassName);
+//        if (subClass == nil) {
+//            subClass = objc_allocateClassPair(baseClass, subClassName, 0);
+////            SKSwizzleDelegate(subClass, self.sk_delegateProxy);
+//            objc_registerClassPair(subClass);
+//        }
+//        object_setClass(self, subClass);
+//    }
+//}
 
 static Class SKSwizzleClass(NSObject *self) {
     Class statedClass = self.class;
@@ -181,9 +181,9 @@ static Class SKSwizzleClass(NSObject *self) {
         SKSubject *subject = objc_getAssociatedObject(objc, aliasSeletor);
         if (subject) return subject;
         Class class = SKSwizzleClass(objc);
-        if (self.sk_delegateProxy) {
-            SKSwizzleDelegateClass(self);
-        }
+//        if (self.sk_delegateProxy) {
+//            SKSwizzleDelegateClass(self);
+//        }
         subject = [SKSubject subject];
         objc_setAssociatedObject(objc, aliasSeletor, subject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         [self.deallocDisposable addDisposable:[SKDisposable disposableWithBlock:^{

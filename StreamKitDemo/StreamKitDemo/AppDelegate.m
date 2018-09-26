@@ -17,7 +17,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary  *)launchOptions {
-    
+    UILabel *label = [UILabel new];
+    [SKObserve(label,text) subscribeNext:^(id x) {
+        
+    }];
     
     // Override point for customization after application launch.
 

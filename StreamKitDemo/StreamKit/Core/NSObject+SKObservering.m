@@ -73,24 +73,26 @@
 
 - (SKSignal *)sk_observerWithKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options {
     @weakify(self)
-    return [[SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
+    NSObject *target = self;
+    @unsafeify(target)
+    return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
         @strongify(self)
-        _SKObserverTarget *target = nil;
+        _SKObserverTarget *observer = nil;
 #ifdef DEBUG
-        target = [[_SKObserverTarget alloc] initWithSubscriber:subscriber observer:self keyPath:keyPath];
+        observer = [[_SKObserverTarget alloc] initWithSubscriber:subscriber observer:self keyPath:keyPath];
 #else
-        target  = [[_SKObserverTarget alloc] initWithSubscriber:subscriber];
+        observer  = [[_SKObserverTarget alloc] initWithSubscriber:subscriber];
 #endif
-        [self addObserver:target forKeyPath:keyPath options:options context:nil];
+        [self addObserver:observer forKeyPath:keyPath options:options context:nil];
         SKDisposable *removeDisposable = [SKDisposable disposableWithBlock:^{
-            @strongify(self)
-            [self removeObserver:target forKeyPath:keyPath];
+            @strongify(target)
+            [target removeObserver:observer forKeyPath:keyPath];
         }];
         [self.deallocDisposable addDisposable:removeDisposable];
         return [SKDisposable disposableWithBlock:^{
             [removeDisposable dispose];
         }];
-    }] takeUntil:self.deallocSignal];
+    }];
 }
 
 - (SKSignal *)sk_autoObserverWithKeyPath:(NSString *)keyPath {

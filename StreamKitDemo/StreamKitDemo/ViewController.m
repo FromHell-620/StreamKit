@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     UILabel *label = [UILabel new];
+    
     label.frame = CGRectMake(30, 100, 200, 40);
     label.textColor = [UIColor blackColor];
     [self.view addSubview:label];
