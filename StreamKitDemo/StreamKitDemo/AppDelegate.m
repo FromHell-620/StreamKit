@@ -21,7 +21,6 @@
     [SKObserve(label,text) subscribeNext:^(id x) {
         
     }];
-    
     // Override point for customization after application launch.
 
     return YES;

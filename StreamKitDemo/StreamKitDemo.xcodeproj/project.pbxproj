@@ -24,6 +24,7 @@
 		88610DF720D8A273002DE2B7 /* SKPassthroughSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = 88610DF620D8A273002DE2B7 /* SKPassthroughSubscriber.m */; };
 		887CBB1620E638810081B522 /* SKDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 887CBB1520E638810081B522 /* SKDelegateProxy.m */; };
 		C3E73CBF94C220E3528C6998 /* libPods-StreamKitDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B378167200FBC5A990C676 /* libPods-StreamKitDemo.a */; };
+		C90CF48421B3E82D00D9A3E6 /* SKSubscribringSelectorTrampoline.m in Sources */ = {isa = PBXBuildFile; fileRef = C90CF48321B3E82D00D9A3E6 /* SKSubscribringSelectorTrampoline.m */; };
 		C930A1E220CB886100E9789B /* SKDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = C930A1E120CB886100E9789B /* SKDisposable.m */; };
 		C930A1E520CBB95C00E9789B /* SKCompoundDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = C930A1E420CBB95C00E9789B /* SKCompoundDisposable.m */; };
 		C94CD4651F24AB760083E200 /* SKConcurrentQueueScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = C94CD45C1F24AB760083E200 /* SKConcurrentQueueScheduler.m */; };
@@ -113,6 +114,8 @@
 		887CBB1420E638810081B522 /* SKDelegateProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKDelegateProxy.h; sourceTree = "<group>"; };
 		887CBB1520E638810081B522 /* SKDelegateProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKDelegateProxy.m; sourceTree = "<group>"; };
 		C2B74F3A9131EAA4C24F954E /* Pods-StreamKitDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamKitDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-StreamKitDemo/Pods-StreamKitDemo.release.xcconfig"; sourceTree = "<group>"; };
+		C90CF48221B3E82D00D9A3E6 /* SKSubscribringSelectorTrampoline.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKSubscribringSelectorTrampoline.h; sourceTree = "<group>"; };
+		C90CF48321B3E82D00D9A3E6 /* SKSubscribringSelectorTrampoline.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKSubscribringSelectorTrampoline.m; sourceTree = "<group>"; };
 		C91513E11E7679F800BFBCE5 /* StreamKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamKit.h; sourceTree = "<group>"; };
 		C930A1E020CB886100E9789B /* SKDisposable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKDisposable.h; sourceTree = "<group>"; };
 		C930A1E120CB886100E9789B /* SKDisposable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKDisposable.m; sourceTree = "<group>"; };
@@ -311,6 +314,8 @@
 				C9C65F2A1F10039A0071450A /* NSNotificationCenter+SKSignalSupport.m */,
 				C9DCC3EB1E975A18006E9B82 /* SKSubscribringObserverTrampoline.h */,
 				C9DCC3EC1E975A18006E9B82 /* SKSubscribringObserverTrampoline.m */,
+				C90CF48221B3E82D00D9A3E6 /* SKSubscribringSelectorTrampoline.h */,
+				C90CF48321B3E82D00D9A3E6 /* SKSubscribringSelectorTrampoline.m */,
 				C9A392F11ED1BB6B00EFA3B8 /* SKCommand.h */,
 				C9A392F21ED1BB6B00EFA3B8 /* SKCommand.m */,
 				C9FB347D20ED0AC2007E32A4 /* SKMulticastConnection.h */,
@@ -620,6 +625,7 @@
 				8857DBAF20D27F3300AF3B01 /* SKEmptySignal.m in Sources */,
 				8857DBAC20D27D1600AF3B01 /* SKErrorSignal.m in Sources */,
 				C94CD4681F24AB760083E200 /* SKScheduler.m in Sources */,
+				C90CF48421B3E82D00D9A3E6 /* SKSubscribringSelectorTrampoline.m in Sources */,
 				885BCB8520E25007003ED802 /* UIView+SKSignalSupport.m in Sources */,
 				C94CD4651F24AB760083E200 /* SKConcurrentQueueScheduler.m in Sources */,
 				C9FB346F20E7B60C007E32A4 /* NSInvocation+SKValues.m in Sources */,

@@ -190,6 +190,8 @@ This function subscribes to all incoming signals but only the number of maxConcu
 
 - (SKDisposable *)setKeyPath:(NSString *)keyPath onObject:(id)onObject nilValue:(id)nilValue;
 
+- (SKDisposable *)invokeAction:(SEL)selector onTarget:(id)target;
+
 - (SKSignal *)switchToLatest;
 
 + (SKSignal *)if:(SKSignal *)boolSignal then:(SKSignal *)trueSignal else:(SKSignal *)falseSignal;

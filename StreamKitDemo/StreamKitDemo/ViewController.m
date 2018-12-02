@@ -33,7 +33,7 @@
     textView.delegate = self;
     [self.view addSubview:textView];
 //
-
+    
     [[label.sk_clickSignal throttle:2] subscribeNext:^(id x) {
         NSLog(@"aaa");
     }];
@@ -87,21 +87,13 @@
         [command execute:@1];
         _command = command;
     }
-    
-    [[self sk_signalForSelector:@selector(textViewDidBeginEditing:)] subscribeNext:^(id x) {
-        
-    }];
-    [self textViewDidBeginEditing:nil];
-    // Do any additional setup after loading the view.
+    SKSelector(label, setText:) = textView.sk_textSignal;
 }
 
 //- (void)textViewDidChange:(UITextView *)textView {
 //    om
 //}
 
-- (void)textViewDidBeginEditing:(UITextView *)textView {
-    
-}
 
 - (void)btnAction {
     SecondController *vc = [SecondController new];

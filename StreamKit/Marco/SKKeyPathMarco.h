@@ -19,6 +19,9 @@
 #define sk_keypath2(obj,path) \
     (((void)(NO && ((void)obj.path,NO)),sk_stringify(path)))
 
+#define sk_selector(sel) \
+    (((void)(NO && ((void)@selector(sel),NO)),sk_stringify(sel)))
+
 #define SK_(obj,keypath,nil_Value) \
     [[SKSubscribringObserverTrampoline alloc] initWithObject:(obj) nilValue:(nil_Value)][@sk_keypath(obj,keypath)]
 
@@ -36,6 +39,8 @@
     (SKObserve_(obj,__VA_ARGS__)) \
     (SKObserve_(obj,__VA_ARGS__))
 
-    
+#define SKSelector(obj,sel) \
+    [[SKSubscribringSelectorTrampoline alloc] initWithTarget:(obj)] \
+        [@sk_selector(sel)]
 
 #endif /* SKKeyPathMarco_h */

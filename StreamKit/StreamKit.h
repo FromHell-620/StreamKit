@@ -26,6 +26,7 @@
 #import "SKDelegateProxy.h"
 #import "NSNotificationCenter+SKSignalSupport.h"
 #import "SKSubscribringObserverTrampoline.h"
+#import "SKSubscribringSelectorTrampoline.h"
 #import "SKMulticastConnection.h"
 #import "SKCommand.h"
 

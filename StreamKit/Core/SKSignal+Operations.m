@@ -1012,6 +1012,33 @@ const NSUInteger SKSignalErrorTimeout = 1;
     }];
 }
 
+- (SKDisposable *)invokeAction:(SEL)selector onTarget:(id)target {
+    SKSerialDisposable *disposable = [SKSerialDisposable new];
+    __block void *volatile objPtr = (__bridge void *)target;
+     disposable.disposable = [self subscribeNext:^(id x) {
+         __strong NSObject *objc __attribute__((objc_precise_lifetime)) = (__bridge __strong id)objPtr;
+         NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[objc methodSignatureForSelector:selector]];
+         invocation.target = objc;
+         invocation.selector = selector;
+         if (!x) {
+             // do nothing
+             while (0) {}
+         }else if (![x isKindOfClass:NSArray.class]) {
+             [invocation setArgument:&x atIndex:2];
+         }else {
+             [x enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                 [invocation setArgument:&obj atIndex:idx + 2];
+             }];
+         }
+         [invocation invoke];
+    } error:^(NSError *error) {
+        [disposable dispose];
+    } completed:^{
+        [disposable dispose];
+    }];
+    return disposable;
+}
+
 - (SKSignal *)switchToLatest {
     return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
         SKMulticastConnection *connection = [self publish];
