@@ -41,53 +41,13 @@
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
     btn.frame = CGRectMake(100, 300, 60, 60);
     [self.view addSubview:btn];
-    @weakify(self)
-    [[btn sk_clickSignal] subscribeNext:^(id x) {
-        @strongify(self)
-        SecondController *vc = [SecondController new];
-        [self.navigationController pushViewController:vc animated:YES];
+    
+    SKSelector(self.navigationController, pushViewController:animated:) = [btn.sk_clickSignal map:^id(id x) {
+        return @[SecondController.new,@YES];
     }];
-    {
-        RACCommand *command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-            NSLog(@"%@",input);
-            return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-                [subscriber sendNext:nil];
-                return nil;
-            }];
-            
-        }];
-        command.allowsConcurrentExecution = YES;
-        
-        [command execute:@1];
-        [command execute:@2];
-        [command.executionSignals.switchToLatest  subscribeNext:^(id x) {
-            NSLog(@"RAC 111");
-        } completed:^{
-            NSLog(@"RAC 11");
-        }];
-    }
-    {
-        SKCommand *command = [[SKCommand alloc] initWithSignalBlock:^SKSignal *(id input) {
-            NSLog(@"%@",input);
-            return [SKSignal signalWithBlock:^SKDisposable *(id<SKSubscriber> subscriber) {
-                [subscriber sendNext:nil];
-                return nil;
-            }];
-            
-        }];
-        command.allowConcurrentExecute = YES;
-        
-        [command execute:@1];
-        [command execute:@2];
-        [command.executeSignals.switchToLatest  subscribeNext:^(id x) {
-            NSLog(@"SK 111");
-        } completed:^{
-            NSLog(@"SK 11");
-        }];
-        [command execute:@1];
-        _command = command;
-    }
+    
     SKSelector(label, setText:) = textView.sk_textSignal;
+    
     
 }
 

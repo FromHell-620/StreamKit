@@ -14,4 +14,6 @@
 
 - (id)sk_argmentWithIndex:(NSInteger)index;
 
+- (void)sk_setArgmentWithValue:(id)value atIndex:(NSInteger)index;
+
 @end

@@ -18,6 +18,7 @@
 #import "SKReplaySubject.h"
 #import "SKMulticastConnection+Private.h"
 #import "NSObject+SKDeallocating.h"
+#import "NSInvocation+SKValues.h"
 #import <objc/runtime.h>
 
 NSString * const SKSignalErrorDomain = @"SKSignalErrorDomain";
@@ -1024,12 +1025,12 @@ const NSUInteger SKSignalErrorTimeout = 1;
              // do nothing
              while (0) {}
          }else if (![x isKindOfClass:NSArray.class]) {
-             [invocation setArgument:&x atIndex:2];
+             [invocation sk_setArgmentWithValue:x atIndex:2];
          }else {
              [x enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                  *stop = idx + 2 > invocation.methodSignature.numberOfArguments;
                  if (*stop == YES) return ;
-                 [invocation setArgument:&obj atIndex:idx + 2];
+                 [invocation sk_setArgmentWithValue:obj atIndex:idx + 2];
              }];
          }
          [invocation invoke];
