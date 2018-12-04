@@ -1020,13 +1020,15 @@ const NSUInteger SKSignalErrorTimeout = 1;
          NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[objc methodSignatureForSelector:selector]];
          invocation.target = objc;
          invocation.selector = selector;
-         if (!x) {
+         if (!x || invocation.methodSignature.numberOfArguments == 0) {
              // do nothing
              while (0) {}
          }else if (![x isKindOfClass:NSArray.class]) {
              [invocation setArgument:&x atIndex:2];
          }else {
              [x enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                 *stop = idx + 2 > invocation.methodSignature.numberOfArguments;
+                 if (*stop == YES) return ;
                  [invocation setArgument:&obj atIndex:idx + 2];
              }];
          }

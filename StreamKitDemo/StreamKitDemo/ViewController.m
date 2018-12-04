@@ -88,6 +88,7 @@
         _command = command;
     }
     SKSelector(label, setText:) = textView.sk_textSignal;
+    
 }
 
 //- (void)textViewDidChange:(UITextView *)textView {
