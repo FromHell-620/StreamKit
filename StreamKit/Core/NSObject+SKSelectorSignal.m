@@ -175,15 +175,16 @@ static Class SKSwizzleClass(NSObject *self) {
 @implementation NSObject (SKSelectorSignal)
 
 - (SKSignal *)sk_signalForSelector:(SEL)selector {
+    return [self sk_signalForSelector:selector protocol:nil];
+}
+
+- (SKSignal *)sk_signalForSelector:(SEL)selector protocol:(Protocol *)protocol {
     SEL aliasSeletor = SKAliasSelectorWithSelector(selector);
     @synchronized (self) {
-        __unsafe_unretained id objc = self.sk_delegateProxy ?: self;
+        __unsafe_unretained id objc = self;
         SKSubject *subject = objc_getAssociatedObject(objc, aliasSeletor);
         if (subject) return subject;
         Class class = SKSwizzleClass(objc);
-//        if (self.sk_delegateProxy) {
-//            SKSwizzleDelegateClass(self);
-//        }
         subject = [SKSubject subject];
         objc_setAssociatedObject(objc, aliasSeletor, subject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         [self.deallocDisposable addDisposable:[SKDisposable disposableWithBlock:^{
@@ -193,7 +194,6 @@ static Class SKSwizzleClass(NSObject *self) {
         Method targetMethod = class_getInstanceMethod(class, selector);
         if (targetMethod == NULL) {
             const char *typeEncoding;
-            Protocol *protocol = self.sk_delegateProxy.protocol;
             if (protocol) {
                 struct objc_method_description description = protocol_getMethodDescription(protocol, selector, NO, YES);
                 if (description.name == NULL) {

@@ -9,6 +9,7 @@
 #import "UITextView+SKSignalSupport.h"
 #import "SKSignal.h"
 #import "SKSignal+Operations.h"
+#import "SKDelegateProxy.h"
 #import "SKObjectifyMarco.h"
 #import "NSObject+SKSelectorSignal.h"
 #import "NSObject+SKDeallocating.h"
@@ -22,7 +23,7 @@
     return [[[[SKSignal defer:^{
         @strongify(self)
         return [SKSignal return:@[self]];
-    }] concat:[self sk_signalForSelector:@selector(textViewDidChange:)]] reduceEach:^ id(UITextView *x) {
+    }] concat:[self.sk_delegateProxy sk_signalForSelector:@selector(textViewDidChange:) protocol:@protocol(UITextViewDelegate)]] reduceEach:^ id(UITextView *x) {
         return x.text;
     }] takeUntil:self.deallocSignal];
 }

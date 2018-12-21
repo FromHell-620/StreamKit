@@ -14,4 +14,6 @@
 
 - (SKSignal *)sk_signalForSelector:(SEL)selector;
 
+- (SKSignal *)sk_signalForSelector:(SEL)selector protocol:(Protocol *)protocol;
+
 @end
