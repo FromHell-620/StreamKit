@@ -49,7 +49,7 @@ static void disposeEach(const void *item ,void *context) {
 - (BOOL)isDisposed {
     BOOL disposaed = NO;
     OSSpinLockLock(&_lock);
-    disposaed = _isDisposed.isDisposed;
+    disposaed = __disposable;
     OSSpinLockUnlock(&_lock);
     return disposaed;
 }
@@ -86,7 +86,7 @@ static void disposeEach(const void *item ,void *context) {
 - (void)dispose {
     if (self.isDisposed == 0 && _disposes) {
         OSSpinLockLock(&_lock);
-        _isDisposed.isDisposed = 1;
+        __disposable = YES;
         OSSpinLockUnlock(&_lock);
         NSInteger count = CFArrayGetCount(_disposes);
         CFArrayApplyFunction(_disposes, CFRangeMake(0, count), disposeEach, nil);

@@ -12,9 +12,7 @@
 @interface SKDisposable : NSObject {
     @protected
     OSSpinLock _lock;
-    struct {
-        bool isDisposed : 1;
-    } _isDisposed;
+    BOOL __disposable;
 }
 
 @property (atomic,assign,getter=isDisposed,readonly) BOOL disposed;

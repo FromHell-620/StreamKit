@@ -32,7 +32,7 @@
 
 - (BOOL)isDisposed {
     OSSpinLockLock(&_lock);
-    BOOL dispose = _isDisposed.isDisposed || _disposeBlock == nil;
+    BOOL dispose = __disposable || _disposeBlock == nil;
     OSSpinLockUnlock(&_lock);
     return dispose;
 }
@@ -41,7 +41,7 @@
     if (self.isDisposed) return;
     dispatch_block_t selfDisposeBlock = self.disposeBlock;
     OSSpinLockLock(&_lock);
-    _isDisposed.isDisposed = 1;
+    __disposable = YES;
     self.disposeBlock = nil;
     OSSpinLockUnlock(&_lock);
     selfDisposeBlock();
