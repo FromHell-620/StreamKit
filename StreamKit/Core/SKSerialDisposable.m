@@ -39,7 +39,7 @@
 - (BOOL)isDisposed {
     BOOL alreadDiposed;
     OSSpinLockLock(&_lock);
-    alreadDiposed = _disposable;
+    alreadDiposed = __disposable;
     OSSpinLockUnlock(&_lock);
     return alreadDiposed;
 }
