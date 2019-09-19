@@ -14,8 +14,18 @@
 #import "SKSubscriber.h"
 #import "UIGestureRecognizer+SKSignalSupport.h"
 #import "NSObject+SKDeallocating.h"
+#import <objc/runtime.h>
 
 @implementation UIView (SKSignalSupport)
+
+- (UITapGestureRecognizer *)_clickRecognizer {
+    UITapGestureRecognizer *tap = objc_getAssociatedObject(self, _cmd);
+    if (!tap) {
+        tap = [UITapGestureRecognizer new];
+        objc_setAssociatedObject(self, _cmd, tap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return tap;
+}
 
 - (SKSignal *)sk_clickSignal {
     @unsafeify(self)
@@ -23,7 +33,7 @@
         @strongify(self)
         SKCompoundDisposable *selfDisposable = [SKCompoundDisposable disposableWithBlock:nil];
         self.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tap = [UITapGestureRecognizer new];
+        UITapGestureRecognizer *tap = [self _clickRecognizer];
         [self addGestureRecognizer:tap];
         SKDisposable *gestureDisposable = [[tap sk_eventSignal] subscribeNext:^(id x) {
             [subscriber sendNext:self];
