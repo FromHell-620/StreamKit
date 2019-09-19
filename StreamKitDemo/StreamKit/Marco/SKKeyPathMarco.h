@@ -9,7 +9,6 @@
 #ifndef SKKeyPathMarco_h
 #define SKKeyPathMarco_h
 
-
 #define sk_keypath(...) \
     SK_PASTEARG2(sk_argcount_if_,sk_argcount(__VA_ARGS__))(sk_keypath1(__VA_ARGS__))(sk_keypath2(__VA_ARGS__))
 
@@ -19,8 +18,8 @@
 #define sk_keypath2(obj,path) \
     (((void)(NO && ((void)obj.path,NO)),sk_stringify(path)))
 
-#define sk_selector(sel) \
-    (((void)(NO && ((void)@selector(sel),NO)),sk_stringify(sel)))
+#define sk_selector(obj,sel) \
+(((void)(NO && ((void)[obj performSelector:@selector(sel)],NO)),sk_stringify(sel)))
 
 #define SK_(obj,keypath,nil_Value) \
     [[SKSubscribringObserverTrampoline alloc] initWithObject:(obj) nilValue:(nil_Value)][@sk_keypath(obj,keypath)]
@@ -41,6 +40,6 @@
 
 #define SKSelector(obj,sel) \
     [[SKSubscribringSelectorTrampoline alloc] initWithTarget:(obj)] \
-        [@sk_selector(sel)]
+        [@sk_selector(obj,sel)]
 
 #endif /* SKKeyPathMarco_h */
