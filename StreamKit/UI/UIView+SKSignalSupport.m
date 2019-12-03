@@ -36,6 +36,7 @@
         UITapGestureRecognizer *tap = [self _clickRecognizer];
         [self addGestureRecognizer:tap];
         SKDisposable *gestureDisposable = [[tap sk_eventSignal] subscribeNext:^(id x) {
+            @strongify(self)
             [subscriber sendNext:self];
         } error:^(NSError *error) {
             [subscriber sendError:error];
